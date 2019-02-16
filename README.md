@@ -1,5 +1,7 @@
 <div align=center>
+
 ![](/images/project_main.png)
+
 </div>
 
 # GameTransactionSystem(게임거래시스템)
@@ -20,7 +22,9 @@ I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다.
 ## :memo: Explain
 
 <div align=center>
+
 ![](/images/contents.png)
+
 </div>
 
 <br>
