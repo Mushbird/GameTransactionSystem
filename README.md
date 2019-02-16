@@ -1,7 +1,5 @@
 <div align=center>
-
 ![](/images/project_main.png)
-
 </div>
 
 # GameTransactionSystem(게임거래시스템)
@@ -11,22 +9,18 @@
 <br>
 
 # What is I VIEW?
-
 I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다.
 모티브는 League of Legend게임의 상점 거래이다.
-
 - Java MVC model2를 기반으로 제작
 - SQL : Oracle 사용
 
 <br>
 <br>
 
- ## :memo: Explain
+## :memo: Explain
 
 <div align=center>
-
 ![](/images/contents.png)
-
 </div>
 
 <br>
@@ -40,22 +34,31 @@ I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다.
 <br>
 
 ### Views
+
 - 로그인 (Session)
   - 회원가입
   - 로그아웃
+
 - 상품
   - 상품검색(조회) 
   - 상품상세보기
   - 상품등록
   - 상품수정
+
 - 평가
   - 평가등록
   - 평가수정
   - 평가삭제
+  - 평가조회
+
+- 주문
+  - 주문등록
+  - 주문조회
 <br>
 <br>
 
 ### Explain
+
 등급은 관리자와 회원으로 나뉘어진다.
 <br>
 구매자 등급과 판매자 등급에 따라
@@ -89,7 +92,7 @@ I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다.
 <br>
 <br>
 
-### :gem: 구매처리
+## :gem: 구매처리
 
 <br>
 구매자 입장에서는 골드(소지금) 감소, 구매횟수 증가, 포인트 증가, 구매목록에 추가
@@ -97,8 +100,3 @@ I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다.
 판매자 입장에서는 골드 증가, 판매횟수 증가, 판매목록에 추가
 <br>
 상품 입장에서는 판매중에서 판매완료로 변경
-
-
-
-
-
