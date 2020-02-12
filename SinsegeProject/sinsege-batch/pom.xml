@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  
   <parent>
     <artifactId>SinsegeProject</artifactId>
     <groupId>SinsegeProject</groupId>
@@ -10,6 +13,7 @@
   <groupId>SinsegeProject</groupId>
   <artifactId>sinsege-batch</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
 
   <name>sinsege-batch</name>
   <!-- FIXME change it to the project's website -->
@@ -19,15 +23,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
+    <project.rootdir>${project.basedir}/..</project.rootdir>
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
+	<dependency>
+		<groupId>com.mushbird.sinsege</groupId>
+		<artifactId>sinsege-base</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</dependency>
   </dependencies>
 
   <build>
@@ -74,5 +78,81 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    
+    <resources>
+        <!-- package 에 xml 포함 (MyBatis Mapper) -->
+        <resource>
+            <directory>src/main/java</directory>
+            <filtering>false</filtering>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+        </resource>
+
+        <!-- // Base Resources -->
+        <!-- *.properties 만 메이븐 필터링 -->
+        <resource>
+            <directory>../sinsege-base-config/src/main/resources</directory>
+            <filtering>false</filtering>
+            <excludes>
+                <exclude>**/*.properties</exclude>
+            </excludes>
+        </resource>
+        <resource>
+            <directory>../sinsege-base-config/src/main/resources</directory>
+            <filtering>true</filtering>
+            <includes>
+                <include>**/*.properties</include>
+            </includes>
+        </resource>
+        <!-- 환경별 리소스 포함 -->
+        <resource>
+            <directory>../sinsege-base-config/src/main/resources-${environment}</directory>
+            <filtering>false</filtering>
+            <excludes>
+                <exclude>**/*.properties</exclude>
+            </excludes>
+        </resource>
+        <resource>
+            <directory>../sinsege-base-config/src/main/resources-${environment}</directory>
+            <filtering>true</filtering>
+            <includes>
+                <include>**/*.properties</include>
+            </includes>
+        </resource>
+
+        <!-- // Project Resources -->
+        <!-- *.properties 만 메이븐 필터링 -->
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>false</filtering>
+            <excludes>
+                <exclude>**/*.properties</exclude>
+            </excludes>
+        </resource>
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+            <includes>
+                <include>**/*.properties</include>
+            </includes>
+        </resource>
+        <!-- 환경별 리소스 포함 -->
+        <resource>
+            <directory>src/main/resources-${environment}</directory>
+            <filtering>false</filtering>
+            <excludes>
+                <exclude>**/*.properties</exclude>
+            </excludes>
+        </resource>
+        <resource>
+            <directory>src/main/resources-${environment}</directory>
+            <filtering>true</filtering>
+            <includes>
+                <include>**/*.properties</include>
+            </includes>
+        </resource>
+    </resources>
+        
   </build>
 </project>
