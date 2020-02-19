@@ -8,5 +8,6 @@
   <modules>
     <module>sinsege-base</module>
     <module>sinsege-batch</module>
+    <module>sinsege-bo</module>
   </modules>
 </project>
