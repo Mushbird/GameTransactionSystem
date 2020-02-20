@@ -1,6 +1,6 @@
 <div align=center>
 
-![](/images/project_main.png)
+![](/sinsege-web/images/project_main.png)
 
 </div>
 
@@ -30,7 +30,7 @@ I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다.
 
 <div align=center>
 
-![](/images/contents.png)
+![](/sinsege-web/images/contents.png)
 
 </div>
 
