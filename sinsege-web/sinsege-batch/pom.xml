@@ -17,4 +17,11 @@
   	<project.rootdir>${project.basedir}/..</project.rootdir>
   </properties>
   
+  <dependencies>
+  	<dependency>
+  		<groupId>com.mushbird.sinsege</groupId>
+  		<artifactId>sinsege-batch</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
