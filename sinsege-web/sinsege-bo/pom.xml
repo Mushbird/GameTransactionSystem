@@ -18,4 +18,49 @@
   	<project.rootdir>${project.basedir}/..</project.rootdir>
   </properties>
   
+  	<build>
+  		<resources>
+   			<!-- package 에 xml 포함 (MyBatis Mapper) -->
+            <resource>
+                <directory>src/main/java</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            
+            <!-- // Project Resources -->
+            <!-- *.properties 만 메이븐 필터링 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/*.properties</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <!-- 환경별 리소스 포함 -->
+            <resource>
+                <directory>src/main/resources-${environment}</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/*.properties</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources-${environment}</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+    	</resources>
+  	</build>
+  	
 </project>
