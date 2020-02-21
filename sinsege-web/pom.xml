@@ -16,4 +16,282 @@
     <module>sinsege-bo</module>
   </modules>
   
+  <dependencies>
+     <!-- Lombok: http://www.projectlombok.org -->
+     <dependency>
+         <groupId>org.projectlombok</groupId>
+         <artifactId>lombok</artifactId>
+         <version>1.16.4</version>
+         <scope>provided</scope>
+     </dependency>
+
+     <!-- Servlet -->
+     <dependency>
+         <groupId>javax.servlet</groupId>
+         <artifactId>javax.servlet-api</artifactId>
+         <version>3.0.1</version>
+         <scope>provided</scope>
+     </dependency>
+
+     <dependency>
+         <groupId>javax.servlet.jsp</groupId>
+         <artifactId>jsp-api</artifactId>
+         <version>2.2</version>
+         <scope>provided</scope>
+     </dependency>
+
+     <!-- SLF4J: http://www.slf4j.org -->
+     <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-api</artifactId>
+         <version>1.7.12</version>
+     </dependency>
+
+     <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>jcl-over-slf4j</artifactId>
+         <version>1.7.12</version>
+     </dependency>
+
+     <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>log4j-over-slf4j</artifactId>
+         <version>1.7.12</version>
+     </dependency>
+
+     <!-- Test: JUnit -->
+     <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.12</version>
+         <scope>test</scope>
+     </dependency>
+   </dependencies>
+ 
+   <profiles>
+     <!-- local: 로컬 개발용 (기본 값) -->
+     <profile>
+         <id>local</id>
+         <activation>
+             <activeByDefault>true</activeByDefault>
+         </activation>
+         <properties>
+             <environment>local</environment>
+         </properties>
+     </profile>
+     <!-- dev: 개발서버 -->
+     <profile>
+         <id>dev</id>
+         <properties>
+             <environment>dev</environment>
+         </properties>
+     </profile>
+     <!-- prd: 운영서버 -->
+     <profile>
+         <id>prd</id>
+         <properties>
+             <environment>prd</environment>
+         </properties>
+     </profile>
+   </profiles>
+   
+   <repositories>
+      <!-- Rivendell Repository -->
+      <repository>
+          <id>Rivendell Repository</id>
+          <url>file://${project.rootdir}/rivendell-repo</url>
+          <releases>
+              <enabled>true</enabled>
+              <updatePolicy>always</updatePolicy>
+              <checksumPolicy>ignore</checksumPolicy>
+          </releases>
+          <snapshots>
+              <enabled>true</enabled>
+              <updatePolicy>always</updatePolicy>
+              <checksumPolicy>ignore</checksumPolicy>
+          </snapshots>
+      </repository>
+
+      <!-- Maven Central -->
+      <repository>
+          <id>central</id>
+          <url>http://repo.maven.apache.org/maven2</url>
+      </repository>
+
+      <!-- Spring -->
+      <repository>
+          <id>spring-releases</id>
+          <url>http://repo.spring.io/release</url>
+      </repository>
+
+      <repository>
+          <id>spring-milestones</id>
+          <url>http://repo.spring.io/milestone</url>
+      </repository>
+
+      <repository>
+          <id>spring-snapshots</id>
+          <url>http://repo.spring.io/snapshot</url>
+      </repository>
+
+      <!-- eGovFrame -->
+      <repository>
+          <id>egovframe</id>
+          <url>http://www.egovframe.go.kr/maven/</url>
+      </repository>
+
+      <!-- JitPack -->
+      <repository>
+          <id>jitpack.io</id>
+          <url>https://jitpack.io</url>
+      </repository>
+    </repositories>
+    
+    <build>
+        <plugins>
+            <!-- Clean -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+            <!-- Compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            <!-- Attach Sources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- WAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+            </plugin>
+            <!-- GIT Info -->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>2.2.4</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                    <prefix>vcs</prefix>
+                    <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+                    <verbose>false</verbose>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <generateGitPropertiesFilename>${project.build.outputDirectory}/config/vcs.properties</generateGitPropertiesFilename>
+                    <format>properties</format>
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                    <gitDescribe>
+                        <skip>false</skip>
+                        <always>true</always>
+                        <abbrev>9</abbrev>
+                        <dirty>-dirty</dirty>
+                    </gitDescribe>
+                </configuration>
+            </plugin>
+            <!-- Eclipse Support -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <additionalProjectnatures>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                    <additionalBuildcommands>
+                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+                    </additionalBuildcommands>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
+            <!-- Test: The Surefire Plugin is used during the test phase of the build
+                lifecycle to execute the unit tests of an application -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19</version>
+                <configuration>
+                    <forkMode>once</forkMode>
+                    <reportFormat>xml</reportFormat>
+                    <excludes>
+                        <exclude>**/Abstract*.java</exclude>
+                        <exclude>**/*Suite.java</exclude>
+                    </excludes>
+                    <includes>
+                        <include>**/*Tests.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <!-- Enforcer -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.4.1</version>
+                <executions>
+                    <execution>
+                        <id>enforce-rules</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[1.8,)</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>[3,)</version>
+                                </requireMavenVersion>
+                                <bannedDependencies>
+                                    <excludes>
+                                        <exclude>log4j:*:*</exclude>
+                                        <exclude>commons-logging:*:*</exclude>
+                                    </excludes>
+                                </bannedDependencies>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+  
 </project>

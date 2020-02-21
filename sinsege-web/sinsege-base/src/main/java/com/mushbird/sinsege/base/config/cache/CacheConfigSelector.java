@@ -5,7 +5,7 @@ import java.util.Properties;
 import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.type.AnnotationMetadata;
 
-import com.msubird.rivendell.core.util.PropertiesUtils;
+import com.mushbird.rivendell.core.util.PropertiesUtils;
 
 import lombok.extern.slf4j.Slf4j;
 

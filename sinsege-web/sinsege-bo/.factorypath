@@ -1,0 +1,8 @@
+<factorypath>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/projectlombok/lombok/1.16.4/lombok-1.16.4.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/javax/servlet/jsp/jsp-api/2.2/jsp-api-2.2.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/slf4j/slf4j-api/1.7.12/slf4j-api-1.7.12.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/slf4j/jcl-over-slf4j/1.7.12/jcl-over-slf4j-1.7.12.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/slf4j/log4j-over-slf4j/1.7.12/log4j-over-slf4j-1.7.12.jar" enabled="true" runInBatchMode="false"/>
+</factorypath>
