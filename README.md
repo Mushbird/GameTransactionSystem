@@ -4,29 +4,57 @@
 
 </div>
 
-# GameTransactionSystem(게임거래시스템)
-> 시스템 명 : I VIEW ver 1.1 (업데이트 일자 : 2020.02.11) 
+# GTS (Game Transaction System / 게임 거래 시스템)
+> System Name : I VIEW ver 1.1 (UPDATE : 2020. 02. 11.) 
 
 <br>
 <br>
 
 # What is I VIEW?
 I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다.
-모티브는 League of Legend게임의 상점 거래이다.
-- (수정 : 2020.02.11) 현재 게임 거래소(경매장)의 바탕인 E-커머스로서 수정 진행중이다.
+~~시스템 모티브는 League of Legend게임의 상점 거래이다.~~
+**[2020.02.11]** _현재 게임 거래소(경매장)의 바탕인 E-커머스로서 수정 진행중이다._
 
-(과거)[2019.02.13]
-- Java MVC model2를 기반으로 제작
-- SQL : Oracle 사용
+<br>
 
-(현재)[2020.02.11 이후]
-- Spring Maven Project
-- SQL : MariaDB 사용
+##Environments
+---------------------------------------
+
+####Development
+
+**[ ~ 2019. 02. 13. ]**
+* Java MVC Model 2
+* RDBMS: Oracle
+
+**[ 2020. 02. 11. ~ ]**
+* Framework : SpringBoot
+* Build Tool : MAVEN 2
+* RDBMS : MariaDB
+* DBCP : hikariCP
+* SERVER : Tomcat 8
+* Java SE Development Kit 1.8
+* lombok
+
+<br>
+####Libraries
+
+* Spring
+  - Spring 4.1.6.RELEASE
+  - Spring Security 4.0.1.RELEASE
+  - Spring Social 1.1.2.RELEASE
+* Data Access
+  - MyBatis 3.4.6
+  - HikariCP 2.4.7
+* XSS
+  - Naver Lucy 2.0.0
+  - Servlet 3.0.1
+  - JSP 2.2
 
 <br>
 <br>
 
 ## :memo: Explain
+---------------------------------------
 
 <div align=center>
 
@@ -36,12 +64,21 @@ I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다.
 
 <br>
 
-### 주요 파트 부분
-- 상품, 주문, 회원(마이페이지), CS
+### Section
+ 추후 작성
 <br>
 <br>
 
-### Views
+### InterFace
+**1. FO (사용자)**
+추후 작성
+
+
+**2. BO (관리자)**
+추후 작성
+
+
+**이전 데이터**
 
 - 로그인 (Session)
   - 회원가입
