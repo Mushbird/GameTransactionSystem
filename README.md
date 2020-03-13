@@ -11,16 +11,16 @@
 <br>
 
 # What is I VIEW?
-I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다.
-~~시스템 모티브는 League of Legend게임의 상점 거래이다.~~
+I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다. <br>
+~~시스템 모티브는 League of Legend게임의 상점 거래이다.~~ <br>
 **[2020.02.11]** _현재 게임 거래소(경매장)의 바탕인 E-커머스로서 수정 진행중이다._
 
 <br>
 
-##Environments
+## Environments
 ---------------------------------------
 
-####Development
+#### Development
 
 **[ ~ 2019. 02. 13. ]**
 * Java MVC Model 2
@@ -36,7 +36,8 @@ I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다.
 * lombok
 
 <br>
-####Libraries
+
+#### Libraries
 
 * Spring
   - Spring 4.1.6.RELEASE
@@ -54,7 +55,7 @@ I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다.
 <br>
 
 ## :memo: Explain
----------------------------------------
+
 
 <div align=center>
 
