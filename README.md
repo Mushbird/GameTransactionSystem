@@ -47,8 +47,8 @@ I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다.
   - HikariCP 2.4.7
 * XSS
   - Naver Lucy 2.0.0
-  - Servlet 3.0.1
-  - JSP 2.2
+* Servlet 3.0.1
+* JSP 2.2
 
 <br>
 <br>
