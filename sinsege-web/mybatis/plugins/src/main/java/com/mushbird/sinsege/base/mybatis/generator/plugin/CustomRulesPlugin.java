@@ -1,4 +1,4 @@
-package com..mushbird.sinsege.base.mybatis.generator.plugin;
+package com.mushbird.sinsege.base.mybatis.generator.plugin;
 
 import com.mushbird.sinsege.base.mybatis.generator.rules.CustomModelRules;
 import org.mybatis.generator.api.IntrospectedTable;
