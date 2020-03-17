@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.reward.dao.BasePointMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.reward.model.Point">
+    <id column="TP_PT_ID" jdbcType="INTEGER" property="ptId" />
+    <result column="TP_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="TP_PT_TP_CD" jdbcType="VARCHAR" property="ptTpCd" />
+    <result column="TP_PT_PROC_TP_CD" jdbcType="VARCHAR" property="ptProcTpCd" />
+    <result column="TP_PT_RSN_TP_CD" jdbcType="VARCHAR" property="ptRsnTpCd" />
+    <result column="TP_PT_RSN" jdbcType="VARCHAR" property="ptRsn" />
+    <result column="TP_PT_AMT" jdbcType="INTEGER" property="ptAmt" />
+    <result column="TP_PT_VLD_ED_DT" jdbcType="TIMESTAMP" property="ptVldEdDt" />
+    <result column="TP_PT_USE_PSBL_AMT" jdbcType="INTEGER" property="ptUsePsblAmt" />
+    <result column="TP_VEN_ID" jdbcType="INTEGER" property="venId" />
+    <result column="TP_ORD_ITEM_ID" jdbcType="INTEGER" property="ordItemId" />
+    <result column="TP_ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TP_PT_ADM_PROC_ID" jdbcType="INTEGER" property="ptAdmProcId" />
+    <result column="TP_EVNT_ATND_ID" jdbcType="INTEGER" property="evntAtndId" />
+    <result column="TP_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TP_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TP_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TP_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TP.PT_ID as TP_PT_ID, TP.MBR_ID as TP_MBR_ID, TP.PT_TP_CD as TP_PT_TP_CD, TP.PT_PROC_TP_CD as TP_PT_PROC_TP_CD, 
+    TP.PT_RSN_TP_CD as TP_PT_RSN_TP_CD, TP.PT_RSN as TP_PT_RSN, TP.PT_AMT as TP_PT_AMT, 
+    TP.PT_VLD_ED_DT as TP_PT_VLD_ED_DT, TP.PT_USE_PSBL_AMT as TP_PT_USE_PSBL_AMT, TP.VEN_ID as TP_VEN_ID, 
+    TP.ORD_ITEM_ID as TP_ORD_ITEM_ID, TP.ITEM_ID as TP_ITEM_ID, TP.PT_ADM_PROC_ID as TP_PT_ADM_PROC_ID, 
+    TP.EVNT_ATND_ID as TP_EVNT_ATND_ID, TP.REG_DT as TP_REG_DT, TP.REG_ID as TP_REG_ID, 
+    TP.MOD_DT as TP_MOD_DT, TP.MOD_ID as TP_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.PointEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pnt TP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pnt TP
+    where TP.PT_ID = #{ptId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pnt
+    where PT_ID = #{ptId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.PointEntityCriteria">
+    delete TP from pnt TP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointEntity">
+    <selectKey keyProperty="ptId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_PNT
+    </selectKey>
+    insert into pnt (PT_ID, MBR_ID, PT_TP_CD, 
+      PT_PROC_TP_CD, PT_RSN_TP_CD, PT_RSN, 
+      PT_AMT, PT_VLD_ED_DT, PT_USE_PSBL_AMT, 
+      VEN_ID, ORD_ITEM_ID, ITEM_ID, 
+      PT_ADM_PROC_ID, EVNT_ATND_ID, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID
+      )
+    values (#{ptId,jdbcType=INTEGER}, #{mbrId,jdbcType=VARCHAR}, #{ptTpCd,jdbcType=VARCHAR}, 
+      #{ptProcTpCd,jdbcType=VARCHAR}, #{ptRsnTpCd,jdbcType=VARCHAR}, #{ptRsn,jdbcType=VARCHAR}, 
+      #{ptAmt,jdbcType=INTEGER}, #{ptVldEdDt,jdbcType=TIMESTAMP}, #{ptUsePsblAmt,jdbcType=INTEGER}, 
+      #{venId,jdbcType=INTEGER}, #{ordItemId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, 
+      #{ptAdmProcId,jdbcType=INTEGER}, #{evntAtndId,jdbcType=INTEGER}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointEntity">
+    <selectKey keyProperty="ptId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_PNT
+    </selectKey>
+    insert into pnt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      PT_ID,
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="ptTpCd != null">
+        PT_TP_CD,
+      </if>
+      <if test="ptProcTpCd != null">
+        PT_PROC_TP_CD,
+      </if>
+      <if test="ptRsnTpCd != null">
+        PT_RSN_TP_CD,
+      </if>
+      <if test="ptRsn != null">
+        PT_RSN,
+      </if>
+      <if test="ptAmt != null">
+        PT_AMT,
+      </if>
+      <if test="ptVldEdDt != null">
+        PT_VLD_ED_DT,
+      </if>
+      <if test="ptUsePsblAmt != null">
+        PT_USE_PSBL_AMT,
+      </if>
+      <if test="venId != null">
+        VEN_ID,
+      </if>
+      <if test="ordItemId != null">
+        ORD_ITEM_ID,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="ptAdmProcId != null">
+        PT_ADM_PROC_ID,
+      </if>
+      <if test="evntAtndId != null">
+        EVNT_ATND_ID,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{ptId,jdbcType=INTEGER},
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="ptTpCd != null">
+        #{ptTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptProcTpCd != null">
+        #{ptProcTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptRsnTpCd != null">
+        #{ptRsnTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptRsn != null">
+        #{ptRsn,jdbcType=VARCHAR},
+      </if>
+      <if test="ptAmt != null">
+        #{ptAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ptVldEdDt != null">
+        #{ptVldEdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ptUsePsblAmt != null">
+        #{ptUsePsblAmt,jdbcType=INTEGER},
+      </if>
+      <if test="venId != null">
+        #{venId,jdbcType=INTEGER},
+      </if>
+      <if test="ordItemId != null">
+        #{ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="ptAdmProcId != null">
+        #{ptAdmProcId,jdbcType=INTEGER},
+      </if>
+      <if test="evntAtndId != null">
+        #{evntAtndId,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.PointEntityCriteria" resultType="java.lang.Long">
+    select count(*) from pnt TP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TP
+    <set>
+      <if test="record.ptId != null">
+        
+      </if>
+      <if test="record.mbrId != null">
+        TP.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptTpCd != null">
+        TP.PT_TP_CD = #{record.ptTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptProcTpCd != null">
+        TP.PT_PROC_TP_CD = #{record.ptProcTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptRsnTpCd != null">
+        TP.PT_RSN_TP_CD = #{record.ptRsnTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptRsn != null">
+        TP.PT_RSN = #{record.ptRsn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptAmt != null">
+        TP.PT_AMT = #{record.ptAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.ptVldEdDt != null">
+        TP.PT_VLD_ED_DT = #{record.ptVldEdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ptUsePsblAmt != null">
+        TP.PT_USE_PSBL_AMT = #{record.ptUsePsblAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.venId != null">
+        TP.VEN_ID = #{record.venId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordItemId != null">
+        TP.ORD_ITEM_ID = #{record.ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemId != null">
+        TP.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ptAdmProcId != null">
+        TP.PT_ADM_PROC_ID = #{record.ptAdmProcId,jdbcType=INTEGER},
+      </if>
+      <if test="record.evntAtndId != null">
+        TP.EVNT_ATND_ID = #{record.evntAtndId,jdbcType=INTEGER},
+      </if>
+      <if test="record.regDt != null">
+        TP.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TP.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TP.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TP.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from pnt TP
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update pnt TP
+    set 
+      TP.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      TP.PT_TP_CD = #{record.ptTpCd,jdbcType=VARCHAR},
+      TP.PT_PROC_TP_CD = #{record.ptProcTpCd,jdbcType=VARCHAR},
+      TP.PT_RSN_TP_CD = #{record.ptRsnTpCd,jdbcType=VARCHAR},
+      TP.PT_RSN = #{record.ptRsn,jdbcType=VARCHAR},
+      TP.PT_AMT = #{record.ptAmt,jdbcType=INTEGER},
+      TP.PT_VLD_ED_DT = #{record.ptVldEdDt,jdbcType=TIMESTAMP},
+      TP.PT_USE_PSBL_AMT = #{record.ptUsePsblAmt,jdbcType=INTEGER},
+      TP.VEN_ID = #{record.venId,jdbcType=INTEGER},
+      TP.ORD_ITEM_ID = #{record.ordItemId,jdbcType=INTEGER},
+      TP.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      TP.PT_ADM_PROC_ID = #{record.ptAdmProcId,jdbcType=INTEGER},
+      TP.EVNT_ATND_ID = #{record.evntAtndId,jdbcType=INTEGER},
+      TP.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TP.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TP.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TP.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointEntity">
+    update pnt
+    <set>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="ptTpCd != null">
+        PT_TP_CD = #{ptTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptProcTpCd != null">
+        PT_PROC_TP_CD = #{ptProcTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptRsnTpCd != null">
+        PT_RSN_TP_CD = #{ptRsnTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptRsn != null">
+        PT_RSN = #{ptRsn,jdbcType=VARCHAR},
+      </if>
+      <if test="ptAmt != null">
+        PT_AMT = #{ptAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ptVldEdDt != null">
+        PT_VLD_ED_DT = #{ptVldEdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ptUsePsblAmt != null">
+        PT_USE_PSBL_AMT = #{ptUsePsblAmt,jdbcType=INTEGER},
+      </if>
+      <if test="venId != null">
+        VEN_ID = #{venId,jdbcType=INTEGER},
+      </if>
+      <if test="ordItemId != null">
+        ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        ITEM_ID = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="ptAdmProcId != null">
+        PT_ADM_PROC_ID = #{ptAdmProcId,jdbcType=INTEGER},
+      </if>
+      <if test="evntAtndId != null">
+        EVNT_ATND_ID = #{evntAtndId,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PT_ID = #{ptId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointEntity">
+    update pnt
+    set MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      PT_TP_CD = #{ptTpCd,jdbcType=VARCHAR},
+      PT_PROC_TP_CD = #{ptProcTpCd,jdbcType=VARCHAR},
+      PT_RSN_TP_CD = #{ptRsnTpCd,jdbcType=VARCHAR},
+      PT_RSN = #{ptRsn,jdbcType=VARCHAR},
+      PT_AMT = #{ptAmt,jdbcType=INTEGER},
+      PT_VLD_ED_DT = #{ptVldEdDt,jdbcType=TIMESTAMP},
+      PT_USE_PSBL_AMT = #{ptUsePsblAmt,jdbcType=INTEGER},
+      VEN_ID = #{venId,jdbcType=INTEGER},
+      ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER},
+      ITEM_ID = #{itemId,jdbcType=INTEGER},
+      PT_ADM_PROC_ID = #{ptAdmProcId,jdbcType=INTEGER},
+      EVNT_ATND_ID = #{evntAtndId,jdbcType=INTEGER},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where PT_ID = #{ptId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointEntity">
+    update pnt
+    <set>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="ptTpCd != null">
+        PT_TP_CD = null,
+      </if>
+      <if test="ptProcTpCd != null">
+        PT_PROC_TP_CD = null,
+      </if>
+      <if test="ptRsnTpCd != null">
+        PT_RSN_TP_CD = null,
+      </if>
+      <if test="ptRsn != null">
+        PT_RSN = null,
+      </if>
+      <if test="ptAmt != null">
+        PT_AMT = null,
+      </if>
+      <if test="ptVldEdDt != null">
+        PT_VLD_ED_DT = null,
+      </if>
+      <if test="ptUsePsblAmt != null">
+        PT_USE_PSBL_AMT = null,
+      </if>
+      <if test="venId != null">
+        VEN_ID = null,
+      </if>
+      <if test="ordItemId != null">
+        ORD_ITEM_ID = null,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID = null,
+      </if>
+      <if test="ptAdmProcId != null">
+        PT_ADM_PROC_ID = null,
+      </if>
+      <if test="evntAtndId != null">
+        EVNT_ATND_ID = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and PT_ID = #{ptId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.item.dao.BaseItemWahsNotiMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.item.model.ItemWahsNoti">
+    <id column="TIWN_ITEM_WAHS_NOTI_ID" jdbcType="INTEGER" property="itemWahsNotiId" />
+    <result column="TIWN_ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TIWN_ITEM_OPT_ID" jdbcType="INTEGER" property="itemOptId" />
+    <result column="TIWN_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="TIWN_ITEM_WAHS_NOTI_STAT_CD" jdbcType="VARCHAR" property="itemWahsNotiStatCd" />
+    <result column="TIWN_CP_NO" jdbcType="VARCHAR" property="cpNo" />
+    <result column="TIWN_PSNL_INFO_HNDL_PCY_AGR_YN" jdbcType="VARCHAR" property="psnlInfoHndlPcyAgrYn" />
+    <result column="TIWN_NOTI_REQ_DT" jdbcType="DATE" property="notiReqDt" />
+    <result column="TIWN_NOTI_PERD_ST_YMD" jdbcType="VARCHAR" property="notiPerdStYmd" />
+    <result column="TIWN_NOTI_PERD_ED_YMD" jdbcType="VARCHAR" property="notiPerdEdYmd" />
+    <result column="TIWN_NOTI_SND_DT" jdbcType="DATE" property="notiSndDt" />
+    <result column="TIWN_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TIWN_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TIWN_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TIWN.ITEM_WAHS_NOTI_ID as TIWN_ITEM_WAHS_NOTI_ID, TIWN.ITEM_ID as TIWN_ITEM_ID, TIWN.ITEM_OPT_ID as TIWN_ITEM_OPT_ID, 
+    TIWN.MBR_ID as TIWN_MBR_ID, TIWN.ITEM_WAHS_NOTI_STAT_CD as TIWN_ITEM_WAHS_NOTI_STAT_CD, 
+    TIWN.CP_NO as TIWN_CP_NO, TIWN.PSNL_INFO_HNDL_PCY_AGR_YN as TIWN_PSNL_INFO_HNDL_PCY_AGR_YN, 
+    TIWN.NOTI_REQ_DT as TIWN_NOTI_REQ_DT, TIWN.NOTI_PERD_ST_YMD as TIWN_NOTI_PERD_ST_YMD, 
+    TIWN.NOTI_PERD_ED_YMD as TIWN_NOTI_PERD_ED_YMD, TIWN.NOTI_SND_DT as TIWN_NOTI_SND_DT, 
+    TIWN.REG_DT as TIWN_REG_DT, TIWN.REG_ID as TIWN_REG_ID, TIWN.USE_YN as TIWN_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemWahsNotiEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item_wahs_noti TIWN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_wahs_noti TIWN
+    where TIWN.ITEM_WAHS_NOTI_ID = #{itemWahsNotiId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from item_wahs_noti
+    where ITEM_WAHS_NOTI_ID = #{itemWahsNotiId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemWahsNotiEntityCriteria">
+    delete TIWN from item_wahs_noti TIWN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemWahsNotiEntity">
+    <selectKey keyProperty="itemWahsNotiId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ITEM_WAHS_NOTI
+    </selectKey>
+    insert into item_wahs_noti (ITEM_WAHS_NOTI_ID, ITEM_ID, ITEM_OPT_ID, 
+      MBR_ID, ITEM_WAHS_NOTI_STAT_CD, CP_NO, 
+      PSNL_INFO_HNDL_PCY_AGR_YN, NOTI_REQ_DT, NOTI_PERD_ST_YMD, 
+      NOTI_PERD_ED_YMD, NOTI_SND_DT, REG_DT, 
+      REG_ID, USE_YN)
+    values (#{itemWahsNotiId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{itemOptId,jdbcType=INTEGER}, 
+      #{mbrId,jdbcType=VARCHAR}, #{itemWahsNotiStatCd,jdbcType=VARCHAR}, #{cpNo,jdbcType=VARCHAR}, 
+      #{psnlInfoHndlPcyAgrYn,jdbcType=VARCHAR}, #{notiReqDt,jdbcType=DATE}, #{notiPerdStYmd,jdbcType=VARCHAR}, 
+      #{notiPerdEdYmd,jdbcType=VARCHAR}, #{notiSndDt,jdbcType=DATE}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemWahsNotiEntity">
+    <selectKey keyProperty="itemWahsNotiId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ITEM_WAHS_NOTI
+    </selectKey>
+    insert into item_wahs_noti
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ITEM_WAHS_NOTI_ID,
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="itemOptId != null">
+        ITEM_OPT_ID,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="itemWahsNotiStatCd != null">
+        ITEM_WAHS_NOTI_STAT_CD,
+      </if>
+      <if test="cpNo != null">
+        CP_NO,
+      </if>
+      <if test="psnlInfoHndlPcyAgrYn != null">
+        PSNL_INFO_HNDL_PCY_AGR_YN,
+      </if>
+      <if test="notiReqDt != null">
+        NOTI_REQ_DT,
+      </if>
+      <if test="notiPerdStYmd != null">
+        NOTI_PERD_ST_YMD,
+      </if>
+      <if test="notiPerdEdYmd != null">
+        NOTI_PERD_ED_YMD,
+      </if>
+      <if test="notiSndDt != null">
+        NOTI_SND_DT,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{itemWahsNotiId,jdbcType=INTEGER},
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemOptId != null">
+        #{itemOptId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemWahsNotiStatCd != null">
+        #{itemWahsNotiStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpNo != null">
+        #{cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="psnlInfoHndlPcyAgrYn != null">
+        #{psnlInfoHndlPcyAgrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="notiReqDt != null">
+        #{notiReqDt,jdbcType=DATE},
+      </if>
+      <if test="notiPerdStYmd != null">
+        #{notiPerdStYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="notiPerdEdYmd != null">
+        #{notiPerdEdYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="notiSndDt != null">
+        #{notiSndDt,jdbcType=DATE},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemWahsNotiEntityCriteria" resultType="java.lang.Long">
+    select count(*) from item_wahs_noti TIWN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TIWN
+    <set>
+      <if test="record.itemWahsNotiId != null">
+        
+      </if>
+      <if test="record.itemId != null">
+        TIWN.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemOptId != null">
+        TIWN.ITEM_OPT_ID = #{record.itemOptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mbrId != null">
+        TIWN.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemWahsNotiStatCd != null">
+        TIWN.ITEM_WAHS_NOTI_STAT_CD = #{record.itemWahsNotiStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpNo != null">
+        TIWN.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psnlInfoHndlPcyAgrYn != null">
+        TIWN.PSNL_INFO_HNDL_PCY_AGR_YN = #{record.psnlInfoHndlPcyAgrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notiReqDt != null">
+        TIWN.NOTI_REQ_DT = #{record.notiReqDt,jdbcType=DATE},
+      </if>
+      <if test="record.notiPerdStYmd != null">
+        TIWN.NOTI_PERD_ST_YMD = #{record.notiPerdStYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notiPerdEdYmd != null">
+        TIWN.NOTI_PERD_ED_YMD = #{record.notiPerdEdYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notiSndDt != null">
+        TIWN.NOTI_SND_DT = #{record.notiSndDt,jdbcType=DATE},
+      </if>
+      <if test="record.regDt != null">
+        TIWN.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TIWN.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TIWN.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from item_wahs_noti TIWN
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update item_wahs_noti TIWN
+    set 
+      TIWN.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      TIWN.ITEM_OPT_ID = #{record.itemOptId,jdbcType=INTEGER},
+      TIWN.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      TIWN.ITEM_WAHS_NOTI_STAT_CD = #{record.itemWahsNotiStatCd,jdbcType=VARCHAR},
+      TIWN.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      TIWN.PSNL_INFO_HNDL_PCY_AGR_YN = #{record.psnlInfoHndlPcyAgrYn,jdbcType=VARCHAR},
+      TIWN.NOTI_REQ_DT = #{record.notiReqDt,jdbcType=DATE},
+      TIWN.NOTI_PERD_ST_YMD = #{record.notiPerdStYmd,jdbcType=VARCHAR},
+      TIWN.NOTI_PERD_ED_YMD = #{record.notiPerdEdYmd,jdbcType=VARCHAR},
+      TIWN.NOTI_SND_DT = #{record.notiSndDt,jdbcType=DATE},
+      TIWN.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TIWN.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TIWN.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemWahsNotiEntity">
+    update item_wahs_noti
+    <set>
+      <if test="itemId != null">
+        ITEM_ID = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemOptId != null">
+        ITEM_OPT_ID = #{itemOptId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemWahsNotiStatCd != null">
+        ITEM_WAHS_NOTI_STAT_CD = #{itemWahsNotiStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpNo != null">
+        CP_NO = #{cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="psnlInfoHndlPcyAgrYn != null">
+        PSNL_INFO_HNDL_PCY_AGR_YN = #{psnlInfoHndlPcyAgrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="notiReqDt != null">
+        NOTI_REQ_DT = #{notiReqDt,jdbcType=DATE},
+      </if>
+      <if test="notiPerdStYmd != null">
+        NOTI_PERD_ST_YMD = #{notiPerdStYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="notiPerdEdYmd != null">
+        NOTI_PERD_ED_YMD = #{notiPerdEdYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="notiSndDt != null">
+        NOTI_SND_DT = #{notiSndDt,jdbcType=DATE},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ITEM_WAHS_NOTI_ID = #{itemWahsNotiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemWahsNotiEntity">
+    update item_wahs_noti
+    set ITEM_ID = #{itemId,jdbcType=INTEGER},
+      ITEM_OPT_ID = #{itemOptId,jdbcType=INTEGER},
+      MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      ITEM_WAHS_NOTI_STAT_CD = #{itemWahsNotiStatCd,jdbcType=VARCHAR},
+      CP_NO = #{cpNo,jdbcType=VARCHAR},
+      PSNL_INFO_HNDL_PCY_AGR_YN = #{psnlInfoHndlPcyAgrYn,jdbcType=VARCHAR},
+      NOTI_REQ_DT = #{notiReqDt,jdbcType=DATE},
+      NOTI_PERD_ST_YMD = #{notiPerdStYmd,jdbcType=VARCHAR},
+      NOTI_PERD_ED_YMD = #{notiPerdEdYmd,jdbcType=VARCHAR},
+      NOTI_SND_DT = #{notiSndDt,jdbcType=DATE},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where ITEM_WAHS_NOTI_ID = #{itemWahsNotiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemWahsNotiEntity">
+    update item_wahs_noti
+    <set>
+      <if test="itemId != null">
+        ITEM_ID = null,
+      </if>
+      <if test="itemOptId != null">
+        ITEM_OPT_ID = null,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="itemWahsNotiStatCd != null">
+        ITEM_WAHS_NOTI_STAT_CD = null,
+      </if>
+      <if test="cpNo != null">
+        CP_NO = null,
+      </if>
+      <if test="psnlInfoHndlPcyAgrYn != null">
+        PSNL_INFO_HNDL_PCY_AGR_YN = null,
+      </if>
+      <if test="notiReqDt != null">
+        NOTI_REQ_DT = null,
+      </if>
+      <if test="notiPerdStYmd != null">
+        NOTI_PERD_ST_YMD = null,
+      </if>
+      <if test="notiPerdEdYmd != null">
+        NOTI_PERD_ED_YMD = null,
+      </if>
+      <if test="notiSndDt != null">
+        NOTI_SND_DT = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and ITEM_WAHS_NOTI_ID = #{itemWahsNotiId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.system.dao.BaseSitePolicyMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.system.model.SitePolicy">
+    <id column="TSP_SITE_ID" jdbcType="VARCHAR" property="siteId" />
+    <id column="TSP_SITE_PCY_TP_CD" jdbcType="VARCHAR" property="sitePcyTpCd" />
+    <id column="TSP_SITE_PCY_ENV_CD" jdbcType="VARCHAR" property="sitePcyEnvCd" />
+    <result column="TSP_CONT" jdbcType="VARCHAR" property="cont" />
+    <result column="TSP_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TSP_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TSP_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TSP_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TSP.SITE_ID as TSP_SITE_ID, TSP.SITE_PCY_TP_CD as TSP_SITE_PCY_TP_CD, TSP.SITE_PCY_ENV_CD as TSP_SITE_PCY_ENV_CD, 
+    TSP.CONT as TSP_CONT, TSP.REG_DT as TSP_REG_DT, TSP.REG_ID as TSP_REG_ID, TSP.MOD_DT as TSP_MOD_DT, 
+    TSP.MOD_ID as TSP_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.SitePolicyEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from site_pcy TSP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SitePolicyKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from site_pcy TSP
+    where TSP.SITE_ID = #{siteId,jdbcType=VARCHAR}
+      and TSP.SITE_PCY_TP_CD = #{sitePcyTpCd,jdbcType=VARCHAR}
+      and TSP.SITE_PCY_ENV_CD = #{sitePcyEnvCd,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SitePolicyKey">
+    delete from site_pcy
+    where SITE_ID = #{siteId,jdbcType=VARCHAR}
+      and SITE_PCY_TP_CD = #{sitePcyTpCd,jdbcType=VARCHAR}
+      and SITE_PCY_ENV_CD = #{sitePcyEnvCd,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.SitePolicyEntityCriteria">
+    delete TSP from site_pcy TSP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SitePolicyEntity">
+    insert into site_pcy (SITE_ID, SITE_PCY_TP_CD, SITE_PCY_ENV_CD, 
+      CONT, REG_DT, REG_ID, 
+      MOD_DT, MOD_ID)
+    values (#{siteId,jdbcType=VARCHAR}, #{sitePcyTpCd,jdbcType=VARCHAR}, #{sitePcyEnvCd,jdbcType=VARCHAR}, 
+      #{cont,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, 
+      #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SitePolicyEntity">
+    insert into site_pcy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="siteId != null">
+        SITE_ID,
+      </if>
+      <if test="sitePcyTpCd != null">
+        SITE_PCY_TP_CD,
+      </if>
+      <if test="sitePcyEnvCd != null">
+        SITE_PCY_ENV_CD,
+      </if>
+      <if test="cont != null">
+        CONT,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="siteId != null">
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="sitePcyTpCd != null">
+        #{sitePcyTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="sitePcyEnvCd != null">
+        #{sitePcyEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.SitePolicyEntityCriteria" resultType="java.lang.Long">
+    select count(*) from site_pcy TSP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TSP
+    <set>
+      <if test="record.siteId != null">
+        
+      </if>
+      <if test="record.sitePcyTpCd != null">
+        
+      </if>
+      <if test="record.sitePcyEnvCd != null">
+        
+      </if>
+      <if test="record.cont != null">
+        TSP.CONT = #{record.cont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TSP.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TSP.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TSP.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TSP.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from site_pcy TSP
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update site_pcy TSP
+    set 
+      
+      
+      TSP.CONT = #{record.cont,jdbcType=VARCHAR},
+      TSP.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TSP.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TSP.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TSP.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SitePolicyEntity">
+    update site_pcy
+    <set>
+      <if test="cont != null">
+        CONT = #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SITE_ID = #{siteId,jdbcType=VARCHAR}
+      and SITE_PCY_TP_CD = #{sitePcyTpCd,jdbcType=VARCHAR}
+      and SITE_PCY_ENV_CD = #{sitePcyEnvCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SitePolicyEntity">
+    update site_pcy
+    set CONT = #{cont,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where SITE_ID = #{siteId,jdbcType=VARCHAR}
+      and SITE_PCY_TP_CD = #{sitePcyTpCd,jdbcType=VARCHAR}
+      and SITE_PCY_ENV_CD = #{sitePcyEnvCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SitePolicyEntity">
+    update site_pcy
+    <set>
+      <if test="cont != null">
+        CONT = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and SITE_ID = #{siteId,jdbcType=VARCHAR}
+    and SITE_PCY_TP_CD = #{sitePcyTpCd,jdbcType=VARCHAR}
+    and SITE_PCY_ENV_CD = #{sitePcyEnvCd,jdbcType=VARCHAR}
+  </update>
+</mapper>

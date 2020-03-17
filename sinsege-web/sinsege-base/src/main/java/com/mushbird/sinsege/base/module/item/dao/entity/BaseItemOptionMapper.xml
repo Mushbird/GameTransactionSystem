@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.item.dao.BaseItemOptionMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.item.model.ItemOption">
+    <id column="TIO_ITEM_OPT_ID" jdbcType="INTEGER" property="itemOptId" />
+    <result column="TIO_ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TIO_OPT_SELL_STAT_CD" jdbcType="VARCHAR" property="optSellStatCd" />
+    <result column="TIO_OPT_NM" jdbcType="VARCHAR" property="optNm" />
+    <result column="TIO_SORD" jdbcType="DECIMAL" property="sord" />
+    <result column="TIO_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TIO_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TIO_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TIO_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TIO_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TIO.ITEM_OPT_ID as TIO_ITEM_OPT_ID, TIO.ITEM_ID as TIO_ITEM_ID, TIO.OPT_SELL_STAT_CD as TIO_OPT_SELL_STAT_CD, 
+    TIO.OPT_NM as TIO_OPT_NM, TIO.SORD as TIO_SORD, TIO.REG_DT as TIO_REG_DT, TIO.REG_ID as TIO_REG_ID, 
+    TIO.MOD_DT as TIO_MOD_DT, TIO.MOD_ID as TIO_MOD_ID, TIO.USE_YN as TIO_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemOptionEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item_opt TIO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_opt TIO
+    where TIO.ITEM_OPT_ID = #{itemOptId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from item_opt
+    where ITEM_OPT_ID = #{itemOptId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemOptionEntityCriteria">
+    delete TIO from item_opt TIO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemOptionEntity">
+    insert into item_opt (ITEM_OPT_ID, ITEM_ID, OPT_SELL_STAT_CD, 
+      OPT_NM, SORD, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID, 
+      USE_YN)
+    values (#{itemOptId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{optSellStatCd,jdbcType=VARCHAR}, 
+      #{optNm,jdbcType=VARCHAR}, #{sord,jdbcType=DECIMAL}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, 
+      #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemOptionEntity">
+    insert into item_opt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemOptId != null">
+        ITEM_OPT_ID,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="optSellStatCd != null">
+        OPT_SELL_STAT_CD,
+      </if>
+      <if test="optNm != null">
+        OPT_NM,
+      </if>
+      <if test="sord != null">
+        SORD,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemOptId != null">
+        #{itemOptId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="optSellStatCd != null">
+        #{optSellStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="optNm != null">
+        #{optNm,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null">
+        #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemOptionEntityCriteria" resultType="java.lang.Long">
+    select count(*) from item_opt TIO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TIO
+    <set>
+      <if test="record.itemOptId != null">
+        
+      </if>
+      <if test="record.itemId != null">
+        TIO.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.optSellStatCd != null">
+        TIO.OPT_SELL_STAT_CD = #{record.optSellStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optNm != null">
+        TIO.OPT_NM = #{record.optNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sord != null">
+        TIO.SORD = #{record.sord,jdbcType=DECIMAL},
+      </if>
+      <if test="record.regDt != null">
+        TIO.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TIO.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TIO.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TIO.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TIO.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from item_opt TIO
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update item_opt TIO
+    set 
+      TIO.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      TIO.OPT_SELL_STAT_CD = #{record.optSellStatCd,jdbcType=VARCHAR},
+      TIO.OPT_NM = #{record.optNm,jdbcType=VARCHAR},
+      TIO.SORD = #{record.sord,jdbcType=DECIMAL},
+      TIO.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TIO.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TIO.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TIO.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TIO.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemOptionEntity">
+    update item_opt
+    <set>
+      <if test="itemId != null">
+        ITEM_ID = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="optSellStatCd != null">
+        OPT_SELL_STAT_CD = #{optSellStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="optNm != null">
+        OPT_NM = #{optNm,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null">
+        SORD = #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ITEM_OPT_ID = #{itemOptId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemOptionEntity">
+    update item_opt
+    set ITEM_ID = #{itemId,jdbcType=INTEGER},
+      OPT_SELL_STAT_CD = #{optSellStatCd,jdbcType=VARCHAR},
+      OPT_NM = #{optNm,jdbcType=VARCHAR},
+      SORD = #{sord,jdbcType=DECIMAL},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where ITEM_OPT_ID = #{itemOptId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemOptionEntity">
+    update item_opt
+    <set>
+      <if test="itemId != null">
+        ITEM_ID = null,
+      </if>
+      <if test="optSellStatCd != null">
+        OPT_SELL_STAT_CD = null,
+      </if>
+      <if test="optNm != null">
+        OPT_NM = null,
+      </if>
+      <if test="sord != null">
+        SORD = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and ITEM_OPT_ID = #{itemOptId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.display.dao.BaseDpBrandMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.display.model.DpBrand">
+    <id column="TDB_DP_BRND_ID" jdbcType="INTEGER" property="dpBrndId" />
+    <result column="TDB_VEN_ID" jdbcType="INTEGER" property="venId" />
+    <result column="TDB_BRND_NM" jdbcType="VARCHAR" property="brndNm" />
+    <result column="TDB_BRND_NM_GRP_CD" jdbcType="VARCHAR" property="brndNmGrpCd" />
+    <result column="TDB_BRND_ENG_NM" jdbcType="VARCHAR" property="brndEngNm" />
+    <result column="TDB_BRND_DESC" jdbcType="VARCHAR" property="brndDesc" />
+    <result column="TDB_BRND_DTL_DESC" jdbcType="VARCHAR" property="brndDtlDesc" />
+    <result column="TDB_BRND_STORY_PC" jdbcType="VARCHAR" property="brndStoryPc" />
+    <result column="TDB_BRND_STORY_MOB" jdbcType="VARCHAR" property="brndStoryMob" />
+    <result column="TDB_DP_CATE_ID" jdbcType="INTEGER" property="dpCateId" />
+    <result column="TDB_BANR_L_ATCH_GID_PC" jdbcType="INTEGER" property="banrLAtchGidPc" />
+    <result column="TDB_BANR_L_ATCH_GID_MOB" jdbcType="INTEGER" property="banrLAtchGidMob" />
+    <result column="TDB_BANR_M_ATCH_GID_PC" jdbcType="INTEGER" property="banrMAtchGidPc" />
+    <result column="TDB_BANR_M_ATCH_GID_MOB" jdbcType="INTEGER" property="banrMAtchGidMob" />
+    <result column="TDB_LINK_URL_ADDR" jdbcType="VARCHAR" property="linkUrlAddr" />
+    <result column="TDB_LINK_NWIN_YN" jdbcType="VARCHAR" property="linkNwinYn" />
+    <result column="TDB_SORD" jdbcType="DECIMAL" property="sord" />
+    <result column="TDB_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TDB_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TDB_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TDB_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TDB_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TDB_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TDB.DP_BRND_ID as TDB_DP_BRND_ID, TDB.VEN_ID as TDB_VEN_ID, TDB.BRND_NM as TDB_BRND_NM, 
+    TDB.BRND_NM_GRP_CD as TDB_BRND_NM_GRP_CD, TDB.BRND_ENG_NM as TDB_BRND_ENG_NM, TDB.BRND_DESC as TDB_BRND_DESC, 
+    TDB.BRND_DTL_DESC as TDB_BRND_DTL_DESC, TDB.BRND_STORY_PC as TDB_BRND_STORY_PC, TDB.BRND_STORY_MOB as TDB_BRND_STORY_MOB, 
+    TDB.DP_CATE_ID as TDB_DP_CATE_ID, TDB.BANR_L_ATCH_GID_PC as TDB_BANR_L_ATCH_GID_PC, 
+    TDB.BANR_L_ATCH_GID_MOB as TDB_BANR_L_ATCH_GID_MOB, TDB.BANR_M_ATCH_GID_PC as TDB_BANR_M_ATCH_GID_PC, 
+    TDB.BANR_M_ATCH_GID_MOB as TDB_BANR_M_ATCH_GID_MOB, TDB.LINK_URL_ADDR as TDB_LINK_URL_ADDR, 
+    TDB.LINK_NWIN_YN as TDB_LINK_NWIN_YN, TDB.SORD as TDB_SORD, TDB.DP_YN as TDB_DP_YN, 
+    TDB.REG_DT as TDB_REG_DT, TDB.REG_ID as TDB_REG_ID, TDB.MOD_DT as TDB_MOD_DT, TDB.MOD_ID as TDB_MOD_ID, 
+    TDB.USE_YN as TDB_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpBrandEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dp_brnd TDB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dp_brnd TDB
+    where TDB.DP_BRND_ID = #{dpBrndId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dp_brnd
+    where DP_BRND_ID = #{dpBrndId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpBrandEntityCriteria">
+    delete TDB from dp_brnd TDB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpBrandEntity">
+    <selectKey keyProperty="dpBrndId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_DP_BRND
+    </selectKey>
+    insert into dp_brnd (DP_BRND_ID, VEN_ID, BRND_NM, 
+      BRND_NM_GRP_CD, BRND_ENG_NM, BRND_DESC, 
+      BRND_DTL_DESC, BRND_STORY_PC, BRND_STORY_MOB, 
+      DP_CATE_ID, BANR_L_ATCH_GID_PC, BANR_L_ATCH_GID_MOB, 
+      BANR_M_ATCH_GID_PC, BANR_M_ATCH_GID_MOB, LINK_URL_ADDR, 
+      LINK_NWIN_YN, SORD, DP_YN, 
+      REG_DT, REG_ID, MOD_DT, 
+      MOD_ID, USE_YN)
+    values (#{dpBrndId,jdbcType=INTEGER}, #{venId,jdbcType=INTEGER}, #{brndNm,jdbcType=VARCHAR}, 
+      #{brndNmGrpCd,jdbcType=VARCHAR}, #{brndEngNm,jdbcType=VARCHAR}, #{brndDesc,jdbcType=VARCHAR}, 
+      #{brndDtlDesc,jdbcType=VARCHAR}, #{brndStoryPc,jdbcType=VARCHAR}, #{brndStoryMob,jdbcType=VARCHAR}, 
+      #{dpCateId,jdbcType=INTEGER}, #{banrLAtchGidPc,jdbcType=INTEGER}, #{banrLAtchGidMob,jdbcType=INTEGER}, 
+      #{banrMAtchGidPc,jdbcType=INTEGER}, #{banrMAtchGidMob,jdbcType=INTEGER}, #{linkUrlAddr,jdbcType=VARCHAR}, 
+      #{linkNwinYn,jdbcType=VARCHAR}, #{sord,jdbcType=DECIMAL}, #{dpYn,jdbcType=VARCHAR}, 
+      #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, 
+      #{modId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpBrandEntity">
+    <selectKey keyProperty="dpBrndId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_DP_BRND
+    </selectKey>
+    insert into dp_brnd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      DP_BRND_ID,
+      <if test="venId != null">
+        VEN_ID,
+      </if>
+      <if test="brndNm != null">
+        BRND_NM,
+      </if>
+      <if test="brndNmGrpCd != null">
+        BRND_NM_GRP_CD,
+      </if>
+      <if test="brndEngNm != null">
+        BRND_ENG_NM,
+      </if>
+      <if test="brndDesc != null">
+        BRND_DESC,
+      </if>
+      <if test="brndDtlDesc != null">
+        BRND_DTL_DESC,
+      </if>
+      <if test="brndStoryPc != null">
+        BRND_STORY_PC,
+      </if>
+      <if test="brndStoryMob != null">
+        BRND_STORY_MOB,
+      </if>
+      <if test="dpCateId != null">
+        DP_CATE_ID,
+      </if>
+      <if test="banrLAtchGidPc != null">
+        BANR_L_ATCH_GID_PC,
+      </if>
+      <if test="banrLAtchGidMob != null">
+        BANR_L_ATCH_GID_MOB,
+      </if>
+      <if test="banrMAtchGidPc != null">
+        BANR_M_ATCH_GID_PC,
+      </if>
+      <if test="banrMAtchGidMob != null">
+        BANR_M_ATCH_GID_MOB,
+      </if>
+      <if test="linkUrlAddr != null">
+        LINK_URL_ADDR,
+      </if>
+      <if test="linkNwinYn != null">
+        LINK_NWIN_YN,
+      </if>
+      <if test="sord != null">
+        SORD,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{dpBrndId,jdbcType=INTEGER},
+      <if test="venId != null">
+        #{venId,jdbcType=INTEGER},
+      </if>
+      <if test="brndNm != null">
+        #{brndNm,jdbcType=VARCHAR},
+      </if>
+      <if test="brndNmGrpCd != null">
+        #{brndNmGrpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="brndEngNm != null">
+        #{brndEngNm,jdbcType=VARCHAR},
+      </if>
+      <if test="brndDesc != null">
+        #{brndDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="brndDtlDesc != null">
+        #{brndDtlDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="brndStoryPc != null">
+        #{brndStoryPc,jdbcType=VARCHAR},
+      </if>
+      <if test="brndStoryMob != null">
+        #{brndStoryMob,jdbcType=VARCHAR},
+      </if>
+      <if test="dpCateId != null">
+        #{dpCateId,jdbcType=INTEGER},
+      </if>
+      <if test="banrLAtchGidPc != null">
+        #{banrLAtchGidPc,jdbcType=INTEGER},
+      </if>
+      <if test="banrLAtchGidMob != null">
+        #{banrLAtchGidMob,jdbcType=INTEGER},
+      </if>
+      <if test="banrMAtchGidPc != null">
+        #{banrMAtchGidPc,jdbcType=INTEGER},
+      </if>
+      <if test="banrMAtchGidMob != null">
+        #{banrMAtchGidMob,jdbcType=INTEGER},
+      </if>
+      <if test="linkUrlAddr != null">
+        #{linkUrlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="linkNwinYn != null">
+        #{linkNwinYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null">
+        #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpBrandEntityCriteria" resultType="java.lang.Long">
+    select count(*) from dp_brnd TDB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TDB
+    <set>
+      <if test="record.dpBrndId != null">
+        
+      </if>
+      <if test="record.venId != null">
+        TDB.VEN_ID = #{record.venId,jdbcType=INTEGER},
+      </if>
+      <if test="record.brndNm != null">
+        TDB.BRND_NM = #{record.brndNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brndNmGrpCd != null">
+        TDB.BRND_NM_GRP_CD = #{record.brndNmGrpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brndEngNm != null">
+        TDB.BRND_ENG_NM = #{record.brndEngNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brndDesc != null">
+        TDB.BRND_DESC = #{record.brndDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brndDtlDesc != null">
+        TDB.BRND_DTL_DESC = #{record.brndDtlDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brndStoryPc != null">
+        TDB.BRND_STORY_PC = #{record.brndStoryPc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brndStoryMob != null">
+        TDB.BRND_STORY_MOB = #{record.brndStoryMob,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpCateId != null">
+        TDB.DP_CATE_ID = #{record.dpCateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.banrLAtchGidPc != null">
+        TDB.BANR_L_ATCH_GID_PC = #{record.banrLAtchGidPc,jdbcType=INTEGER},
+      </if>
+      <if test="record.banrLAtchGidMob != null">
+        TDB.BANR_L_ATCH_GID_MOB = #{record.banrLAtchGidMob,jdbcType=INTEGER},
+      </if>
+      <if test="record.banrMAtchGidPc != null">
+        TDB.BANR_M_ATCH_GID_PC = #{record.banrMAtchGidPc,jdbcType=INTEGER},
+      </if>
+      <if test="record.banrMAtchGidMob != null">
+        TDB.BANR_M_ATCH_GID_MOB = #{record.banrMAtchGidMob,jdbcType=INTEGER},
+      </if>
+      <if test="record.linkUrlAddr != null">
+        TDB.LINK_URL_ADDR = #{record.linkUrlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkNwinYn != null">
+        TDB.LINK_NWIN_YN = #{record.linkNwinYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sord != null">
+        TDB.SORD = #{record.sord,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dpYn != null">
+        TDB.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TDB.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TDB.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TDB.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TDB.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TDB.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from dp_brnd TDB
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update dp_brnd TDB
+    set 
+      TDB.VEN_ID = #{record.venId,jdbcType=INTEGER},
+      TDB.BRND_NM = #{record.brndNm,jdbcType=VARCHAR},
+      TDB.BRND_NM_GRP_CD = #{record.brndNmGrpCd,jdbcType=VARCHAR},
+      TDB.BRND_ENG_NM = #{record.brndEngNm,jdbcType=VARCHAR},
+      TDB.BRND_DESC = #{record.brndDesc,jdbcType=VARCHAR},
+      TDB.BRND_DTL_DESC = #{record.brndDtlDesc,jdbcType=VARCHAR},
+      TDB.BRND_STORY_PC = #{record.brndStoryPc,jdbcType=VARCHAR},
+      TDB.BRND_STORY_MOB = #{record.brndStoryMob,jdbcType=VARCHAR},
+      TDB.DP_CATE_ID = #{record.dpCateId,jdbcType=INTEGER},
+      TDB.BANR_L_ATCH_GID_PC = #{record.banrLAtchGidPc,jdbcType=INTEGER},
+      TDB.BANR_L_ATCH_GID_MOB = #{record.banrLAtchGidMob,jdbcType=INTEGER},
+      TDB.BANR_M_ATCH_GID_PC = #{record.banrMAtchGidPc,jdbcType=INTEGER},
+      TDB.BANR_M_ATCH_GID_MOB = #{record.banrMAtchGidMob,jdbcType=INTEGER},
+      TDB.LINK_URL_ADDR = #{record.linkUrlAddr,jdbcType=VARCHAR},
+      TDB.LINK_NWIN_YN = #{record.linkNwinYn,jdbcType=VARCHAR},
+      TDB.SORD = #{record.sord,jdbcType=DECIMAL},
+      TDB.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TDB.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TDB.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TDB.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TDB.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TDB.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpBrandEntity">
+    update dp_brnd
+    <set>
+      <if test="venId != null">
+        VEN_ID = #{venId,jdbcType=INTEGER},
+      </if>
+      <if test="brndNm != null">
+        BRND_NM = #{brndNm,jdbcType=VARCHAR},
+      </if>
+      <if test="brndNmGrpCd != null">
+        BRND_NM_GRP_CD = #{brndNmGrpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="brndEngNm != null">
+        BRND_ENG_NM = #{brndEngNm,jdbcType=VARCHAR},
+      </if>
+      <if test="brndDesc != null">
+        BRND_DESC = #{brndDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="brndDtlDesc != null">
+        BRND_DTL_DESC = #{brndDtlDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="brndStoryPc != null">
+        BRND_STORY_PC = #{brndStoryPc,jdbcType=VARCHAR},
+      </if>
+      <if test="brndStoryMob != null">
+        BRND_STORY_MOB = #{brndStoryMob,jdbcType=VARCHAR},
+      </if>
+      <if test="dpCateId != null">
+        DP_CATE_ID = #{dpCateId,jdbcType=INTEGER},
+      </if>
+      <if test="banrLAtchGidPc != null">
+        BANR_L_ATCH_GID_PC = #{banrLAtchGidPc,jdbcType=INTEGER},
+      </if>
+      <if test="banrLAtchGidMob != null">
+        BANR_L_ATCH_GID_MOB = #{banrLAtchGidMob,jdbcType=INTEGER},
+      </if>
+      <if test="banrMAtchGidPc != null">
+        BANR_M_ATCH_GID_PC = #{banrMAtchGidPc,jdbcType=INTEGER},
+      </if>
+      <if test="banrMAtchGidMob != null">
+        BANR_M_ATCH_GID_MOB = #{banrMAtchGidMob,jdbcType=INTEGER},
+      </if>
+      <if test="linkUrlAddr != null">
+        LINK_URL_ADDR = #{linkUrlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="linkNwinYn != null">
+        LINK_NWIN_YN = #{linkNwinYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null">
+        SORD = #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DP_BRND_ID = #{dpBrndId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpBrandEntity">
+    update dp_brnd
+    set VEN_ID = #{venId,jdbcType=INTEGER},
+      BRND_NM = #{brndNm,jdbcType=VARCHAR},
+      BRND_NM_GRP_CD = #{brndNmGrpCd,jdbcType=VARCHAR},
+      BRND_ENG_NM = #{brndEngNm,jdbcType=VARCHAR},
+      BRND_DESC = #{brndDesc,jdbcType=VARCHAR},
+      BRND_DTL_DESC = #{brndDtlDesc,jdbcType=VARCHAR},
+      BRND_STORY_PC = #{brndStoryPc,jdbcType=VARCHAR},
+      BRND_STORY_MOB = #{brndStoryMob,jdbcType=VARCHAR},
+      DP_CATE_ID = #{dpCateId,jdbcType=INTEGER},
+      BANR_L_ATCH_GID_PC = #{banrLAtchGidPc,jdbcType=INTEGER},
+      BANR_L_ATCH_GID_MOB = #{banrLAtchGidMob,jdbcType=INTEGER},
+      BANR_M_ATCH_GID_PC = #{banrMAtchGidPc,jdbcType=INTEGER},
+      BANR_M_ATCH_GID_MOB = #{banrMAtchGidMob,jdbcType=INTEGER},
+      LINK_URL_ADDR = #{linkUrlAddr,jdbcType=VARCHAR},
+      LINK_NWIN_YN = #{linkNwinYn,jdbcType=VARCHAR},
+      SORD = #{sord,jdbcType=DECIMAL},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where DP_BRND_ID = #{dpBrndId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpBrandEntity">
+    update dp_brnd
+    <set>
+      <if test="venId != null">
+        VEN_ID = null,
+      </if>
+      <if test="brndNm != null">
+        BRND_NM = null,
+      </if>
+      <if test="brndNmGrpCd != null">
+        BRND_NM_GRP_CD = null,
+      </if>
+      <if test="brndEngNm != null">
+        BRND_ENG_NM = null,
+      </if>
+      <if test="brndDesc != null">
+        BRND_DESC = null,
+      </if>
+      <if test="brndDtlDesc != null">
+        BRND_DTL_DESC = null,
+      </if>
+      <if test="brndStoryPc != null">
+        BRND_STORY_PC = null,
+      </if>
+      <if test="brndStoryMob != null">
+        BRND_STORY_MOB = null,
+      </if>
+      <if test="dpCateId != null">
+        DP_CATE_ID = null,
+      </if>
+      <if test="banrLAtchGidPc != null">
+        BANR_L_ATCH_GID_PC = null,
+      </if>
+      <if test="banrLAtchGidMob != null">
+        BANR_L_ATCH_GID_MOB = null,
+      </if>
+      <if test="banrMAtchGidPc != null">
+        BANR_M_ATCH_GID_PC = null,
+      </if>
+      <if test="banrMAtchGidMob != null">
+        BANR_M_ATCH_GID_MOB = null,
+      </if>
+      <if test="linkUrlAddr != null">
+        LINK_URL_ADDR = null,
+      </if>
+      <if test="linkNwinYn != null">
+        LINK_NWIN_YN = null,
+      </if>
+      <if test="sord != null">
+        SORD = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and DP_BRND_ID = #{dpBrndId,jdbcType=INTEGER}
+  </update>
+</mapper>

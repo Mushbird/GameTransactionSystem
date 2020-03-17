@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.order.dao.BaseOrderCouponItemMappingChangeHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.order.model.OrderCouponItemMappingChangeHistory">
+    <id column="TOCIMCH_ORD_CPN_ITEM_MAP_CHIST_ID" jdbcType="INTEGER" property="ordCpnItemMapChistId" />
+    <result column="TOCIMCH_ORD_CPN_ITEM_MAP_ID" jdbcType="INTEGER" property="ordCpnItemMapId" />
+    <result column="TOCIMCH_ORD_CPN_ID" jdbcType="INTEGER" property="ordCpnId" />
+    <result column="TOCIMCH_ORD_ITEM_ID" jdbcType="INTEGER" property="ordItemId" />
+    <result column="TOCIMCH_ORD_CLM_ID" jdbcType="INTEGER" property="ordClmId" />
+    <result column="TOCIMCH_ORD_CPN_APLY_CD" jdbcType="VARCHAR" property="ordCpnAplyCd" />
+    <result column="TOCIMCH_FST_CPN_DC_AMT" jdbcType="INTEGER" property="fstCpnDcAmt" />
+    <result column="TOCIMCH_CPN_DC_AMT" jdbcType="INTEGER" property="cpnDcAmt" />
+    <result column="TOCIMCH_CPN_RTN_AMT" jdbcType="INTEGER" property="cpnRtnAmt" />
+    <result column="TOCIMCH_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TOCIMCH_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TOCIMCH_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TOCIMCH_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TOCIMCH.ORD_CPN_ITEM_MAP_CHIST_ID as TOCIMCH_ORD_CPN_ITEM_MAP_CHIST_ID, TOCIMCH.ORD_CPN_ITEM_MAP_ID as TOCIMCH_ORD_CPN_ITEM_MAP_ID, 
+    TOCIMCH.ORD_CPN_ID as TOCIMCH_ORD_CPN_ID, TOCIMCH.ORD_ITEM_ID as TOCIMCH_ORD_ITEM_ID, 
+    TOCIMCH.ORD_CLM_ID as TOCIMCH_ORD_CLM_ID, TOCIMCH.ORD_CPN_APLY_CD as TOCIMCH_ORD_CPN_APLY_CD, 
+    TOCIMCH.FST_CPN_DC_AMT as TOCIMCH_FST_CPN_DC_AMT, TOCIMCH.CPN_DC_AMT as TOCIMCH_CPN_DC_AMT, 
+    TOCIMCH.CPN_RTN_AMT as TOCIMCH_CPN_RTN_AMT, TOCIMCH.REG_DT as TOCIMCH_REG_DT, TOCIMCH.REG_ID as TOCIMCH_REG_ID, 
+    TOCIMCH.MOD_DT as TOCIMCH_MOD_DT, TOCIMCH.MOD_ID as TOCIMCH_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderCouponItemMappingChangeHistoryEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ord_cpn_item_map_chist TOCIMCH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ord_cpn_item_map_chist TOCIMCH
+    where TOCIMCH.ORD_CPN_ITEM_MAP_CHIST_ID = #{ordCpnItemMapChistId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ord_cpn_item_map_chist
+    where ORD_CPN_ITEM_MAP_CHIST_ID = #{ordCpnItemMapChistId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderCouponItemMappingChangeHistoryEntityCriteria">
+    delete TOCIMCH from ord_cpn_item_map_chist TOCIMCH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderCouponItemMappingChangeHistoryEntity">
+    <selectKey keyProperty="ordCpnItemMapChistId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ORD_CPN_ITEM_MAP_CHIST
+    </selectKey>
+    insert into ord_cpn_item_map_chist (ORD_CPN_ITEM_MAP_CHIST_ID, ORD_CPN_ITEM_MAP_ID, 
+      ORD_CPN_ID, ORD_ITEM_ID, ORD_CLM_ID, 
+      ORD_CPN_APLY_CD, FST_CPN_DC_AMT, CPN_DC_AMT, 
+      CPN_RTN_AMT, REG_DT, REG_ID, 
+      MOD_DT, MOD_ID)
+    values (#{ordCpnItemMapChistId,jdbcType=INTEGER}, #{ordCpnItemMapId,jdbcType=INTEGER}, 
+      #{ordCpnId,jdbcType=INTEGER}, #{ordItemId,jdbcType=INTEGER}, #{ordClmId,jdbcType=INTEGER}, 
+      #{ordCpnAplyCd,jdbcType=VARCHAR}, #{fstCpnDcAmt,jdbcType=INTEGER}, #{cpnDcAmt,jdbcType=INTEGER}, 
+      #{cpnRtnAmt,jdbcType=INTEGER}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, 
+      #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderCouponItemMappingChangeHistoryEntity">
+    <selectKey keyProperty="ordCpnItemMapChistId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ORD_CPN_ITEM_MAP_CHIST
+    </selectKey>
+    insert into ord_cpn_item_map_chist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ORD_CPN_ITEM_MAP_CHIST_ID,
+      <if test="ordCpnItemMapId != null">
+        ORD_CPN_ITEM_MAP_ID,
+      </if>
+      <if test="ordCpnId != null">
+        ORD_CPN_ID,
+      </if>
+      <if test="ordItemId != null">
+        ORD_ITEM_ID,
+      </if>
+      <if test="ordClmId != null">
+        ORD_CLM_ID,
+      </if>
+      <if test="ordCpnAplyCd != null">
+        ORD_CPN_APLY_CD,
+      </if>
+      <if test="fstCpnDcAmt != null">
+        FST_CPN_DC_AMT,
+      </if>
+      <if test="cpnDcAmt != null">
+        CPN_DC_AMT,
+      </if>
+      <if test="cpnRtnAmt != null">
+        CPN_RTN_AMT,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{ordCpnItemMapChistId,jdbcType=INTEGER},
+      <if test="ordCpnItemMapId != null">
+        #{ordCpnItemMapId,jdbcType=INTEGER},
+      </if>
+      <if test="ordCpnId != null">
+        #{ordCpnId,jdbcType=INTEGER},
+      </if>
+      <if test="ordItemId != null">
+        #{ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="ordClmId != null">
+        #{ordClmId,jdbcType=INTEGER},
+      </if>
+      <if test="ordCpnAplyCd != null">
+        #{ordCpnAplyCd,jdbcType=VARCHAR},
+      </if>
+      <if test="fstCpnDcAmt != null">
+        #{fstCpnDcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="cpnDcAmt != null">
+        #{cpnDcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="cpnRtnAmt != null">
+        #{cpnRtnAmt,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderCouponItemMappingChangeHistoryEntityCriteria" resultType="java.lang.Long">
+    select count(*) from ord_cpn_item_map_chist TOCIMCH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TOCIMCH
+    <set>
+      <if test="record.ordCpnItemMapChistId != null">
+        
+      </if>
+      <if test="record.ordCpnItemMapId != null">
+        TOCIMCH.ORD_CPN_ITEM_MAP_ID = #{record.ordCpnItemMapId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordCpnId != null">
+        TOCIMCH.ORD_CPN_ID = #{record.ordCpnId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordItemId != null">
+        TOCIMCH.ORD_ITEM_ID = #{record.ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordClmId != null">
+        TOCIMCH.ORD_CLM_ID = #{record.ordClmId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordCpnAplyCd != null">
+        TOCIMCH.ORD_CPN_APLY_CD = #{record.ordCpnAplyCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fstCpnDcAmt != null">
+        TOCIMCH.FST_CPN_DC_AMT = #{record.fstCpnDcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpnDcAmt != null">
+        TOCIMCH.CPN_DC_AMT = #{record.cpnDcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpnRtnAmt != null">
+        TOCIMCH.CPN_RTN_AMT = #{record.cpnRtnAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.regDt != null">
+        TOCIMCH.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TOCIMCH.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TOCIMCH.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TOCIMCH.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from ord_cpn_item_map_chist TOCIMCH
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update ord_cpn_item_map_chist TOCIMCH
+    set 
+      TOCIMCH.ORD_CPN_ITEM_MAP_ID = #{record.ordCpnItemMapId,jdbcType=INTEGER},
+      TOCIMCH.ORD_CPN_ID = #{record.ordCpnId,jdbcType=INTEGER},
+      TOCIMCH.ORD_ITEM_ID = #{record.ordItemId,jdbcType=INTEGER},
+      TOCIMCH.ORD_CLM_ID = #{record.ordClmId,jdbcType=INTEGER},
+      TOCIMCH.ORD_CPN_APLY_CD = #{record.ordCpnAplyCd,jdbcType=VARCHAR},
+      TOCIMCH.FST_CPN_DC_AMT = #{record.fstCpnDcAmt,jdbcType=INTEGER},
+      TOCIMCH.CPN_DC_AMT = #{record.cpnDcAmt,jdbcType=INTEGER},
+      TOCIMCH.CPN_RTN_AMT = #{record.cpnRtnAmt,jdbcType=INTEGER},
+      TOCIMCH.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TOCIMCH.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TOCIMCH.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TOCIMCH.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderCouponItemMappingChangeHistoryEntity">
+    update ord_cpn_item_map_chist
+    <set>
+      <if test="ordCpnItemMapId != null">
+        ORD_CPN_ITEM_MAP_ID = #{ordCpnItemMapId,jdbcType=INTEGER},
+      </if>
+      <if test="ordCpnId != null">
+        ORD_CPN_ID = #{ordCpnId,jdbcType=INTEGER},
+      </if>
+      <if test="ordItemId != null">
+        ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="ordClmId != null">
+        ORD_CLM_ID = #{ordClmId,jdbcType=INTEGER},
+      </if>
+      <if test="ordCpnAplyCd != null">
+        ORD_CPN_APLY_CD = #{ordCpnAplyCd,jdbcType=VARCHAR},
+      </if>
+      <if test="fstCpnDcAmt != null">
+        FST_CPN_DC_AMT = #{fstCpnDcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="cpnDcAmt != null">
+        CPN_DC_AMT = #{cpnDcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="cpnRtnAmt != null">
+        CPN_RTN_AMT = #{cpnRtnAmt,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORD_CPN_ITEM_MAP_CHIST_ID = #{ordCpnItemMapChistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderCouponItemMappingChangeHistoryEntity">
+    update ord_cpn_item_map_chist
+    set ORD_CPN_ITEM_MAP_ID = #{ordCpnItemMapId,jdbcType=INTEGER},
+      ORD_CPN_ID = #{ordCpnId,jdbcType=INTEGER},
+      ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER},
+      ORD_CLM_ID = #{ordClmId,jdbcType=INTEGER},
+      ORD_CPN_APLY_CD = #{ordCpnAplyCd,jdbcType=VARCHAR},
+      FST_CPN_DC_AMT = #{fstCpnDcAmt,jdbcType=INTEGER},
+      CPN_DC_AMT = #{cpnDcAmt,jdbcType=INTEGER},
+      CPN_RTN_AMT = #{cpnRtnAmt,jdbcType=INTEGER},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where ORD_CPN_ITEM_MAP_CHIST_ID = #{ordCpnItemMapChistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderCouponItemMappingChangeHistoryEntity">
+    update ord_cpn_item_map_chist
+    <set>
+      <if test="ordCpnItemMapId != null">
+        ORD_CPN_ITEM_MAP_ID = null,
+      </if>
+      <if test="ordCpnId != null">
+        ORD_CPN_ID = null,
+      </if>
+      <if test="ordItemId != null">
+        ORD_ITEM_ID = null,
+      </if>
+      <if test="ordClmId != null">
+        ORD_CLM_ID = null,
+      </if>
+      <if test="ordCpnAplyCd != null">
+        ORD_CPN_APLY_CD = null,
+      </if>
+      <if test="fstCpnDcAmt != null">
+        FST_CPN_DC_AMT = null,
+      </if>
+      <if test="cpnDcAmt != null">
+        CPN_DC_AMT = null,
+      </if>
+      <if test="cpnRtnAmt != null">
+        CPN_RTN_AMT = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and ORD_CPN_ITEM_MAP_CHIST_ID = #{ordCpnItemMapChistId,jdbcType=INTEGER}
+  </update>
+</mapper>

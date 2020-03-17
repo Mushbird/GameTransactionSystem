@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.system.dao.BaseSiteMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.system.model.Site">
+    <id column="TS_SITE_ID" jdbcType="VARCHAR" property="siteId" />
+    <result column="TS_BIZ_NM" jdbcType="VARCHAR" property="bizNm" />
+    <result column="TS_REP_NM" jdbcType="VARCHAR" property="repNm" />
+    <result column="TS_REP_TEL" jdbcType="VARCHAR" property="repTel" />
+    <result column="TS_FAX_NO" jdbcType="VARCHAR" property="faxNo" />
+    <result column="TS_BIZ_NO" jdbcType="VARCHAR" property="bizNo" />
+    <result column="TS_BIZ_LOC_ADDR" jdbcType="VARCHAR" property="bizLocAddr" />
+    <result column="TS_CISO_NM" jdbcType="VARCHAR" property="cisoNm" />
+    <result column="TS_EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="TS_CSO_TEL_NO" jdbcType="VARCHAR" property="csoTelNo" />
+    <result column="TS_SEO_TIT" jdbcType="VARCHAR" property="seoTit" />
+    <result column="TS_SEO_DESC" jdbcType="VARCHAR" property="seoDesc" />
+    <result column="TS_SEO_KWD" jdbcType="VARCHAR" property="seoKwd" />
+    <result column="TS_SEO_OG_ATCH_GID" jdbcType="INTEGER" property="seoOgAtchGid" />
+    <result column="TS_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TS_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TS_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TS_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TS.SITE_ID as TS_SITE_ID, TS.BIZ_NM as TS_BIZ_NM, TS.REP_NM as TS_REP_NM, TS.REP_TEL as TS_REP_TEL, 
+    TS.FAX_NO as TS_FAX_NO, TS.BIZ_NO as TS_BIZ_NO, TS.BIZ_LOC_ADDR as TS_BIZ_LOC_ADDR, 
+    TS.CISO_NM as TS_CISO_NM, TS.EMAIL as TS_EMAIL, TS.CSO_TEL_NO as TS_CSO_TEL_NO, TS.SEO_TIT as TS_SEO_TIT, 
+    TS.SEO_DESC as TS_SEO_DESC, TS.SEO_KWD as TS_SEO_KWD, TS.SEO_OG_ATCH_GID as TS_SEO_OG_ATCH_GID, 
+    TS.REG_DT as TS_REG_DT, TS.REG_ID as TS_REG_ID, TS.MOD_DT as TS_MOD_DT, TS.MOD_ID as TS_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.SiteEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from site TS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from site TS
+    where TS.SITE_ID = #{siteId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from site
+    where SITE_ID = #{siteId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.SiteEntityCriteria">
+    delete TS from site TS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SiteEntity">
+    insert into site (SITE_ID, BIZ_NM, REP_NM, 
+      REP_TEL, FAX_NO, BIZ_NO, 
+      BIZ_LOC_ADDR, CISO_NM, EMAIL, 
+      CSO_TEL_NO, SEO_TIT, SEO_DESC, 
+      SEO_KWD, SEO_OG_ATCH_GID, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID
+      )
+    values (#{siteId,jdbcType=VARCHAR}, #{bizNm,jdbcType=VARCHAR}, #{repNm,jdbcType=VARCHAR}, 
+      #{repTel,jdbcType=VARCHAR}, #{faxNo,jdbcType=VARCHAR}, #{bizNo,jdbcType=VARCHAR}, 
+      #{bizLocAddr,jdbcType=VARCHAR}, #{cisoNm,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{csoTelNo,jdbcType=VARCHAR}, #{seoTit,jdbcType=VARCHAR}, #{seoDesc,jdbcType=VARCHAR}, 
+      #{seoKwd,jdbcType=VARCHAR}, #{seoOgAtchGid,jdbcType=INTEGER}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SiteEntity">
+    insert into site
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="siteId != null">
+        SITE_ID,
+      </if>
+      <if test="bizNm != null">
+        BIZ_NM,
+      </if>
+      <if test="repNm != null">
+        REP_NM,
+      </if>
+      <if test="repTel != null">
+        REP_TEL,
+      </if>
+      <if test="faxNo != null">
+        FAX_NO,
+      </if>
+      <if test="bizNo != null">
+        BIZ_NO,
+      </if>
+      <if test="bizLocAddr != null">
+        BIZ_LOC_ADDR,
+      </if>
+      <if test="cisoNm != null">
+        CISO_NM,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="csoTelNo != null">
+        CSO_TEL_NO,
+      </if>
+      <if test="seoTit != null">
+        SEO_TIT,
+      </if>
+      <if test="seoDesc != null">
+        SEO_DESC,
+      </if>
+      <if test="seoKwd != null">
+        SEO_KWD,
+      </if>
+      <if test="seoOgAtchGid != null">
+        SEO_OG_ATCH_GID,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="siteId != null">
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizNm != null">
+        #{bizNm,jdbcType=VARCHAR},
+      </if>
+      <if test="repNm != null">
+        #{repNm,jdbcType=VARCHAR},
+      </if>
+      <if test="repTel != null">
+        #{repTel,jdbcType=VARCHAR},
+      </if>
+      <if test="faxNo != null">
+        #{faxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bizNo != null">
+        #{bizNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bizLocAddr != null">
+        #{bizLocAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="cisoNm != null">
+        #{cisoNm,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="csoTelNo != null">
+        #{csoTelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="seoTit != null">
+        #{seoTit,jdbcType=VARCHAR},
+      </if>
+      <if test="seoDesc != null">
+        #{seoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="seoKwd != null">
+        #{seoKwd,jdbcType=VARCHAR},
+      </if>
+      <if test="seoOgAtchGid != null">
+        #{seoOgAtchGid,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.SiteEntityCriteria" resultType="java.lang.Long">
+    select count(*) from site TS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TS
+    <set>
+      <if test="record.siteId != null">
+        
+      </if>
+      <if test="record.bizNm != null">
+        TS.BIZ_NM = #{record.bizNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repNm != null">
+        TS.REP_NM = #{record.repNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repTel != null">
+        TS.REP_TEL = #{record.repTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faxNo != null">
+        TS.FAX_NO = #{record.faxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizNo != null">
+        TS.BIZ_NO = #{record.bizNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizLocAddr != null">
+        TS.BIZ_LOC_ADDR = #{record.bizLocAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cisoNm != null">
+        TS.CISO_NM = #{record.cisoNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        TS.EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.csoTelNo != null">
+        TS.CSO_TEL_NO = #{record.csoTelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seoTit != null">
+        TS.SEO_TIT = #{record.seoTit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seoDesc != null">
+        TS.SEO_DESC = #{record.seoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seoKwd != null">
+        TS.SEO_KWD = #{record.seoKwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seoOgAtchGid != null">
+        TS.SEO_OG_ATCH_GID = #{record.seoOgAtchGid,jdbcType=INTEGER},
+      </if>
+      <if test="record.regDt != null">
+        TS.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TS.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TS.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TS.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from site TS
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update site TS
+    set 
+      TS.BIZ_NM = #{record.bizNm,jdbcType=VARCHAR},
+      TS.REP_NM = #{record.repNm,jdbcType=VARCHAR},
+      TS.REP_TEL = #{record.repTel,jdbcType=VARCHAR},
+      TS.FAX_NO = #{record.faxNo,jdbcType=VARCHAR},
+      TS.BIZ_NO = #{record.bizNo,jdbcType=VARCHAR},
+      TS.BIZ_LOC_ADDR = #{record.bizLocAddr,jdbcType=VARCHAR},
+      TS.CISO_NM = #{record.cisoNm,jdbcType=VARCHAR},
+      TS.EMAIL = #{record.email,jdbcType=VARCHAR},
+      TS.CSO_TEL_NO = #{record.csoTelNo,jdbcType=VARCHAR},
+      TS.SEO_TIT = #{record.seoTit,jdbcType=VARCHAR},
+      TS.SEO_DESC = #{record.seoDesc,jdbcType=VARCHAR},
+      TS.SEO_KWD = #{record.seoKwd,jdbcType=VARCHAR},
+      TS.SEO_OG_ATCH_GID = #{record.seoOgAtchGid,jdbcType=INTEGER},
+      TS.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TS.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TS.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TS.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SiteEntity">
+    update site
+    <set>
+      <if test="bizNm != null">
+        BIZ_NM = #{bizNm,jdbcType=VARCHAR},
+      </if>
+      <if test="repNm != null">
+        REP_NM = #{repNm,jdbcType=VARCHAR},
+      </if>
+      <if test="repTel != null">
+        REP_TEL = #{repTel,jdbcType=VARCHAR},
+      </if>
+      <if test="faxNo != null">
+        FAX_NO = #{faxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bizNo != null">
+        BIZ_NO = #{bizNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bizLocAddr != null">
+        BIZ_LOC_ADDR = #{bizLocAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="cisoNm != null">
+        CISO_NM = #{cisoNm,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="csoTelNo != null">
+        CSO_TEL_NO = #{csoTelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="seoTit != null">
+        SEO_TIT = #{seoTit,jdbcType=VARCHAR},
+      </if>
+      <if test="seoDesc != null">
+        SEO_DESC = #{seoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="seoKwd != null">
+        SEO_KWD = #{seoKwd,jdbcType=VARCHAR},
+      </if>
+      <if test="seoOgAtchGid != null">
+        SEO_OG_ATCH_GID = #{seoOgAtchGid,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SITE_ID = #{siteId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SiteEntity">
+    update site
+    set BIZ_NM = #{bizNm,jdbcType=VARCHAR},
+      REP_NM = #{repNm,jdbcType=VARCHAR},
+      REP_TEL = #{repTel,jdbcType=VARCHAR},
+      FAX_NO = #{faxNo,jdbcType=VARCHAR},
+      BIZ_NO = #{bizNo,jdbcType=VARCHAR},
+      BIZ_LOC_ADDR = #{bizLocAddr,jdbcType=VARCHAR},
+      CISO_NM = #{cisoNm,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      CSO_TEL_NO = #{csoTelNo,jdbcType=VARCHAR},
+      SEO_TIT = #{seoTit,jdbcType=VARCHAR},
+      SEO_DESC = #{seoDesc,jdbcType=VARCHAR},
+      SEO_KWD = #{seoKwd,jdbcType=VARCHAR},
+      SEO_OG_ATCH_GID = #{seoOgAtchGid,jdbcType=INTEGER},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where SITE_ID = #{siteId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SiteEntity">
+    update site
+    <set>
+      <if test="bizNm != null">
+        BIZ_NM = null,
+      </if>
+      <if test="repNm != null">
+        REP_NM = null,
+      </if>
+      <if test="repTel != null">
+        REP_TEL = null,
+      </if>
+      <if test="faxNo != null">
+        FAX_NO = null,
+      </if>
+      <if test="bizNo != null">
+        BIZ_NO = null,
+      </if>
+      <if test="bizLocAddr != null">
+        BIZ_LOC_ADDR = null,
+      </if>
+      <if test="cisoNm != null">
+        CISO_NM = null,
+      </if>
+      <if test="email != null">
+        EMAIL = null,
+      </if>
+      <if test="csoTelNo != null">
+        CSO_TEL_NO = null,
+      </if>
+      <if test="seoTit != null">
+        SEO_TIT = null,
+      </if>
+      <if test="seoDesc != null">
+        SEO_DESC = null,
+      </if>
+      <if test="seoKwd != null">
+        SEO_KWD = null,
+      </if>
+      <if test="seoOgAtchGid != null">
+        SEO_OG_ATCH_GID = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and SITE_ID = #{siteId,jdbcType=VARCHAR}
+  </update>
+</mapper>

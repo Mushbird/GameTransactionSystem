@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.display.dao.BaseDpCornerMapGroupMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.display.model.DpCornerMapGroup">
+    <id column="TDCMG_DP_CONR_MAP_GID" jdbcType="INTEGER" property="dpConrMapGid" />
+    <result column="TDCMG_DP_CONR_CD" jdbcType="VARCHAR" property="dpConrCd" />
+    <result column="TDCMG_MAP_GRP_NM" jdbcType="VARCHAR" property="mapGrpNm" />
+    <result column="TDCMG_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TDCMG_SORD" jdbcType="DECIMAL" property="sord" />
+    <result column="TDCMG_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TDCMG_REG_ID" jdbcType="VARCHAR" property="regId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TDCMG.DP_CONR_MAP_GID as TDCMG_DP_CONR_MAP_GID, TDCMG.DP_CONR_CD as TDCMG_DP_CONR_CD, 
+    TDCMG.MAP_GRP_NM as TDCMG_MAP_GRP_NM, TDCMG.DP_YN as TDCMG_DP_YN, TDCMG.SORD as TDCMG_SORD, 
+    TDCMG.REG_DT as TDCMG_REG_DT, TDCMG.REG_ID as TDCMG_REG_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpCornerMapGroupEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dp_conr_map_grp TDCMG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dp_conr_map_grp TDCMG
+    where TDCMG.DP_CONR_MAP_GID = #{dpConrMapGid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dp_conr_map_grp
+    where DP_CONR_MAP_GID = #{dpConrMapGid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpCornerMapGroupEntityCriteria">
+    delete TDCMG from dp_conr_map_grp TDCMG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCornerMapGroupEntity">
+    <selectKey keyProperty="dpConrMapGid" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_DP_CONR_MAP_GRP
+    </selectKey>
+    insert into dp_conr_map_grp (DP_CONR_MAP_GID, DP_CONR_CD, MAP_GRP_NM, 
+      DP_YN, SORD, REG_DT, 
+      REG_ID)
+    values (#{dpConrMapGid,jdbcType=INTEGER}, #{dpConrCd,jdbcType=VARCHAR}, #{mapGrpNm,jdbcType=VARCHAR}, 
+      #{dpYn,jdbcType=VARCHAR}, #{sord,jdbcType=DECIMAL}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCornerMapGroupEntity">
+    <selectKey keyProperty="dpConrMapGid" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_DP_CONR_MAP_GRP
+    </selectKey>
+    insert into dp_conr_map_grp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      DP_CONR_MAP_GID,
+      <if test="dpConrCd != null">
+        DP_CONR_CD,
+      </if>
+      <if test="mapGrpNm != null">
+        MAP_GRP_NM,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="sord != null">
+        SORD,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{dpConrMapGid,jdbcType=INTEGER},
+      <if test="dpConrCd != null">
+        #{dpConrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="mapGrpNm != null">
+        #{mapGrpNm,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null">
+        #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpCornerMapGroupEntityCriteria" resultType="java.lang.Long">
+    select count(*) from dp_conr_map_grp TDCMG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TDCMG
+    <set>
+      <if test="record.dpConrMapGid != null">
+        
+      </if>
+      <if test="record.dpConrCd != null">
+        TDCMG.DP_CONR_CD = #{record.dpConrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mapGrpNm != null">
+        TDCMG.MAP_GRP_NM = #{record.mapGrpNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpYn != null">
+        TDCMG.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sord != null">
+        TDCMG.SORD = #{record.sord,jdbcType=DECIMAL},
+      </if>
+      <if test="record.regDt != null">
+        TDCMG.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TDCMG.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from dp_conr_map_grp TDCMG
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update dp_conr_map_grp TDCMG
+    set 
+      TDCMG.DP_CONR_CD = #{record.dpConrCd,jdbcType=VARCHAR},
+      TDCMG.MAP_GRP_NM = #{record.mapGrpNm,jdbcType=VARCHAR},
+      TDCMG.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TDCMG.SORD = #{record.sord,jdbcType=DECIMAL},
+      TDCMG.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TDCMG.REG_ID = #{record.regId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCornerMapGroupEntity">
+    update dp_conr_map_grp
+    <set>
+      <if test="dpConrCd != null">
+        DP_CONR_CD = #{dpConrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="mapGrpNm != null">
+        MAP_GRP_NM = #{mapGrpNm,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null">
+        SORD = #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DP_CONR_MAP_GID = #{dpConrMapGid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCornerMapGroupEntity">
+    update dp_conr_map_grp
+    set DP_CONR_CD = #{dpConrCd,jdbcType=VARCHAR},
+      MAP_GRP_NM = #{mapGrpNm,jdbcType=VARCHAR},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      SORD = #{sord,jdbcType=DECIMAL},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR}
+    where DP_CONR_MAP_GID = #{dpConrMapGid,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCornerMapGroupEntity">
+    update dp_conr_map_grp
+    <set>
+      <if test="dpConrCd != null">
+        DP_CONR_CD = null,
+      </if>
+      <if test="mapGrpNm != null">
+        MAP_GRP_NM = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="sord != null">
+        SORD = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and DP_CONR_MAP_GID = #{dpConrMapGid,jdbcType=INTEGER}
+  </update>
+</mapper>

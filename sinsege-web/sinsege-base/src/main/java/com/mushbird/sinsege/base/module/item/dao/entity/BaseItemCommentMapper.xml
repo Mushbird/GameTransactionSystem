@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.item.dao.BaseItemCommentMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.item.model.ItemComment">
+    <id column="TIC_ITEM_CMT_ID" jdbcType="INTEGER" property="itemCmtId" />
+    <result column="TIC_ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TIC_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="TIC_ORD_ITEM_ID" jdbcType="INTEGER" property="ordItemId" />
+    <result column="TIC_ITEM_CMT_TP_CD" jdbcType="VARCHAR" property="itemCmtTpCd" />
+    <result column="TIC_TIT" jdbcType="VARCHAR" property="tit" />
+    <result column="TIC_CONT" jdbcType="VARCHAR" property="cont" />
+    <result column="TIC_STAR_PT" jdbcType="DECIMAL" property="starPt" />
+    <result column="TIC_REG_ENV_CD" jdbcType="VARCHAR" property="regEnvCd" />
+    <result column="TIC_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TIC_ATCH_GID" jdbcType="INTEGER" property="atchGid" />
+    <result column="TIC_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TIC_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TIC_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TIC_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TIC_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TIC.ITEM_CMT_ID as TIC_ITEM_CMT_ID, TIC.ITEM_ID as TIC_ITEM_ID, TIC.MBR_ID as TIC_MBR_ID, 
+    TIC.ORD_ITEM_ID as TIC_ORD_ITEM_ID, TIC.ITEM_CMT_TP_CD as TIC_ITEM_CMT_TP_CD, TIC.TIT as TIC_TIT, 
+    TIC.CONT as TIC_CONT, TIC.STAR_PT as TIC_STAR_PT, TIC.REG_ENV_CD as TIC_REG_ENV_CD, 
+    TIC.DP_YN as TIC_DP_YN, TIC.ATCH_GID as TIC_ATCH_GID, TIC.REG_DT as TIC_REG_DT, TIC.REG_ID as TIC_REG_ID, 
+    TIC.MOD_DT as TIC_MOD_DT, TIC.MOD_ID as TIC_MOD_ID, TIC.USE_YN as TIC_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemCommentEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item_cmt TIC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_cmt TIC
+    where TIC.ITEM_CMT_ID = #{itemCmtId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from item_cmt
+    where ITEM_CMT_ID = #{itemCmtId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemCommentEntityCriteria">
+    delete TIC from item_cmt TIC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemCommentEntity">
+    <selectKey keyProperty="itemCmtId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ITEM_CMT
+    </selectKey>
+    insert into item_cmt (ITEM_CMT_ID, ITEM_ID, MBR_ID, 
+      ORD_ITEM_ID, ITEM_CMT_TP_CD, TIT, 
+      CONT, STAR_PT, REG_ENV_CD, 
+      DP_YN, ATCH_GID, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID, 
+      USE_YN)
+    values (#{itemCmtId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{mbrId,jdbcType=VARCHAR}, 
+      #{ordItemId,jdbcType=INTEGER}, #{itemCmtTpCd,jdbcType=VARCHAR}, #{tit,jdbcType=VARCHAR}, 
+      #{cont,jdbcType=VARCHAR}, #{starPt,jdbcType=DECIMAL}, #{regEnvCd,jdbcType=VARCHAR}, 
+      #{dpYn,jdbcType=VARCHAR}, #{atchGid,jdbcType=INTEGER}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, 
+      #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemCommentEntity">
+    <selectKey keyProperty="itemCmtId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ITEM_CMT
+    </selectKey>
+    insert into item_cmt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ITEM_CMT_ID,
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="ordItemId != null">
+        ORD_ITEM_ID,
+      </if>
+      <if test="itemCmtTpCd != null">
+        ITEM_CMT_TP_CD,
+      </if>
+      <if test="tit != null">
+        TIT,
+      </if>
+      <if test="cont != null">
+        CONT,
+      </if>
+      <if test="starPt != null">
+        STAR_PT,
+      </if>
+      <if test="regEnvCd != null">
+        REG_ENV_CD,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{itemCmtId,jdbcType=INTEGER},
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="ordItemId != null">
+        #{ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemCmtTpCd != null">
+        #{itemCmtTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="tit != null">
+        #{tit,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="starPt != null">
+        #{starPt,jdbcType=DECIMAL},
+      </if>
+      <if test="regEnvCd != null">
+        #{regEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="atchGid != null">
+        #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemCommentEntityCriteria" resultType="java.lang.Long">
+    select count(*) from item_cmt TIC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TIC
+    <set>
+      <if test="record.itemCmtId != null">
+        
+      </if>
+      <if test="record.itemId != null">
+        TIC.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mbrId != null">
+        TIC.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordItemId != null">
+        TIC.ORD_ITEM_ID = #{record.ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemCmtTpCd != null">
+        TIC.ITEM_CMT_TP_CD = #{record.itemCmtTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tit != null">
+        TIC.TIT = #{record.tit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cont != null">
+        TIC.CONT = #{record.cont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.starPt != null">
+        TIC.STAR_PT = #{record.starPt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.regEnvCd != null">
+        TIC.REG_ENV_CD = #{record.regEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpYn != null">
+        TIC.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atchGid != null">
+        TIC.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="record.regDt != null">
+        TIC.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TIC.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TIC.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TIC.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TIC.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from item_cmt TIC
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update item_cmt TIC
+    set 
+      TIC.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      TIC.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      TIC.ORD_ITEM_ID = #{record.ordItemId,jdbcType=INTEGER},
+      TIC.ITEM_CMT_TP_CD = #{record.itemCmtTpCd,jdbcType=VARCHAR},
+      TIC.TIT = #{record.tit,jdbcType=VARCHAR},
+      TIC.CONT = #{record.cont,jdbcType=VARCHAR},
+      TIC.STAR_PT = #{record.starPt,jdbcType=DECIMAL},
+      TIC.REG_ENV_CD = #{record.regEnvCd,jdbcType=VARCHAR},
+      TIC.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TIC.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      TIC.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TIC.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TIC.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TIC.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TIC.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemCommentEntity">
+    update item_cmt
+    <set>
+      <if test="itemId != null">
+        ITEM_ID = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="ordItemId != null">
+        ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemCmtTpCd != null">
+        ITEM_CMT_TP_CD = #{itemCmtTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="tit != null">
+        TIT = #{tit,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        CONT = #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="starPt != null">
+        STAR_PT = #{starPt,jdbcType=DECIMAL},
+      </if>
+      <if test="regEnvCd != null">
+        REG_ENV_CD = #{regEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ITEM_CMT_ID = #{itemCmtId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemCommentEntity">
+    update item_cmt
+    set ITEM_ID = #{itemId,jdbcType=INTEGER},
+      MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER},
+      ITEM_CMT_TP_CD = #{itemCmtTpCd,jdbcType=VARCHAR},
+      TIT = #{tit,jdbcType=VARCHAR},
+      CONT = #{cont,jdbcType=VARCHAR},
+      STAR_PT = #{starPt,jdbcType=DECIMAL},
+      REG_ENV_CD = #{regEnvCd,jdbcType=VARCHAR},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where ITEM_CMT_ID = #{itemCmtId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemCommentEntity">
+    update item_cmt
+    <set>
+      <if test="itemId != null">
+        ITEM_ID = null,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="ordItemId != null">
+        ORD_ITEM_ID = null,
+      </if>
+      <if test="itemCmtTpCd != null">
+        ITEM_CMT_TP_CD = null,
+      </if>
+      <if test="tit != null">
+        TIT = null,
+      </if>
+      <if test="cont != null">
+        CONT = null,
+      </if>
+      <if test="starPt != null">
+        STAR_PT = null,
+      </if>
+      <if test="regEnvCd != null">
+        REG_ENV_CD = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and ITEM_CMT_ID = #{itemCmtId,jdbcType=INTEGER}
+  </update>
+</mapper>

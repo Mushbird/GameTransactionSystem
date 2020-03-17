@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.reward.dao.BaseCouponTargetCategoryMapMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.reward.model.CouponTargetCategoryMap">
+    <id column="TCTCM_CPN_ID" jdbcType="INTEGER" property="cpnId" />
+    <id column="TCTCM_DP_CATE_ID" jdbcType="INTEGER" property="dpCateId" />
+    <result column="TCTCM_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TCTCM_REG_ID" jdbcType="VARCHAR" property="regId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TCTCM.CPN_ID as TCTCM_CPN_ID, TCTCM.DP_CATE_ID as TCTCM_DP_CATE_ID, TCTCM.REG_DT as TCTCM_REG_DT, 
+    TCTCM.REG_ID as TCTCM_REG_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.CouponTargetCategoryMapEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cpn_tgt_item_cate_map TCTCM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponTargetCategoryMapKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cpn_tgt_item_cate_map TCTCM
+    where TCTCM.CPN_ID = #{cpnId,jdbcType=INTEGER}
+      and TCTCM.DP_CATE_ID = #{dpCateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponTargetCategoryMapKey">
+    delete from cpn_tgt_item_cate_map
+    where CPN_ID = #{cpnId,jdbcType=INTEGER}
+      and DP_CATE_ID = #{dpCateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.CouponTargetCategoryMapEntityCriteria">
+    delete TCTCM from cpn_tgt_item_cate_map TCTCM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponTargetCategoryMapEntity">
+    insert into cpn_tgt_item_cate_map (CPN_ID, DP_CATE_ID, REG_DT, 
+      REG_ID)
+    values (#{cpnId,jdbcType=INTEGER}, #{dpCateId,jdbcType=INTEGER}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponTargetCategoryMapEntity">
+    insert into cpn_tgt_item_cate_map
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cpnId != null">
+        CPN_ID,
+      </if>
+      <if test="dpCateId != null">
+        DP_CATE_ID,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cpnId != null">
+        #{cpnId,jdbcType=INTEGER},
+      </if>
+      <if test="dpCateId != null">
+        #{dpCateId,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.CouponTargetCategoryMapEntityCriteria" resultType="java.lang.Long">
+    select count(*) from cpn_tgt_item_cate_map TCTCM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TCTCM
+    <set>
+      <if test="record.cpnId != null">
+        
+      </if>
+      <if test="record.dpCateId != null">
+        
+      </if>
+      <if test="record.regDt != null">
+        TCTCM.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TCTCM.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from cpn_tgt_item_cate_map TCTCM
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update cpn_tgt_item_cate_map TCTCM
+    set 
+      
+      TCTCM.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TCTCM.REG_ID = #{record.regId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponTargetCategoryMapEntity">
+    update cpn_tgt_item_cate_map
+    <set>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CPN_ID = #{cpnId,jdbcType=INTEGER}
+      and DP_CATE_ID = #{dpCateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponTargetCategoryMapEntity">
+    update cpn_tgt_item_cate_map
+    set REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR}
+    where CPN_ID = #{cpnId,jdbcType=INTEGER}
+      and DP_CATE_ID = #{dpCateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponTargetCategoryMapEntity">
+    update cpn_tgt_item_cate_map
+    <set>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and CPN_ID = #{cpnId,jdbcType=INTEGER}
+    and DP_CATE_ID = #{dpCateId,jdbcType=INTEGER}
+  </update>
+</mapper>

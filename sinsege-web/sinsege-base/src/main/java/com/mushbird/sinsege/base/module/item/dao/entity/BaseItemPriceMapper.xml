@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.item.dao.BaseItemPriceMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.item.model.ItemPrice">
+    <id column="TIP_ITEM_PRC_ID" jdbcType="INTEGER" property="itemPrcId" />
+    <result column="TIP_ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TIP_ITEM_SET_ID" jdbcType="INTEGER" property="itemSetId" />
+    <result column="TIP_DP_CH_ID" jdbcType="INTEGER" property="dpChId" />
+    <result column="TIP_ITEM_PRC_TP_CD" jdbcType="VARCHAR" property="itemPrcTpCd" />
+    <result column="TIP_SPLY_UPRC" jdbcType="INTEGER" property="splyUprc" />
+    <result column="TIP_SPLY_PRC" jdbcType="INTEGER" property="splyPrc" />
+    <result column="TIP_SELL_PRC" jdbcType="INTEGER" property="sellPrc" />
+    <result column="TIP_DC_RATE" jdbcType="DECIMAL" property="dcRate" />
+    <result column="TIP_COMS_RATE" jdbcType="DECIMAL" property="comsRate" />
+    <result column="TIP_COMS_AMT" jdbcType="INTEGER" property="comsAmt" />
+    <result column="TIP_APLY_YN" jdbcType="VARCHAR" property="aplyYn" />
+    <result column="TIP_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TIP_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TIP_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TIP_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TIP_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TIP.ITEM_PRC_ID as TIP_ITEM_PRC_ID, TIP.ITEM_ID as TIP_ITEM_ID, TIP.ITEM_SET_ID as TIP_ITEM_SET_ID, 
+    TIP.DP_CH_ID as TIP_DP_CH_ID, TIP.ITEM_PRC_TP_CD as TIP_ITEM_PRC_TP_CD, TIP.SPLY_UPRC as TIP_SPLY_UPRC, 
+    TIP.SPLY_PRC as TIP_SPLY_PRC, TIP.SELL_PRC as TIP_SELL_PRC, TIP.DC_RATE as TIP_DC_RATE, 
+    TIP.COMS_RATE as TIP_COMS_RATE, TIP.COMS_AMT as TIP_COMS_AMT, TIP.APLY_YN as TIP_APLY_YN, 
+    TIP.REG_DT as TIP_REG_DT, TIP.REG_ID as TIP_REG_ID, TIP.MOD_DT as TIP_MOD_DT, TIP.MOD_ID as TIP_MOD_ID, 
+    TIP.USE_YN as TIP_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemPriceEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item_prc TIP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_prc TIP
+    where TIP.ITEM_PRC_ID = #{itemPrcId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from item_prc
+    where ITEM_PRC_ID = #{itemPrcId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemPriceEntityCriteria">
+    delete TIP from item_prc TIP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemPriceEntity">
+    insert into item_prc (ITEM_PRC_ID, ITEM_ID, ITEM_SET_ID, 
+      DP_CH_ID, ITEM_PRC_TP_CD, SPLY_UPRC, 
+      SPLY_PRC, SELL_PRC, DC_RATE, 
+      COMS_RATE, COMS_AMT, APLY_YN, 
+      REG_DT, REG_ID, MOD_DT, 
+      MOD_ID, USE_YN)
+    values (#{itemPrcId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{itemSetId,jdbcType=INTEGER}, 
+      #{dpChId,jdbcType=INTEGER}, #{itemPrcTpCd,jdbcType=VARCHAR}, #{splyUprc,jdbcType=INTEGER}, 
+      #{splyPrc,jdbcType=INTEGER}, #{sellPrc,jdbcType=INTEGER}, #{dcRate,jdbcType=DECIMAL}, 
+      #{comsRate,jdbcType=DECIMAL}, #{comsAmt,jdbcType=INTEGER}, #{aplyYn,jdbcType=VARCHAR}, 
+      #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, 
+      #{modId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemPriceEntity">
+    insert into item_prc
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemPrcId != null">
+        ITEM_PRC_ID,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="itemSetId != null">
+        ITEM_SET_ID,
+      </if>
+      <if test="dpChId != null">
+        DP_CH_ID,
+      </if>
+      <if test="itemPrcTpCd != null">
+        ITEM_PRC_TP_CD,
+      </if>
+      <if test="splyUprc != null">
+        SPLY_UPRC,
+      </if>
+      <if test="splyPrc != null">
+        SPLY_PRC,
+      </if>
+      <if test="sellPrc != null">
+        SELL_PRC,
+      </if>
+      <if test="dcRate != null">
+        DC_RATE,
+      </if>
+      <if test="comsRate != null">
+        COMS_RATE,
+      </if>
+      <if test="comsAmt != null">
+        COMS_AMT,
+      </if>
+      <if test="aplyYn != null">
+        APLY_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemPrcId != null">
+        #{itemPrcId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemSetId != null">
+        #{itemSetId,jdbcType=INTEGER},
+      </if>
+      <if test="dpChId != null">
+        #{dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="itemPrcTpCd != null">
+        #{itemPrcTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="splyUprc != null">
+        #{splyUprc,jdbcType=INTEGER},
+      </if>
+      <if test="splyPrc != null">
+        #{splyPrc,jdbcType=INTEGER},
+      </if>
+      <if test="sellPrc != null">
+        #{sellPrc,jdbcType=INTEGER},
+      </if>
+      <if test="dcRate != null">
+        #{dcRate,jdbcType=DECIMAL},
+      </if>
+      <if test="comsRate != null">
+        #{comsRate,jdbcType=DECIMAL},
+      </if>
+      <if test="comsAmt != null">
+        #{comsAmt,jdbcType=INTEGER},
+      </if>
+      <if test="aplyYn != null">
+        #{aplyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemPriceEntityCriteria" resultType="java.lang.Long">
+    select count(*) from item_prc TIP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TIP
+    <set>
+      <if test="record.itemPrcId != null">
+        
+      </if>
+      <if test="record.itemId != null">
+        TIP.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemSetId != null">
+        TIP.ITEM_SET_ID = #{record.itemSetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dpChId != null">
+        TIP.DP_CH_ID = #{record.dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemPrcTpCd != null">
+        TIP.ITEM_PRC_TP_CD = #{record.itemPrcTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.splyUprc != null">
+        TIP.SPLY_UPRC = #{record.splyUprc,jdbcType=INTEGER},
+      </if>
+      <if test="record.splyPrc != null">
+        TIP.SPLY_PRC = #{record.splyPrc,jdbcType=INTEGER},
+      </if>
+      <if test="record.sellPrc != null">
+        TIP.SELL_PRC = #{record.sellPrc,jdbcType=INTEGER},
+      </if>
+      <if test="record.dcRate != null">
+        TIP.DC_RATE = #{record.dcRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.comsRate != null">
+        TIP.COMS_RATE = #{record.comsRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.comsAmt != null">
+        TIP.COMS_AMT = #{record.comsAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.aplyYn != null">
+        TIP.APLY_YN = #{record.aplyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TIP.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TIP.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TIP.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TIP.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TIP.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from item_prc TIP
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update item_prc TIP
+    set 
+      TIP.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      TIP.ITEM_SET_ID = #{record.itemSetId,jdbcType=INTEGER},
+      TIP.DP_CH_ID = #{record.dpChId,jdbcType=INTEGER},
+      TIP.ITEM_PRC_TP_CD = #{record.itemPrcTpCd,jdbcType=VARCHAR},
+      TIP.SPLY_UPRC = #{record.splyUprc,jdbcType=INTEGER},
+      TIP.SPLY_PRC = #{record.splyPrc,jdbcType=INTEGER},
+      TIP.SELL_PRC = #{record.sellPrc,jdbcType=INTEGER},
+      TIP.DC_RATE = #{record.dcRate,jdbcType=DECIMAL},
+      TIP.COMS_RATE = #{record.comsRate,jdbcType=DECIMAL},
+      TIP.COMS_AMT = #{record.comsAmt,jdbcType=INTEGER},
+      TIP.APLY_YN = #{record.aplyYn,jdbcType=VARCHAR},
+      TIP.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TIP.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TIP.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TIP.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TIP.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemPriceEntity">
+    update item_prc
+    <set>
+      <if test="itemId != null">
+        ITEM_ID = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemSetId != null">
+        ITEM_SET_ID = #{itemSetId,jdbcType=INTEGER},
+      </if>
+      <if test="dpChId != null">
+        DP_CH_ID = #{dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="itemPrcTpCd != null">
+        ITEM_PRC_TP_CD = #{itemPrcTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="splyUprc != null">
+        SPLY_UPRC = #{splyUprc,jdbcType=INTEGER},
+      </if>
+      <if test="splyPrc != null">
+        SPLY_PRC = #{splyPrc,jdbcType=INTEGER},
+      </if>
+      <if test="sellPrc != null">
+        SELL_PRC = #{sellPrc,jdbcType=INTEGER},
+      </if>
+      <if test="dcRate != null">
+        DC_RATE = #{dcRate,jdbcType=DECIMAL},
+      </if>
+      <if test="comsRate != null">
+        COMS_RATE = #{comsRate,jdbcType=DECIMAL},
+      </if>
+      <if test="comsAmt != null">
+        COMS_AMT = #{comsAmt,jdbcType=INTEGER},
+      </if>
+      <if test="aplyYn != null">
+        APLY_YN = #{aplyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ITEM_PRC_ID = #{itemPrcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemPriceEntity">
+    update item_prc
+    set ITEM_ID = #{itemId,jdbcType=INTEGER},
+      ITEM_SET_ID = #{itemSetId,jdbcType=INTEGER},
+      DP_CH_ID = #{dpChId,jdbcType=INTEGER},
+      ITEM_PRC_TP_CD = #{itemPrcTpCd,jdbcType=VARCHAR},
+      SPLY_UPRC = #{splyUprc,jdbcType=INTEGER},
+      SPLY_PRC = #{splyPrc,jdbcType=INTEGER},
+      SELL_PRC = #{sellPrc,jdbcType=INTEGER},
+      DC_RATE = #{dcRate,jdbcType=DECIMAL},
+      COMS_RATE = #{comsRate,jdbcType=DECIMAL},
+      COMS_AMT = #{comsAmt,jdbcType=INTEGER},
+      APLY_YN = #{aplyYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where ITEM_PRC_ID = #{itemPrcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemPriceEntity">
+    update item_prc
+    <set>
+      <if test="itemId != null">
+        ITEM_ID = null,
+      </if>
+      <if test="itemSetId != null">
+        ITEM_SET_ID = null,
+      </if>
+      <if test="dpChId != null">
+        DP_CH_ID = null,
+      </if>
+      <if test="itemPrcTpCd != null">
+        ITEM_PRC_TP_CD = null,
+      </if>
+      <if test="splyUprc != null">
+        SPLY_UPRC = null,
+      </if>
+      <if test="splyPrc != null">
+        SPLY_PRC = null,
+      </if>
+      <if test="sellPrc != null">
+        SELL_PRC = null,
+      </if>
+      <if test="dcRate != null">
+        DC_RATE = null,
+      </if>
+      <if test="comsRate != null">
+        COMS_RATE = null,
+      </if>
+      <if test="comsAmt != null">
+        COMS_AMT = null,
+      </if>
+      <if test="aplyYn != null">
+        APLY_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and ITEM_PRC_ID = #{itemPrcId,jdbcType=INTEGER}
+  </update>
+</mapper>

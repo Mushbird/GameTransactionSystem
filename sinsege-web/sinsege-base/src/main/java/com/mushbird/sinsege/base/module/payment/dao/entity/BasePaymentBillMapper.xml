@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.payment.dao.BasePaymentBillMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.payment.model.PaymentBill">
+    <id column="TPAYB_PAY_BILL_ID" jdbcType="INTEGER" property="payBillId" />
+    <result column="TPAYB_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="TPAYB_BILLKEY" jdbcType="VARCHAR" property="billkey" />
+    <result column="TPAYB_CCRD_HGL_NM" jdbcType="VARCHAR" property="ccrdHglNm" />
+    <result column="TPAYB_CHK_CARD_YN_VAL" jdbcType="VARCHAR" property="chkCardYnVal" />
+    <result column="TPAYB_RAW_DATA_CONT" jdbcType="VARCHAR" property="rawDataCont" />
+    <result column="TPAYB_RCV_RAW_DATA_CONT" jdbcType="VARCHAR" property="rcvRawDataCont" />
+    <result column="TPAYB_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TPAYB_REG_ID" jdbcType="VARCHAR" property="regId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TPAYB.PAY_BILL_ID as TPAYB_PAY_BILL_ID, TPAYB.MBR_ID as TPAYB_MBR_ID, TPAYB.BILLKEY as TPAYB_BILLKEY, 
+    TPAYB.CCRD_HGL_NM as TPAYB_CCRD_HGL_NM, TPAYB.CHK_CARD_YN_VAL as TPAYB_CHK_CARD_YN_VAL, 
+    TPAYB.RAW_DATA_CONT as TPAYB_RAW_DATA_CONT, TPAYB.RCV_RAW_DATA_CONT as TPAYB_RCV_RAW_DATA_CONT, 
+    TPAYB.REG_DT as TPAYB_REG_DT, TPAYB.REG_ID as TPAYB_REG_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.criteria.PaymentBillEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pay_bill TPAYB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pay_bill TPAYB
+    where TPAYB.PAY_BILL_ID = #{payBillId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pay_bill
+    where PAY_BILL_ID = #{payBillId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.criteria.PaymentBillEntityCriteria">
+    delete TPAYB from pay_bill TPAYB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentBillEntity">
+    <selectKey keyProperty="payBillId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_PAY_BILL
+    </selectKey>
+    insert into pay_bill (PAY_BILL_ID, MBR_ID, BILLKEY, 
+      CCRD_HGL_NM, CHK_CARD_YN_VAL, RAW_DATA_CONT, 
+      RCV_RAW_DATA_CONT, REG_DT, REG_ID
+      )
+    values (#{payBillId,jdbcType=INTEGER}, #{mbrId,jdbcType=VARCHAR}, #{billkey,jdbcType=VARCHAR}, 
+      #{ccrdHglNm,jdbcType=VARCHAR}, #{chkCardYnVal,jdbcType=VARCHAR}, #{rawDataCont,jdbcType=VARCHAR}, 
+      #{rcvRawDataCont,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentBillEntity">
+    <selectKey keyProperty="payBillId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_PAY_BILL
+    </selectKey>
+    insert into pay_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      PAY_BILL_ID,
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="billkey != null">
+        BILLKEY,
+      </if>
+      <if test="ccrdHglNm != null">
+        CCRD_HGL_NM,
+      </if>
+      <if test="chkCardYnVal != null">
+        CHK_CARD_YN_VAL,
+      </if>
+      <if test="rawDataCont != null">
+        RAW_DATA_CONT,
+      </if>
+      <if test="rcvRawDataCont != null">
+        RCV_RAW_DATA_CONT,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{payBillId,jdbcType=INTEGER},
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="billkey != null">
+        #{billkey,jdbcType=VARCHAR},
+      </if>
+      <if test="ccrdHglNm != null">
+        #{ccrdHglNm,jdbcType=VARCHAR},
+      </if>
+      <if test="chkCardYnVal != null">
+        #{chkCardYnVal,jdbcType=VARCHAR},
+      </if>
+      <if test="rawDataCont != null">
+        #{rawDataCont,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvRawDataCont != null">
+        #{rcvRawDataCont,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.criteria.PaymentBillEntityCriteria" resultType="java.lang.Long">
+    select count(*) from pay_bill TPAYB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TPAYB
+    <set>
+      <if test="record.payBillId != null">
+        
+      </if>
+      <if test="record.mbrId != null">
+        TPAYB.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billkey != null">
+        TPAYB.BILLKEY = #{record.billkey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ccrdHglNm != null">
+        TPAYB.CCRD_HGL_NM = #{record.ccrdHglNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chkCardYnVal != null">
+        TPAYB.CHK_CARD_YN_VAL = #{record.chkCardYnVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rawDataCont != null">
+        TPAYB.RAW_DATA_CONT = #{record.rawDataCont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rcvRawDataCont != null">
+        TPAYB.RCV_RAW_DATA_CONT = #{record.rcvRawDataCont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TPAYB.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TPAYB.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from pay_bill TPAYB
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update pay_bill TPAYB
+    set 
+      TPAYB.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      TPAYB.BILLKEY = #{record.billkey,jdbcType=VARCHAR},
+      TPAYB.CCRD_HGL_NM = #{record.ccrdHglNm,jdbcType=VARCHAR},
+      TPAYB.CHK_CARD_YN_VAL = #{record.chkCardYnVal,jdbcType=VARCHAR},
+      TPAYB.RAW_DATA_CONT = #{record.rawDataCont,jdbcType=VARCHAR},
+      TPAYB.RCV_RAW_DATA_CONT = #{record.rcvRawDataCont,jdbcType=VARCHAR},
+      TPAYB.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TPAYB.REG_ID = #{record.regId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentBillEntity">
+    update pay_bill
+    <set>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="billkey != null">
+        BILLKEY = #{billkey,jdbcType=VARCHAR},
+      </if>
+      <if test="ccrdHglNm != null">
+        CCRD_HGL_NM = #{ccrdHglNm,jdbcType=VARCHAR},
+      </if>
+      <if test="chkCardYnVal != null">
+        CHK_CARD_YN_VAL = #{chkCardYnVal,jdbcType=VARCHAR},
+      </if>
+      <if test="rawDataCont != null">
+        RAW_DATA_CONT = #{rawDataCont,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvRawDataCont != null">
+        RCV_RAW_DATA_CONT = #{rcvRawDataCont,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PAY_BILL_ID = #{payBillId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentBillEntity">
+    update pay_bill
+    set MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      BILLKEY = #{billkey,jdbcType=VARCHAR},
+      CCRD_HGL_NM = #{ccrdHglNm,jdbcType=VARCHAR},
+      CHK_CARD_YN_VAL = #{chkCardYnVal,jdbcType=VARCHAR},
+      RAW_DATA_CONT = #{rawDataCont,jdbcType=VARCHAR},
+      RCV_RAW_DATA_CONT = #{rcvRawDataCont,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR}
+    where PAY_BILL_ID = #{payBillId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentBillEntity">
+    update pay_bill
+    <set>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="billkey != null">
+        BILLKEY = null,
+      </if>
+      <if test="ccrdHglNm != null">
+        CCRD_HGL_NM = null,
+      </if>
+      <if test="chkCardYnVal != null">
+        CHK_CARD_YN_VAL = null,
+      </if>
+      <if test="rawDataCont != null">
+        RAW_DATA_CONT = null,
+      </if>
+      <if test="rcvRawDataCont != null">
+        RCV_RAW_DATA_CONT = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and PAY_BILL_ID = #{payBillId,jdbcType=INTEGER}
+  </update>
+</mapper>

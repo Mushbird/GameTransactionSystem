@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.ven.dao.BaseVenMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.ven.model.Ven">
+    <id column="TV_VEN_ID" jdbcType="INTEGER" property="venId" />
+    <result column="TV_VEN_TP_CD" jdbcType="VARCHAR" property="venTpCd" />
+    <result column="TV_ETR_VEN_CL_CD" jdbcType="VARCHAR" property="etrVenClCd" />
+    <result column="TV_VEN_STAT_CD" jdbcType="VARCHAR" property="venStatCd" />
+    <result column="TV_VEN_CD" jdbcType="VARCHAR" property="venCd" />
+    <result column="TV_VEN_NM" jdbcType="VARCHAR" property="venNm" />
+    <result column="TV_REP_NM" jdbcType="VARCHAR" property="repNm" />
+    <result column="TV_TEL_NO" jdbcType="VARCHAR" property="telNo" />
+    <result column="TV_CP_NO" jdbcType="VARCHAR" property="cpNo" />
+    <result column="TV_FAX_NO" jdbcType="VARCHAR" property="faxNo" />
+    <result column="TV_EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="TV_ZIPCD" jdbcType="VARCHAR" property="zipcd" />
+    <result column="TV_ADDR" jdbcType="VARCHAR" property="addr" />
+    <result column="TV_BIZ_CL_CD" jdbcType="VARCHAR" property="bizClCd" />
+    <result column="TV_BIZ_NO" jdbcType="VARCHAR" property="bizNo" />
+    <result column="TV_INC_NO" jdbcType="VARCHAR" property="incNo" />
+    <result column="TV_BIZ_COND" jdbcType="VARCHAR" property="bizCond" />
+    <result column="TV_BIZ_TP" jdbcType="VARCHAR" property="bizTp" />
+    <result column="TV_TAX_CL_CD" jdbcType="VARCHAR" property="taxClCd" />
+    <result column="TV_AFF_VEN_CD_USE_PD_LIM_YN" jdbcType="VARCHAR" property="affVenCdUsePdLimYn" />
+    <result column="TV_AFF_VEN_CD_USE_PD_ST_DAY" jdbcType="VARCHAR" property="affVenCdUsePdStDay" />
+    <result column="TV_AFF_VEN_CD_USE_PD_ED_DAY" jdbcType="VARCHAR" property="affVenCdUsePdEdDay" />
+    <result column="TV_ETR_DT" jdbcType="TIMESTAMP" property="etrDt" />
+    <result column="TV_REP_VEN_YN" jdbcType="VARCHAR" property="repVenYn" />
+    <result column="TV_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TV_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TV_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TV_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TV_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TV.VEN_ID as TV_VEN_ID, TV.VEN_TP_CD as TV_VEN_TP_CD, TV.ETR_VEN_CL_CD as TV_ETR_VEN_CL_CD, 
+    TV.VEN_STAT_CD as TV_VEN_STAT_CD, TV.VEN_CD as TV_VEN_CD, TV.VEN_NM as TV_VEN_NM, 
+    TV.REP_NM as TV_REP_NM, TV.TEL_NO as TV_TEL_NO, TV.CP_NO as TV_CP_NO, TV.FAX_NO as TV_FAX_NO, 
+    TV.EMAIL as TV_EMAIL, TV.ZIPCD as TV_ZIPCD, TV.ADDR as TV_ADDR, TV.BIZ_CL_CD as TV_BIZ_CL_CD, 
+    TV.BIZ_NO as TV_BIZ_NO, TV.INC_NO as TV_INC_NO, TV.BIZ_COND as TV_BIZ_COND, TV.BIZ_TP as TV_BIZ_TP, 
+    TV.TAX_CL_CD as TV_TAX_CL_CD, TV.AFF_VEN_CD_USE_PD_LIM_YN as TV_AFF_VEN_CD_USE_PD_LIM_YN, 
+    TV.AFF_VEN_CD_USE_PD_ST_DAY as TV_AFF_VEN_CD_USE_PD_ST_DAY, TV.AFF_VEN_CD_USE_PD_ED_DAY as TV_AFF_VEN_CD_USE_PD_ED_DAY, 
+    TV.ETR_DT as TV_ETR_DT, TV.REP_VEN_YN as TV_REP_VEN_YN, TV.REG_DT as TV_REG_DT, TV.REG_ID as TV_REG_ID, 
+    TV.MOD_DT as TV_MOD_DT, TV.MOD_ID as TV_MOD_ID, TV.USE_YN as TV_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.ven.model.entity.criteria.VenEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ven TV
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ven TV
+    where TV.VEN_ID = #{venId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ven
+    where VEN_ID = #{venId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.ven.model.entity.criteria.VenEntityCriteria">
+    delete TV from ven TV
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.ven.model.entity.VenEntity">
+    <selectKey keyProperty="venId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_VEN
+    </selectKey>
+    insert into ven (VEN_ID, VEN_TP_CD, ETR_VEN_CL_CD, 
+      VEN_STAT_CD, VEN_CD, VEN_NM, 
+      REP_NM, TEL_NO, CP_NO, 
+      FAX_NO, EMAIL, ZIPCD, 
+      ADDR, BIZ_CL_CD, BIZ_NO, 
+      INC_NO, BIZ_COND, BIZ_TP, 
+      TAX_CL_CD, AFF_VEN_CD_USE_PD_LIM_YN, AFF_VEN_CD_USE_PD_ST_DAY, 
+      AFF_VEN_CD_USE_PD_ED_DAY, ETR_DT, REP_VEN_YN, 
+      REG_DT, REG_ID, MOD_DT, 
+      MOD_ID, USE_YN)
+    values (#{venId,jdbcType=INTEGER}, #{venTpCd,jdbcType=VARCHAR}, #{etrVenClCd,jdbcType=VARCHAR}, 
+      #{venStatCd,jdbcType=VARCHAR}, #{venCd,jdbcType=VARCHAR}, #{venNm,jdbcType=VARCHAR}, 
+      #{repNm,jdbcType=VARCHAR}, #{telNo,jdbcType=VARCHAR}, #{cpNo,jdbcType=VARCHAR}, 
+      #{faxNo,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{zipcd,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR}, #{bizClCd,jdbcType=VARCHAR}, #{bizNo,jdbcType=VARCHAR}, 
+      #{incNo,jdbcType=VARCHAR}, #{bizCond,jdbcType=VARCHAR}, #{bizTp,jdbcType=VARCHAR}, 
+      #{taxClCd,jdbcType=VARCHAR}, #{affVenCdUsePdLimYn,jdbcType=VARCHAR}, #{affVenCdUsePdStDay,jdbcType=VARCHAR}, 
+      #{affVenCdUsePdEdDay,jdbcType=VARCHAR}, #{etrDt,jdbcType=TIMESTAMP}, #{repVenYn,jdbcType=VARCHAR}, 
+      #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, 
+      #{modId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.ven.model.entity.VenEntity">
+    <selectKey keyProperty="venId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_VEN
+    </selectKey>
+    insert into ven
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      VEN_ID,
+      <if test="venTpCd != null">
+        VEN_TP_CD,
+      </if>
+      <if test="etrVenClCd != null">
+        ETR_VEN_CL_CD,
+      </if>
+      <if test="venStatCd != null">
+        VEN_STAT_CD,
+      </if>
+      <if test="venCd != null">
+        VEN_CD,
+      </if>
+      <if test="venNm != null">
+        VEN_NM,
+      </if>
+      <if test="repNm != null">
+        REP_NM,
+      </if>
+      <if test="telNo != null">
+        TEL_NO,
+      </if>
+      <if test="cpNo != null">
+        CP_NO,
+      </if>
+      <if test="faxNo != null">
+        FAX_NO,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="zipcd != null">
+        ZIPCD,
+      </if>
+      <if test="addr != null">
+        ADDR,
+      </if>
+      <if test="bizClCd != null">
+        BIZ_CL_CD,
+      </if>
+      <if test="bizNo != null">
+        BIZ_NO,
+      </if>
+      <if test="incNo != null">
+        INC_NO,
+      </if>
+      <if test="bizCond != null">
+        BIZ_COND,
+      </if>
+      <if test="bizTp != null">
+        BIZ_TP,
+      </if>
+      <if test="taxClCd != null">
+        TAX_CL_CD,
+      </if>
+      <if test="affVenCdUsePdLimYn != null">
+        AFF_VEN_CD_USE_PD_LIM_YN,
+      </if>
+      <if test="affVenCdUsePdStDay != null">
+        AFF_VEN_CD_USE_PD_ST_DAY,
+      </if>
+      <if test="affVenCdUsePdEdDay != null">
+        AFF_VEN_CD_USE_PD_ED_DAY,
+      </if>
+      <if test="etrDt != null">
+        ETR_DT,
+      </if>
+      <if test="repVenYn != null">
+        REP_VEN_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{venId,jdbcType=INTEGER},
+      <if test="venTpCd != null">
+        #{venTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="etrVenClCd != null">
+        #{etrVenClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="venStatCd != null">
+        #{venStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="venCd != null">
+        #{venCd,jdbcType=VARCHAR},
+      </if>
+      <if test="venNm != null">
+        #{venNm,jdbcType=VARCHAR},
+      </if>
+      <if test="repNm != null">
+        #{repNm,jdbcType=VARCHAR},
+      </if>
+      <if test="telNo != null">
+        #{telNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cpNo != null">
+        #{cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="faxNo != null">
+        #{faxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcd != null">
+        #{zipcd,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="bizClCd != null">
+        #{bizClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="bizNo != null">
+        #{bizNo,jdbcType=VARCHAR},
+      </if>
+      <if test="incNo != null">
+        #{incNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bizCond != null">
+        #{bizCond,jdbcType=VARCHAR},
+      </if>
+      <if test="bizTp != null">
+        #{bizTp,jdbcType=VARCHAR},
+      </if>
+      <if test="taxClCd != null">
+        #{taxClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="affVenCdUsePdLimYn != null">
+        #{affVenCdUsePdLimYn,jdbcType=VARCHAR},
+      </if>
+      <if test="affVenCdUsePdStDay != null">
+        #{affVenCdUsePdStDay,jdbcType=VARCHAR},
+      </if>
+      <if test="affVenCdUsePdEdDay != null">
+        #{affVenCdUsePdEdDay,jdbcType=VARCHAR},
+      </if>
+      <if test="etrDt != null">
+        #{etrDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repVenYn != null">
+        #{repVenYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.ven.model.entity.criteria.VenEntityCriteria" resultType="java.lang.Long">
+    select count(*) from ven TV
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TV
+    <set>
+      <if test="record.venId != null">
+        
+      </if>
+      <if test="record.venTpCd != null">
+        TV.VEN_TP_CD = #{record.venTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.etrVenClCd != null">
+        TV.ETR_VEN_CL_CD = #{record.etrVenClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.venStatCd != null">
+        TV.VEN_STAT_CD = #{record.venStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.venCd != null">
+        TV.VEN_CD = #{record.venCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.venNm != null">
+        TV.VEN_NM = #{record.venNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repNm != null">
+        TV.REP_NM = #{record.repNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telNo != null">
+        TV.TEL_NO = #{record.telNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpNo != null">
+        TV.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faxNo != null">
+        TV.FAX_NO = #{record.faxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        TV.EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zipcd != null">
+        TV.ZIPCD = #{record.zipcd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addr != null">
+        TV.ADDR = #{record.addr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizClCd != null">
+        TV.BIZ_CL_CD = #{record.bizClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizNo != null">
+        TV.BIZ_NO = #{record.bizNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.incNo != null">
+        TV.INC_NO = #{record.incNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizCond != null">
+        TV.BIZ_COND = #{record.bizCond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizTp != null">
+        TV.BIZ_TP = #{record.bizTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxClCd != null">
+        TV.TAX_CL_CD = #{record.taxClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.affVenCdUsePdLimYn != null">
+        TV.AFF_VEN_CD_USE_PD_LIM_YN = #{record.affVenCdUsePdLimYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.affVenCdUsePdStDay != null">
+        TV.AFF_VEN_CD_USE_PD_ST_DAY = #{record.affVenCdUsePdStDay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.affVenCdUsePdEdDay != null">
+        TV.AFF_VEN_CD_USE_PD_ED_DAY = #{record.affVenCdUsePdEdDay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.etrDt != null">
+        TV.ETR_DT = #{record.etrDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.repVenYn != null">
+        TV.REP_VEN_YN = #{record.repVenYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TV.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TV.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TV.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TV.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TV.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from ven TV
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update ven TV
+    set 
+      TV.VEN_TP_CD = #{record.venTpCd,jdbcType=VARCHAR},
+      TV.ETR_VEN_CL_CD = #{record.etrVenClCd,jdbcType=VARCHAR},
+      TV.VEN_STAT_CD = #{record.venStatCd,jdbcType=VARCHAR},
+      TV.VEN_CD = #{record.venCd,jdbcType=VARCHAR},
+      TV.VEN_NM = #{record.venNm,jdbcType=VARCHAR},
+      TV.REP_NM = #{record.repNm,jdbcType=VARCHAR},
+      TV.TEL_NO = #{record.telNo,jdbcType=VARCHAR},
+      TV.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      TV.FAX_NO = #{record.faxNo,jdbcType=VARCHAR},
+      TV.EMAIL = #{record.email,jdbcType=VARCHAR},
+      TV.ZIPCD = #{record.zipcd,jdbcType=VARCHAR},
+      TV.ADDR = #{record.addr,jdbcType=VARCHAR},
+      TV.BIZ_CL_CD = #{record.bizClCd,jdbcType=VARCHAR},
+      TV.BIZ_NO = #{record.bizNo,jdbcType=VARCHAR},
+      TV.INC_NO = #{record.incNo,jdbcType=VARCHAR},
+      TV.BIZ_COND = #{record.bizCond,jdbcType=VARCHAR},
+      TV.BIZ_TP = #{record.bizTp,jdbcType=VARCHAR},
+      TV.TAX_CL_CD = #{record.taxClCd,jdbcType=VARCHAR},
+      TV.AFF_VEN_CD_USE_PD_LIM_YN = #{record.affVenCdUsePdLimYn,jdbcType=VARCHAR},
+      TV.AFF_VEN_CD_USE_PD_ST_DAY = #{record.affVenCdUsePdStDay,jdbcType=VARCHAR},
+      TV.AFF_VEN_CD_USE_PD_ED_DAY = #{record.affVenCdUsePdEdDay,jdbcType=VARCHAR},
+      TV.ETR_DT = #{record.etrDt,jdbcType=TIMESTAMP},
+      TV.REP_VEN_YN = #{record.repVenYn,jdbcType=VARCHAR},
+      TV.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TV.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TV.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TV.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TV.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.ven.model.entity.VenEntity">
+    update ven
+    <set>
+      <if test="venTpCd != null">
+        VEN_TP_CD = #{venTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="etrVenClCd != null">
+        ETR_VEN_CL_CD = #{etrVenClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="venStatCd != null">
+        VEN_STAT_CD = #{venStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="venCd != null">
+        VEN_CD = #{venCd,jdbcType=VARCHAR},
+      </if>
+      <if test="venNm != null">
+        VEN_NM = #{venNm,jdbcType=VARCHAR},
+      </if>
+      <if test="repNm != null">
+        REP_NM = #{repNm,jdbcType=VARCHAR},
+      </if>
+      <if test="telNo != null">
+        TEL_NO = #{telNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cpNo != null">
+        CP_NO = #{cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="faxNo != null">
+        FAX_NO = #{faxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcd != null">
+        ZIPCD = #{zipcd,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        ADDR = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="bizClCd != null">
+        BIZ_CL_CD = #{bizClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="bizNo != null">
+        BIZ_NO = #{bizNo,jdbcType=VARCHAR},
+      </if>
+      <if test="incNo != null">
+        INC_NO = #{incNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bizCond != null">
+        BIZ_COND = #{bizCond,jdbcType=VARCHAR},
+      </if>
+      <if test="bizTp != null">
+        BIZ_TP = #{bizTp,jdbcType=VARCHAR},
+      </if>
+      <if test="taxClCd != null">
+        TAX_CL_CD = #{taxClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="affVenCdUsePdLimYn != null">
+        AFF_VEN_CD_USE_PD_LIM_YN = #{affVenCdUsePdLimYn,jdbcType=VARCHAR},
+      </if>
+      <if test="affVenCdUsePdStDay != null">
+        AFF_VEN_CD_USE_PD_ST_DAY = #{affVenCdUsePdStDay,jdbcType=VARCHAR},
+      </if>
+      <if test="affVenCdUsePdEdDay != null">
+        AFF_VEN_CD_USE_PD_ED_DAY = #{affVenCdUsePdEdDay,jdbcType=VARCHAR},
+      </if>
+      <if test="etrDt != null">
+        ETR_DT = #{etrDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repVenYn != null">
+        REP_VEN_YN = #{repVenYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where VEN_ID = #{venId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.ven.model.entity.VenEntity">
+    update ven
+    set VEN_TP_CD = #{venTpCd,jdbcType=VARCHAR},
+      ETR_VEN_CL_CD = #{etrVenClCd,jdbcType=VARCHAR},
+      VEN_STAT_CD = #{venStatCd,jdbcType=VARCHAR},
+      VEN_CD = #{venCd,jdbcType=VARCHAR},
+      VEN_NM = #{venNm,jdbcType=VARCHAR},
+      REP_NM = #{repNm,jdbcType=VARCHAR},
+      TEL_NO = #{telNo,jdbcType=VARCHAR},
+      CP_NO = #{cpNo,jdbcType=VARCHAR},
+      FAX_NO = #{faxNo,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      ZIPCD = #{zipcd,jdbcType=VARCHAR},
+      ADDR = #{addr,jdbcType=VARCHAR},
+      BIZ_CL_CD = #{bizClCd,jdbcType=VARCHAR},
+      BIZ_NO = #{bizNo,jdbcType=VARCHAR},
+      INC_NO = #{incNo,jdbcType=VARCHAR},
+      BIZ_COND = #{bizCond,jdbcType=VARCHAR},
+      BIZ_TP = #{bizTp,jdbcType=VARCHAR},
+      TAX_CL_CD = #{taxClCd,jdbcType=VARCHAR},
+      AFF_VEN_CD_USE_PD_LIM_YN = #{affVenCdUsePdLimYn,jdbcType=VARCHAR},
+      AFF_VEN_CD_USE_PD_ST_DAY = #{affVenCdUsePdStDay,jdbcType=VARCHAR},
+      AFF_VEN_CD_USE_PD_ED_DAY = #{affVenCdUsePdEdDay,jdbcType=VARCHAR},
+      ETR_DT = #{etrDt,jdbcType=TIMESTAMP},
+      REP_VEN_YN = #{repVenYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where VEN_ID = #{venId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.ven.model.entity.VenEntity">
+    update ven
+    <set>
+      <if test="venTpCd != null">
+        VEN_TP_CD = null,
+      </if>
+      <if test="etrVenClCd != null">
+        ETR_VEN_CL_CD = null,
+      </if>
+      <if test="venStatCd != null">
+        VEN_STAT_CD = null,
+      </if>
+      <if test="venCd != null">
+        VEN_CD = null,
+      </if>
+      <if test="venNm != null">
+        VEN_NM = null,
+      </if>
+      <if test="repNm != null">
+        REP_NM = null,
+      </if>
+      <if test="telNo != null">
+        TEL_NO = null,
+      </if>
+      <if test="cpNo != null">
+        CP_NO = null,
+      </if>
+      <if test="faxNo != null">
+        FAX_NO = null,
+      </if>
+      <if test="email != null">
+        EMAIL = null,
+      </if>
+      <if test="zipcd != null">
+        ZIPCD = null,
+      </if>
+      <if test="addr != null">
+        ADDR = null,
+      </if>
+      <if test="bizClCd != null">
+        BIZ_CL_CD = null,
+      </if>
+      <if test="bizNo != null">
+        BIZ_NO = null,
+      </if>
+      <if test="incNo != null">
+        INC_NO = null,
+      </if>
+      <if test="bizCond != null">
+        BIZ_COND = null,
+      </if>
+      <if test="bizTp != null">
+        BIZ_TP = null,
+      </if>
+      <if test="taxClCd != null">
+        TAX_CL_CD = null,
+      </if>
+      <if test="affVenCdUsePdLimYn != null">
+        AFF_VEN_CD_USE_PD_LIM_YN = null,
+      </if>
+      <if test="affVenCdUsePdStDay != null">
+        AFF_VEN_CD_USE_PD_ST_DAY = null,
+      </if>
+      <if test="affVenCdUsePdEdDay != null">
+        AFF_VEN_CD_USE_PD_ED_DAY = null,
+      </if>
+      <if test="etrDt != null">
+        ETR_DT = null,
+      </if>
+      <if test="repVenYn != null">
+        REP_VEN_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and VEN_ID = #{venId,jdbcType=INTEGER}
+  </update>
+</mapper>

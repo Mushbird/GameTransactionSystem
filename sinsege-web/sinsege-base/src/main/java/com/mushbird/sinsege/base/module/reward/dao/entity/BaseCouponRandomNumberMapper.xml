@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.reward.dao.BaseCouponRandomNumberMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.reward.model.CouponRandomNumber">
+    <id column="TCRN_CPN_RDNB_ID" jdbcType="INTEGER" property="cpnRdnbId" />
+    <result column="TCRN_CPN_ID" jdbcType="INTEGER" property="cpnId" />
+    <result column="TCRN_MBR_CPN_ID" jdbcType="INTEGER" property="mbrCpnId" />
+    <result column="TCRN_CPN_RDNB" jdbcType="VARCHAR" property="cpnRdnb" />
+    <result column="TCRN_APLY_YN" jdbcType="VARCHAR" property="aplyYn" />
+    <result column="TCRN_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TCRN_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TCRN_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TCRN.CPN_RDNB_ID as TCRN_CPN_RDNB_ID, TCRN.CPN_ID as TCRN_CPN_ID, TCRN.MBR_CPN_ID as TCRN_MBR_CPN_ID, 
+    TCRN.CPN_RDNB as TCRN_CPN_RDNB, TCRN.APLY_YN as TCRN_APLY_YN, TCRN.REG_DT as TCRN_REG_DT, 
+    TCRN.REG_ID as TCRN_REG_ID, TCRN.USE_YN as TCRN_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.CouponRandomNumberEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cpn_rdnb TCRN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cpn_rdnb TCRN
+    where TCRN.CPN_RDNB_ID = #{cpnRdnbId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cpn_rdnb
+    where CPN_RDNB_ID = #{cpnRdnbId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.CouponRandomNumberEntityCriteria">
+    delete TCRN from cpn_rdnb TCRN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponRandomNumberEntity">
+    <selectKey keyProperty="cpnRdnbId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_CPN_RDNB
+    </selectKey>
+    insert into cpn_rdnb (CPN_RDNB_ID, CPN_ID, MBR_CPN_ID, 
+      CPN_RDNB, APLY_YN, REG_DT, 
+      REG_ID, USE_YN)
+    values (#{cpnRdnbId,jdbcType=INTEGER}, #{cpnId,jdbcType=INTEGER}, #{mbrCpnId,jdbcType=INTEGER}, 
+      #{cpnRdnb,jdbcType=VARCHAR}, #{aplyYn,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponRandomNumberEntity">
+    <selectKey keyProperty="cpnRdnbId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_CPN_RDNB
+    </selectKey>
+    insert into cpn_rdnb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      CPN_RDNB_ID,
+      <if test="cpnId != null">
+        CPN_ID,
+      </if>
+      <if test="mbrCpnId != null">
+        MBR_CPN_ID,
+      </if>
+      <if test="cpnRdnb != null">
+        CPN_RDNB,
+      </if>
+      <if test="aplyYn != null">
+        APLY_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{cpnRdnbId,jdbcType=INTEGER},
+      <if test="cpnId != null">
+        #{cpnId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrCpnId != null">
+        #{mbrCpnId,jdbcType=INTEGER},
+      </if>
+      <if test="cpnRdnb != null">
+        #{cpnRdnb,jdbcType=VARCHAR},
+      </if>
+      <if test="aplyYn != null">
+        #{aplyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.CouponRandomNumberEntityCriteria" resultType="java.lang.Long">
+    select count(*) from cpn_rdnb TCRN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TCRN
+    <set>
+      <if test="record.cpnRdnbId != null">
+        
+      </if>
+      <if test="record.cpnId != null">
+        TCRN.CPN_ID = #{record.cpnId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mbrCpnId != null">
+        TCRN.MBR_CPN_ID = #{record.mbrCpnId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpnRdnb != null">
+        TCRN.CPN_RDNB = #{record.cpnRdnb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aplyYn != null">
+        TCRN.APLY_YN = #{record.aplyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TCRN.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TCRN.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TCRN.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from cpn_rdnb TCRN
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update cpn_rdnb TCRN
+    set 
+      TCRN.CPN_ID = #{record.cpnId,jdbcType=INTEGER},
+      TCRN.MBR_CPN_ID = #{record.mbrCpnId,jdbcType=INTEGER},
+      TCRN.CPN_RDNB = #{record.cpnRdnb,jdbcType=VARCHAR},
+      TCRN.APLY_YN = #{record.aplyYn,jdbcType=VARCHAR},
+      TCRN.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TCRN.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TCRN.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponRandomNumberEntity">
+    update cpn_rdnb
+    <set>
+      <if test="cpnId != null">
+        CPN_ID = #{cpnId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrCpnId != null">
+        MBR_CPN_ID = #{mbrCpnId,jdbcType=INTEGER},
+      </if>
+      <if test="cpnRdnb != null">
+        CPN_RDNB = #{cpnRdnb,jdbcType=VARCHAR},
+      </if>
+      <if test="aplyYn != null">
+        APLY_YN = #{aplyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CPN_RDNB_ID = #{cpnRdnbId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponRandomNumberEntity">
+    update cpn_rdnb
+    set CPN_ID = #{cpnId,jdbcType=INTEGER},
+      MBR_CPN_ID = #{mbrCpnId,jdbcType=INTEGER},
+      CPN_RDNB = #{cpnRdnb,jdbcType=VARCHAR},
+      APLY_YN = #{aplyYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where CPN_RDNB_ID = #{cpnRdnbId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponRandomNumberEntity">
+    update cpn_rdnb
+    <set>
+      <if test="cpnId != null">
+        CPN_ID = null,
+      </if>
+      <if test="mbrCpnId != null">
+        MBR_CPN_ID = null,
+      </if>
+      <if test="cpnRdnb != null">
+        CPN_RDNB = null,
+      </if>
+      <if test="aplyYn != null">
+        APLY_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and CPN_RDNB_ID = #{cpnRdnbId,jdbcType=INTEGER}
+  </update>
+</mapper>

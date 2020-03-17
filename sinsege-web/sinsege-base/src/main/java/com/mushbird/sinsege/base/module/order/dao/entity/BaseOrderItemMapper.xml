@@ -1,0 +1,1404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.order.dao.BaseOrderItemMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.order.model.OrderItem">
+    <id column="TOI_ORD_ITEM_ID" jdbcType="INTEGER" property="ordItemId" />
+    <result column="TOI_ORD_ID" jdbcType="INTEGER" property="ordId" />
+    <result column="TOI_ORD_ITEM_SEQ" jdbcType="DECIMAL" property="ordItemSeq" />
+    <result column="TOI_ORD_ITEM_NO" jdbcType="VARCHAR" property="ordItemNo" />
+    <result column="TOI_ORD_ITEM_STAT_CD" jdbcType="VARCHAR" property="ordItemStatCd" />
+    <result column="TOI_ORD_ITEM_STAT_CHG_DT" jdbcType="DATE" property="ordItemStatChgDt" />
+    <result column="TOI_NOW_ORD_ITEM_STAT_CD" jdbcType="VARCHAR" property="nowOrdItemStatCd" />
+    <result column="TOI_DP_CH_ID" jdbcType="INTEGER" property="dpChId" />
+    <result column="TOI_ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TOI_ITEM_TP_CD" jdbcType="VARCHAR" property="itemTpCd" />
+    <result column="TOI_ITEM_CD" jdbcType="VARCHAR" property="itemCd" />
+    <result column="TOI_SSG_CD" jdbcType="VARCHAR" property="ssgCd" />
+    <result column="TOI_ITEM_NM" jdbcType="VARCHAR" property="itemNm" />
+    <result column="TOI_ITEM_OPT_ID" jdbcType="INTEGER" property="itemOptId" />
+    <result column="TOI_ITEM_OPT_NM" jdbcType="VARCHAR" property="itemOptNm" />
+    <result column="TOI_ITEM_SET_ID" jdbcType="INTEGER" property="itemSetId" />
+    <result column="TOI_SET_ITEM_ID" jdbcType="INTEGER" property="setItemId" />
+    <result column="TOI_SET_ITEM_NM" jdbcType="VARCHAR" property="setItemNm" />
+    <result column="TOI_ITEM_ATTR_TP_CD" jdbcType="VARCHAR" property="itemAttrTpCd" />
+    <result column="TOI_ITEM_TAX_CL_CD" jdbcType="VARCHAR" property="itemTaxClCd" />
+    <result column="TOI_ITEM_CPN_USE_PSBL_YN" jdbcType="VARCHAR" property="itemCpnUsePsblYn" />
+    <result column="TOI_ITEM_PT_SAVE_TP_CD" jdbcType="VARCHAR" property="itemPtSaveTpCd" />
+    <result column="TOI_ITEM_PT_SAVE_METH_CD" jdbcType="VARCHAR" property="itemPtSaveMethCd" />
+    <result column="TOI_ITEM_PT_SAVE_RATE" jdbcType="DECIMAL" property="itemPtSaveRate" />
+    <result column="TOI_ITEM_PT_SAVE_AMT" jdbcType="INTEGER" property="itemPtSaveAmt" />
+    <result column="TOI_ITEM_ORD_RES_MAX_QTY" jdbcType="DECIMAL" property="itemOrdResMaxQty" />
+    <result column="TOI_ITEM_CSTMD_YN" jdbcType="VARCHAR" property="itemCstmdYn" />
+    <result column="TOI_ITEM_RGUR_PRC" jdbcType="INTEGER" property="itemRgurPrc" />
+    <result column="TOI_ITEM_PRC_ID" jdbcType="INTEGER" property="itemPrcId" />
+    <result column="TOI_ITEM_PRC_TP_CD" jdbcType="VARCHAR" property="itemPrcTpCd" />
+    <result column="TOI_ITEM_SPLY_UPRC" jdbcType="INTEGER" property="itemSplyUprc" />
+    <result column="TOI_ITEM_SELL_UNIT_QTY" jdbcType="DECIMAL" property="itemSellUnitQty" />
+    <result column="TOI_ITEM_SPLY_PRC" jdbcType="INTEGER" property="itemSplyPrc" />
+    <result column="TOI_ITEM_SELL_DC_RATE" jdbcType="DECIMAL" property="itemSellDcRate" />
+    <result column="TOI_ITEM_SELL_PRC" jdbcType="INTEGER" property="itemSellPrc" />
+    <result column="TOI_ITEM_COMS_RATE" jdbcType="DECIMAL" property="itemComsRate" />
+    <result column="TOI_ITEM_COMS_AMT" jdbcType="INTEGER" property="itemComsAmt" />
+    <result column="TOI_REAL_SELL_PRC" jdbcType="INTEGER" property="realSellPrc" />
+    <result column="TOI_ITEM_VAT_RATE" jdbcType="DECIMAL" property="itemVatRate" />
+    <result column="TOI_ORD_QTY" jdbcType="DECIMAL" property="ordQty" />
+    <result column="TOI_CNCL_QTY" jdbcType="DECIMAL" property="cnclQty" />
+    <result column="TOI_FST_ORD_AMT" jdbcType="INTEGER" property="fstOrdAmt" />
+    <result column="TOI_FST_CPN_DC_AMT" jdbcType="INTEGER" property="fstCpnDcAmt" />
+    <result column="TOI_FST_PT_USE_AMT" jdbcType="INTEGER" property="fstPtUseAmt" />
+    <result column="TOI_FST_REAL_ORD_AMT" jdbcType="INTEGER" property="fstRealOrdAmt" />
+    <result column="TOI_FST_REAL_PAY_AMT" jdbcType="INTEGER" property="fstRealPayAmt" />
+    <result column="TOI_FST_PT_SAVE_AMT" jdbcType="INTEGER" property="fstPtSaveAmt" />
+    <result column="TOI_ORD_AMT" jdbcType="INTEGER" property="ordAmt" />
+    <result column="TOI_CPN_DC_AMT" jdbcType="INTEGER" property="cpnDcAmt" />
+    <result column="TOI_PT_USE_AMT" jdbcType="INTEGER" property="ptUseAmt" />
+    <result column="TOI_REAL_ORD_AMT" jdbcType="INTEGER" property="realOrdAmt" />
+    <result column="TOI_REAL_PAY_AMT" jdbcType="INTEGER" property="realPayAmt" />
+    <result column="TOI_PT_TP_CD" jdbcType="VARCHAR" property="ptTpCd" />
+    <result column="TOI_PT_SAVE_YN" jdbcType="VARCHAR" property="ptSaveYn" />
+    <result column="TOI_PT_SAVE_RATE" jdbcType="DECIMAL" property="ptSaveRate" />
+    <result column="TOI_PT_SAVE_AMT" jdbcType="INTEGER" property="ptSaveAmt" />
+    <result column="TOI_PG_SPLY_AMT" jdbcType="INTEGER" property="pgSplyAmt" />
+    <result column="TOI_PG_VAT_AMT" jdbcType="INTEGER" property="pgVatAmt" />
+    <result column="TOI_PG_TAXFREE_AMT" jdbcType="INTEGER" property="pgTaxfreeAmt" />
+    <result column="TOI_SETTL_STAT_CD" jdbcType="VARCHAR" property="settlStatCd" />
+    <result column="TOI_SETTL_YMD" jdbcType="VARCHAR" property="settlYmd" />
+    <result column="TOI_SETTL_PG_YMD" jdbcType="VARCHAR" property="settlPgYmd" />
+    <result column="TOI_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TOI_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TOI_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TOI_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TOI.ORD_ITEM_ID as TOI_ORD_ITEM_ID, TOI.ORD_ID as TOI_ORD_ID, TOI.ORD_ITEM_SEQ as TOI_ORD_ITEM_SEQ, 
+    TOI.ORD_ITEM_NO as TOI_ORD_ITEM_NO, TOI.ORD_ITEM_STAT_CD as TOI_ORD_ITEM_STAT_CD, 
+    TOI.ORD_ITEM_STAT_CHG_DT as TOI_ORD_ITEM_STAT_CHG_DT, TOI.NOW_ORD_ITEM_STAT_CD as TOI_NOW_ORD_ITEM_STAT_CD, 
+    TOI.DP_CH_ID as TOI_DP_CH_ID, TOI.ITEM_ID as TOI_ITEM_ID, TOI.ITEM_TP_CD as TOI_ITEM_TP_CD, 
+    TOI.ITEM_CD as TOI_ITEM_CD, TOI.SSG_CD as TOI_SSG_CD, TOI.ITEM_NM as TOI_ITEM_NM, 
+    TOI.ITEM_OPT_ID as TOI_ITEM_OPT_ID, TOI.ITEM_OPT_NM as TOI_ITEM_OPT_NM, TOI.ITEM_SET_ID as TOI_ITEM_SET_ID, 
+    TOI.SET_ITEM_ID as TOI_SET_ITEM_ID, TOI.SET_ITEM_NM as TOI_SET_ITEM_NM, TOI.ITEM_ATTR_TP_CD as TOI_ITEM_ATTR_TP_CD, 
+    TOI.ITEM_TAX_CL_CD as TOI_ITEM_TAX_CL_CD, TOI.ITEM_CPN_USE_PSBL_YN as TOI_ITEM_CPN_USE_PSBL_YN, 
+    TOI.ITEM_PT_SAVE_TP_CD as TOI_ITEM_PT_SAVE_TP_CD, TOI.ITEM_PT_SAVE_METH_CD as TOI_ITEM_PT_SAVE_METH_CD, 
+    TOI.ITEM_PT_SAVE_RATE as TOI_ITEM_PT_SAVE_RATE, TOI.ITEM_PT_SAVE_AMT as TOI_ITEM_PT_SAVE_AMT, 
+    TOI.ITEM_ORD_RES_MAX_QTY as TOI_ITEM_ORD_RES_MAX_QTY, TOI.ITEM_CSTMD_YN as TOI_ITEM_CSTMD_YN, 
+    TOI.ITEM_RGUR_PRC as TOI_ITEM_RGUR_PRC, TOI.ITEM_PRC_ID as TOI_ITEM_PRC_ID, TOI.ITEM_PRC_TP_CD as TOI_ITEM_PRC_TP_CD, 
+    TOI.ITEM_SPLY_UPRC as TOI_ITEM_SPLY_UPRC, TOI.ITEM_SELL_UNIT_QTY as TOI_ITEM_SELL_UNIT_QTY, 
+    TOI.ITEM_SPLY_PRC as TOI_ITEM_SPLY_PRC, TOI.ITEM_SELL_DC_RATE as TOI_ITEM_SELL_DC_RATE, 
+    TOI.ITEM_SELL_PRC as TOI_ITEM_SELL_PRC, TOI.ITEM_COMS_RATE as TOI_ITEM_COMS_RATE, 
+    TOI.ITEM_COMS_AMT as TOI_ITEM_COMS_AMT, TOI.REAL_SELL_PRC as TOI_REAL_SELL_PRC, TOI.ITEM_VAT_RATE as TOI_ITEM_VAT_RATE, 
+    TOI.ORD_QTY as TOI_ORD_QTY, TOI.CNCL_QTY as TOI_CNCL_QTY, TOI.FST_ORD_AMT as TOI_FST_ORD_AMT, 
+    TOI.FST_CPN_DC_AMT as TOI_FST_CPN_DC_AMT, TOI.FST_PT_USE_AMT as TOI_FST_PT_USE_AMT, 
+    TOI.FST_REAL_ORD_AMT as TOI_FST_REAL_ORD_AMT, TOI.FST_REAL_PAY_AMT as TOI_FST_REAL_PAY_AMT, 
+    TOI.FST_PT_SAVE_AMT as TOI_FST_PT_SAVE_AMT, TOI.ORD_AMT as TOI_ORD_AMT, TOI.CPN_DC_AMT as TOI_CPN_DC_AMT, 
+    TOI.PT_USE_AMT as TOI_PT_USE_AMT, TOI.REAL_ORD_AMT as TOI_REAL_ORD_AMT, TOI.REAL_PAY_AMT as TOI_REAL_PAY_AMT, 
+    TOI.PT_TP_CD as TOI_PT_TP_CD, TOI.PT_SAVE_YN as TOI_PT_SAVE_YN, TOI.PT_SAVE_RATE as TOI_PT_SAVE_RATE, 
+    TOI.PT_SAVE_AMT as TOI_PT_SAVE_AMT, TOI.PG_SPLY_AMT as TOI_PG_SPLY_AMT, TOI.PG_VAT_AMT as TOI_PG_VAT_AMT, 
+    TOI.PG_TAXFREE_AMT as TOI_PG_TAXFREE_AMT, TOI.SETTL_STAT_CD as TOI_SETTL_STAT_CD, 
+    TOI.SETTL_YMD as TOI_SETTL_YMD, TOI.SETTL_PG_YMD as TOI_SETTL_PG_YMD, TOI.REG_DT as TOI_REG_DT, 
+    TOI.REG_ID as TOI_REG_ID, TOI.MOD_DT as TOI_MOD_DT, TOI.MOD_ID as TOI_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderItemEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ord_item TOI
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ord_item TOI
+    where TOI.ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ord_item
+    where ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderItemEntityCriteria">
+    delete TOI from ord_item TOI
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderItemEntity">
+    insert into ord_item (ORD_ITEM_ID, ORD_ID, ORD_ITEM_SEQ, 
+      ORD_ITEM_NO, ORD_ITEM_STAT_CD, ORD_ITEM_STAT_CHG_DT, 
+      NOW_ORD_ITEM_STAT_CD, DP_CH_ID, ITEM_ID, 
+      ITEM_TP_CD, ITEM_CD, SSG_CD, 
+      ITEM_NM, ITEM_OPT_ID, ITEM_OPT_NM, 
+      ITEM_SET_ID, SET_ITEM_ID, SET_ITEM_NM, 
+      ITEM_ATTR_TP_CD, ITEM_TAX_CL_CD, ITEM_CPN_USE_PSBL_YN, 
+      ITEM_PT_SAVE_TP_CD, ITEM_PT_SAVE_METH_CD, ITEM_PT_SAVE_RATE, 
+      ITEM_PT_SAVE_AMT, ITEM_ORD_RES_MAX_QTY, ITEM_CSTMD_YN, 
+      ITEM_RGUR_PRC, ITEM_PRC_ID, ITEM_PRC_TP_CD, 
+      ITEM_SPLY_UPRC, ITEM_SELL_UNIT_QTY, ITEM_SPLY_PRC, 
+      ITEM_SELL_DC_RATE, ITEM_SELL_PRC, ITEM_COMS_RATE, 
+      ITEM_COMS_AMT, REAL_SELL_PRC, ITEM_VAT_RATE, 
+      ORD_QTY, CNCL_QTY, FST_ORD_AMT, 
+      FST_CPN_DC_AMT, FST_PT_USE_AMT, FST_REAL_ORD_AMT, 
+      FST_REAL_PAY_AMT, FST_PT_SAVE_AMT, ORD_AMT, 
+      CPN_DC_AMT, PT_USE_AMT, REAL_ORD_AMT, 
+      REAL_PAY_AMT, PT_TP_CD, PT_SAVE_YN, 
+      PT_SAVE_RATE, PT_SAVE_AMT, PG_SPLY_AMT, 
+      PG_VAT_AMT, PG_TAXFREE_AMT, SETTL_STAT_CD, 
+      SETTL_YMD, SETTL_PG_YMD, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID
+      )
+    values (#{ordItemId,jdbcType=INTEGER}, #{ordId,jdbcType=INTEGER}, #{ordItemSeq,jdbcType=DECIMAL}, 
+      #{ordItemNo,jdbcType=VARCHAR}, #{ordItemStatCd,jdbcType=VARCHAR}, #{ordItemStatChgDt,jdbcType=DATE}, 
+      #{nowOrdItemStatCd,jdbcType=VARCHAR}, #{dpChId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, 
+      #{itemTpCd,jdbcType=VARCHAR}, #{itemCd,jdbcType=VARCHAR}, #{ssgCd,jdbcType=VARCHAR}, 
+      #{itemNm,jdbcType=VARCHAR}, #{itemOptId,jdbcType=INTEGER}, #{itemOptNm,jdbcType=VARCHAR}, 
+      #{itemSetId,jdbcType=INTEGER}, #{setItemId,jdbcType=INTEGER}, #{setItemNm,jdbcType=VARCHAR}, 
+      #{itemAttrTpCd,jdbcType=VARCHAR}, #{itemTaxClCd,jdbcType=VARCHAR}, #{itemCpnUsePsblYn,jdbcType=VARCHAR}, 
+      #{itemPtSaveTpCd,jdbcType=VARCHAR}, #{itemPtSaveMethCd,jdbcType=VARCHAR}, #{itemPtSaveRate,jdbcType=DECIMAL}, 
+      #{itemPtSaveAmt,jdbcType=INTEGER}, #{itemOrdResMaxQty,jdbcType=DECIMAL}, #{itemCstmdYn,jdbcType=VARCHAR}, 
+      #{itemRgurPrc,jdbcType=INTEGER}, #{itemPrcId,jdbcType=INTEGER}, #{itemPrcTpCd,jdbcType=VARCHAR}, 
+      #{itemSplyUprc,jdbcType=INTEGER}, #{itemSellUnitQty,jdbcType=DECIMAL}, #{itemSplyPrc,jdbcType=INTEGER}, 
+      #{itemSellDcRate,jdbcType=DECIMAL}, #{itemSellPrc,jdbcType=INTEGER}, #{itemComsRate,jdbcType=DECIMAL}, 
+      #{itemComsAmt,jdbcType=INTEGER}, #{realSellPrc,jdbcType=INTEGER}, #{itemVatRate,jdbcType=DECIMAL}, 
+      #{ordQty,jdbcType=DECIMAL}, #{cnclQty,jdbcType=DECIMAL}, #{fstOrdAmt,jdbcType=INTEGER}, 
+      #{fstCpnDcAmt,jdbcType=INTEGER}, #{fstPtUseAmt,jdbcType=INTEGER}, #{fstRealOrdAmt,jdbcType=INTEGER}, 
+      #{fstRealPayAmt,jdbcType=INTEGER}, #{fstPtSaveAmt,jdbcType=INTEGER}, #{ordAmt,jdbcType=INTEGER}, 
+      #{cpnDcAmt,jdbcType=INTEGER}, #{ptUseAmt,jdbcType=INTEGER}, #{realOrdAmt,jdbcType=INTEGER}, 
+      #{realPayAmt,jdbcType=INTEGER}, #{ptTpCd,jdbcType=VARCHAR}, #{ptSaveYn,jdbcType=VARCHAR}, 
+      #{ptSaveRate,jdbcType=DECIMAL}, #{ptSaveAmt,jdbcType=INTEGER}, #{pgSplyAmt,jdbcType=INTEGER}, 
+      #{pgVatAmt,jdbcType=INTEGER}, #{pgTaxfreeAmt,jdbcType=INTEGER}, #{settlStatCd,jdbcType=VARCHAR}, 
+      #{settlYmd,jdbcType=VARCHAR}, #{settlPgYmd,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderItemEntity">
+    insert into ord_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ordItemId != null">
+        ORD_ITEM_ID,
+      </if>
+      <if test="ordId != null">
+        ORD_ID,
+      </if>
+      <if test="ordItemSeq != null">
+        ORD_ITEM_SEQ,
+      </if>
+      <if test="ordItemNo != null">
+        ORD_ITEM_NO,
+      </if>
+      <if test="ordItemStatCd != null">
+        ORD_ITEM_STAT_CD,
+      </if>
+      <if test="ordItemStatChgDt != null">
+        ORD_ITEM_STAT_CHG_DT,
+      </if>
+      <if test="nowOrdItemStatCd != null">
+        NOW_ORD_ITEM_STAT_CD,
+      </if>
+      <if test="dpChId != null">
+        DP_CH_ID,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="itemTpCd != null">
+        ITEM_TP_CD,
+      </if>
+      <if test="itemCd != null">
+        ITEM_CD,
+      </if>
+      <if test="ssgCd != null">
+        SSG_CD,
+      </if>
+      <if test="itemNm != null">
+        ITEM_NM,
+      </if>
+      <if test="itemOptId != null">
+        ITEM_OPT_ID,
+      </if>
+      <if test="itemOptNm != null">
+        ITEM_OPT_NM,
+      </if>
+      <if test="itemSetId != null">
+        ITEM_SET_ID,
+      </if>
+      <if test="setItemId != null">
+        SET_ITEM_ID,
+      </if>
+      <if test="setItemNm != null">
+        SET_ITEM_NM,
+      </if>
+      <if test="itemAttrTpCd != null">
+        ITEM_ATTR_TP_CD,
+      </if>
+      <if test="itemTaxClCd != null">
+        ITEM_TAX_CL_CD,
+      </if>
+      <if test="itemCpnUsePsblYn != null">
+        ITEM_CPN_USE_PSBL_YN,
+      </if>
+      <if test="itemPtSaveTpCd != null">
+        ITEM_PT_SAVE_TP_CD,
+      </if>
+      <if test="itemPtSaveMethCd != null">
+        ITEM_PT_SAVE_METH_CD,
+      </if>
+      <if test="itemPtSaveRate != null">
+        ITEM_PT_SAVE_RATE,
+      </if>
+      <if test="itemPtSaveAmt != null">
+        ITEM_PT_SAVE_AMT,
+      </if>
+      <if test="itemOrdResMaxQty != null">
+        ITEM_ORD_RES_MAX_QTY,
+      </if>
+      <if test="itemCstmdYn != null">
+        ITEM_CSTMD_YN,
+      </if>
+      <if test="itemRgurPrc != null">
+        ITEM_RGUR_PRC,
+      </if>
+      <if test="itemPrcId != null">
+        ITEM_PRC_ID,
+      </if>
+      <if test="itemPrcTpCd != null">
+        ITEM_PRC_TP_CD,
+      </if>
+      <if test="itemSplyUprc != null">
+        ITEM_SPLY_UPRC,
+      </if>
+      <if test="itemSellUnitQty != null">
+        ITEM_SELL_UNIT_QTY,
+      </if>
+      <if test="itemSplyPrc != null">
+        ITEM_SPLY_PRC,
+      </if>
+      <if test="itemSellDcRate != null">
+        ITEM_SELL_DC_RATE,
+      </if>
+      <if test="itemSellPrc != null">
+        ITEM_SELL_PRC,
+      </if>
+      <if test="itemComsRate != null">
+        ITEM_COMS_RATE,
+      </if>
+      <if test="itemComsAmt != null">
+        ITEM_COMS_AMT,
+      </if>
+      <if test="realSellPrc != null">
+        REAL_SELL_PRC,
+      </if>
+      <if test="itemVatRate != null">
+        ITEM_VAT_RATE,
+      </if>
+      <if test="ordQty != null">
+        ORD_QTY,
+      </if>
+      <if test="cnclQty != null">
+        CNCL_QTY,
+      </if>
+      <if test="fstOrdAmt != null">
+        FST_ORD_AMT,
+      </if>
+      <if test="fstCpnDcAmt != null">
+        FST_CPN_DC_AMT,
+      </if>
+      <if test="fstPtUseAmt != null">
+        FST_PT_USE_AMT,
+      </if>
+      <if test="fstRealOrdAmt != null">
+        FST_REAL_ORD_AMT,
+      </if>
+      <if test="fstRealPayAmt != null">
+        FST_REAL_PAY_AMT,
+      </if>
+      <if test="fstPtSaveAmt != null">
+        FST_PT_SAVE_AMT,
+      </if>
+      <if test="ordAmt != null">
+        ORD_AMT,
+      </if>
+      <if test="cpnDcAmt != null">
+        CPN_DC_AMT,
+      </if>
+      <if test="ptUseAmt != null">
+        PT_USE_AMT,
+      </if>
+      <if test="realOrdAmt != null">
+        REAL_ORD_AMT,
+      </if>
+      <if test="realPayAmt != null">
+        REAL_PAY_AMT,
+      </if>
+      <if test="ptTpCd != null">
+        PT_TP_CD,
+      </if>
+      <if test="ptSaveYn != null">
+        PT_SAVE_YN,
+      </if>
+      <if test="ptSaveRate != null">
+        PT_SAVE_RATE,
+      </if>
+      <if test="ptSaveAmt != null">
+        PT_SAVE_AMT,
+      </if>
+      <if test="pgSplyAmt != null">
+        PG_SPLY_AMT,
+      </if>
+      <if test="pgVatAmt != null">
+        PG_VAT_AMT,
+      </if>
+      <if test="pgTaxfreeAmt != null">
+        PG_TAXFREE_AMT,
+      </if>
+      <if test="settlStatCd != null">
+        SETTL_STAT_CD,
+      </if>
+      <if test="settlYmd != null">
+        SETTL_YMD,
+      </if>
+      <if test="settlPgYmd != null">
+        SETTL_PG_YMD,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ordItemId != null">
+        #{ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="ordId != null">
+        #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="ordItemSeq != null">
+        #{ordItemSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="ordItemNo != null">
+        #{ordItemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ordItemStatCd != null">
+        #{ordItemStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ordItemStatChgDt != null">
+        #{ordItemStatChgDt,jdbcType=DATE},
+      </if>
+      <if test="nowOrdItemStatCd != null">
+        #{nowOrdItemStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dpChId != null">
+        #{dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemTpCd != null">
+        #{itemTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCd != null">
+        #{itemCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ssgCd != null">
+        #{ssgCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNm != null">
+        #{itemNm,jdbcType=VARCHAR},
+      </if>
+      <if test="itemOptId != null">
+        #{itemOptId,jdbcType=INTEGER},
+      </if>
+      <if test="itemOptNm != null">
+        #{itemOptNm,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSetId != null">
+        #{itemSetId,jdbcType=INTEGER},
+      </if>
+      <if test="setItemId != null">
+        #{setItemId,jdbcType=INTEGER},
+      </if>
+      <if test="setItemNm != null">
+        #{setItemNm,jdbcType=VARCHAR},
+      </if>
+      <if test="itemAttrTpCd != null">
+        #{itemAttrTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemTaxClCd != null">
+        #{itemTaxClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCpnUsePsblYn != null">
+        #{itemCpnUsePsblYn,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPtSaveTpCd != null">
+        #{itemPtSaveTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPtSaveMethCd != null">
+        #{itemPtSaveMethCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPtSaveRate != null">
+        #{itemPtSaveRate,jdbcType=DECIMAL},
+      </if>
+      <if test="itemPtSaveAmt != null">
+        #{itemPtSaveAmt,jdbcType=INTEGER},
+      </if>
+      <if test="itemOrdResMaxQty != null">
+        #{itemOrdResMaxQty,jdbcType=DECIMAL},
+      </if>
+      <if test="itemCstmdYn != null">
+        #{itemCstmdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="itemRgurPrc != null">
+        #{itemRgurPrc,jdbcType=INTEGER},
+      </if>
+      <if test="itemPrcId != null">
+        #{itemPrcId,jdbcType=INTEGER},
+      </if>
+      <if test="itemPrcTpCd != null">
+        #{itemPrcTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSplyUprc != null">
+        #{itemSplyUprc,jdbcType=INTEGER},
+      </if>
+      <if test="itemSellUnitQty != null">
+        #{itemSellUnitQty,jdbcType=DECIMAL},
+      </if>
+      <if test="itemSplyPrc != null">
+        #{itemSplyPrc,jdbcType=INTEGER},
+      </if>
+      <if test="itemSellDcRate != null">
+        #{itemSellDcRate,jdbcType=DECIMAL},
+      </if>
+      <if test="itemSellPrc != null">
+        #{itemSellPrc,jdbcType=INTEGER},
+      </if>
+      <if test="itemComsRate != null">
+        #{itemComsRate,jdbcType=DECIMAL},
+      </if>
+      <if test="itemComsAmt != null">
+        #{itemComsAmt,jdbcType=INTEGER},
+      </if>
+      <if test="realSellPrc != null">
+        #{realSellPrc,jdbcType=INTEGER},
+      </if>
+      <if test="itemVatRate != null">
+        #{itemVatRate,jdbcType=DECIMAL},
+      </if>
+      <if test="ordQty != null">
+        #{ordQty,jdbcType=DECIMAL},
+      </if>
+      <if test="cnclQty != null">
+        #{cnclQty,jdbcType=DECIMAL},
+      </if>
+      <if test="fstOrdAmt != null">
+        #{fstOrdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="fstCpnDcAmt != null">
+        #{fstCpnDcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="fstPtUseAmt != null">
+        #{fstPtUseAmt,jdbcType=INTEGER},
+      </if>
+      <if test="fstRealOrdAmt != null">
+        #{fstRealOrdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="fstRealPayAmt != null">
+        #{fstRealPayAmt,jdbcType=INTEGER},
+      </if>
+      <if test="fstPtSaveAmt != null">
+        #{fstPtSaveAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ordAmt != null">
+        #{ordAmt,jdbcType=INTEGER},
+      </if>
+      <if test="cpnDcAmt != null">
+        #{cpnDcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ptUseAmt != null">
+        #{ptUseAmt,jdbcType=INTEGER},
+      </if>
+      <if test="realOrdAmt != null">
+        #{realOrdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="realPayAmt != null">
+        #{realPayAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ptTpCd != null">
+        #{ptTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptSaveYn != null">
+        #{ptSaveYn,jdbcType=VARCHAR},
+      </if>
+      <if test="ptSaveRate != null">
+        #{ptSaveRate,jdbcType=DECIMAL},
+      </if>
+      <if test="ptSaveAmt != null">
+        #{ptSaveAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgSplyAmt != null">
+        #{pgSplyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgVatAmt != null">
+        #{pgVatAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgTaxfreeAmt != null">
+        #{pgTaxfreeAmt,jdbcType=INTEGER},
+      </if>
+      <if test="settlStatCd != null">
+        #{settlStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="settlYmd != null">
+        #{settlYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="settlPgYmd != null">
+        #{settlPgYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderItemEntityCriteria" resultType="java.lang.Long">
+    select count(*) from ord_item TOI
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TOI
+    <set>
+      <if test="record.ordItemId != null">
+        
+      </if>
+      <if test="record.ordId != null">
+        TOI.ORD_ID = #{record.ordId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordItemSeq != null">
+        TOI.ORD_ITEM_SEQ = #{record.ordItemSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ordItemNo != null">
+        TOI.ORD_ITEM_NO = #{record.ordItemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordItemStatCd != null">
+        TOI.ORD_ITEM_STAT_CD = #{record.ordItemStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordItemStatChgDt != null">
+        TOI.ORD_ITEM_STAT_CHG_DT = #{record.ordItemStatChgDt,jdbcType=DATE},
+      </if>
+      <if test="record.nowOrdItemStatCd != null">
+        TOI.NOW_ORD_ITEM_STAT_CD = #{record.nowOrdItemStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpChId != null">
+        TOI.DP_CH_ID = #{record.dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemId != null">
+        TOI.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemTpCd != null">
+        TOI.ITEM_TP_CD = #{record.itemTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemCd != null">
+        TOI.ITEM_CD = #{record.itemCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ssgCd != null">
+        TOI.SSG_CD = #{record.ssgCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemNm != null">
+        TOI.ITEM_NM = #{record.itemNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemOptId != null">
+        TOI.ITEM_OPT_ID = #{record.itemOptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemOptNm != null">
+        TOI.ITEM_OPT_NM = #{record.itemOptNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemSetId != null">
+        TOI.ITEM_SET_ID = #{record.itemSetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.setItemId != null">
+        TOI.SET_ITEM_ID = #{record.setItemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.setItemNm != null">
+        TOI.SET_ITEM_NM = #{record.setItemNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemAttrTpCd != null">
+        TOI.ITEM_ATTR_TP_CD = #{record.itemAttrTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemTaxClCd != null">
+        TOI.ITEM_TAX_CL_CD = #{record.itemTaxClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemCpnUsePsblYn != null">
+        TOI.ITEM_CPN_USE_PSBL_YN = #{record.itemCpnUsePsblYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemPtSaveTpCd != null">
+        TOI.ITEM_PT_SAVE_TP_CD = #{record.itemPtSaveTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemPtSaveMethCd != null">
+        TOI.ITEM_PT_SAVE_METH_CD = #{record.itemPtSaveMethCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemPtSaveRate != null">
+        TOI.ITEM_PT_SAVE_RATE = #{record.itemPtSaveRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemPtSaveAmt != null">
+        TOI.ITEM_PT_SAVE_AMT = #{record.itemPtSaveAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemOrdResMaxQty != null">
+        TOI.ITEM_ORD_RES_MAX_QTY = #{record.itemOrdResMaxQty,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemCstmdYn != null">
+        TOI.ITEM_CSTMD_YN = #{record.itemCstmdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemRgurPrc != null">
+        TOI.ITEM_RGUR_PRC = #{record.itemRgurPrc,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemPrcId != null">
+        TOI.ITEM_PRC_ID = #{record.itemPrcId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemPrcTpCd != null">
+        TOI.ITEM_PRC_TP_CD = #{record.itemPrcTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemSplyUprc != null">
+        TOI.ITEM_SPLY_UPRC = #{record.itemSplyUprc,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemSellUnitQty != null">
+        TOI.ITEM_SELL_UNIT_QTY = #{record.itemSellUnitQty,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemSplyPrc != null">
+        TOI.ITEM_SPLY_PRC = #{record.itemSplyPrc,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemSellDcRate != null">
+        TOI.ITEM_SELL_DC_RATE = #{record.itemSellDcRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemSellPrc != null">
+        TOI.ITEM_SELL_PRC = #{record.itemSellPrc,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemComsRate != null">
+        TOI.ITEM_COMS_RATE = #{record.itemComsRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemComsAmt != null">
+        TOI.ITEM_COMS_AMT = #{record.itemComsAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.realSellPrc != null">
+        TOI.REAL_SELL_PRC = #{record.realSellPrc,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemVatRate != null">
+        TOI.ITEM_VAT_RATE = #{record.itemVatRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ordQty != null">
+        TOI.ORD_QTY = #{record.ordQty,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cnclQty != null">
+        TOI.CNCL_QTY = #{record.cnclQty,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fstOrdAmt != null">
+        TOI.FST_ORD_AMT = #{record.fstOrdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.fstCpnDcAmt != null">
+        TOI.FST_CPN_DC_AMT = #{record.fstCpnDcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.fstPtUseAmt != null">
+        TOI.FST_PT_USE_AMT = #{record.fstPtUseAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.fstRealOrdAmt != null">
+        TOI.FST_REAL_ORD_AMT = #{record.fstRealOrdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.fstRealPayAmt != null">
+        TOI.FST_REAL_PAY_AMT = #{record.fstRealPayAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.fstPtSaveAmt != null">
+        TOI.FST_PT_SAVE_AMT = #{record.fstPtSaveAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordAmt != null">
+        TOI.ORD_AMT = #{record.ordAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpnDcAmt != null">
+        TOI.CPN_DC_AMT = #{record.cpnDcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.ptUseAmt != null">
+        TOI.PT_USE_AMT = #{record.ptUseAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.realOrdAmt != null">
+        TOI.REAL_ORD_AMT = #{record.realOrdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.realPayAmt != null">
+        TOI.REAL_PAY_AMT = #{record.realPayAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.ptTpCd != null">
+        TOI.PT_TP_CD = #{record.ptTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptSaveYn != null">
+        TOI.PT_SAVE_YN = #{record.ptSaveYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptSaveRate != null">
+        TOI.PT_SAVE_RATE = #{record.ptSaveRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ptSaveAmt != null">
+        TOI.PT_SAVE_AMT = #{record.ptSaveAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.pgSplyAmt != null">
+        TOI.PG_SPLY_AMT = #{record.pgSplyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.pgVatAmt != null">
+        TOI.PG_VAT_AMT = #{record.pgVatAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.pgTaxfreeAmt != null">
+        TOI.PG_TAXFREE_AMT = #{record.pgTaxfreeAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.settlStatCd != null">
+        TOI.SETTL_STAT_CD = #{record.settlStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settlYmd != null">
+        TOI.SETTL_YMD = #{record.settlYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settlPgYmd != null">
+        TOI.SETTL_PG_YMD = #{record.settlPgYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TOI.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TOI.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TOI.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TOI.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from ord_item TOI
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update ord_item TOI
+    set 
+      TOI.ORD_ID = #{record.ordId,jdbcType=INTEGER},
+      TOI.ORD_ITEM_SEQ = #{record.ordItemSeq,jdbcType=DECIMAL},
+      TOI.ORD_ITEM_NO = #{record.ordItemNo,jdbcType=VARCHAR},
+      TOI.ORD_ITEM_STAT_CD = #{record.ordItemStatCd,jdbcType=VARCHAR},
+      TOI.ORD_ITEM_STAT_CHG_DT = #{record.ordItemStatChgDt,jdbcType=DATE},
+      TOI.NOW_ORD_ITEM_STAT_CD = #{record.nowOrdItemStatCd,jdbcType=VARCHAR},
+      TOI.DP_CH_ID = #{record.dpChId,jdbcType=INTEGER},
+      TOI.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      TOI.ITEM_TP_CD = #{record.itemTpCd,jdbcType=VARCHAR},
+      TOI.ITEM_CD = #{record.itemCd,jdbcType=VARCHAR},
+      TOI.SSG_CD = #{record.ssgCd,jdbcType=VARCHAR},
+      TOI.ITEM_NM = #{record.itemNm,jdbcType=VARCHAR},
+      TOI.ITEM_OPT_ID = #{record.itemOptId,jdbcType=INTEGER},
+      TOI.ITEM_OPT_NM = #{record.itemOptNm,jdbcType=VARCHAR},
+      TOI.ITEM_SET_ID = #{record.itemSetId,jdbcType=INTEGER},
+      TOI.SET_ITEM_ID = #{record.setItemId,jdbcType=INTEGER},
+      TOI.SET_ITEM_NM = #{record.setItemNm,jdbcType=VARCHAR},
+      TOI.ITEM_ATTR_TP_CD = #{record.itemAttrTpCd,jdbcType=VARCHAR},
+      TOI.ITEM_TAX_CL_CD = #{record.itemTaxClCd,jdbcType=VARCHAR},
+      TOI.ITEM_CPN_USE_PSBL_YN = #{record.itemCpnUsePsblYn,jdbcType=VARCHAR},
+      TOI.ITEM_PT_SAVE_TP_CD = #{record.itemPtSaveTpCd,jdbcType=VARCHAR},
+      TOI.ITEM_PT_SAVE_METH_CD = #{record.itemPtSaveMethCd,jdbcType=VARCHAR},
+      TOI.ITEM_PT_SAVE_RATE = #{record.itemPtSaveRate,jdbcType=DECIMAL},
+      TOI.ITEM_PT_SAVE_AMT = #{record.itemPtSaveAmt,jdbcType=INTEGER},
+      TOI.ITEM_ORD_RES_MAX_QTY = #{record.itemOrdResMaxQty,jdbcType=DECIMAL},
+      TOI.ITEM_CSTMD_YN = #{record.itemCstmdYn,jdbcType=VARCHAR},
+      TOI.ITEM_RGUR_PRC = #{record.itemRgurPrc,jdbcType=INTEGER},
+      TOI.ITEM_PRC_ID = #{record.itemPrcId,jdbcType=INTEGER},
+      TOI.ITEM_PRC_TP_CD = #{record.itemPrcTpCd,jdbcType=VARCHAR},
+      TOI.ITEM_SPLY_UPRC = #{record.itemSplyUprc,jdbcType=INTEGER},
+      TOI.ITEM_SELL_UNIT_QTY = #{record.itemSellUnitQty,jdbcType=DECIMAL},
+      TOI.ITEM_SPLY_PRC = #{record.itemSplyPrc,jdbcType=INTEGER},
+      TOI.ITEM_SELL_DC_RATE = #{record.itemSellDcRate,jdbcType=DECIMAL},
+      TOI.ITEM_SELL_PRC = #{record.itemSellPrc,jdbcType=INTEGER},
+      TOI.ITEM_COMS_RATE = #{record.itemComsRate,jdbcType=DECIMAL},
+      TOI.ITEM_COMS_AMT = #{record.itemComsAmt,jdbcType=INTEGER},
+      TOI.REAL_SELL_PRC = #{record.realSellPrc,jdbcType=INTEGER},
+      TOI.ITEM_VAT_RATE = #{record.itemVatRate,jdbcType=DECIMAL},
+      TOI.ORD_QTY = #{record.ordQty,jdbcType=DECIMAL},
+      TOI.CNCL_QTY = #{record.cnclQty,jdbcType=DECIMAL},
+      TOI.FST_ORD_AMT = #{record.fstOrdAmt,jdbcType=INTEGER},
+      TOI.FST_CPN_DC_AMT = #{record.fstCpnDcAmt,jdbcType=INTEGER},
+      TOI.FST_PT_USE_AMT = #{record.fstPtUseAmt,jdbcType=INTEGER},
+      TOI.FST_REAL_ORD_AMT = #{record.fstRealOrdAmt,jdbcType=INTEGER},
+      TOI.FST_REAL_PAY_AMT = #{record.fstRealPayAmt,jdbcType=INTEGER},
+      TOI.FST_PT_SAVE_AMT = #{record.fstPtSaveAmt,jdbcType=INTEGER},
+      TOI.ORD_AMT = #{record.ordAmt,jdbcType=INTEGER},
+      TOI.CPN_DC_AMT = #{record.cpnDcAmt,jdbcType=INTEGER},
+      TOI.PT_USE_AMT = #{record.ptUseAmt,jdbcType=INTEGER},
+      TOI.REAL_ORD_AMT = #{record.realOrdAmt,jdbcType=INTEGER},
+      TOI.REAL_PAY_AMT = #{record.realPayAmt,jdbcType=INTEGER},
+      TOI.PT_TP_CD = #{record.ptTpCd,jdbcType=VARCHAR},
+      TOI.PT_SAVE_YN = #{record.ptSaveYn,jdbcType=VARCHAR},
+      TOI.PT_SAVE_RATE = #{record.ptSaveRate,jdbcType=DECIMAL},
+      TOI.PT_SAVE_AMT = #{record.ptSaveAmt,jdbcType=INTEGER},
+      TOI.PG_SPLY_AMT = #{record.pgSplyAmt,jdbcType=INTEGER},
+      TOI.PG_VAT_AMT = #{record.pgVatAmt,jdbcType=INTEGER},
+      TOI.PG_TAXFREE_AMT = #{record.pgTaxfreeAmt,jdbcType=INTEGER},
+      TOI.SETTL_STAT_CD = #{record.settlStatCd,jdbcType=VARCHAR},
+      TOI.SETTL_YMD = #{record.settlYmd,jdbcType=VARCHAR},
+      TOI.SETTL_PG_YMD = #{record.settlPgYmd,jdbcType=VARCHAR},
+      TOI.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TOI.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TOI.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TOI.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderItemEntity">
+    update ord_item
+    <set>
+      <if test="ordId != null">
+        ORD_ID = #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="ordItemSeq != null">
+        ORD_ITEM_SEQ = #{ordItemSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="ordItemNo != null">
+        ORD_ITEM_NO = #{ordItemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ordItemStatCd != null">
+        ORD_ITEM_STAT_CD = #{ordItemStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ordItemStatChgDt != null">
+        ORD_ITEM_STAT_CHG_DT = #{ordItemStatChgDt,jdbcType=DATE},
+      </if>
+      <if test="nowOrdItemStatCd != null">
+        NOW_ORD_ITEM_STAT_CD = #{nowOrdItemStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dpChId != null">
+        DP_CH_ID = #{dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        ITEM_ID = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemTpCd != null">
+        ITEM_TP_CD = #{itemTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCd != null">
+        ITEM_CD = #{itemCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ssgCd != null">
+        SSG_CD = #{ssgCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNm != null">
+        ITEM_NM = #{itemNm,jdbcType=VARCHAR},
+      </if>
+      <if test="itemOptId != null">
+        ITEM_OPT_ID = #{itemOptId,jdbcType=INTEGER},
+      </if>
+      <if test="itemOptNm != null">
+        ITEM_OPT_NM = #{itemOptNm,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSetId != null">
+        ITEM_SET_ID = #{itemSetId,jdbcType=INTEGER},
+      </if>
+      <if test="setItemId != null">
+        SET_ITEM_ID = #{setItemId,jdbcType=INTEGER},
+      </if>
+      <if test="setItemNm != null">
+        SET_ITEM_NM = #{setItemNm,jdbcType=VARCHAR},
+      </if>
+      <if test="itemAttrTpCd != null">
+        ITEM_ATTR_TP_CD = #{itemAttrTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemTaxClCd != null">
+        ITEM_TAX_CL_CD = #{itemTaxClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCpnUsePsblYn != null">
+        ITEM_CPN_USE_PSBL_YN = #{itemCpnUsePsblYn,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPtSaveTpCd != null">
+        ITEM_PT_SAVE_TP_CD = #{itemPtSaveTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPtSaveMethCd != null">
+        ITEM_PT_SAVE_METH_CD = #{itemPtSaveMethCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPtSaveRate != null">
+        ITEM_PT_SAVE_RATE = #{itemPtSaveRate,jdbcType=DECIMAL},
+      </if>
+      <if test="itemPtSaveAmt != null">
+        ITEM_PT_SAVE_AMT = #{itemPtSaveAmt,jdbcType=INTEGER},
+      </if>
+      <if test="itemOrdResMaxQty != null">
+        ITEM_ORD_RES_MAX_QTY = #{itemOrdResMaxQty,jdbcType=DECIMAL},
+      </if>
+      <if test="itemCstmdYn != null">
+        ITEM_CSTMD_YN = #{itemCstmdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="itemRgurPrc != null">
+        ITEM_RGUR_PRC = #{itemRgurPrc,jdbcType=INTEGER},
+      </if>
+      <if test="itemPrcId != null">
+        ITEM_PRC_ID = #{itemPrcId,jdbcType=INTEGER},
+      </if>
+      <if test="itemPrcTpCd != null">
+        ITEM_PRC_TP_CD = #{itemPrcTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSplyUprc != null">
+        ITEM_SPLY_UPRC = #{itemSplyUprc,jdbcType=INTEGER},
+      </if>
+      <if test="itemSellUnitQty != null">
+        ITEM_SELL_UNIT_QTY = #{itemSellUnitQty,jdbcType=DECIMAL},
+      </if>
+      <if test="itemSplyPrc != null">
+        ITEM_SPLY_PRC = #{itemSplyPrc,jdbcType=INTEGER},
+      </if>
+      <if test="itemSellDcRate != null">
+        ITEM_SELL_DC_RATE = #{itemSellDcRate,jdbcType=DECIMAL},
+      </if>
+      <if test="itemSellPrc != null">
+        ITEM_SELL_PRC = #{itemSellPrc,jdbcType=INTEGER},
+      </if>
+      <if test="itemComsRate != null">
+        ITEM_COMS_RATE = #{itemComsRate,jdbcType=DECIMAL},
+      </if>
+      <if test="itemComsAmt != null">
+        ITEM_COMS_AMT = #{itemComsAmt,jdbcType=INTEGER},
+      </if>
+      <if test="realSellPrc != null">
+        REAL_SELL_PRC = #{realSellPrc,jdbcType=INTEGER},
+      </if>
+      <if test="itemVatRate != null">
+        ITEM_VAT_RATE = #{itemVatRate,jdbcType=DECIMAL},
+      </if>
+      <if test="ordQty != null">
+        ORD_QTY = #{ordQty,jdbcType=DECIMAL},
+      </if>
+      <if test="cnclQty != null">
+        CNCL_QTY = #{cnclQty,jdbcType=DECIMAL},
+      </if>
+      <if test="fstOrdAmt != null">
+        FST_ORD_AMT = #{fstOrdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="fstCpnDcAmt != null">
+        FST_CPN_DC_AMT = #{fstCpnDcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="fstPtUseAmt != null">
+        FST_PT_USE_AMT = #{fstPtUseAmt,jdbcType=INTEGER},
+      </if>
+      <if test="fstRealOrdAmt != null">
+        FST_REAL_ORD_AMT = #{fstRealOrdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="fstRealPayAmt != null">
+        FST_REAL_PAY_AMT = #{fstRealPayAmt,jdbcType=INTEGER},
+      </if>
+      <if test="fstPtSaveAmt != null">
+        FST_PT_SAVE_AMT = #{fstPtSaveAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ordAmt != null">
+        ORD_AMT = #{ordAmt,jdbcType=INTEGER},
+      </if>
+      <if test="cpnDcAmt != null">
+        CPN_DC_AMT = #{cpnDcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ptUseAmt != null">
+        PT_USE_AMT = #{ptUseAmt,jdbcType=INTEGER},
+      </if>
+      <if test="realOrdAmt != null">
+        REAL_ORD_AMT = #{realOrdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="realPayAmt != null">
+        REAL_PAY_AMT = #{realPayAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ptTpCd != null">
+        PT_TP_CD = #{ptTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptSaveYn != null">
+        PT_SAVE_YN = #{ptSaveYn,jdbcType=VARCHAR},
+      </if>
+      <if test="ptSaveRate != null">
+        PT_SAVE_RATE = #{ptSaveRate,jdbcType=DECIMAL},
+      </if>
+      <if test="ptSaveAmt != null">
+        PT_SAVE_AMT = #{ptSaveAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgSplyAmt != null">
+        PG_SPLY_AMT = #{pgSplyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgVatAmt != null">
+        PG_VAT_AMT = #{pgVatAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgTaxfreeAmt != null">
+        PG_TAXFREE_AMT = #{pgTaxfreeAmt,jdbcType=INTEGER},
+      </if>
+      <if test="settlStatCd != null">
+        SETTL_STAT_CD = #{settlStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="settlYmd != null">
+        SETTL_YMD = #{settlYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="settlPgYmd != null">
+        SETTL_PG_YMD = #{settlPgYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderItemEntity">
+    update ord_item
+    set ORD_ID = #{ordId,jdbcType=INTEGER},
+      ORD_ITEM_SEQ = #{ordItemSeq,jdbcType=DECIMAL},
+      ORD_ITEM_NO = #{ordItemNo,jdbcType=VARCHAR},
+      ORD_ITEM_STAT_CD = #{ordItemStatCd,jdbcType=VARCHAR},
+      ORD_ITEM_STAT_CHG_DT = #{ordItemStatChgDt,jdbcType=DATE},
+      NOW_ORD_ITEM_STAT_CD = #{nowOrdItemStatCd,jdbcType=VARCHAR},
+      DP_CH_ID = #{dpChId,jdbcType=INTEGER},
+      ITEM_ID = #{itemId,jdbcType=INTEGER},
+      ITEM_TP_CD = #{itemTpCd,jdbcType=VARCHAR},
+      ITEM_CD = #{itemCd,jdbcType=VARCHAR},
+      SSG_CD = #{ssgCd,jdbcType=VARCHAR},
+      ITEM_NM = #{itemNm,jdbcType=VARCHAR},
+      ITEM_OPT_ID = #{itemOptId,jdbcType=INTEGER},
+      ITEM_OPT_NM = #{itemOptNm,jdbcType=VARCHAR},
+      ITEM_SET_ID = #{itemSetId,jdbcType=INTEGER},
+      SET_ITEM_ID = #{setItemId,jdbcType=INTEGER},
+      SET_ITEM_NM = #{setItemNm,jdbcType=VARCHAR},
+      ITEM_ATTR_TP_CD = #{itemAttrTpCd,jdbcType=VARCHAR},
+      ITEM_TAX_CL_CD = #{itemTaxClCd,jdbcType=VARCHAR},
+      ITEM_CPN_USE_PSBL_YN = #{itemCpnUsePsblYn,jdbcType=VARCHAR},
+      ITEM_PT_SAVE_TP_CD = #{itemPtSaveTpCd,jdbcType=VARCHAR},
+      ITEM_PT_SAVE_METH_CD = #{itemPtSaveMethCd,jdbcType=VARCHAR},
+      ITEM_PT_SAVE_RATE = #{itemPtSaveRate,jdbcType=DECIMAL},
+      ITEM_PT_SAVE_AMT = #{itemPtSaveAmt,jdbcType=INTEGER},
+      ITEM_ORD_RES_MAX_QTY = #{itemOrdResMaxQty,jdbcType=DECIMAL},
+      ITEM_CSTMD_YN = #{itemCstmdYn,jdbcType=VARCHAR},
+      ITEM_RGUR_PRC = #{itemRgurPrc,jdbcType=INTEGER},
+      ITEM_PRC_ID = #{itemPrcId,jdbcType=INTEGER},
+      ITEM_PRC_TP_CD = #{itemPrcTpCd,jdbcType=VARCHAR},
+      ITEM_SPLY_UPRC = #{itemSplyUprc,jdbcType=INTEGER},
+      ITEM_SELL_UNIT_QTY = #{itemSellUnitQty,jdbcType=DECIMAL},
+      ITEM_SPLY_PRC = #{itemSplyPrc,jdbcType=INTEGER},
+      ITEM_SELL_DC_RATE = #{itemSellDcRate,jdbcType=DECIMAL},
+      ITEM_SELL_PRC = #{itemSellPrc,jdbcType=INTEGER},
+      ITEM_COMS_RATE = #{itemComsRate,jdbcType=DECIMAL},
+      ITEM_COMS_AMT = #{itemComsAmt,jdbcType=INTEGER},
+      REAL_SELL_PRC = #{realSellPrc,jdbcType=INTEGER},
+      ITEM_VAT_RATE = #{itemVatRate,jdbcType=DECIMAL},
+      ORD_QTY = #{ordQty,jdbcType=DECIMAL},
+      CNCL_QTY = #{cnclQty,jdbcType=DECIMAL},
+      FST_ORD_AMT = #{fstOrdAmt,jdbcType=INTEGER},
+      FST_CPN_DC_AMT = #{fstCpnDcAmt,jdbcType=INTEGER},
+      FST_PT_USE_AMT = #{fstPtUseAmt,jdbcType=INTEGER},
+      FST_REAL_ORD_AMT = #{fstRealOrdAmt,jdbcType=INTEGER},
+      FST_REAL_PAY_AMT = #{fstRealPayAmt,jdbcType=INTEGER},
+      FST_PT_SAVE_AMT = #{fstPtSaveAmt,jdbcType=INTEGER},
+      ORD_AMT = #{ordAmt,jdbcType=INTEGER},
+      CPN_DC_AMT = #{cpnDcAmt,jdbcType=INTEGER},
+      PT_USE_AMT = #{ptUseAmt,jdbcType=INTEGER},
+      REAL_ORD_AMT = #{realOrdAmt,jdbcType=INTEGER},
+      REAL_PAY_AMT = #{realPayAmt,jdbcType=INTEGER},
+      PT_TP_CD = #{ptTpCd,jdbcType=VARCHAR},
+      PT_SAVE_YN = #{ptSaveYn,jdbcType=VARCHAR},
+      PT_SAVE_RATE = #{ptSaveRate,jdbcType=DECIMAL},
+      PT_SAVE_AMT = #{ptSaveAmt,jdbcType=INTEGER},
+      PG_SPLY_AMT = #{pgSplyAmt,jdbcType=INTEGER},
+      PG_VAT_AMT = #{pgVatAmt,jdbcType=INTEGER},
+      PG_TAXFREE_AMT = #{pgTaxfreeAmt,jdbcType=INTEGER},
+      SETTL_STAT_CD = #{settlStatCd,jdbcType=VARCHAR},
+      SETTL_YMD = #{settlYmd,jdbcType=VARCHAR},
+      SETTL_PG_YMD = #{settlPgYmd,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderItemEntity">
+    update ord_item
+    <set>
+      <if test="ordId != null">
+        ORD_ID = null,
+      </if>
+      <if test="ordItemSeq != null">
+        ORD_ITEM_SEQ = null,
+      </if>
+      <if test="ordItemNo != null">
+        ORD_ITEM_NO = null,
+      </if>
+      <if test="ordItemStatCd != null">
+        ORD_ITEM_STAT_CD = null,
+      </if>
+      <if test="ordItemStatChgDt != null">
+        ORD_ITEM_STAT_CHG_DT = null,
+      </if>
+      <if test="nowOrdItemStatCd != null">
+        NOW_ORD_ITEM_STAT_CD = null,
+      </if>
+      <if test="dpChId != null">
+        DP_CH_ID = null,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID = null,
+      </if>
+      <if test="itemTpCd != null">
+        ITEM_TP_CD = null,
+      </if>
+      <if test="itemCd != null">
+        ITEM_CD = null,
+      </if>
+      <if test="ssgCd != null">
+        SSG_CD = null,
+      </if>
+      <if test="itemNm != null">
+        ITEM_NM = null,
+      </if>
+      <if test="itemOptId != null">
+        ITEM_OPT_ID = null,
+      </if>
+      <if test="itemOptNm != null">
+        ITEM_OPT_NM = null,
+      </if>
+      <if test="itemSetId != null">
+        ITEM_SET_ID = null,
+      </if>
+      <if test="setItemId != null">
+        SET_ITEM_ID = null,
+      </if>
+      <if test="setItemNm != null">
+        SET_ITEM_NM = null,
+      </if>
+      <if test="itemAttrTpCd != null">
+        ITEM_ATTR_TP_CD = null,
+      </if>
+      <if test="itemTaxClCd != null">
+        ITEM_TAX_CL_CD = null,
+      </if>
+      <if test="itemCpnUsePsblYn != null">
+        ITEM_CPN_USE_PSBL_YN = null,
+      </if>
+      <if test="itemPtSaveTpCd != null">
+        ITEM_PT_SAVE_TP_CD = null,
+      </if>
+      <if test="itemPtSaveMethCd != null">
+        ITEM_PT_SAVE_METH_CD = null,
+      </if>
+      <if test="itemPtSaveRate != null">
+        ITEM_PT_SAVE_RATE = null,
+      </if>
+      <if test="itemPtSaveAmt != null">
+        ITEM_PT_SAVE_AMT = null,
+      </if>
+      <if test="itemOrdResMaxQty != null">
+        ITEM_ORD_RES_MAX_QTY = null,
+      </if>
+      <if test="itemCstmdYn != null">
+        ITEM_CSTMD_YN = null,
+      </if>
+      <if test="itemRgurPrc != null">
+        ITEM_RGUR_PRC = null,
+      </if>
+      <if test="itemPrcId != null">
+        ITEM_PRC_ID = null,
+      </if>
+      <if test="itemPrcTpCd != null">
+        ITEM_PRC_TP_CD = null,
+      </if>
+      <if test="itemSplyUprc != null">
+        ITEM_SPLY_UPRC = null,
+      </if>
+      <if test="itemSellUnitQty != null">
+        ITEM_SELL_UNIT_QTY = null,
+      </if>
+      <if test="itemSplyPrc != null">
+        ITEM_SPLY_PRC = null,
+      </if>
+      <if test="itemSellDcRate != null">
+        ITEM_SELL_DC_RATE = null,
+      </if>
+      <if test="itemSellPrc != null">
+        ITEM_SELL_PRC = null,
+      </if>
+      <if test="itemComsRate != null">
+        ITEM_COMS_RATE = null,
+      </if>
+      <if test="itemComsAmt != null">
+        ITEM_COMS_AMT = null,
+      </if>
+      <if test="realSellPrc != null">
+        REAL_SELL_PRC = null,
+      </if>
+      <if test="itemVatRate != null">
+        ITEM_VAT_RATE = null,
+      </if>
+      <if test="ordQty != null">
+        ORD_QTY = null,
+      </if>
+      <if test="cnclQty != null">
+        CNCL_QTY = null,
+      </if>
+      <if test="fstOrdAmt != null">
+        FST_ORD_AMT = null,
+      </if>
+      <if test="fstCpnDcAmt != null">
+        FST_CPN_DC_AMT = null,
+      </if>
+      <if test="fstPtUseAmt != null">
+        FST_PT_USE_AMT = null,
+      </if>
+      <if test="fstRealOrdAmt != null">
+        FST_REAL_ORD_AMT = null,
+      </if>
+      <if test="fstRealPayAmt != null">
+        FST_REAL_PAY_AMT = null,
+      </if>
+      <if test="fstPtSaveAmt != null">
+        FST_PT_SAVE_AMT = null,
+      </if>
+      <if test="ordAmt != null">
+        ORD_AMT = null,
+      </if>
+      <if test="cpnDcAmt != null">
+        CPN_DC_AMT = null,
+      </if>
+      <if test="ptUseAmt != null">
+        PT_USE_AMT = null,
+      </if>
+      <if test="realOrdAmt != null">
+        REAL_ORD_AMT = null,
+      </if>
+      <if test="realPayAmt != null">
+        REAL_PAY_AMT = null,
+      </if>
+      <if test="ptTpCd != null">
+        PT_TP_CD = null,
+      </if>
+      <if test="ptSaveYn != null">
+        PT_SAVE_YN = null,
+      </if>
+      <if test="ptSaveRate != null">
+        PT_SAVE_RATE = null,
+      </if>
+      <if test="ptSaveAmt != null">
+        PT_SAVE_AMT = null,
+      </if>
+      <if test="pgSplyAmt != null">
+        PG_SPLY_AMT = null,
+      </if>
+      <if test="pgVatAmt != null">
+        PG_VAT_AMT = null,
+      </if>
+      <if test="pgTaxfreeAmt != null">
+        PG_TAXFREE_AMT = null,
+      </if>
+      <if test="settlStatCd != null">
+        SETTL_STAT_CD = null,
+      </if>
+      <if test="settlYmd != null">
+        SETTL_YMD = null,
+      </if>
+      <if test="settlPgYmd != null">
+        SETTL_PG_YMD = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER}
+  </update>
+</mapper>

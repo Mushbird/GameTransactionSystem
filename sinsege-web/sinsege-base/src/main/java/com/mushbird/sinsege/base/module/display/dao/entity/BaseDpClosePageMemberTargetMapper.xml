@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.display.dao.BaseDpClosePageMemberTargetMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.display.model.DpClosePageMemberTarget">
+    <id column="TDCPMT_DP_CH_ID" jdbcType="INTEGER" property="dpChId" />
+    <id column="TDCPMT_MBR_TGT_CD" jdbcType="VARCHAR" property="mbrTgtCd" />
+    <result column="TDCPMT_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TDCPMT_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TDCPMT_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TDCPMT.DP_CH_ID as TDCPMT_DP_CH_ID, TDCPMT.MBR_TGT_CD as TDCPMT_MBR_TGT_CD, TDCPMT.REG_DT as TDCPMT_REG_DT, 
+    TDCPMT.REG_ID as TDCPMT_REG_ID, TDCPMT.USE_YN as TDCPMT_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpClosePageMemberTargetEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dp_close_page_mbr_tgt TDCPMT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpClosePageMemberTargetKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dp_close_page_mbr_tgt TDCPMT
+    where TDCPMT.DP_CH_ID = #{dpChId,jdbcType=INTEGER}
+      and TDCPMT.MBR_TGT_CD = #{mbrTgtCd,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpClosePageMemberTargetKey">
+    delete from dp_close_page_mbr_tgt
+    where DP_CH_ID = #{dpChId,jdbcType=INTEGER}
+      and MBR_TGT_CD = #{mbrTgtCd,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpClosePageMemberTargetEntityCriteria">
+    delete TDCPMT from dp_close_page_mbr_tgt TDCPMT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpClosePageMemberTargetEntity">
+    insert into dp_close_page_mbr_tgt (DP_CH_ID, MBR_TGT_CD, REG_DT, 
+      REG_ID, USE_YN)
+    values (#{dpChId,jdbcType=INTEGER}, #{mbrTgtCd,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpClosePageMemberTargetEntity">
+    insert into dp_close_page_mbr_tgt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dpChId != null">
+        DP_CH_ID,
+      </if>
+      <if test="mbrTgtCd != null">
+        MBR_TGT_CD,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dpChId != null">
+        #{dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrTgtCd != null">
+        #{mbrTgtCd,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpClosePageMemberTargetEntityCriteria" resultType="java.lang.Long">
+    select count(*) from dp_close_page_mbr_tgt TDCPMT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TDCPMT
+    <set>
+      <if test="record.dpChId != null">
+        
+      </if>
+      <if test="record.mbrTgtCd != null">
+        
+      </if>
+      <if test="record.regDt != null">
+        TDCPMT.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TDCPMT.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TDCPMT.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from dp_close_page_mbr_tgt TDCPMT
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update dp_close_page_mbr_tgt TDCPMT
+    set 
+      
+      TDCPMT.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TDCPMT.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TDCPMT.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpClosePageMemberTargetEntity">
+    update dp_close_page_mbr_tgt
+    <set>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DP_CH_ID = #{dpChId,jdbcType=INTEGER}
+      and MBR_TGT_CD = #{mbrTgtCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpClosePageMemberTargetEntity">
+    update dp_close_page_mbr_tgt
+    set REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where DP_CH_ID = #{dpChId,jdbcType=INTEGER}
+      and MBR_TGT_CD = #{mbrTgtCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpClosePageMemberTargetEntity">
+    update dp_close_page_mbr_tgt
+    <set>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and DP_CH_ID = #{dpChId,jdbcType=INTEGER}
+    and MBR_TGT_CD = #{mbrTgtCd,jdbcType=VARCHAR}
+  </update>
+</mapper>

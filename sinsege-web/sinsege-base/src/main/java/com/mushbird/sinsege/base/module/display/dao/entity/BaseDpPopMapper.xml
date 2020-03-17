@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.display.dao.BaseDpPopMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.display.model.DpPop">
+    <id column="TDPOP_DP_POP_ID" jdbcType="INTEGER" property="dpPopId" />
+    <result column="TDPOP_POP_DP_ENV_CD" jdbcType="VARCHAR" property="popDpEnvCd" />
+    <result column="TDPOP_POP_TIT" jdbcType="VARCHAR" property="popTit" />
+    <result column="TDPOP_ATCH_GID" jdbcType="INTEGER" property="atchGid" />
+    <result column="TDPOP_POP_LOC_XA" jdbcType="DECIMAL" property="popLocXa" />
+    <result column="TDPOP_POP_LOC_YA" jdbcType="DECIMAL" property="popLocYa" />
+    <result column="TDPOP_LINK_URL_ADDR" jdbcType="VARCHAR" property="linkUrlAddr" />
+    <result column="TDPOP_LINK_NWIN_YN" jdbcType="VARCHAR" property="linkNwinYn" />
+    <result column="TDPOP_DP_ST_DT" jdbcType="DATE" property="dpStDt" />
+    <result column="TDPOP_DP_ED_DT" jdbcType="DATE" property="dpEdDt" />
+    <result column="TDPOP_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TDPOP_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TDPOP_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TDPOP_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TDPOP_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TDPOP_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TDPOP.DP_POP_ID as TDPOP_DP_POP_ID, TDPOP.POP_DP_ENV_CD as TDPOP_POP_DP_ENV_CD, TDPOP.POP_TIT as TDPOP_POP_TIT, 
+    TDPOP.ATCH_GID as TDPOP_ATCH_GID, TDPOP.POP_LOC_XA as TDPOP_POP_LOC_XA, TDPOP.POP_LOC_YA as TDPOP_POP_LOC_YA, 
+    TDPOP.LINK_URL_ADDR as TDPOP_LINK_URL_ADDR, TDPOP.LINK_NWIN_YN as TDPOP_LINK_NWIN_YN, 
+    TDPOP.DP_ST_DT as TDPOP_DP_ST_DT, TDPOP.DP_ED_DT as TDPOP_DP_ED_DT, TDPOP.DP_YN as TDPOP_DP_YN, 
+    TDPOP.REG_DT as TDPOP_REG_DT, TDPOP.REG_ID as TDPOP_REG_ID, TDPOP.MOD_DT as TDPOP_MOD_DT, 
+    TDPOP.MOD_ID as TDPOP_MOD_ID, TDPOP.USE_YN as TDPOP_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpPopEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dp_pop TDPOP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dp_pop TDPOP
+    where TDPOP.DP_POP_ID = #{dpPopId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dp_pop
+    where DP_POP_ID = #{dpPopId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpPopEntityCriteria">
+    delete TDPOP from dp_pop TDPOP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpPopEntity">
+    <selectKey keyProperty="dpPopId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_DP_POP
+    </selectKey>
+    insert into dp_pop (DP_POP_ID, POP_DP_ENV_CD, POP_TIT, 
+      ATCH_GID, POP_LOC_XA, POP_LOC_YA, 
+      LINK_URL_ADDR, LINK_NWIN_YN, DP_ST_DT, 
+      DP_ED_DT, DP_YN, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID, 
+      USE_YN)
+    values (#{dpPopId,jdbcType=INTEGER}, #{popDpEnvCd,jdbcType=VARCHAR}, #{popTit,jdbcType=VARCHAR}, 
+      #{atchGid,jdbcType=INTEGER}, #{popLocXa,jdbcType=DECIMAL}, #{popLocYa,jdbcType=DECIMAL}, 
+      #{linkUrlAddr,jdbcType=VARCHAR}, #{linkNwinYn,jdbcType=VARCHAR}, #{dpStDt,jdbcType=DATE}, 
+      #{dpEdDt,jdbcType=DATE}, #{dpYn,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, 
+      #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpPopEntity">
+    <selectKey keyProperty="dpPopId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_DP_POP
+    </selectKey>
+    insert into dp_pop
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      DP_POP_ID,
+      <if test="popDpEnvCd != null">
+        POP_DP_ENV_CD,
+      </if>
+      <if test="popTit != null">
+        POP_TIT,
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID,
+      </if>
+      <if test="popLocXa != null">
+        POP_LOC_XA,
+      </if>
+      <if test="popLocYa != null">
+        POP_LOC_YA,
+      </if>
+      <if test="linkUrlAddr != null">
+        LINK_URL_ADDR,
+      </if>
+      <if test="linkNwinYn != null">
+        LINK_NWIN_YN,
+      </if>
+      <if test="dpStDt != null">
+        DP_ST_DT,
+      </if>
+      <if test="dpEdDt != null">
+        DP_ED_DT,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{dpPopId,jdbcType=INTEGER},
+      <if test="popDpEnvCd != null">
+        #{popDpEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="popTit != null">
+        #{popTit,jdbcType=VARCHAR},
+      </if>
+      <if test="atchGid != null">
+        #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="popLocXa != null">
+        #{popLocXa,jdbcType=DECIMAL},
+      </if>
+      <if test="popLocYa != null">
+        #{popLocYa,jdbcType=DECIMAL},
+      </if>
+      <if test="linkUrlAddr != null">
+        #{linkUrlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="linkNwinYn != null">
+        #{linkNwinYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dpStDt != null">
+        #{dpStDt,jdbcType=DATE},
+      </if>
+      <if test="dpEdDt != null">
+        #{dpEdDt,jdbcType=DATE},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpPopEntityCriteria" resultType="java.lang.Long">
+    select count(*) from dp_pop TDPOP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TDPOP
+    <set>
+      <if test="record.dpPopId != null">
+        
+      </if>
+      <if test="record.popDpEnvCd != null">
+        TDPOP.POP_DP_ENV_CD = #{record.popDpEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.popTit != null">
+        TDPOP.POP_TIT = #{record.popTit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atchGid != null">
+        TDPOP.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="record.popLocXa != null">
+        TDPOP.POP_LOC_XA = #{record.popLocXa,jdbcType=DECIMAL},
+      </if>
+      <if test="record.popLocYa != null">
+        TDPOP.POP_LOC_YA = #{record.popLocYa,jdbcType=DECIMAL},
+      </if>
+      <if test="record.linkUrlAddr != null">
+        TDPOP.LINK_URL_ADDR = #{record.linkUrlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkNwinYn != null">
+        TDPOP.LINK_NWIN_YN = #{record.linkNwinYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpStDt != null">
+        TDPOP.DP_ST_DT = #{record.dpStDt,jdbcType=DATE},
+      </if>
+      <if test="record.dpEdDt != null">
+        TDPOP.DP_ED_DT = #{record.dpEdDt,jdbcType=DATE},
+      </if>
+      <if test="record.dpYn != null">
+        TDPOP.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TDPOP.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TDPOP.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TDPOP.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TDPOP.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TDPOP.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from dp_pop TDPOP
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update dp_pop TDPOP
+    set 
+      TDPOP.POP_DP_ENV_CD = #{record.popDpEnvCd,jdbcType=VARCHAR},
+      TDPOP.POP_TIT = #{record.popTit,jdbcType=VARCHAR},
+      TDPOP.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      TDPOP.POP_LOC_XA = #{record.popLocXa,jdbcType=DECIMAL},
+      TDPOP.POP_LOC_YA = #{record.popLocYa,jdbcType=DECIMAL},
+      TDPOP.LINK_URL_ADDR = #{record.linkUrlAddr,jdbcType=VARCHAR},
+      TDPOP.LINK_NWIN_YN = #{record.linkNwinYn,jdbcType=VARCHAR},
+      TDPOP.DP_ST_DT = #{record.dpStDt,jdbcType=DATE},
+      TDPOP.DP_ED_DT = #{record.dpEdDt,jdbcType=DATE},
+      TDPOP.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TDPOP.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TDPOP.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TDPOP.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TDPOP.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TDPOP.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpPopEntity">
+    update dp_pop
+    <set>
+      <if test="popDpEnvCd != null">
+        POP_DP_ENV_CD = #{popDpEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="popTit != null">
+        POP_TIT = #{popTit,jdbcType=VARCHAR},
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="popLocXa != null">
+        POP_LOC_XA = #{popLocXa,jdbcType=DECIMAL},
+      </if>
+      <if test="popLocYa != null">
+        POP_LOC_YA = #{popLocYa,jdbcType=DECIMAL},
+      </if>
+      <if test="linkUrlAddr != null">
+        LINK_URL_ADDR = #{linkUrlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="linkNwinYn != null">
+        LINK_NWIN_YN = #{linkNwinYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dpStDt != null">
+        DP_ST_DT = #{dpStDt,jdbcType=DATE},
+      </if>
+      <if test="dpEdDt != null">
+        DP_ED_DT = #{dpEdDt,jdbcType=DATE},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DP_POP_ID = #{dpPopId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpPopEntity">
+    update dp_pop
+    set POP_DP_ENV_CD = #{popDpEnvCd,jdbcType=VARCHAR},
+      POP_TIT = #{popTit,jdbcType=VARCHAR},
+      ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      POP_LOC_XA = #{popLocXa,jdbcType=DECIMAL},
+      POP_LOC_YA = #{popLocYa,jdbcType=DECIMAL},
+      LINK_URL_ADDR = #{linkUrlAddr,jdbcType=VARCHAR},
+      LINK_NWIN_YN = #{linkNwinYn,jdbcType=VARCHAR},
+      DP_ST_DT = #{dpStDt,jdbcType=DATE},
+      DP_ED_DT = #{dpEdDt,jdbcType=DATE},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where DP_POP_ID = #{dpPopId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpPopEntity">
+    update dp_pop
+    <set>
+      <if test="popDpEnvCd != null">
+        POP_DP_ENV_CD = null,
+      </if>
+      <if test="popTit != null">
+        POP_TIT = null,
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID = null,
+      </if>
+      <if test="popLocXa != null">
+        POP_LOC_XA = null,
+      </if>
+      <if test="popLocYa != null">
+        POP_LOC_YA = null,
+      </if>
+      <if test="linkUrlAddr != null">
+        LINK_URL_ADDR = null,
+      </if>
+      <if test="linkNwinYn != null">
+        LINK_NWIN_YN = null,
+      </if>
+      <if test="dpStDt != null">
+        DP_ST_DT = null,
+      </if>
+      <if test="dpEdDt != null">
+        DP_ED_DT = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and DP_POP_ID = #{dpPopId,jdbcType=INTEGER}
+  </update>
+</mapper>

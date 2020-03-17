@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.admin.dao.BaseAdminRoleMenuMapMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.admin.model.AdminRoleMenuMap">
+    <id column="TARMM_ADM_ROLE_ID" jdbcType="INTEGER" property="admRoleId" />
+    <id column="TARMM_ADM_SITE_MENU_ID" jdbcType="INTEGER" property="admSiteMenuId" />
+    <result column="TARMM_ATHR_REG" jdbcType="VARCHAR" property="athrReg" />
+    <result column="TARMM_ATHR_READ" jdbcType="VARCHAR" property="athrRead" />
+    <result column="TARMM_ATHR_MOD" jdbcType="VARCHAR" property="athrMod" />
+    <result column="TARMM_ATHR_DEL" jdbcType="VARCHAR" property="athrDel" />
+    <result column="TARMM_ATHR_EXCEL" jdbcType="VARCHAR" property="athrExcel" />
+    <result column="TARMM_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TARMM_REG_ID" jdbcType="VARCHAR" property="regId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TARMM.ADM_ROLE_ID as TARMM_ADM_ROLE_ID, TARMM.ADM_SITE_MENU_ID as TARMM_ADM_SITE_MENU_ID, 
+    TARMM.ATHR_REG as TARMM_ATHR_REG, TARMM.ATHR_READ as TARMM_ATHR_READ, TARMM.ATHR_MOD as TARMM_ATHR_MOD, 
+    TARMM.ATHR_DEL as TARMM_ATHR_DEL, TARMM.ATHR_EXCEL as TARMM_ATHR_EXCEL, TARMM.REG_DT as TARMM_REG_DT, 
+    TARMM.REG_ID as TARMM_REG_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminRoleMenuMapEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from adm_role_menu_map TARMM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminRoleMenuMapKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from adm_role_menu_map TARMM
+    where TARMM.ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER}
+      and TARMM.ADM_SITE_MENU_ID = #{admSiteMenuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminRoleMenuMapKey">
+    delete from adm_role_menu_map
+    where ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER}
+      and ADM_SITE_MENU_ID = #{admSiteMenuId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminRoleMenuMapEntityCriteria">
+    delete TARMM from adm_role_menu_map TARMM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminRoleMenuMapEntity">
+    insert into adm_role_menu_map (ADM_ROLE_ID, ADM_SITE_MENU_ID, ATHR_REG, 
+      ATHR_READ, ATHR_MOD, ATHR_DEL, 
+      ATHR_EXCEL, REG_DT, REG_ID
+      )
+    values (#{admRoleId,jdbcType=INTEGER}, #{admSiteMenuId,jdbcType=INTEGER}, #{athrReg,jdbcType=VARCHAR}, 
+      #{athrRead,jdbcType=VARCHAR}, #{athrMod,jdbcType=VARCHAR}, #{athrDel,jdbcType=VARCHAR}, 
+      #{athrExcel,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminRoleMenuMapEntity">
+    insert into adm_role_menu_map
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="admRoleId != null">
+        ADM_ROLE_ID,
+      </if>
+      <if test="admSiteMenuId != null">
+        ADM_SITE_MENU_ID,
+      </if>
+      <if test="athrReg != null">
+        ATHR_REG,
+      </if>
+      <if test="athrRead != null">
+        ATHR_READ,
+      </if>
+      <if test="athrMod != null">
+        ATHR_MOD,
+      </if>
+      <if test="athrDel != null">
+        ATHR_DEL,
+      </if>
+      <if test="athrExcel != null">
+        ATHR_EXCEL,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="admRoleId != null">
+        #{admRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="admSiteMenuId != null">
+        #{admSiteMenuId,jdbcType=INTEGER},
+      </if>
+      <if test="athrReg != null">
+        #{athrReg,jdbcType=VARCHAR},
+      </if>
+      <if test="athrRead != null">
+        #{athrRead,jdbcType=VARCHAR},
+      </if>
+      <if test="athrMod != null">
+        #{athrMod,jdbcType=VARCHAR},
+      </if>
+      <if test="athrDel != null">
+        #{athrDel,jdbcType=VARCHAR},
+      </if>
+      <if test="athrExcel != null">
+        #{athrExcel,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminRoleMenuMapEntityCriteria" resultType="java.lang.Long">
+    select count(*) from adm_role_menu_map TARMM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TARMM
+    <set>
+      <if test="record.admRoleId != null">
+        
+      </if>
+      <if test="record.admSiteMenuId != null">
+        
+      </if>
+      <if test="record.athrReg != null">
+        TARMM.ATHR_REG = #{record.athrReg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.athrRead != null">
+        TARMM.ATHR_READ = #{record.athrRead,jdbcType=VARCHAR},
+      </if>
+      <if test="record.athrMod != null">
+        TARMM.ATHR_MOD = #{record.athrMod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.athrDel != null">
+        TARMM.ATHR_DEL = #{record.athrDel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.athrExcel != null">
+        TARMM.ATHR_EXCEL = #{record.athrExcel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TARMM.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TARMM.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from adm_role_menu_map TARMM
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update adm_role_menu_map TARMM
+    set 
+      
+      TARMM.ATHR_REG = #{record.athrReg,jdbcType=VARCHAR},
+      TARMM.ATHR_READ = #{record.athrRead,jdbcType=VARCHAR},
+      TARMM.ATHR_MOD = #{record.athrMod,jdbcType=VARCHAR},
+      TARMM.ATHR_DEL = #{record.athrDel,jdbcType=VARCHAR},
+      TARMM.ATHR_EXCEL = #{record.athrExcel,jdbcType=VARCHAR},
+      TARMM.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TARMM.REG_ID = #{record.regId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminRoleMenuMapEntity">
+    update adm_role_menu_map
+    <set>
+      <if test="athrReg != null">
+        ATHR_REG = #{athrReg,jdbcType=VARCHAR},
+      </if>
+      <if test="athrRead != null">
+        ATHR_READ = #{athrRead,jdbcType=VARCHAR},
+      </if>
+      <if test="athrMod != null">
+        ATHR_MOD = #{athrMod,jdbcType=VARCHAR},
+      </if>
+      <if test="athrDel != null">
+        ATHR_DEL = #{athrDel,jdbcType=VARCHAR},
+      </if>
+      <if test="athrExcel != null">
+        ATHR_EXCEL = #{athrExcel,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER}
+      and ADM_SITE_MENU_ID = #{admSiteMenuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminRoleMenuMapEntity">
+    update adm_role_menu_map
+    set ATHR_REG = #{athrReg,jdbcType=VARCHAR},
+      ATHR_READ = #{athrRead,jdbcType=VARCHAR},
+      ATHR_MOD = #{athrMod,jdbcType=VARCHAR},
+      ATHR_DEL = #{athrDel,jdbcType=VARCHAR},
+      ATHR_EXCEL = #{athrExcel,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR}
+    where ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER}
+      and ADM_SITE_MENU_ID = #{admSiteMenuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminRoleMenuMapEntity">
+    update adm_role_menu_map
+    <set>
+      <if test="athrReg != null">
+        ATHR_REG = null,
+      </if>
+      <if test="athrRead != null">
+        ATHR_READ = null,
+      </if>
+      <if test="athrMod != null">
+        ATHR_MOD = null,
+      </if>
+      <if test="athrDel != null">
+        ATHR_DEL = null,
+      </if>
+      <if test="athrExcel != null">
+        ATHR_EXCEL = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER}
+    and ADM_SITE_MENU_ID = #{admSiteMenuId,jdbcType=INTEGER}
+  </update>
+</mapper>

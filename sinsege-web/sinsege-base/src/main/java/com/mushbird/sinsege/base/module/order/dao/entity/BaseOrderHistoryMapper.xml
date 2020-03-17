@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.order.dao.BaseOrderHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.order.model.OrderHistory">
+    <id column="TOH_ORD_HIST_ID" jdbcType="INTEGER" property="ordHistId" />
+    <result column="TOH_ORD_ID" jdbcType="INTEGER" property="ordId" />
+    <result column="TOH_ORD_ITEM_ID" jdbcType="INTEGER" property="ordItemId" />
+    <result column="TOH_ORD_CLM_ITEM_ID" jdbcType="INTEGER" property="ordClmItemId" />
+    <result column="TOH_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="TOH_ADM_ID" jdbcType="VARCHAR" property="admId" />
+    <result column="TOH_ORD_HIST_TP_CD" jdbcType="VARCHAR" property="ordHistTpCd" />
+    <result column="TOH_ORD_HIST_CD" jdbcType="VARCHAR" property="ordHistCd" />
+    <result column="TOH_ORD_HIST_DT" jdbcType="DATE" property="ordHistDt" />
+    <result column="TOH_ORD_HIST_IP" jdbcType="VARCHAR" property="ordHistIp" />
+    <result column="TOH_CONT" jdbcType="VARCHAR" property="cont" />
+    <result column="TOH_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TOH_REG_ID" jdbcType="VARCHAR" property="regId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TOH.ORD_HIST_ID as TOH_ORD_HIST_ID, TOH.ORD_ID as TOH_ORD_ID, TOH.ORD_ITEM_ID as TOH_ORD_ITEM_ID, 
+    TOH.ORD_CLM_ITEM_ID as TOH_ORD_CLM_ITEM_ID, TOH.MBR_ID as TOH_MBR_ID, TOH.ADM_ID as TOH_ADM_ID, 
+    TOH.ORD_HIST_TP_CD as TOH_ORD_HIST_TP_CD, TOH.ORD_HIST_CD as TOH_ORD_HIST_CD, TOH.ORD_HIST_DT as TOH_ORD_HIST_DT, 
+    TOH.ORD_HIST_IP as TOH_ORD_HIST_IP, TOH.CONT as TOH_CONT, TOH.REG_DT as TOH_REG_DT, 
+    TOH.REG_ID as TOH_REG_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderHistoryEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ord_hist TOH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ord_hist TOH
+    where TOH.ORD_HIST_ID = #{ordHistId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ord_hist
+    where ORD_HIST_ID = #{ordHistId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderHistoryEntityCriteria">
+    delete TOH from ord_hist TOH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderHistoryEntity">
+    <selectKey keyProperty="ordHistId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ORD_HIST
+    </selectKey>
+    insert into ord_hist (ORD_HIST_ID, ORD_ID, ORD_ITEM_ID, 
+      ORD_CLM_ITEM_ID, MBR_ID, ADM_ID, 
+      ORD_HIST_TP_CD, ORD_HIST_CD, ORD_HIST_DT, 
+      ORD_HIST_IP, CONT, REG_DT, 
+      REG_ID)
+    values (#{ordHistId,jdbcType=INTEGER}, #{ordId,jdbcType=INTEGER}, #{ordItemId,jdbcType=INTEGER}, 
+      #{ordClmItemId,jdbcType=INTEGER}, #{mbrId,jdbcType=VARCHAR}, #{admId,jdbcType=VARCHAR}, 
+      #{ordHistTpCd,jdbcType=VARCHAR}, #{ordHistCd,jdbcType=VARCHAR}, #{ordHistDt,jdbcType=DATE}, 
+      #{ordHistIp,jdbcType=VARCHAR}, #{cont,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderHistoryEntity">
+    <selectKey keyProperty="ordHistId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ORD_HIST
+    </selectKey>
+    insert into ord_hist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ORD_HIST_ID,
+      <if test="ordId != null">
+        ORD_ID,
+      </if>
+      <if test="ordItemId != null">
+        ORD_ITEM_ID,
+      </if>
+      <if test="ordClmItemId != null">
+        ORD_CLM_ITEM_ID,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="admId != null">
+        ADM_ID,
+      </if>
+      <if test="ordHistTpCd != null">
+        ORD_HIST_TP_CD,
+      </if>
+      <if test="ordHistCd != null">
+        ORD_HIST_CD,
+      </if>
+      <if test="ordHistDt != null">
+        ORD_HIST_DT,
+      </if>
+      <if test="ordHistIp != null">
+        ORD_HIST_IP,
+      </if>
+      <if test="cont != null">
+        CONT,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{ordHistId,jdbcType=INTEGER},
+      <if test="ordId != null">
+        #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="ordItemId != null">
+        #{ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="ordClmItemId != null">
+        #{ordClmItemId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="admId != null">
+        #{admId,jdbcType=VARCHAR},
+      </if>
+      <if test="ordHistTpCd != null">
+        #{ordHistTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ordHistCd != null">
+        #{ordHistCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ordHistDt != null">
+        #{ordHistDt,jdbcType=DATE},
+      </if>
+      <if test="ordHistIp != null">
+        #{ordHistIp,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderHistoryEntityCriteria" resultType="java.lang.Long">
+    select count(*) from ord_hist TOH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TOH
+    <set>
+      <if test="record.ordHistId != null">
+        
+      </if>
+      <if test="record.ordId != null">
+        TOH.ORD_ID = #{record.ordId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordItemId != null">
+        TOH.ORD_ITEM_ID = #{record.ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordClmItemId != null">
+        TOH.ORD_CLM_ITEM_ID = #{record.ordClmItemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mbrId != null">
+        TOH.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admId != null">
+        TOH.ADM_ID = #{record.admId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordHistTpCd != null">
+        TOH.ORD_HIST_TP_CD = #{record.ordHistTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordHistCd != null">
+        TOH.ORD_HIST_CD = #{record.ordHistCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordHistDt != null">
+        TOH.ORD_HIST_DT = #{record.ordHistDt,jdbcType=DATE},
+      </if>
+      <if test="record.ordHistIp != null">
+        TOH.ORD_HIST_IP = #{record.ordHistIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cont != null">
+        TOH.CONT = #{record.cont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TOH.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TOH.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from ord_hist TOH
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update ord_hist TOH
+    set 
+      TOH.ORD_ID = #{record.ordId,jdbcType=INTEGER},
+      TOH.ORD_ITEM_ID = #{record.ordItemId,jdbcType=INTEGER},
+      TOH.ORD_CLM_ITEM_ID = #{record.ordClmItemId,jdbcType=INTEGER},
+      TOH.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      TOH.ADM_ID = #{record.admId,jdbcType=VARCHAR},
+      TOH.ORD_HIST_TP_CD = #{record.ordHistTpCd,jdbcType=VARCHAR},
+      TOH.ORD_HIST_CD = #{record.ordHistCd,jdbcType=VARCHAR},
+      TOH.ORD_HIST_DT = #{record.ordHistDt,jdbcType=DATE},
+      TOH.ORD_HIST_IP = #{record.ordHistIp,jdbcType=VARCHAR},
+      TOH.CONT = #{record.cont,jdbcType=VARCHAR},
+      TOH.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TOH.REG_ID = #{record.regId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderHistoryEntity">
+    update ord_hist
+    <set>
+      <if test="ordId != null">
+        ORD_ID = #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="ordItemId != null">
+        ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER},
+      </if>
+      <if test="ordClmItemId != null">
+        ORD_CLM_ITEM_ID = #{ordClmItemId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="admId != null">
+        ADM_ID = #{admId,jdbcType=VARCHAR},
+      </if>
+      <if test="ordHistTpCd != null">
+        ORD_HIST_TP_CD = #{ordHistTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ordHistCd != null">
+        ORD_HIST_CD = #{ordHistCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ordHistDt != null">
+        ORD_HIST_DT = #{ordHistDt,jdbcType=DATE},
+      </if>
+      <if test="ordHistIp != null">
+        ORD_HIST_IP = #{ordHistIp,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        CONT = #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORD_HIST_ID = #{ordHistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderHistoryEntity">
+    update ord_hist
+    set ORD_ID = #{ordId,jdbcType=INTEGER},
+      ORD_ITEM_ID = #{ordItemId,jdbcType=INTEGER},
+      ORD_CLM_ITEM_ID = #{ordClmItemId,jdbcType=INTEGER},
+      MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      ADM_ID = #{admId,jdbcType=VARCHAR},
+      ORD_HIST_TP_CD = #{ordHistTpCd,jdbcType=VARCHAR},
+      ORD_HIST_CD = #{ordHistCd,jdbcType=VARCHAR},
+      ORD_HIST_DT = #{ordHistDt,jdbcType=DATE},
+      ORD_HIST_IP = #{ordHistIp,jdbcType=VARCHAR},
+      CONT = #{cont,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR}
+    where ORD_HIST_ID = #{ordHistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderHistoryEntity">
+    update ord_hist
+    <set>
+      <if test="ordId != null">
+        ORD_ID = null,
+      </if>
+      <if test="ordItemId != null">
+        ORD_ITEM_ID = null,
+      </if>
+      <if test="ordClmItemId != null">
+        ORD_CLM_ITEM_ID = null,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="admId != null">
+        ADM_ID = null,
+      </if>
+      <if test="ordHistTpCd != null">
+        ORD_HIST_TP_CD = null,
+      </if>
+      <if test="ordHistCd != null">
+        ORD_HIST_CD = null,
+      </if>
+      <if test="ordHistDt != null">
+        ORD_HIST_DT = null,
+      </if>
+      <if test="ordHistIp != null">
+        ORD_HIST_IP = null,
+      </if>
+      <if test="cont != null">
+        CONT = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and ORD_HIST_ID = #{ordHistId,jdbcType=INTEGER}
+  </update>
+</mapper>

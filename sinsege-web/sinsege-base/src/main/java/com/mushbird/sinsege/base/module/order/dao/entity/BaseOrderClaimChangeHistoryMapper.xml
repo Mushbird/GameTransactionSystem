@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.order.dao.BaseOrderClaimChangeHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.order.model.OrderClaimChangeHistory">
+    <id column="TOCCH_ORD_CLM_CHIST_ID" jdbcType="INTEGER" property="ordClmChistId" />
+    <result column="TOCCH_ORD_CLM_ID" jdbcType="INTEGER" property="ordClmId" />
+    <result column="TOCCH_ORD_ID" jdbcType="INTEGER" property="ordId" />
+    <result column="TOCCH_ORD_CLM_NO" jdbcType="VARCHAR" property="ordClmNo" />
+    <result column="TOCCH_CLM_TP_CD" jdbcType="VARCHAR" property="clmTpCd" />
+    <result column="TOCCH_CLM_RCPT_DT" jdbcType="DATE" property="clmRcptDt" />
+    <result column="TOCCH_CLM_ATTR_CD" jdbcType="VARCHAR" property="clmAttrCd" />
+    <result column="TOCCH_CLM_RSN_CD" jdbcType="VARCHAR" property="clmRsnCd" />
+    <result column="TOCCH_CLM_RSN_CONT" jdbcType="VARCHAR" property="clmRsnCont" />
+    <result column="TOCCH_RFD_MTHD" jdbcType="VARCHAR" property="rfdMthd" />
+    <result column="TOCCH_CPN_DC_RTN_AMT" jdbcType="INTEGER" property="cpnDcRtnAmt" />
+    <result column="TOCCH_PT_USE_RTN_AMT" jdbcType="INTEGER" property="ptUseRtnAmt" />
+    <result column="TOCCH_CLM_AMT" jdbcType="INTEGER" property="clmAmt" />
+    <result column="TOCCH_REAL_CLM_AMT" jdbcType="INTEGER" property="realClmAmt" />
+    <result column="TOCCH_PAY_CPLT_DT" jdbcType="DATE" property="payCpltDt" />
+    <result column="TOCCH_RFD_CPLT_DT" jdbcType="DATE" property="rfdCpltDt" />
+    <result column="TOCCH_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TOCCH_REG_ID" jdbcType="VARCHAR" property="regId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TOCCH.ORD_CLM_CHIST_ID as TOCCH_ORD_CLM_CHIST_ID, TOCCH.ORD_CLM_ID as TOCCH_ORD_CLM_ID, 
+    TOCCH.ORD_ID as TOCCH_ORD_ID, TOCCH.ORD_CLM_NO as TOCCH_ORD_CLM_NO, TOCCH.CLM_TP_CD as TOCCH_CLM_TP_CD, 
+    TOCCH.CLM_RCPT_DT as TOCCH_CLM_RCPT_DT, TOCCH.CLM_ATTR_CD as TOCCH_CLM_ATTR_CD, TOCCH.CLM_RSN_CD as TOCCH_CLM_RSN_CD, 
+    TOCCH.CLM_RSN_CONT as TOCCH_CLM_RSN_CONT, TOCCH.RFD_MTHD as TOCCH_RFD_MTHD, TOCCH.CPN_DC_RTN_AMT as TOCCH_CPN_DC_RTN_AMT, 
+    TOCCH.PT_USE_RTN_AMT as TOCCH_PT_USE_RTN_AMT, TOCCH.CLM_AMT as TOCCH_CLM_AMT, TOCCH.REAL_CLM_AMT as TOCCH_REAL_CLM_AMT, 
+    TOCCH.PAY_CPLT_DT as TOCCH_PAY_CPLT_DT, TOCCH.RFD_CPLT_DT as TOCCH_RFD_CPLT_DT, TOCCH.REG_DT as TOCCH_REG_DT, 
+    TOCCH.REG_ID as TOCCH_REG_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderClaimChangeHistoryEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ord_clm_chist TOCCH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ord_clm_chist TOCCH
+    where TOCCH.ORD_CLM_CHIST_ID = #{ordClmChistId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ord_clm_chist
+    where ORD_CLM_CHIST_ID = #{ordClmChistId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderClaimChangeHistoryEntityCriteria">
+    delete TOCCH from ord_clm_chist TOCCH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderClaimChangeHistoryEntity">
+    <selectKey keyProperty="ordClmChistId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ORD_CLM_CHIST
+    </selectKey>
+    insert into ord_clm_chist (ORD_CLM_CHIST_ID, ORD_CLM_ID, ORD_ID, 
+      ORD_CLM_NO, CLM_TP_CD, CLM_RCPT_DT, 
+      CLM_ATTR_CD, CLM_RSN_CD, CLM_RSN_CONT, 
+      RFD_MTHD, CPN_DC_RTN_AMT, PT_USE_RTN_AMT, 
+      CLM_AMT, REAL_CLM_AMT, PAY_CPLT_DT, 
+      RFD_CPLT_DT, REG_DT, REG_ID
+      )
+    values (#{ordClmChistId,jdbcType=INTEGER}, #{ordClmId,jdbcType=INTEGER}, #{ordId,jdbcType=INTEGER}, 
+      #{ordClmNo,jdbcType=VARCHAR}, #{clmTpCd,jdbcType=VARCHAR}, #{clmRcptDt,jdbcType=DATE}, 
+      #{clmAttrCd,jdbcType=VARCHAR}, #{clmRsnCd,jdbcType=VARCHAR}, #{clmRsnCont,jdbcType=VARCHAR}, 
+      #{rfdMthd,jdbcType=VARCHAR}, #{cpnDcRtnAmt,jdbcType=INTEGER}, #{ptUseRtnAmt,jdbcType=INTEGER}, 
+      #{clmAmt,jdbcType=INTEGER}, #{realClmAmt,jdbcType=INTEGER}, #{payCpltDt,jdbcType=DATE}, 
+      #{rfdCpltDt,jdbcType=DATE}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderClaimChangeHistoryEntity">
+    <selectKey keyProperty="ordClmChistId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ORD_CLM_CHIST
+    </selectKey>
+    insert into ord_clm_chist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ORD_CLM_CHIST_ID,
+      <if test="ordClmId != null">
+        ORD_CLM_ID,
+      </if>
+      <if test="ordId != null">
+        ORD_ID,
+      </if>
+      <if test="ordClmNo != null">
+        ORD_CLM_NO,
+      </if>
+      <if test="clmTpCd != null">
+        CLM_TP_CD,
+      </if>
+      <if test="clmRcptDt != null">
+        CLM_RCPT_DT,
+      </if>
+      <if test="clmAttrCd != null">
+        CLM_ATTR_CD,
+      </if>
+      <if test="clmRsnCd != null">
+        CLM_RSN_CD,
+      </if>
+      <if test="clmRsnCont != null">
+        CLM_RSN_CONT,
+      </if>
+      <if test="rfdMthd != null">
+        RFD_MTHD,
+      </if>
+      <if test="cpnDcRtnAmt != null">
+        CPN_DC_RTN_AMT,
+      </if>
+      <if test="ptUseRtnAmt != null">
+        PT_USE_RTN_AMT,
+      </if>
+      <if test="clmAmt != null">
+        CLM_AMT,
+      </if>
+      <if test="realClmAmt != null">
+        REAL_CLM_AMT,
+      </if>
+      <if test="payCpltDt != null">
+        PAY_CPLT_DT,
+      </if>
+      <if test="rfdCpltDt != null">
+        RFD_CPLT_DT,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{ordClmChistId,jdbcType=INTEGER},
+      <if test="ordClmId != null">
+        #{ordClmId,jdbcType=INTEGER},
+      </if>
+      <if test="ordId != null">
+        #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="ordClmNo != null">
+        #{ordClmNo,jdbcType=VARCHAR},
+      </if>
+      <if test="clmTpCd != null">
+        #{clmTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="clmRcptDt != null">
+        #{clmRcptDt,jdbcType=DATE},
+      </if>
+      <if test="clmAttrCd != null">
+        #{clmAttrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="clmRsnCd != null">
+        #{clmRsnCd,jdbcType=VARCHAR},
+      </if>
+      <if test="clmRsnCont != null">
+        #{clmRsnCont,jdbcType=VARCHAR},
+      </if>
+      <if test="rfdMthd != null">
+        #{rfdMthd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnDcRtnAmt != null">
+        #{cpnDcRtnAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ptUseRtnAmt != null">
+        #{ptUseRtnAmt,jdbcType=INTEGER},
+      </if>
+      <if test="clmAmt != null">
+        #{clmAmt,jdbcType=INTEGER},
+      </if>
+      <if test="realClmAmt != null">
+        #{realClmAmt,jdbcType=INTEGER},
+      </if>
+      <if test="payCpltDt != null">
+        #{payCpltDt,jdbcType=DATE},
+      </if>
+      <if test="rfdCpltDt != null">
+        #{rfdCpltDt,jdbcType=DATE},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderClaimChangeHistoryEntityCriteria" resultType="java.lang.Long">
+    select count(*) from ord_clm_chist TOCCH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TOCCH
+    <set>
+      <if test="record.ordClmChistId != null">
+        
+      </if>
+      <if test="record.ordClmId != null">
+        TOCCH.ORD_CLM_ID = #{record.ordClmId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordId != null">
+        TOCCH.ORD_ID = #{record.ordId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordClmNo != null">
+        TOCCH.ORD_CLM_NO = #{record.ordClmNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clmTpCd != null">
+        TOCCH.CLM_TP_CD = #{record.clmTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clmRcptDt != null">
+        TOCCH.CLM_RCPT_DT = #{record.clmRcptDt,jdbcType=DATE},
+      </if>
+      <if test="record.clmAttrCd != null">
+        TOCCH.CLM_ATTR_CD = #{record.clmAttrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clmRsnCd != null">
+        TOCCH.CLM_RSN_CD = #{record.clmRsnCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clmRsnCont != null">
+        TOCCH.CLM_RSN_CONT = #{record.clmRsnCont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rfdMthd != null">
+        TOCCH.RFD_MTHD = #{record.rfdMthd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpnDcRtnAmt != null">
+        TOCCH.CPN_DC_RTN_AMT = #{record.cpnDcRtnAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.ptUseRtnAmt != null">
+        TOCCH.PT_USE_RTN_AMT = #{record.ptUseRtnAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.clmAmt != null">
+        TOCCH.CLM_AMT = #{record.clmAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.realClmAmt != null">
+        TOCCH.REAL_CLM_AMT = #{record.realClmAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.payCpltDt != null">
+        TOCCH.PAY_CPLT_DT = #{record.payCpltDt,jdbcType=DATE},
+      </if>
+      <if test="record.rfdCpltDt != null">
+        TOCCH.RFD_CPLT_DT = #{record.rfdCpltDt,jdbcType=DATE},
+      </if>
+      <if test="record.regDt != null">
+        TOCCH.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TOCCH.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from ord_clm_chist TOCCH
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update ord_clm_chist TOCCH
+    set 
+      TOCCH.ORD_CLM_ID = #{record.ordClmId,jdbcType=INTEGER},
+      TOCCH.ORD_ID = #{record.ordId,jdbcType=INTEGER},
+      TOCCH.ORD_CLM_NO = #{record.ordClmNo,jdbcType=VARCHAR},
+      TOCCH.CLM_TP_CD = #{record.clmTpCd,jdbcType=VARCHAR},
+      TOCCH.CLM_RCPT_DT = #{record.clmRcptDt,jdbcType=DATE},
+      TOCCH.CLM_ATTR_CD = #{record.clmAttrCd,jdbcType=VARCHAR},
+      TOCCH.CLM_RSN_CD = #{record.clmRsnCd,jdbcType=VARCHAR},
+      TOCCH.CLM_RSN_CONT = #{record.clmRsnCont,jdbcType=VARCHAR},
+      TOCCH.RFD_MTHD = #{record.rfdMthd,jdbcType=VARCHAR},
+      TOCCH.CPN_DC_RTN_AMT = #{record.cpnDcRtnAmt,jdbcType=INTEGER},
+      TOCCH.PT_USE_RTN_AMT = #{record.ptUseRtnAmt,jdbcType=INTEGER},
+      TOCCH.CLM_AMT = #{record.clmAmt,jdbcType=INTEGER},
+      TOCCH.REAL_CLM_AMT = #{record.realClmAmt,jdbcType=INTEGER},
+      TOCCH.PAY_CPLT_DT = #{record.payCpltDt,jdbcType=DATE},
+      TOCCH.RFD_CPLT_DT = #{record.rfdCpltDt,jdbcType=DATE},
+      TOCCH.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TOCCH.REG_ID = #{record.regId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderClaimChangeHistoryEntity">
+    update ord_clm_chist
+    <set>
+      <if test="ordClmId != null">
+        ORD_CLM_ID = #{ordClmId,jdbcType=INTEGER},
+      </if>
+      <if test="ordId != null">
+        ORD_ID = #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="ordClmNo != null">
+        ORD_CLM_NO = #{ordClmNo,jdbcType=VARCHAR},
+      </if>
+      <if test="clmTpCd != null">
+        CLM_TP_CD = #{clmTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="clmRcptDt != null">
+        CLM_RCPT_DT = #{clmRcptDt,jdbcType=DATE},
+      </if>
+      <if test="clmAttrCd != null">
+        CLM_ATTR_CD = #{clmAttrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="clmRsnCd != null">
+        CLM_RSN_CD = #{clmRsnCd,jdbcType=VARCHAR},
+      </if>
+      <if test="clmRsnCont != null">
+        CLM_RSN_CONT = #{clmRsnCont,jdbcType=VARCHAR},
+      </if>
+      <if test="rfdMthd != null">
+        RFD_MTHD = #{rfdMthd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnDcRtnAmt != null">
+        CPN_DC_RTN_AMT = #{cpnDcRtnAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ptUseRtnAmt != null">
+        PT_USE_RTN_AMT = #{ptUseRtnAmt,jdbcType=INTEGER},
+      </if>
+      <if test="clmAmt != null">
+        CLM_AMT = #{clmAmt,jdbcType=INTEGER},
+      </if>
+      <if test="realClmAmt != null">
+        REAL_CLM_AMT = #{realClmAmt,jdbcType=INTEGER},
+      </if>
+      <if test="payCpltDt != null">
+        PAY_CPLT_DT = #{payCpltDt,jdbcType=DATE},
+      </if>
+      <if test="rfdCpltDt != null">
+        RFD_CPLT_DT = #{rfdCpltDt,jdbcType=DATE},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORD_CLM_CHIST_ID = #{ordClmChistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderClaimChangeHistoryEntity">
+    update ord_clm_chist
+    set ORD_CLM_ID = #{ordClmId,jdbcType=INTEGER},
+      ORD_ID = #{ordId,jdbcType=INTEGER},
+      ORD_CLM_NO = #{ordClmNo,jdbcType=VARCHAR},
+      CLM_TP_CD = #{clmTpCd,jdbcType=VARCHAR},
+      CLM_RCPT_DT = #{clmRcptDt,jdbcType=DATE},
+      CLM_ATTR_CD = #{clmAttrCd,jdbcType=VARCHAR},
+      CLM_RSN_CD = #{clmRsnCd,jdbcType=VARCHAR},
+      CLM_RSN_CONT = #{clmRsnCont,jdbcType=VARCHAR},
+      RFD_MTHD = #{rfdMthd,jdbcType=VARCHAR},
+      CPN_DC_RTN_AMT = #{cpnDcRtnAmt,jdbcType=INTEGER},
+      PT_USE_RTN_AMT = #{ptUseRtnAmt,jdbcType=INTEGER},
+      CLM_AMT = #{clmAmt,jdbcType=INTEGER},
+      REAL_CLM_AMT = #{realClmAmt,jdbcType=INTEGER},
+      PAY_CPLT_DT = #{payCpltDt,jdbcType=DATE},
+      RFD_CPLT_DT = #{rfdCpltDt,jdbcType=DATE},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR}
+    where ORD_CLM_CHIST_ID = #{ordClmChistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderClaimChangeHistoryEntity">
+    update ord_clm_chist
+    <set>
+      <if test="ordClmId != null">
+        ORD_CLM_ID = null,
+      </if>
+      <if test="ordId != null">
+        ORD_ID = null,
+      </if>
+      <if test="ordClmNo != null">
+        ORD_CLM_NO = null,
+      </if>
+      <if test="clmTpCd != null">
+        CLM_TP_CD = null,
+      </if>
+      <if test="clmRcptDt != null">
+        CLM_RCPT_DT = null,
+      </if>
+      <if test="clmAttrCd != null">
+        CLM_ATTR_CD = null,
+      </if>
+      <if test="clmRsnCd != null">
+        CLM_RSN_CD = null,
+      </if>
+      <if test="clmRsnCont != null">
+        CLM_RSN_CONT = null,
+      </if>
+      <if test="rfdMthd != null">
+        RFD_MTHD = null,
+      </if>
+      <if test="cpnDcRtnAmt != null">
+        CPN_DC_RTN_AMT = null,
+      </if>
+      <if test="ptUseRtnAmt != null">
+        PT_USE_RTN_AMT = null,
+      </if>
+      <if test="clmAmt != null">
+        CLM_AMT = null,
+      </if>
+      <if test="realClmAmt != null">
+        REAL_CLM_AMT = null,
+      </if>
+      <if test="payCpltDt != null">
+        PAY_CPLT_DT = null,
+      </if>
+      <if test="rfdCpltDt != null">
+        RFD_CPLT_DT = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and ORD_CLM_CHIST_ID = #{ordClmChistId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.item.dao.BaseItemAprvHistMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.item.model.ItemAprvHist">
+    <id column="TIAH_ITEM_APRV_HIST_ID" jdbcType="INTEGER" property="itemAprvHistId" />
+    <result column="TIAH_ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TIAH_APRV_REQ_CD" jdbcType="VARCHAR" property="aprvReqCd" />
+    <result column="TIAH_APRV_STAT_CD" jdbcType="VARCHAR" property="aprvStatCd" />
+    <result column="TIAH_APRV_REQ_DT" jdbcType="DATE" property="aprvReqDt" />
+    <result column="TIAH_APRV_PROC_DT" jdbcType="DATE" property="aprvProcDt" />
+    <result column="TIAH_APRV_ADM_ID" jdbcType="VARCHAR" property="aprvAdmId" />
+    <result column="TIAH_RTN_RSN" jdbcType="VARCHAR" property="rtnRsn" />
+    <result column="TIAH_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TIAH_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TIAH_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TIAH_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TIAH.ITEM_APRV_HIST_ID as TIAH_ITEM_APRV_HIST_ID, TIAH.ITEM_ID as TIAH_ITEM_ID, TIAH.APRV_REQ_CD as TIAH_APRV_REQ_CD, 
+    TIAH.APRV_STAT_CD as TIAH_APRV_STAT_CD, TIAH.APRV_REQ_DT as TIAH_APRV_REQ_DT, TIAH.APRV_PROC_DT as TIAH_APRV_PROC_DT, 
+    TIAH.APRV_ADM_ID as TIAH_APRV_ADM_ID, TIAH.RTN_RSN as TIAH_RTN_RSN, TIAH.REG_DT as TIAH_REG_DT, 
+    TIAH.REG_ID as TIAH_REG_ID, TIAH.MOD_DT as TIAH_MOD_DT, TIAH.MOD_ID as TIAH_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemAprvHistEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item_aprv_hist TIAH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_aprv_hist TIAH
+    where TIAH.ITEM_APRV_HIST_ID = #{itemAprvHistId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from item_aprv_hist
+    where ITEM_APRV_HIST_ID = #{itemAprvHistId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemAprvHistEntityCriteria">
+    delete TIAH from item_aprv_hist TIAH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemAprvHistEntity">
+    insert into item_aprv_hist (ITEM_APRV_HIST_ID, ITEM_ID, APRV_REQ_CD, 
+      APRV_STAT_CD, APRV_REQ_DT, APRV_PROC_DT, 
+      APRV_ADM_ID, RTN_RSN, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID
+      )
+    values (#{itemAprvHistId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{aprvReqCd,jdbcType=VARCHAR}, 
+      #{aprvStatCd,jdbcType=VARCHAR}, #{aprvReqDt,jdbcType=DATE}, #{aprvProcDt,jdbcType=DATE}, 
+      #{aprvAdmId,jdbcType=VARCHAR}, #{rtnRsn,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemAprvHistEntity">
+    insert into item_aprv_hist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemAprvHistId != null">
+        ITEM_APRV_HIST_ID,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="aprvReqCd != null">
+        APRV_REQ_CD,
+      </if>
+      <if test="aprvStatCd != null">
+        APRV_STAT_CD,
+      </if>
+      <if test="aprvReqDt != null">
+        APRV_REQ_DT,
+      </if>
+      <if test="aprvProcDt != null">
+        APRV_PROC_DT,
+      </if>
+      <if test="aprvAdmId != null">
+        APRV_ADM_ID,
+      </if>
+      <if test="rtnRsn != null">
+        RTN_RSN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemAprvHistId != null">
+        #{itemAprvHistId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="aprvReqCd != null">
+        #{aprvReqCd,jdbcType=VARCHAR},
+      </if>
+      <if test="aprvStatCd != null">
+        #{aprvStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="aprvReqDt != null">
+        #{aprvReqDt,jdbcType=DATE},
+      </if>
+      <if test="aprvProcDt != null">
+        #{aprvProcDt,jdbcType=DATE},
+      </if>
+      <if test="aprvAdmId != null">
+        #{aprvAdmId,jdbcType=VARCHAR},
+      </if>
+      <if test="rtnRsn != null">
+        #{rtnRsn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemAprvHistEntityCriteria" resultType="java.lang.Long">
+    select count(*) from item_aprv_hist TIAH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TIAH
+    <set>
+      <if test="record.itemAprvHistId != null">
+        
+      </if>
+      <if test="record.itemId != null">
+        TIAH.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aprvReqCd != null">
+        TIAH.APRV_REQ_CD = #{record.aprvReqCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aprvStatCd != null">
+        TIAH.APRV_STAT_CD = #{record.aprvStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aprvReqDt != null">
+        TIAH.APRV_REQ_DT = #{record.aprvReqDt,jdbcType=DATE},
+      </if>
+      <if test="record.aprvProcDt != null">
+        TIAH.APRV_PROC_DT = #{record.aprvProcDt,jdbcType=DATE},
+      </if>
+      <if test="record.aprvAdmId != null">
+        TIAH.APRV_ADM_ID = #{record.aprvAdmId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rtnRsn != null">
+        TIAH.RTN_RSN = #{record.rtnRsn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TIAH.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TIAH.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TIAH.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TIAH.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from item_aprv_hist TIAH
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update item_aprv_hist TIAH
+    set 
+      TIAH.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      TIAH.APRV_REQ_CD = #{record.aprvReqCd,jdbcType=VARCHAR},
+      TIAH.APRV_STAT_CD = #{record.aprvStatCd,jdbcType=VARCHAR},
+      TIAH.APRV_REQ_DT = #{record.aprvReqDt,jdbcType=DATE},
+      TIAH.APRV_PROC_DT = #{record.aprvProcDt,jdbcType=DATE},
+      TIAH.APRV_ADM_ID = #{record.aprvAdmId,jdbcType=VARCHAR},
+      TIAH.RTN_RSN = #{record.rtnRsn,jdbcType=VARCHAR},
+      TIAH.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TIAH.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TIAH.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TIAH.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemAprvHistEntity">
+    update item_aprv_hist
+    <set>
+      <if test="itemId != null">
+        ITEM_ID = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="aprvReqCd != null">
+        APRV_REQ_CD = #{aprvReqCd,jdbcType=VARCHAR},
+      </if>
+      <if test="aprvStatCd != null">
+        APRV_STAT_CD = #{aprvStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="aprvReqDt != null">
+        APRV_REQ_DT = #{aprvReqDt,jdbcType=DATE},
+      </if>
+      <if test="aprvProcDt != null">
+        APRV_PROC_DT = #{aprvProcDt,jdbcType=DATE},
+      </if>
+      <if test="aprvAdmId != null">
+        APRV_ADM_ID = #{aprvAdmId,jdbcType=VARCHAR},
+      </if>
+      <if test="rtnRsn != null">
+        RTN_RSN = #{rtnRsn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ITEM_APRV_HIST_ID = #{itemAprvHistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemAprvHistEntity">
+    update item_aprv_hist
+    set ITEM_ID = #{itemId,jdbcType=INTEGER},
+      APRV_REQ_CD = #{aprvReqCd,jdbcType=VARCHAR},
+      APRV_STAT_CD = #{aprvStatCd,jdbcType=VARCHAR},
+      APRV_REQ_DT = #{aprvReqDt,jdbcType=DATE},
+      APRV_PROC_DT = #{aprvProcDt,jdbcType=DATE},
+      APRV_ADM_ID = #{aprvAdmId,jdbcType=VARCHAR},
+      RTN_RSN = #{rtnRsn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where ITEM_APRV_HIST_ID = #{itemAprvHistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemAprvHistEntity">
+    update item_aprv_hist
+    <set>
+      <if test="itemId != null">
+        ITEM_ID = null,
+      </if>
+      <if test="aprvReqCd != null">
+        APRV_REQ_CD = null,
+      </if>
+      <if test="aprvStatCd != null">
+        APRV_STAT_CD = null,
+      </if>
+      <if test="aprvReqDt != null">
+        APRV_REQ_DT = null,
+      </if>
+      <if test="aprvProcDt != null">
+        APRV_PROC_DT = null,
+      </if>
+      <if test="aprvAdmId != null">
+        APRV_ADM_ID = null,
+      </if>
+      <if test="rtnRsn != null">
+        RTN_RSN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and ITEM_APRV_HIST_ID = #{itemAprvHistId,jdbcType=INTEGER}
+  </update>
+</mapper>

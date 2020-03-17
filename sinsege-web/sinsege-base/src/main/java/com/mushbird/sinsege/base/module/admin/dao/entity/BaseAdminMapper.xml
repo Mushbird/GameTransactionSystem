@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.admin.dao.BaseAdminMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.admin.model.Admin">
+    <id column="TA_ADM_ID" jdbcType="VARCHAR" property="admId" />
+    <result column="TA_VEN_ID" jdbcType="INTEGER" property="venId" />
+    <result column="TA_ADM_TP_CD" jdbcType="VARCHAR" property="admTpCd" />
+    <result column="TA_ADM_STAT_CD" jdbcType="VARCHAR" property="admStatCd" />
+    <result column="TA_ADM_LGN_ID" jdbcType="VARCHAR" property="admLgnId" />
+    <result column="TA_ADM_NM" jdbcType="VARCHAR" property="admNm" />
+    <result column="TA_EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="TA_CP_CARR_CD" jdbcType="VARCHAR" property="cpCarrCd" />
+    <result column="TA_CP_NO" jdbcType="VARCHAR" property="cpNo" />
+    <result column="TA_ADM_SITE_CD" jdbcType="VARCHAR" property="admSiteCd" />
+    <result column="TA_ADM_ROLE_ID" jdbcType="INTEGER" property="admRoleId" />
+    <result column="TA_APRV_GRD_CD" jdbcType="VARCHAR" property="aprvGrdCd" />
+    <result column="TA_SUP_DT" jdbcType="DATE" property="supDt" />
+    <result column="TA_PW_MOD_DT" jdbcType="DATE" property="pwModDt" />
+    <result column="TA_LAST_LGN_DT" jdbcType="DATE" property="lastLgnDt" />
+    <result column="TA_LAST_INFO_MOD_DT" jdbcType="DATE" property="lastInfoModDt" />
+    <result column="TA_LGN_RTRY_CNT" jdbcType="DECIMAL" property="lgnRtryCnt" />
+    <result column="TA_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TA_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TA_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TA_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TA_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mushbird.sinsege.base.module.admin.model.Admin">
+    <result column="TA_PW" jdbcType="BINARY" property="pw" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TA.ADM_ID as TA_ADM_ID, TA.VEN_ID as TA_VEN_ID, TA.ADM_TP_CD as TA_ADM_TP_CD, TA.ADM_STAT_CD as TA_ADM_STAT_CD, 
+    TA.ADM_LGN_ID as TA_ADM_LGN_ID, TA.ADM_NM as TA_ADM_NM, TA.EMAIL as TA_EMAIL, TA.CP_CARR_CD as TA_CP_CARR_CD, 
+    TA.CP_NO as TA_CP_NO, TA.ADM_SITE_CD as TA_ADM_SITE_CD, TA.ADM_ROLE_ID as TA_ADM_ROLE_ID, 
+    TA.APRV_GRD_CD as TA_APRV_GRD_CD, TA.SUP_DT as TA_SUP_DT, TA.PW_MOD_DT as TA_PW_MOD_DT, 
+    TA.LAST_LGN_DT as TA_LAST_LGN_DT, TA.LAST_INFO_MOD_DT as TA_LAST_INFO_MOD_DT, TA.LGN_RTRY_CNT as TA_LGN_RTRY_CNT, 
+    TA.REG_DT as TA_REG_DT, TA.REG_ID as TA_REG_ID, TA.MOD_DT as TA_MOD_DT, TA.MOD_ID as TA_MOD_ID, 
+    TA.USE_YN as TA_USE_YN
+  </sql>
+  <sql id="Blob_Column_List">
+    TA.PW as TA_PW
+  </sql>
+  <select id="selectByEntityCriteriaWithBLOBs" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminEntityCriteria" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from adm TA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from adm TA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from adm TA
+    where TA.ADM_ID = #{admId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from adm
+    where ADM_ID = #{admId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminEntityCriteria">
+    delete TA from adm TA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminEntity">
+    <selectKey keyProperty="admId" order="BEFORE" resultType="java.lang.String">
+      SELECT NEXT VALUE FOR NYC_MALL.dbo.SEQ_ADM
+    </selectKey>
+    insert into adm (ADM_ID, VEN_ID, ADM_TP_CD, 
+      ADM_STAT_CD, ADM_LGN_ID, ADM_NM, 
+      EMAIL, CP_CARR_CD, CP_NO, 
+      ADM_SITE_CD, ADM_ROLE_ID, APRV_GRD_CD, 
+      SUP_DT, PW_MOD_DT, LAST_LGN_DT, LAST_INFO_MOD_DT, 
+      LGN_RTRY_CNT, REG_DT, REG_ID, 
+      MOD_DT, MOD_ID, USE_YN, 
+      PW)
+    values (#{admId,jdbcType=VARCHAR}, #{venId,jdbcType=INTEGER}, #{admTpCd,jdbcType=VARCHAR}, 
+      #{admStatCd,jdbcType=VARCHAR}, #{admLgnId,jdbcType=VARCHAR}, #{admNm,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{cpCarrCd,jdbcType=VARCHAR}, #{cpNo,jdbcType=VARCHAR}, 
+      #{admSiteCd,jdbcType=VARCHAR}, #{admRoleId,jdbcType=INTEGER}, #{aprvGrdCd,jdbcType=VARCHAR}, 
+      #{supDt,jdbcType=DATE}, #{pwModDt,jdbcType=DATE}, #{lastLgnDt,jdbcType=DATE}, #{lastInfoModDt,jdbcType=DATE}, 
+      #{lgnRtryCnt,jdbcType=DECIMAL}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, 
+      #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR}, 
+      #{pw,jdbcType=BINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminEntity">
+    <selectKey keyProperty="admId" order="BEFORE" resultType="java.lang.String">
+      SELECT NEXT VALUE FOR NYC_MALL.dbo.SEQ_ADM
+    </selectKey>
+    insert into adm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ADM_ID,
+      <if test="venId != null">
+        VEN_ID,
+      </if>
+      <if test="admTpCd != null">
+        ADM_TP_CD,
+      </if>
+      <if test="admStatCd != null">
+        ADM_STAT_CD,
+      </if>
+      <if test="admLgnId != null">
+        ADM_LGN_ID,
+      </if>
+      <if test="admNm != null">
+        ADM_NM,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="cpCarrCd != null">
+        CP_CARR_CD,
+      </if>
+      <if test="cpNo != null">
+        CP_NO,
+      </if>
+      <if test="admSiteCd != null">
+        ADM_SITE_CD,
+      </if>
+      <if test="admRoleId != null">
+        ADM_ROLE_ID,
+      </if>
+      <if test="aprvGrdCd != null">
+        APRV_GRD_CD,
+      </if>
+      <if test="supDt != null">
+        SUP_DT,
+      </if>
+      <if test="pwModDt != null">
+        PW_MOD_DT,
+      </if>
+      <if test="lastLgnDt != null">
+        LAST_LGN_DT,
+      </if>
+      <if test="lastInfoModDt != null">
+        LAST_INFO_MOD_DT,
+      </if>
+      <if test="lgnRtryCnt != null">
+        LGN_RTRY_CNT,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+      <if test="pw != null">
+        PW,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{admId,jdbcType=VARCHAR},
+      <if test="venId != null">
+        #{venId,jdbcType=INTEGER},
+      </if>
+      <if test="admTpCd != null">
+        #{admTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="admStatCd != null">
+        #{admStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="admLgnId != null">
+        #{admLgnId,jdbcType=VARCHAR},
+      </if>
+      <if test="admNm != null">
+        #{admNm,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="cpCarrCd != null">
+        #{cpCarrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpNo != null">
+        #{cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="admSiteCd != null">
+        #{admSiteCd,jdbcType=VARCHAR},
+      </if>
+      <if test="admRoleId != null">
+        #{admRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="aprvGrdCd != null">
+        #{aprvGrdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="supDt != null">
+        #{supDt,jdbcType=DATE},
+      </if>
+      <if test="pwModDt != null">
+        #{pwModDt,jdbcType=DATE},
+      </if>
+      <if test="lastLgnDt != null">
+        #{lastLgnDt,jdbcType=DATE},
+      </if>
+      <if test="lastInfoModDt != null">
+        #{lastInfoModDt,jdbcType=DATE},
+      </if>
+      <if test="lgnRtryCnt != null">
+        #{lgnRtryCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+      <if test="pw != null">
+        #{pw,jdbcType=BINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminEntityCriteria" resultType="java.lang.Long">
+    select count(*) from adm TA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TA
+    <set>
+      <if test="record.admId != null">
+        
+      </if>
+      <if test="record.venId != null">
+        TA.VEN_ID = #{record.venId,jdbcType=INTEGER},
+      </if>
+      <if test="record.admTpCd != null">
+        TA.ADM_TP_CD = #{record.admTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admStatCd != null">
+        TA.ADM_STAT_CD = #{record.admStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admLgnId != null">
+        TA.ADM_LGN_ID = #{record.admLgnId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admNm != null">
+        TA.ADM_NM = #{record.admNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        TA.EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpCarrCd != null">
+        TA.CP_CARR_CD = #{record.cpCarrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpNo != null">
+        TA.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admSiteCd != null">
+        TA.ADM_SITE_CD = #{record.admSiteCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admRoleId != null">
+        TA.ADM_ROLE_ID = #{record.admRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aprvGrdCd != null">
+        TA.APRV_GRD_CD = #{record.aprvGrdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supDt != null">
+        TA.SUP_DT = #{record.supDt,jdbcType=DATE},
+      </if>
+      <if test="record.pwModDt != null">
+        TA.PW_MOD_DT = #{record.pwModDt,jdbcType=DATE},
+      </if>
+      <if test="record.lastLgnDt != null">
+        TA.LAST_LGN_DT = #{record.lastLgnDt,jdbcType=DATE},
+      </if>
+      <if test="record.lastInfoModDt != null">
+        TA.LAST_INFO_MOD_DT = #{record.lastInfoModDt,jdbcType=DATE},
+      </if>
+      <if test="record.lgnRtryCnt != null">
+        TA.LGN_RTRY_CNT = #{record.lgnRtryCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.regDt != null">
+        TA.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TA.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TA.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TA.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TA.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pw != null">
+        TA.PW = #{record.pw,jdbcType=BINARY},
+      </if>
+    </set>
+    from adm TA
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteriaWithBLOBs" parameterType="map">
+    update adm TA
+    set 
+      TA.VEN_ID = #{record.venId,jdbcType=INTEGER},
+      TA.ADM_TP_CD = #{record.admTpCd,jdbcType=VARCHAR},
+      TA.ADM_STAT_CD = #{record.admStatCd,jdbcType=VARCHAR},
+      TA.ADM_LGN_ID = #{record.admLgnId,jdbcType=VARCHAR},
+      TA.ADM_NM = #{record.admNm,jdbcType=VARCHAR},
+      TA.EMAIL = #{record.email,jdbcType=VARCHAR},
+      TA.CP_CARR_CD = #{record.cpCarrCd,jdbcType=VARCHAR},
+      TA.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      TA.ADM_SITE_CD = #{record.admSiteCd,jdbcType=VARCHAR},
+      TA.ADM_ROLE_ID = #{record.admRoleId,jdbcType=INTEGER},
+      TA.APRV_GRD_CD = #{record.aprvGrdCd,jdbcType=VARCHAR},
+      TA.SUP_DT = #{record.supDt,jdbcType=DATE},
+      TA.PW_MOD_DT = #{record.pwModDt,jdbcType=DATE},
+      TA.LAST_LGN_DT = #{record.lastLgnDt,jdbcType=DATE},
+      TA.LAST_INFO_MOD_DT = #{record.lastInfoModDt,jdbcType=DATE},
+      TA.LGN_RTRY_CNT = #{record.lgnRtryCnt,jdbcType=DECIMAL},
+      TA.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TA.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TA.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TA.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TA.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      TA.PW = #{record.pw,jdbcType=BINARY}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update adm TA
+    set 
+      TA.VEN_ID = #{record.venId,jdbcType=INTEGER},
+      TA.ADM_TP_CD = #{record.admTpCd,jdbcType=VARCHAR},
+      TA.ADM_STAT_CD = #{record.admStatCd,jdbcType=VARCHAR},
+      TA.ADM_LGN_ID = #{record.admLgnId,jdbcType=VARCHAR},
+      TA.ADM_NM = #{record.admNm,jdbcType=VARCHAR},
+      TA.EMAIL = #{record.email,jdbcType=VARCHAR},
+      TA.CP_CARR_CD = #{record.cpCarrCd,jdbcType=VARCHAR},
+      TA.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      TA.ADM_SITE_CD = #{record.admSiteCd,jdbcType=VARCHAR},
+      TA.ADM_ROLE_ID = #{record.admRoleId,jdbcType=INTEGER},
+      TA.APRV_GRD_CD = #{record.aprvGrdCd,jdbcType=VARCHAR},
+      TA.SUP_DT = #{record.supDt,jdbcType=DATE},
+      TA.PW_MOD_DT = #{record.pwModDt,jdbcType=DATE},
+      TA.LAST_LGN_DT = #{record.lastLgnDt,jdbcType=DATE},
+      TA.LAST_INFO_MOD_DT = #{record.lastInfoModDt,jdbcType=DATE},
+      TA.LGN_RTRY_CNT = #{record.lgnRtryCnt,jdbcType=DECIMAL},
+      TA.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TA.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TA.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TA.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TA.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminEntity">
+    update adm
+    <set>
+      <if test="venId != null">
+        VEN_ID = #{venId,jdbcType=INTEGER},
+      </if>
+      <if test="admTpCd != null">
+        ADM_TP_CD = #{admTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="admStatCd != null">
+        ADM_STAT_CD = #{admStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="admLgnId != null">
+        ADM_LGN_ID = #{admLgnId,jdbcType=VARCHAR},
+      </if>
+      <if test="admNm != null">
+        ADM_NM = #{admNm,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="cpCarrCd != null">
+        CP_CARR_CD = #{cpCarrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpNo != null">
+        CP_NO = #{cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="admSiteCd != null">
+        ADM_SITE_CD = #{admSiteCd,jdbcType=VARCHAR},
+      </if>
+      <if test="admRoleId != null">
+        ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="aprvGrdCd != null">
+        APRV_GRD_CD = #{aprvGrdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="supDt != null">
+        SUP_DT = #{supDt,jdbcType=DATE},
+      </if>
+      <if test="pwModDt != null">
+        PW_MOD_DT = #{pwModDt,jdbcType=DATE},
+      </if>
+      <if test="lastLgnDt != null">
+        LAST_LGN_DT = #{lastLgnDt,jdbcType=DATE},
+      </if>
+      <if test="lastInfoModDt != null">
+        LAST_INFO_MOD_DT = #{lastInfoModDt,jdbcType=DATE},
+      </if>
+      <if test="lgnRtryCnt != null">
+        LGN_RTRY_CNT = #{lgnRtryCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+      <if test="pw != null">
+        PW = #{pw,jdbcType=BINARY},
+      </if>
+    </set>
+    where ADM_ID = #{admId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminEntity">
+    update adm
+    set VEN_ID = #{venId,jdbcType=INTEGER},
+      ADM_TP_CD = #{admTpCd,jdbcType=VARCHAR},
+      ADM_STAT_CD = #{admStatCd,jdbcType=VARCHAR},
+      ADM_LGN_ID = #{admLgnId,jdbcType=VARCHAR},
+      ADM_NM = #{admNm,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      CP_CARR_CD = #{cpCarrCd,jdbcType=VARCHAR},
+      CP_NO = #{cpNo,jdbcType=VARCHAR},
+      ADM_SITE_CD = #{admSiteCd,jdbcType=VARCHAR},
+      ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER},
+      APRV_GRD_CD = #{aprvGrdCd,jdbcType=VARCHAR},
+      SUP_DT = #{supDt,jdbcType=DATE},
+      PW_MOD_DT = #{pwModDt,jdbcType=DATE},
+      LAST_LGN_DT = #{lastLgnDt,jdbcType=DATE},
+      LAST_INFO_MOD_DT = #{lastInfoModDt,jdbcType=DATE},
+      LGN_RTRY_CNT = #{lgnRtryCnt,jdbcType=DECIMAL},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR},
+      PW = #{pw,jdbcType=BINARY}
+    where ADM_ID = #{admId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminEntity">
+    update adm
+    set VEN_ID = #{venId,jdbcType=INTEGER},
+      ADM_TP_CD = #{admTpCd,jdbcType=VARCHAR},
+      ADM_STAT_CD = #{admStatCd,jdbcType=VARCHAR},
+      ADM_LGN_ID = #{admLgnId,jdbcType=VARCHAR},
+      ADM_NM = #{admNm,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      CP_CARR_CD = #{cpCarrCd,jdbcType=VARCHAR},
+      CP_NO = #{cpNo,jdbcType=VARCHAR},
+      ADM_SITE_CD = #{admSiteCd,jdbcType=VARCHAR},
+      ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER},
+      APRV_GRD_CD = #{aprvGrdCd,jdbcType=VARCHAR},
+      SUP_DT = #{supDt,jdbcType=DATE},
+      PW_MOD_DT = #{pwModDt,jdbcType=DATE},
+      LAST_LGN_DT = #{lastLgnDt,jdbcType=DATE},
+      LAST_INFO_MOD_DT = #{lastInfoModDt,jdbcType=DATE},
+      LGN_RTRY_CNT = #{lgnRtryCnt,jdbcType=DECIMAL},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where ADM_ID = #{admId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminEntity">
+    update adm
+    <set>
+      <if test="venId != null">
+        VEN_ID = null,
+      </if>
+      <if test="admTpCd != null">
+        ADM_TP_CD = null,
+      </if>
+      <if test="admStatCd != null">
+        ADM_STAT_CD = null,
+      </if>
+      <if test="admLgnId != null">
+        ADM_LGN_ID = null,
+      </if>
+      <if test="admNm != null">
+        ADM_NM = null,
+      </if>
+      <if test="email != null">
+        EMAIL = null,
+      </if>
+      <if test="cpCarrCd != null">
+        CP_CARR_CD = null,
+      </if>
+      <if test="cpNo != null">
+        CP_NO = null,
+      </if>
+      <if test="admSiteCd != null">
+        ADM_SITE_CD = null,
+      </if>
+      <if test="admRoleId != null">
+        ADM_ROLE_ID = null,
+      </if>
+      <if test="aprvGrdCd != null">
+        APRV_GRD_CD = null,
+      </if>
+      <if test="supDt != null">
+        SUP_DT = null,
+      </if>
+      <if test="pwModDt != null">
+        PW_MOD_DT = null,
+      </if>
+      <if test="lastLgnDt != null">
+        LAST_LGN_DT = null,
+      </if>
+      <if test="lastInfoModDt != null">
+        LAST_INFO_MOD_DT = null,
+      </if>
+      <if test="lgnRtryCnt != null">
+        LGN_RTRY_CNT = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and ADM_ID = #{admId,jdbcType=VARCHAR}
+  </update>
+</mapper>

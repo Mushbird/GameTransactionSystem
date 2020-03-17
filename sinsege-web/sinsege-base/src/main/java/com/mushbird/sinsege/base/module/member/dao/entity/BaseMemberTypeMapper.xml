@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.member.dao.BaseMemberTypeMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.member.model.MemberType">
+    <id column="TMT_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <id column="TMT_MBR_TP_CD" jdbcType="VARCHAR" property="mbrTpCd" />
+    <result column="TMT_AUTH_REF_ID" jdbcType="INTEGER" property="authRefId" />
+    <result column="TMT_AUTH_DT" jdbcType="DATE" property="authDt" />
+    <result column="TMT_ADM_ID" jdbcType="VARCHAR" property="admId" />
+    <result column="TMT_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TMT_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TMT_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TMT_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TMT.MBR_ID as TMT_MBR_ID, TMT.MBR_TP_CD as TMT_MBR_TP_CD, TMT.AUTH_REF_ID as TMT_AUTH_REF_ID, 
+    TMT.AUTH_DT as TMT_AUTH_DT, TMT.ADM_ID as TMT_ADM_ID, TMT.REG_DT as TMT_REG_DT, TMT.REG_ID as TMT_REG_ID, 
+    TMT.MOD_DT as TMT_MOD_DT, TMT.MOD_ID as TMT_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberTypeEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mbr_tp TMT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberTypeKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mbr_tp TMT
+    where TMT.MBR_ID = #{mbrId,jdbcType=VARCHAR}
+      and TMT.MBR_TP_CD = #{mbrTpCd,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberTypeKey">
+    delete from mbr_tp
+    where MBR_ID = #{mbrId,jdbcType=VARCHAR}
+      and MBR_TP_CD = #{mbrTpCd,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberTypeEntityCriteria">
+    delete TMT from mbr_tp TMT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberTypeEntity">
+    insert into mbr_tp (MBR_ID, MBR_TP_CD, AUTH_REF_ID, 
+      AUTH_DT, ADM_ID, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID
+      )
+    values (#{mbrId,jdbcType=VARCHAR}, #{mbrTpCd,jdbcType=VARCHAR}, #{authRefId,jdbcType=INTEGER}, 
+      #{authDt,jdbcType=DATE}, #{admId,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberTypeEntity">
+    insert into mbr_tp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="mbrTpCd != null">
+        MBR_TP_CD,
+      </if>
+      <if test="authRefId != null">
+        AUTH_REF_ID,
+      </if>
+      <if test="authDt != null">
+        AUTH_DT,
+      </if>
+      <if test="admId != null">
+        ADM_ID,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="mbrTpCd != null">
+        #{mbrTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="authRefId != null">
+        #{authRefId,jdbcType=INTEGER},
+      </if>
+      <if test="authDt != null">
+        #{authDt,jdbcType=DATE},
+      </if>
+      <if test="admId != null">
+        #{admId,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberTypeEntityCriteria" resultType="java.lang.Long">
+    select count(*) from mbr_tp TMT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TMT
+    <set>
+      <if test="record.mbrId != null">
+        
+      </if>
+      <if test="record.mbrTpCd != null">
+        
+      </if>
+      <if test="record.authRefId != null">
+        TMT.AUTH_REF_ID = #{record.authRefId,jdbcType=INTEGER},
+      </if>
+      <if test="record.authDt != null">
+        TMT.AUTH_DT = #{record.authDt,jdbcType=DATE},
+      </if>
+      <if test="record.admId != null">
+        TMT.ADM_ID = #{record.admId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TMT.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TMT.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TMT.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TMT.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from mbr_tp TMT
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update mbr_tp TMT
+    set 
+      
+      TMT.AUTH_REF_ID = #{record.authRefId,jdbcType=INTEGER},
+      TMT.AUTH_DT = #{record.authDt,jdbcType=DATE},
+      TMT.ADM_ID = #{record.admId,jdbcType=VARCHAR},
+      TMT.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TMT.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TMT.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TMT.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberTypeEntity">
+    update mbr_tp
+    <set>
+      <if test="authRefId != null">
+        AUTH_REF_ID = #{authRefId,jdbcType=INTEGER},
+      </if>
+      <if test="authDt != null">
+        AUTH_DT = #{authDt,jdbcType=DATE},
+      </if>
+      <if test="admId != null">
+        ADM_ID = #{admId,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MBR_ID = #{mbrId,jdbcType=VARCHAR}
+      and MBR_TP_CD = #{mbrTpCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberTypeEntity">
+    update mbr_tp
+    set AUTH_REF_ID = #{authRefId,jdbcType=INTEGER},
+      AUTH_DT = #{authDt,jdbcType=DATE},
+      ADM_ID = #{admId,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where MBR_ID = #{mbrId,jdbcType=VARCHAR}
+      and MBR_TP_CD = #{mbrTpCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberTypeEntity">
+    update mbr_tp
+    <set>
+      <if test="authRefId != null">
+        AUTH_REF_ID = null,
+      </if>
+      <if test="authDt != null">
+        AUTH_DT = null,
+      </if>
+      <if test="admId != null">
+        ADM_ID = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and MBR_ID = #{mbrId,jdbcType=VARCHAR}
+    and MBR_TP_CD = #{mbrTpCd,jdbcType=VARCHAR}
+  </update>
+</mapper>

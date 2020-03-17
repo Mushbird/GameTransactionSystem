@@ -1,0 +1,852 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.reward.dao.BaseCouponMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.reward.model.Coupon">
+    <id column="TCPN_CPN_ID" jdbcType="INTEGER" property="cpnId" />
+    <result column="TCPN_VEN_ID" jdbcType="INTEGER" property="venId" />
+    <result column="TCPN_CPN_TP_CD" jdbcType="VARCHAR" property="cpnTpCd" />
+    <result column="TCPN_CPN_CL_CD" jdbcType="VARCHAR" property="cpnClCd" />
+    <result column="TCPN_CPN_AUTO_CL_CD" jdbcType="VARCHAR" property="cpnAutoClCd" />
+    <result column="TCPN_CPN_STAT_CD" jdbcType="VARCHAR" property="cpnStatCd" />
+    <result column="TCPN_CPN_NO" jdbcType="VARCHAR" property="cpnNo" />
+    <result column="TCPN_CPN_NM" jdbcType="VARCHAR" property="cpnNm" />
+    <result column="TCPN_ISU_TGT_TP_CD" jdbcType="VARCHAR" property="isuTgtTpCd" />
+    <result column="TCPN_ISU_TGT_ITEM_TP_CD" jdbcType="VARCHAR" property="isuTgtItemTpCd" />
+    <result column="TCPN_ISU_TGT_MBR_GRD_CD" jdbcType="VARCHAR" property="isuTgtMbrGrdCd" />
+    <result column="TCPN_ISU_METH_TP_CD" jdbcType="VARCHAR" property="isuMethTpCd" />
+    <result column="TCPN_ISU_METH_DL_TP_CD" jdbcType="VARCHAR" property="isuMethDlTpCd" />
+    <result column="TCPN_ISU_METH_RDNB_TP_CD" jdbcType="VARCHAR" property="isuMethRdnbTpCd" />
+    <result column="TCPN_ISU_URL" jdbcType="VARCHAR" property="isuUrl" />
+    <result column="TCPN_ISU_FIX_RDNB_NO" jdbcType="VARCHAR" property="isuFixRdnbNo" />
+    <result column="TCPN_ISU_RES_QTY_YN" jdbcType="VARCHAR" property="isuResQtyYn" />
+    <result column="TCPN_ISU_RES_QTY" jdbcType="DECIMAL" property="isuResQty" />
+    <result column="TCPN_VLD_PERD_TP_CD" jdbcType="VARCHAR" property="vldPerdTpCd" />
+    <result column="TCPN_VLD_PERD_ST_YMD" jdbcType="VARCHAR" property="vldPerdStYmd" />
+    <result column="TCPN_VLD_PERD_ED_YMD" jdbcType="VARCHAR" property="vldPerdEdYmd" />
+    <result column="TCPN_VLD_PERD_USE_STD_CD" jdbcType="VARCHAR" property="vldPerdUseStdCd" />
+    <result column="TCPN_VLD_PERD_USE_TP_CD" jdbcType="VARCHAR" property="vldPerdUseTpCd" />
+    <result column="TCPN_VLD_PERD_USE_DAY_CNT" jdbcType="DECIMAL" property="vldPerdUseDayCnt" />
+    <result column="TCPN_DC_METH_CD" jdbcType="VARCHAR" property="dcMethCd" />
+    <result column="TCPN_DC_AMT" jdbcType="INTEGER" property="dcAmt" />
+    <result column="TCPN_DC_RATE" jdbcType="DECIMAL" property="dcRate" />
+    <result column="TCPN_DC_RATE_MAX_AMT" jdbcType="INTEGER" property="dcRateMaxAmt" />
+    <result column="TCPN_DC_RES_MIN_BUY_AMT_YN" jdbcType="VARCHAR" property="dcResMinBuyAmtYn" />
+    <result column="TCPN_DC_RES_MIN_BUY_AMT" jdbcType="INTEGER" property="dcResMinBuyAmt" />
+    <result column="TCPN_DC_ADD_DC_CPN_YN" jdbcType="VARCHAR" property="dcAddDcCpnYn" />
+    <result column="TCPN_BASE_CPN_YN" jdbcType="VARCHAR" property="baseCpnYn" />
+    <result column="TCPN_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TCPN_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TCPN_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TCPN_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TCPN_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TCPN.CPN_ID as TCPN_CPN_ID, TCPN.VEN_ID as TCPN_VEN_ID, TCPN.CPN_TP_CD as TCPN_CPN_TP_CD, 
+    TCPN.CPN_CL_CD as TCPN_CPN_CL_CD, TCPN.CPN_AUTO_CL_CD as TCPN_CPN_AUTO_CL_CD, TCPN.CPN_STAT_CD as TCPN_CPN_STAT_CD, 
+    TCPN.CPN_NO as TCPN_CPN_NO, TCPN.CPN_NM as TCPN_CPN_NM, TCPN.ISU_TGT_TP_CD as TCPN_ISU_TGT_TP_CD, 
+    TCPN.ISU_TGT_ITEM_TP_CD as TCPN_ISU_TGT_ITEM_TP_CD, TCPN.ISU_TGT_MBR_GRD_CD as TCPN_ISU_TGT_MBR_GRD_CD, 
+    TCPN.ISU_METH_TP_CD as TCPN_ISU_METH_TP_CD, TCPN.ISU_METH_DL_TP_CD as TCPN_ISU_METH_DL_TP_CD, 
+    TCPN.ISU_METH_RDNB_TP_CD as TCPN_ISU_METH_RDNB_TP_CD, TCPN.ISU_URL as TCPN_ISU_URL, 
+    TCPN.ISU_FIX_RDNB_NO as TCPN_ISU_FIX_RDNB_NO, TCPN.ISU_RES_QTY_YN as TCPN_ISU_RES_QTY_YN, 
+    TCPN.ISU_RES_QTY as TCPN_ISU_RES_QTY, TCPN.VLD_PERD_TP_CD as TCPN_VLD_PERD_TP_CD, 
+    TCPN.VLD_PERD_ST_YMD as TCPN_VLD_PERD_ST_YMD, TCPN.VLD_PERD_ED_YMD as TCPN_VLD_PERD_ED_YMD, 
+    TCPN.VLD_PERD_USE_STD_CD as TCPN_VLD_PERD_USE_STD_CD, TCPN.VLD_PERD_USE_TP_CD as TCPN_VLD_PERD_USE_TP_CD, 
+    TCPN.VLD_PERD_USE_DAY_CNT as TCPN_VLD_PERD_USE_DAY_CNT, TCPN.DC_METH_CD as TCPN_DC_METH_CD, 
+    TCPN.DC_AMT as TCPN_DC_AMT, TCPN.DC_RATE as TCPN_DC_RATE, TCPN.DC_RATE_MAX_AMT as TCPN_DC_RATE_MAX_AMT, 
+    TCPN.DC_RES_MIN_BUY_AMT_YN as TCPN_DC_RES_MIN_BUY_AMT_YN, TCPN.DC_RES_MIN_BUY_AMT as TCPN_DC_RES_MIN_BUY_AMT, 
+    TCPN.DC_ADD_DC_CPN_YN as TCPN_DC_ADD_DC_CPN_YN, TCPN.BASE_CPN_YN as TCPN_BASE_CPN_YN, 
+    TCPN.REG_DT as TCPN_REG_DT, TCPN.REG_ID as TCPN_REG_ID, TCPN.MOD_DT as TCPN_MOD_DT, 
+    TCPN.MOD_ID as TCPN_MOD_ID, TCPN.USE_YN as TCPN_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.CouponEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cpn TCPN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cpn TCPN
+    where TCPN.CPN_ID = #{cpnId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cpn
+    where CPN_ID = #{cpnId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.CouponEntityCriteria">
+    delete TCPN from cpn TCPN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponEntity">
+    insert into cpn (CPN_ID, VEN_ID, CPN_TP_CD, 
+      CPN_CL_CD, CPN_AUTO_CL_CD, CPN_STAT_CD, 
+      CPN_NO, CPN_NM, ISU_TGT_TP_CD, 
+      ISU_TGT_ITEM_TP_CD, ISU_TGT_MBR_GRD_CD, ISU_METH_TP_CD, 
+      ISU_METH_DL_TP_CD, ISU_METH_RDNB_TP_CD, ISU_URL, 
+      ISU_FIX_RDNB_NO, ISU_RES_QTY_YN, ISU_RES_QTY, 
+      VLD_PERD_TP_CD, VLD_PERD_ST_YMD, VLD_PERD_ED_YMD, 
+      VLD_PERD_USE_STD_CD, VLD_PERD_USE_TP_CD, VLD_PERD_USE_DAY_CNT, 
+      DC_METH_CD, DC_AMT, DC_RATE, 
+      DC_RATE_MAX_AMT, DC_RES_MIN_BUY_AMT_YN, DC_RES_MIN_BUY_AMT, 
+      DC_ADD_DC_CPN_YN, BASE_CPN_YN, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID, 
+      USE_YN)
+    values (#{cpnId,jdbcType=INTEGER}, #{venId,jdbcType=INTEGER}, #{cpnTpCd,jdbcType=VARCHAR}, 
+      #{cpnClCd,jdbcType=VARCHAR}, #{cpnAutoClCd,jdbcType=VARCHAR}, #{cpnStatCd,jdbcType=VARCHAR}, 
+      #{cpnNo,jdbcType=VARCHAR}, #{cpnNm,jdbcType=VARCHAR}, #{isuTgtTpCd,jdbcType=VARCHAR}, 
+      #{isuTgtItemTpCd,jdbcType=VARCHAR}, #{isuTgtMbrGrdCd,jdbcType=VARCHAR}, #{isuMethTpCd,jdbcType=VARCHAR}, 
+      #{isuMethDlTpCd,jdbcType=VARCHAR}, #{isuMethRdnbTpCd,jdbcType=VARCHAR}, #{isuUrl,jdbcType=VARCHAR}, 
+      #{isuFixRdnbNo,jdbcType=VARCHAR}, #{isuResQtyYn,jdbcType=VARCHAR}, #{isuResQty,jdbcType=DECIMAL}, 
+      #{vldPerdTpCd,jdbcType=VARCHAR}, #{vldPerdStYmd,jdbcType=VARCHAR}, #{vldPerdEdYmd,jdbcType=VARCHAR}, 
+      #{vldPerdUseStdCd,jdbcType=VARCHAR}, #{vldPerdUseTpCd,jdbcType=VARCHAR}, #{vldPerdUseDayCnt,jdbcType=DECIMAL}, 
+      #{dcMethCd,jdbcType=VARCHAR}, #{dcAmt,jdbcType=INTEGER}, #{dcRate,jdbcType=DECIMAL}, 
+      #{dcRateMaxAmt,jdbcType=INTEGER}, #{dcResMinBuyAmtYn,jdbcType=VARCHAR}, #{dcResMinBuyAmt,jdbcType=INTEGER}, 
+      #{dcAddDcCpnYn,jdbcType=VARCHAR}, #{baseCpnYn,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, 
+      #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponEntity">
+    insert into cpn
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cpnId != null">
+        CPN_ID,
+      </if>
+      <if test="venId != null">
+        VEN_ID,
+      </if>
+      <if test="cpnTpCd != null">
+        CPN_TP_CD,
+      </if>
+      <if test="cpnClCd != null">
+        CPN_CL_CD,
+      </if>
+      <if test="cpnAutoClCd != null">
+        CPN_AUTO_CL_CD,
+      </if>
+      <if test="cpnStatCd != null">
+        CPN_STAT_CD,
+      </if>
+      <if test="cpnNo != null">
+        CPN_NO,
+      </if>
+      <if test="cpnNm != null">
+        CPN_NM,
+      </if>
+      <if test="isuTgtTpCd != null">
+        ISU_TGT_TP_CD,
+      </if>
+      <if test="isuTgtItemTpCd != null">
+        ISU_TGT_ITEM_TP_CD,
+      </if>
+      <if test="isuTgtMbrGrdCd != null">
+        ISU_TGT_MBR_GRD_CD,
+      </if>
+      <if test="isuMethTpCd != null">
+        ISU_METH_TP_CD,
+      </if>
+      <if test="isuMethDlTpCd != null">
+        ISU_METH_DL_TP_CD,
+      </if>
+      <if test="isuMethRdnbTpCd != null">
+        ISU_METH_RDNB_TP_CD,
+      </if>
+      <if test="isuUrl != null">
+        ISU_URL,
+      </if>
+      <if test="isuFixRdnbNo != null">
+        ISU_FIX_RDNB_NO,
+      </if>
+      <if test="isuResQtyYn != null">
+        ISU_RES_QTY_YN,
+      </if>
+      <if test="isuResQty != null">
+        ISU_RES_QTY,
+      </if>
+      <if test="vldPerdTpCd != null">
+        VLD_PERD_TP_CD,
+      </if>
+      <if test="vldPerdStYmd != null">
+        VLD_PERD_ST_YMD,
+      </if>
+      <if test="vldPerdEdYmd != null">
+        VLD_PERD_ED_YMD,
+      </if>
+      <if test="vldPerdUseStdCd != null">
+        VLD_PERD_USE_STD_CD,
+      </if>
+      <if test="vldPerdUseTpCd != null">
+        VLD_PERD_USE_TP_CD,
+      </if>
+      <if test="vldPerdUseDayCnt != null">
+        VLD_PERD_USE_DAY_CNT,
+      </if>
+      <if test="dcMethCd != null">
+        DC_METH_CD,
+      </if>
+      <if test="dcAmt != null">
+        DC_AMT,
+      </if>
+      <if test="dcRate != null">
+        DC_RATE,
+      </if>
+      <if test="dcRateMaxAmt != null">
+        DC_RATE_MAX_AMT,
+      </if>
+      <if test="dcResMinBuyAmtYn != null">
+        DC_RES_MIN_BUY_AMT_YN,
+      </if>
+      <if test="dcResMinBuyAmt != null">
+        DC_RES_MIN_BUY_AMT,
+      </if>
+      <if test="dcAddDcCpnYn != null">
+        DC_ADD_DC_CPN_YN,
+      </if>
+      <if test="baseCpnYn != null">
+        BASE_CPN_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cpnId != null">
+        #{cpnId,jdbcType=INTEGER},
+      </if>
+      <if test="venId != null">
+        #{venId,jdbcType=INTEGER},
+      </if>
+      <if test="cpnTpCd != null">
+        #{cpnTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnClCd != null">
+        #{cpnClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnAutoClCd != null">
+        #{cpnAutoClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnStatCd != null">
+        #{cpnStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnNo != null">
+        #{cpnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnNm != null">
+        #{cpnNm,jdbcType=VARCHAR},
+      </if>
+      <if test="isuTgtTpCd != null">
+        #{isuTgtTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="isuTgtItemTpCd != null">
+        #{isuTgtItemTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="isuTgtMbrGrdCd != null">
+        #{isuTgtMbrGrdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="isuMethTpCd != null">
+        #{isuMethTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="isuMethDlTpCd != null">
+        #{isuMethDlTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="isuMethRdnbTpCd != null">
+        #{isuMethRdnbTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="isuUrl != null">
+        #{isuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isuFixRdnbNo != null">
+        #{isuFixRdnbNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isuResQtyYn != null">
+        #{isuResQtyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="isuResQty != null">
+        #{isuResQty,jdbcType=DECIMAL},
+      </if>
+      <if test="vldPerdTpCd != null">
+        #{vldPerdTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="vldPerdStYmd != null">
+        #{vldPerdStYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="vldPerdEdYmd != null">
+        #{vldPerdEdYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="vldPerdUseStdCd != null">
+        #{vldPerdUseStdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="vldPerdUseTpCd != null">
+        #{vldPerdUseTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="vldPerdUseDayCnt != null">
+        #{vldPerdUseDayCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="dcMethCd != null">
+        #{dcMethCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dcAmt != null">
+        #{dcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="dcRate != null">
+        #{dcRate,jdbcType=DECIMAL},
+      </if>
+      <if test="dcRateMaxAmt != null">
+        #{dcRateMaxAmt,jdbcType=INTEGER},
+      </if>
+      <if test="dcResMinBuyAmtYn != null">
+        #{dcResMinBuyAmtYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dcResMinBuyAmt != null">
+        #{dcResMinBuyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="dcAddDcCpnYn != null">
+        #{dcAddDcCpnYn,jdbcType=VARCHAR},
+      </if>
+      <if test="baseCpnYn != null">
+        #{baseCpnYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.CouponEntityCriteria" resultType="java.lang.Long">
+    select count(*) from cpn TCPN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TCPN
+    <set>
+      <if test="record.cpnId != null">
+        
+      </if>
+      <if test="record.venId != null">
+        TCPN.VEN_ID = #{record.venId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpnTpCd != null">
+        TCPN.CPN_TP_CD = #{record.cpnTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpnClCd != null">
+        TCPN.CPN_CL_CD = #{record.cpnClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpnAutoClCd != null">
+        TCPN.CPN_AUTO_CL_CD = #{record.cpnAutoClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpnStatCd != null">
+        TCPN.CPN_STAT_CD = #{record.cpnStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpnNo != null">
+        TCPN.CPN_NO = #{record.cpnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpnNm != null">
+        TCPN.CPN_NM = #{record.cpnNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuTgtTpCd != null">
+        TCPN.ISU_TGT_TP_CD = #{record.isuTgtTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuTgtItemTpCd != null">
+        TCPN.ISU_TGT_ITEM_TP_CD = #{record.isuTgtItemTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuTgtMbrGrdCd != null">
+        TCPN.ISU_TGT_MBR_GRD_CD = #{record.isuTgtMbrGrdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuMethTpCd != null">
+        TCPN.ISU_METH_TP_CD = #{record.isuMethTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuMethDlTpCd != null">
+        TCPN.ISU_METH_DL_TP_CD = #{record.isuMethDlTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuMethRdnbTpCd != null">
+        TCPN.ISU_METH_RDNB_TP_CD = #{record.isuMethRdnbTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuUrl != null">
+        TCPN.ISU_URL = #{record.isuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuFixRdnbNo != null">
+        TCPN.ISU_FIX_RDNB_NO = #{record.isuFixRdnbNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuResQtyYn != null">
+        TCPN.ISU_RES_QTY_YN = #{record.isuResQtyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuResQty != null">
+        TCPN.ISU_RES_QTY = #{record.isuResQty,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vldPerdTpCd != null">
+        TCPN.VLD_PERD_TP_CD = #{record.vldPerdTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vldPerdStYmd != null">
+        TCPN.VLD_PERD_ST_YMD = #{record.vldPerdStYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vldPerdEdYmd != null">
+        TCPN.VLD_PERD_ED_YMD = #{record.vldPerdEdYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vldPerdUseStdCd != null">
+        TCPN.VLD_PERD_USE_STD_CD = #{record.vldPerdUseStdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vldPerdUseTpCd != null">
+        TCPN.VLD_PERD_USE_TP_CD = #{record.vldPerdUseTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vldPerdUseDayCnt != null">
+        TCPN.VLD_PERD_USE_DAY_CNT = #{record.vldPerdUseDayCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dcMethCd != null">
+        TCPN.DC_METH_CD = #{record.dcMethCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dcAmt != null">
+        TCPN.DC_AMT = #{record.dcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.dcRate != null">
+        TCPN.DC_RATE = #{record.dcRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dcRateMaxAmt != null">
+        TCPN.DC_RATE_MAX_AMT = #{record.dcRateMaxAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.dcResMinBuyAmtYn != null">
+        TCPN.DC_RES_MIN_BUY_AMT_YN = #{record.dcResMinBuyAmtYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dcResMinBuyAmt != null">
+        TCPN.DC_RES_MIN_BUY_AMT = #{record.dcResMinBuyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.dcAddDcCpnYn != null">
+        TCPN.DC_ADD_DC_CPN_YN = #{record.dcAddDcCpnYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseCpnYn != null">
+        TCPN.BASE_CPN_YN = #{record.baseCpnYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TCPN.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TCPN.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TCPN.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TCPN.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TCPN.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from cpn TCPN
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update cpn TCPN
+    set 
+      TCPN.VEN_ID = #{record.venId,jdbcType=INTEGER},
+      TCPN.CPN_TP_CD = #{record.cpnTpCd,jdbcType=VARCHAR},
+      TCPN.CPN_CL_CD = #{record.cpnClCd,jdbcType=VARCHAR},
+      TCPN.CPN_AUTO_CL_CD = #{record.cpnAutoClCd,jdbcType=VARCHAR},
+      TCPN.CPN_STAT_CD = #{record.cpnStatCd,jdbcType=VARCHAR},
+      TCPN.CPN_NO = #{record.cpnNo,jdbcType=VARCHAR},
+      TCPN.CPN_NM = #{record.cpnNm,jdbcType=VARCHAR},
+      TCPN.ISU_TGT_TP_CD = #{record.isuTgtTpCd,jdbcType=VARCHAR},
+      TCPN.ISU_TGT_ITEM_TP_CD = #{record.isuTgtItemTpCd,jdbcType=VARCHAR},
+      TCPN.ISU_TGT_MBR_GRD_CD = #{record.isuTgtMbrGrdCd,jdbcType=VARCHAR},
+      TCPN.ISU_METH_TP_CD = #{record.isuMethTpCd,jdbcType=VARCHAR},
+      TCPN.ISU_METH_DL_TP_CD = #{record.isuMethDlTpCd,jdbcType=VARCHAR},
+      TCPN.ISU_METH_RDNB_TP_CD = #{record.isuMethRdnbTpCd,jdbcType=VARCHAR},
+      TCPN.ISU_URL = #{record.isuUrl,jdbcType=VARCHAR},
+      TCPN.ISU_FIX_RDNB_NO = #{record.isuFixRdnbNo,jdbcType=VARCHAR},
+      TCPN.ISU_RES_QTY_YN = #{record.isuResQtyYn,jdbcType=VARCHAR},
+      TCPN.ISU_RES_QTY = #{record.isuResQty,jdbcType=DECIMAL},
+      TCPN.VLD_PERD_TP_CD = #{record.vldPerdTpCd,jdbcType=VARCHAR},
+      TCPN.VLD_PERD_ST_YMD = #{record.vldPerdStYmd,jdbcType=VARCHAR},
+      TCPN.VLD_PERD_ED_YMD = #{record.vldPerdEdYmd,jdbcType=VARCHAR},
+      TCPN.VLD_PERD_USE_STD_CD = #{record.vldPerdUseStdCd,jdbcType=VARCHAR},
+      TCPN.VLD_PERD_USE_TP_CD = #{record.vldPerdUseTpCd,jdbcType=VARCHAR},
+      TCPN.VLD_PERD_USE_DAY_CNT = #{record.vldPerdUseDayCnt,jdbcType=DECIMAL},
+      TCPN.DC_METH_CD = #{record.dcMethCd,jdbcType=VARCHAR},
+      TCPN.DC_AMT = #{record.dcAmt,jdbcType=INTEGER},
+      TCPN.DC_RATE = #{record.dcRate,jdbcType=DECIMAL},
+      TCPN.DC_RATE_MAX_AMT = #{record.dcRateMaxAmt,jdbcType=INTEGER},
+      TCPN.DC_RES_MIN_BUY_AMT_YN = #{record.dcResMinBuyAmtYn,jdbcType=VARCHAR},
+      TCPN.DC_RES_MIN_BUY_AMT = #{record.dcResMinBuyAmt,jdbcType=INTEGER},
+      TCPN.DC_ADD_DC_CPN_YN = #{record.dcAddDcCpnYn,jdbcType=VARCHAR},
+      TCPN.BASE_CPN_YN = #{record.baseCpnYn,jdbcType=VARCHAR},
+      TCPN.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TCPN.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TCPN.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TCPN.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TCPN.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponEntity">
+    update cpn
+    <set>
+      <if test="venId != null">
+        VEN_ID = #{venId,jdbcType=INTEGER},
+      </if>
+      <if test="cpnTpCd != null">
+        CPN_TP_CD = #{cpnTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnClCd != null">
+        CPN_CL_CD = #{cpnClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnAutoClCd != null">
+        CPN_AUTO_CL_CD = #{cpnAutoClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnStatCd != null">
+        CPN_STAT_CD = #{cpnStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnNo != null">
+        CPN_NO = #{cpnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnNm != null">
+        CPN_NM = #{cpnNm,jdbcType=VARCHAR},
+      </if>
+      <if test="isuTgtTpCd != null">
+        ISU_TGT_TP_CD = #{isuTgtTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="isuTgtItemTpCd != null">
+        ISU_TGT_ITEM_TP_CD = #{isuTgtItemTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="isuTgtMbrGrdCd != null">
+        ISU_TGT_MBR_GRD_CD = #{isuTgtMbrGrdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="isuMethTpCd != null">
+        ISU_METH_TP_CD = #{isuMethTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="isuMethDlTpCd != null">
+        ISU_METH_DL_TP_CD = #{isuMethDlTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="isuMethRdnbTpCd != null">
+        ISU_METH_RDNB_TP_CD = #{isuMethRdnbTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="isuUrl != null">
+        ISU_URL = #{isuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isuFixRdnbNo != null">
+        ISU_FIX_RDNB_NO = #{isuFixRdnbNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isuResQtyYn != null">
+        ISU_RES_QTY_YN = #{isuResQtyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="isuResQty != null">
+        ISU_RES_QTY = #{isuResQty,jdbcType=DECIMAL},
+      </if>
+      <if test="vldPerdTpCd != null">
+        VLD_PERD_TP_CD = #{vldPerdTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="vldPerdStYmd != null">
+        VLD_PERD_ST_YMD = #{vldPerdStYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="vldPerdEdYmd != null">
+        VLD_PERD_ED_YMD = #{vldPerdEdYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="vldPerdUseStdCd != null">
+        VLD_PERD_USE_STD_CD = #{vldPerdUseStdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="vldPerdUseTpCd != null">
+        VLD_PERD_USE_TP_CD = #{vldPerdUseTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="vldPerdUseDayCnt != null">
+        VLD_PERD_USE_DAY_CNT = #{vldPerdUseDayCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="dcMethCd != null">
+        DC_METH_CD = #{dcMethCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dcAmt != null">
+        DC_AMT = #{dcAmt,jdbcType=INTEGER},
+      </if>
+      <if test="dcRate != null">
+        DC_RATE = #{dcRate,jdbcType=DECIMAL},
+      </if>
+      <if test="dcRateMaxAmt != null">
+        DC_RATE_MAX_AMT = #{dcRateMaxAmt,jdbcType=INTEGER},
+      </if>
+      <if test="dcResMinBuyAmtYn != null">
+        DC_RES_MIN_BUY_AMT_YN = #{dcResMinBuyAmtYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dcResMinBuyAmt != null">
+        DC_RES_MIN_BUY_AMT = #{dcResMinBuyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="dcAddDcCpnYn != null">
+        DC_ADD_DC_CPN_YN = #{dcAddDcCpnYn,jdbcType=VARCHAR},
+      </if>
+      <if test="baseCpnYn != null">
+        BASE_CPN_YN = #{baseCpnYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CPN_ID = #{cpnId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponEntity">
+    update cpn
+    set VEN_ID = #{venId,jdbcType=INTEGER},
+      CPN_TP_CD = #{cpnTpCd,jdbcType=VARCHAR},
+      CPN_CL_CD = #{cpnClCd,jdbcType=VARCHAR},
+      CPN_AUTO_CL_CD = #{cpnAutoClCd,jdbcType=VARCHAR},
+      CPN_STAT_CD = #{cpnStatCd,jdbcType=VARCHAR},
+      CPN_NO = #{cpnNo,jdbcType=VARCHAR},
+      CPN_NM = #{cpnNm,jdbcType=VARCHAR},
+      ISU_TGT_TP_CD = #{isuTgtTpCd,jdbcType=VARCHAR},
+      ISU_TGT_ITEM_TP_CD = #{isuTgtItemTpCd,jdbcType=VARCHAR},
+      ISU_TGT_MBR_GRD_CD = #{isuTgtMbrGrdCd,jdbcType=VARCHAR},
+      ISU_METH_TP_CD = #{isuMethTpCd,jdbcType=VARCHAR},
+      ISU_METH_DL_TP_CD = #{isuMethDlTpCd,jdbcType=VARCHAR},
+      ISU_METH_RDNB_TP_CD = #{isuMethRdnbTpCd,jdbcType=VARCHAR},
+      ISU_URL = #{isuUrl,jdbcType=VARCHAR},
+      ISU_FIX_RDNB_NO = #{isuFixRdnbNo,jdbcType=VARCHAR},
+      ISU_RES_QTY_YN = #{isuResQtyYn,jdbcType=VARCHAR},
+      ISU_RES_QTY = #{isuResQty,jdbcType=DECIMAL},
+      VLD_PERD_TP_CD = #{vldPerdTpCd,jdbcType=VARCHAR},
+      VLD_PERD_ST_YMD = #{vldPerdStYmd,jdbcType=VARCHAR},
+      VLD_PERD_ED_YMD = #{vldPerdEdYmd,jdbcType=VARCHAR},
+      VLD_PERD_USE_STD_CD = #{vldPerdUseStdCd,jdbcType=VARCHAR},
+      VLD_PERD_USE_TP_CD = #{vldPerdUseTpCd,jdbcType=VARCHAR},
+      VLD_PERD_USE_DAY_CNT = #{vldPerdUseDayCnt,jdbcType=DECIMAL},
+      DC_METH_CD = #{dcMethCd,jdbcType=VARCHAR},
+      DC_AMT = #{dcAmt,jdbcType=INTEGER},
+      DC_RATE = #{dcRate,jdbcType=DECIMAL},
+      DC_RATE_MAX_AMT = #{dcRateMaxAmt,jdbcType=INTEGER},
+      DC_RES_MIN_BUY_AMT_YN = #{dcResMinBuyAmtYn,jdbcType=VARCHAR},
+      DC_RES_MIN_BUY_AMT = #{dcResMinBuyAmt,jdbcType=INTEGER},
+      DC_ADD_DC_CPN_YN = #{dcAddDcCpnYn,jdbcType=VARCHAR},
+      BASE_CPN_YN = #{baseCpnYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where CPN_ID = #{cpnId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponEntity">
+    update cpn
+    <set>
+      <if test="venId != null">
+        VEN_ID = null,
+      </if>
+      <if test="cpnTpCd != null">
+        CPN_TP_CD = null,
+      </if>
+      <if test="cpnClCd != null">
+        CPN_CL_CD = null,
+      </if>
+      <if test="cpnAutoClCd != null">
+        CPN_AUTO_CL_CD = null,
+      </if>
+      <if test="cpnStatCd != null">
+        CPN_STAT_CD = null,
+      </if>
+      <if test="cpnNo != null">
+        CPN_NO = null,
+      </if>
+      <if test="cpnNm != null">
+        CPN_NM = null,
+      </if>
+      <if test="isuTgtTpCd != null">
+        ISU_TGT_TP_CD = null,
+      </if>
+      <if test="isuTgtItemTpCd != null">
+        ISU_TGT_ITEM_TP_CD = null,
+      </if>
+      <if test="isuTgtMbrGrdCd != null">
+        ISU_TGT_MBR_GRD_CD = null,
+      </if>
+      <if test="isuMethTpCd != null">
+        ISU_METH_TP_CD = null,
+      </if>
+      <if test="isuMethDlTpCd != null">
+        ISU_METH_DL_TP_CD = null,
+      </if>
+      <if test="isuMethRdnbTpCd != null">
+        ISU_METH_RDNB_TP_CD = null,
+      </if>
+      <if test="isuUrl != null">
+        ISU_URL = null,
+      </if>
+      <if test="isuFixRdnbNo != null">
+        ISU_FIX_RDNB_NO = null,
+      </if>
+      <if test="isuResQtyYn != null">
+        ISU_RES_QTY_YN = null,
+      </if>
+      <if test="isuResQty != null">
+        ISU_RES_QTY = null,
+      </if>
+      <if test="vldPerdTpCd != null">
+        VLD_PERD_TP_CD = null,
+      </if>
+      <if test="vldPerdStYmd != null">
+        VLD_PERD_ST_YMD = null,
+      </if>
+      <if test="vldPerdEdYmd != null">
+        VLD_PERD_ED_YMD = null,
+      </if>
+      <if test="vldPerdUseStdCd != null">
+        VLD_PERD_USE_STD_CD = null,
+      </if>
+      <if test="vldPerdUseTpCd != null">
+        VLD_PERD_USE_TP_CD = null,
+      </if>
+      <if test="vldPerdUseDayCnt != null">
+        VLD_PERD_USE_DAY_CNT = null,
+      </if>
+      <if test="dcMethCd != null">
+        DC_METH_CD = null,
+      </if>
+      <if test="dcAmt != null">
+        DC_AMT = null,
+      </if>
+      <if test="dcRate != null">
+        DC_RATE = null,
+      </if>
+      <if test="dcRateMaxAmt != null">
+        DC_RATE_MAX_AMT = null,
+      </if>
+      <if test="dcResMinBuyAmtYn != null">
+        DC_RES_MIN_BUY_AMT_YN = null,
+      </if>
+      <if test="dcResMinBuyAmt != null">
+        DC_RES_MIN_BUY_AMT = null,
+      </if>
+      <if test="dcAddDcCpnYn != null">
+        DC_ADD_DC_CPN_YN = null,
+      </if>
+      <if test="baseCpnYn != null">
+        BASE_CPN_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and CPN_ID = #{cpnId,jdbcType=INTEGER}
+  </update>
+</mapper>

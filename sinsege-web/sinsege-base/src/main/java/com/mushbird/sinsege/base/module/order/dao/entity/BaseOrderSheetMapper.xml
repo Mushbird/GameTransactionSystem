@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.order.dao.BaseOrderSheetMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.order.model.OrderSheet">
+    <id column="TOS_ORD_ID" jdbcType="INTEGER" property="ordId" />
+    <result column="TOS_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="TOS_ORD_NO" jdbcType="VARCHAR" property="ordNo" />
+    <result column="TOS_ORD_SHT_CONT" jdbcType="VARCHAR" property="ordShtCont" />
+    <result column="TOS_BUYR_IP_ADDR" jdbcType="VARCHAR" property="buyrIpAddr" />
+    <result column="TOS_ORD_RSLT_CD_VAL" jdbcType="VARCHAR" property="ordRsltCdVal" />
+    <result column="TOS_ORD_RSLT_MSG_CONT" jdbcType="VARCHAR" property="ordRsltMsgCont" />
+    <result column="TOS_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TOS_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TOS_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TOS_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TOS.ORD_ID as TOS_ORD_ID, TOS.MBR_ID as TOS_MBR_ID, TOS.ORD_NO as TOS_ORD_NO, TOS.ORD_SHT_CONT as TOS_ORD_SHT_CONT, 
+    TOS.BUYR_IP_ADDR as TOS_BUYR_IP_ADDR, TOS.ORD_RSLT_CD_VAL as TOS_ORD_RSLT_CD_VAL, 
+    TOS.ORD_RSLT_MSG_CONT as TOS_ORD_RSLT_MSG_CONT, TOS.REG_DT as TOS_REG_DT, TOS.REG_ID as TOS_REG_ID, 
+    TOS.MOD_DT as TOS_MOD_DT, TOS.MOD_ID as TOS_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderSheetEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ord_sht TOS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ord_sht TOS
+    where TOS.ORD_ID = #{ordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ord_sht
+    where ORD_ID = #{ordId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderSheetEntityCriteria">
+    delete TOS from ord_sht TOS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderSheetEntity">
+    insert into ord_sht (ORD_ID, MBR_ID, ORD_NO, 
+      ORD_SHT_CONT, BUYR_IP_ADDR, ORD_RSLT_CD_VAL, 
+      ORD_RSLT_MSG_CONT, REG_DT, REG_ID, 
+      MOD_DT, MOD_ID)
+    values (#{ordId,jdbcType=INTEGER}, #{mbrId,jdbcType=VARCHAR}, #{ordNo,jdbcType=VARCHAR}, 
+      #{ordShtCont,jdbcType=VARCHAR}, #{buyrIpAddr,jdbcType=VARCHAR}, #{ordRsltCdVal,jdbcType=VARCHAR}, 
+      #{ordRsltMsgCont,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, 
+      #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderSheetEntity">
+    insert into ord_sht
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ordId != null">
+        ORD_ID,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="ordNo != null">
+        ORD_NO,
+      </if>
+      <if test="ordShtCont != null">
+        ORD_SHT_CONT,
+      </if>
+      <if test="buyrIpAddr != null">
+        BUYR_IP_ADDR,
+      </if>
+      <if test="ordRsltCdVal != null">
+        ORD_RSLT_CD_VAL,
+      </if>
+      <if test="ordRsltMsgCont != null">
+        ORD_RSLT_MSG_CONT,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ordId != null">
+        #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="ordNo != null">
+        #{ordNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ordShtCont != null">
+        #{ordShtCont,jdbcType=VARCHAR},
+      </if>
+      <if test="buyrIpAddr != null">
+        #{buyrIpAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="ordRsltCdVal != null">
+        #{ordRsltCdVal,jdbcType=VARCHAR},
+      </if>
+      <if test="ordRsltMsgCont != null">
+        #{ordRsltMsgCont,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderSheetEntityCriteria" resultType="java.lang.Long">
+    select count(*) from ord_sht TOS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TOS
+    <set>
+      <if test="record.ordId != null">
+        
+      </if>
+      <if test="record.mbrId != null">
+        TOS.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordNo != null">
+        TOS.ORD_NO = #{record.ordNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordShtCont != null">
+        TOS.ORD_SHT_CONT = #{record.ordShtCont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyrIpAddr != null">
+        TOS.BUYR_IP_ADDR = #{record.buyrIpAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordRsltCdVal != null">
+        TOS.ORD_RSLT_CD_VAL = #{record.ordRsltCdVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordRsltMsgCont != null">
+        TOS.ORD_RSLT_MSG_CONT = #{record.ordRsltMsgCont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TOS.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TOS.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TOS.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TOS.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from ord_sht TOS
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update ord_sht TOS
+    set 
+      TOS.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      TOS.ORD_NO = #{record.ordNo,jdbcType=VARCHAR},
+      TOS.ORD_SHT_CONT = #{record.ordShtCont,jdbcType=VARCHAR},
+      TOS.BUYR_IP_ADDR = #{record.buyrIpAddr,jdbcType=VARCHAR},
+      TOS.ORD_RSLT_CD_VAL = #{record.ordRsltCdVal,jdbcType=VARCHAR},
+      TOS.ORD_RSLT_MSG_CONT = #{record.ordRsltMsgCont,jdbcType=VARCHAR},
+      TOS.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TOS.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TOS.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TOS.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderSheetEntity">
+    update ord_sht
+    <set>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="ordNo != null">
+        ORD_NO = #{ordNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ordShtCont != null">
+        ORD_SHT_CONT = #{ordShtCont,jdbcType=VARCHAR},
+      </if>
+      <if test="buyrIpAddr != null">
+        BUYR_IP_ADDR = #{buyrIpAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="ordRsltCdVal != null">
+        ORD_RSLT_CD_VAL = #{ordRsltCdVal,jdbcType=VARCHAR},
+      </if>
+      <if test="ordRsltMsgCont != null">
+        ORD_RSLT_MSG_CONT = #{ordRsltMsgCont,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORD_ID = #{ordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderSheetEntity">
+    update ord_sht
+    set MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      ORD_NO = #{ordNo,jdbcType=VARCHAR},
+      ORD_SHT_CONT = #{ordShtCont,jdbcType=VARCHAR},
+      BUYR_IP_ADDR = #{buyrIpAddr,jdbcType=VARCHAR},
+      ORD_RSLT_CD_VAL = #{ordRsltCdVal,jdbcType=VARCHAR},
+      ORD_RSLT_MSG_CONT = #{ordRsltMsgCont,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where ORD_ID = #{ordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderSheetEntity">
+    update ord_sht
+    <set>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="ordNo != null">
+        ORD_NO = null,
+      </if>
+      <if test="ordShtCont != null">
+        ORD_SHT_CONT = null,
+      </if>
+      <if test="buyrIpAddr != null">
+        BUYR_IP_ADDR = null,
+      </if>
+      <if test="ordRsltCdVal != null">
+        ORD_RSLT_CD_VAL = null,
+      </if>
+      <if test="ordRsltMsgCont != null">
+        ORD_RSLT_MSG_CONT = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and ORD_ID = #{ordId,jdbcType=INTEGER}
+  </update>
+</mapper>

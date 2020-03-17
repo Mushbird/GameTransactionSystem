@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.member.dao.BaseMemberCloseMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.member.model.MemberClose">
+    <id column="MCLO_MBR_CLOSE_ID" jdbcType="INTEGER" property="mbrCloseId" />
+    <result column="MCLO_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="MCLO_MBR_LGN_ID" jdbcType="VARCHAR" property="mbrLgnId" />
+    <result column="MCLO_CLOSE_PATH_CD" jdbcType="VARCHAR" property="closePathCd" />
+    <result column="MCLO_CLOSE_AGR_YN" jdbcType="VARCHAR" property="closeAgrYn" />
+    <result column="MCLO_CLOSE_AGR_DT" jdbcType="DATE" property="closeAgrDt" />
+    <result column="MCLO_CLOSE_DT" jdbcType="DATE" property="closeDt" />
+    <result column="MCLO_CLOSE_IP_ADDR" jdbcType="VARCHAR" property="closeIpAddr" />
+    <result column="MCLO_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="MCLO_REG_ID" jdbcType="VARCHAR" property="regId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    MCLO.MBR_CLOSE_ID as MCLO_MBR_CLOSE_ID, MCLO.MBR_ID as MCLO_MBR_ID, MCLO.MBR_LGN_ID as MCLO_MBR_LGN_ID, 
+    MCLO.CLOSE_PATH_CD as MCLO_CLOSE_PATH_CD, MCLO.CLOSE_AGR_YN as MCLO_CLOSE_AGR_YN, 
+    MCLO.CLOSE_AGR_DT as MCLO_CLOSE_AGR_DT, MCLO.CLOSE_DT as MCLO_CLOSE_DT, MCLO.CLOSE_IP_ADDR as MCLO_CLOSE_IP_ADDR, 
+    MCLO.REG_DT as MCLO_REG_DT, MCLO.REG_ID as MCLO_REG_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberCloseEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mbr_close MCLO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mbr_close MCLO
+    where MCLO.MBR_CLOSE_ID = #{mbrCloseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mbr_close
+    where MBR_CLOSE_ID = #{mbrCloseId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberCloseEntityCriteria">
+    delete MCLO from mbr_close MCLO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberCloseEntity">
+    <selectKey keyProperty="mbrCloseId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_MBR_CLOSE
+    </selectKey>
+    insert into mbr_close (MBR_CLOSE_ID, MBR_ID, MBR_LGN_ID, 
+      CLOSE_PATH_CD, CLOSE_AGR_YN, CLOSE_AGR_DT, 
+      CLOSE_DT, CLOSE_IP_ADDR, REG_DT, 
+      REG_ID)
+    values (#{mbrCloseId,jdbcType=INTEGER}, #{mbrId,jdbcType=VARCHAR}, #{mbrLgnId,jdbcType=VARCHAR}, 
+      #{closePathCd,jdbcType=VARCHAR}, #{closeAgrYn,jdbcType=VARCHAR}, #{closeAgrDt,jdbcType=DATE}, 
+      #{closeDt,jdbcType=DATE}, #{closeIpAddr,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberCloseEntity">
+    <selectKey keyProperty="mbrCloseId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_MBR_CLOSE
+    </selectKey>
+    insert into mbr_close
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      MBR_CLOSE_ID,
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="mbrLgnId != null">
+        MBR_LGN_ID,
+      </if>
+      <if test="closePathCd != null">
+        CLOSE_PATH_CD,
+      </if>
+      <if test="closeAgrYn != null">
+        CLOSE_AGR_YN,
+      </if>
+      <if test="closeAgrDt != null">
+        CLOSE_AGR_DT,
+      </if>
+      <if test="closeDt != null">
+        CLOSE_DT,
+      </if>
+      <if test="closeIpAddr != null">
+        CLOSE_IP_ADDR,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{mbrCloseId,jdbcType=INTEGER},
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="mbrLgnId != null">
+        #{mbrLgnId,jdbcType=VARCHAR},
+      </if>
+      <if test="closePathCd != null">
+        #{closePathCd,jdbcType=VARCHAR},
+      </if>
+      <if test="closeAgrYn != null">
+        #{closeAgrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="closeAgrDt != null">
+        #{closeAgrDt,jdbcType=DATE},
+      </if>
+      <if test="closeDt != null">
+        #{closeDt,jdbcType=DATE},
+      </if>
+      <if test="closeIpAddr != null">
+        #{closeIpAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberCloseEntityCriteria" resultType="java.lang.Long">
+    select count(*) from mbr_close MCLO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update MCLO
+    <set>
+      <if test="record.mbrCloseId != null">
+        
+      </if>
+      <if test="record.mbrId != null">
+        MCLO.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbrLgnId != null">
+        MCLO.MBR_LGN_ID = #{record.mbrLgnId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.closePathCd != null">
+        MCLO.CLOSE_PATH_CD = #{record.closePathCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.closeAgrYn != null">
+        MCLO.CLOSE_AGR_YN = #{record.closeAgrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.closeAgrDt != null">
+        MCLO.CLOSE_AGR_DT = #{record.closeAgrDt,jdbcType=DATE},
+      </if>
+      <if test="record.closeDt != null">
+        MCLO.CLOSE_DT = #{record.closeDt,jdbcType=DATE},
+      </if>
+      <if test="record.closeIpAddr != null">
+        MCLO.CLOSE_IP_ADDR = #{record.closeIpAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        MCLO.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        MCLO.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from mbr_close MCLO
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update mbr_close MCLO
+    set 
+      MCLO.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      MCLO.MBR_LGN_ID = #{record.mbrLgnId,jdbcType=VARCHAR},
+      MCLO.CLOSE_PATH_CD = #{record.closePathCd,jdbcType=VARCHAR},
+      MCLO.CLOSE_AGR_YN = #{record.closeAgrYn,jdbcType=VARCHAR},
+      MCLO.CLOSE_AGR_DT = #{record.closeAgrDt,jdbcType=DATE},
+      MCLO.CLOSE_DT = #{record.closeDt,jdbcType=DATE},
+      MCLO.CLOSE_IP_ADDR = #{record.closeIpAddr,jdbcType=VARCHAR},
+      MCLO.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      MCLO.REG_ID = #{record.regId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberCloseEntity">
+    update mbr_close
+    <set>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="mbrLgnId != null">
+        MBR_LGN_ID = #{mbrLgnId,jdbcType=VARCHAR},
+      </if>
+      <if test="closePathCd != null">
+        CLOSE_PATH_CD = #{closePathCd,jdbcType=VARCHAR},
+      </if>
+      <if test="closeAgrYn != null">
+        CLOSE_AGR_YN = #{closeAgrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="closeAgrDt != null">
+        CLOSE_AGR_DT = #{closeAgrDt,jdbcType=DATE},
+      </if>
+      <if test="closeDt != null">
+        CLOSE_DT = #{closeDt,jdbcType=DATE},
+      </if>
+      <if test="closeIpAddr != null">
+        CLOSE_IP_ADDR = #{closeIpAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MBR_CLOSE_ID = #{mbrCloseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberCloseEntity">
+    update mbr_close
+    set MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      MBR_LGN_ID = #{mbrLgnId,jdbcType=VARCHAR},
+      CLOSE_PATH_CD = #{closePathCd,jdbcType=VARCHAR},
+      CLOSE_AGR_YN = #{closeAgrYn,jdbcType=VARCHAR},
+      CLOSE_AGR_DT = #{closeAgrDt,jdbcType=DATE},
+      CLOSE_DT = #{closeDt,jdbcType=DATE},
+      CLOSE_IP_ADDR = #{closeIpAddr,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR}
+    where MBR_CLOSE_ID = #{mbrCloseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberCloseEntity">
+    update mbr_close
+    <set>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="mbrLgnId != null">
+        MBR_LGN_ID = null,
+      </if>
+      <if test="closePathCd != null">
+        CLOSE_PATH_CD = null,
+      </if>
+      <if test="closeAgrYn != null">
+        CLOSE_AGR_YN = null,
+      </if>
+      <if test="closeAgrDt != null">
+        CLOSE_AGR_DT = null,
+      </if>
+      <if test="closeDt != null">
+        CLOSE_DT = null,
+      </if>
+      <if test="closeIpAddr != null">
+        CLOSE_IP_ADDR = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and MBR_CLOSE_ID = #{mbrCloseId,jdbcType=INTEGER}
+  </update>
+</mapper>

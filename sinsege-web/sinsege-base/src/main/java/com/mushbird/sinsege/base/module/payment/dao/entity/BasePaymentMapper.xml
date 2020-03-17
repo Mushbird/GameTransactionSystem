@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.payment.dao.BasePaymentMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.payment.model.Payment">
+    <id column="TPAY_PAY_ID" jdbcType="INTEGER" property="payId" />
+    <result column="TPAY_ORI_PAY_ID" jdbcType="INTEGER" property="oriPayId" />
+    <result column="TPAY_ORD_ID" jdbcType="INTEGER" property="ordId" />
+    <result column="TPAY_ORD_CLM_ID" jdbcType="INTEGER" property="ordClmId" />
+    <result column="TPAY_PAY_TP_CD" jdbcType="VARCHAR" property="payTpCd" />
+    <result column="TPAY_PAY_STAT_CD" jdbcType="VARCHAR" property="payStatCd" />
+    <result column="TPAY_PAY_PG_CD" jdbcType="VARCHAR" property="payPgCd" />
+    <result column="TPAY_MID" jdbcType="VARCHAR" property="mid" />
+    <result column="TPAY_PAY_MTHD_CD" jdbcType="VARCHAR" property="payMthdCd" />
+    <result column="TPAY_PAY_AMT" jdbcType="INTEGER" property="payAmt" />
+    <result column="TPAY_RFD_AMT" jdbcType="INTEGER" property="rfdAmt" />
+    <result column="TPAY_REAL_PAY_AMT" jdbcType="INTEGER" property="realPayAmt" />
+    <result column="TPAY_PG_SPLY_AMT" jdbcType="INTEGER" property="pgSplyAmt" />
+    <result column="TPAY_PG_VAT_AMT" jdbcType="INTEGER" property="pgVatAmt" />
+    <result column="TPAY_PG_TAXFREE_AMT" jdbcType="INTEGER" property="pgTaxfreeAmt" />
+    <result column="TPAY_CASH_RCT_TGT_AMT" jdbcType="INTEGER" property="cashRctTgtAmt" />
+    <result column="TPAY_ESCR_BUY_YN" jdbcType="VARCHAR" property="escrBuyYn" />
+    <result column="TPAY_PAY_DT" jdbcType="DATE" property="payDt" />
+    <result column="TPAY_PAY_CPLT_DT" jdbcType="DATE" property="payCpltDt" />
+    <result column="TPAY_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TPAY_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TPAY_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TPAY_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TPAY.PAY_ID as TPAY_PAY_ID, TPAY.ORI_PAY_ID as TPAY_ORI_PAY_ID, TPAY.ORD_ID as TPAY_ORD_ID, 
+    TPAY.ORD_CLM_ID as TPAY_ORD_CLM_ID, TPAY.PAY_TP_CD as TPAY_PAY_TP_CD, TPAY.PAY_STAT_CD as TPAY_PAY_STAT_CD, 
+    TPAY.PAY_PG_CD as TPAY_PAY_PG_CD, TPAY.MID as TPAY_MID, TPAY.PAY_MTHD_CD as TPAY_PAY_MTHD_CD, 
+    TPAY.PAY_AMT as TPAY_PAY_AMT, TPAY.RFD_AMT as TPAY_RFD_AMT, TPAY.REAL_PAY_AMT as TPAY_REAL_PAY_AMT, 
+    TPAY.PG_SPLY_AMT as TPAY_PG_SPLY_AMT, TPAY.PG_VAT_AMT as TPAY_PG_VAT_AMT, TPAY.PG_TAXFREE_AMT as TPAY_PG_TAXFREE_AMT, 
+    TPAY.CASH_RCT_TGT_AMT as TPAY_CASH_RCT_TGT_AMT, TPAY.ESCR_BUY_YN as TPAY_ESCR_BUY_YN, 
+    TPAY.PAY_DT as TPAY_PAY_DT, TPAY.PAY_CPLT_DT as TPAY_PAY_CPLT_DT, TPAY.REG_DT as TPAY_REG_DT, 
+    TPAY.REG_ID as TPAY_REG_ID, TPAY.MOD_DT as TPAY_MOD_DT, TPAY.MOD_ID as TPAY_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.criteria.PaymentEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pay TPAY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pay TPAY
+    where TPAY.PAY_ID = #{payId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pay
+    where PAY_ID = #{payId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.criteria.PaymentEntityCriteria">
+    delete TPAY from pay TPAY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentEntity">
+    <selectKey keyProperty="payId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_PAY
+    </selectKey>
+    insert into pay (PAY_ID, ORI_PAY_ID, ORD_ID, 
+      ORD_CLM_ID, PAY_TP_CD, PAY_STAT_CD, 
+      PAY_PG_CD, MID, PAY_MTHD_CD, 
+      PAY_AMT, RFD_AMT, REAL_PAY_AMT, 
+      PG_SPLY_AMT, PG_VAT_AMT, PG_TAXFREE_AMT, 
+      CASH_RCT_TGT_AMT, ESCR_BUY_YN, PAY_DT, 
+      PAY_CPLT_DT, REG_DT, REG_ID, 
+      MOD_DT, MOD_ID)
+    values (#{payId,jdbcType=INTEGER}, #{oriPayId,jdbcType=INTEGER}, #{ordId,jdbcType=INTEGER}, 
+      #{ordClmId,jdbcType=INTEGER}, #{payTpCd,jdbcType=VARCHAR}, #{payStatCd,jdbcType=VARCHAR}, 
+      #{payPgCd,jdbcType=VARCHAR}, #{mid,jdbcType=VARCHAR}, #{payMthdCd,jdbcType=VARCHAR}, 
+      #{payAmt,jdbcType=INTEGER}, #{rfdAmt,jdbcType=INTEGER}, #{realPayAmt,jdbcType=INTEGER}, 
+      #{pgSplyAmt,jdbcType=INTEGER}, #{pgVatAmt,jdbcType=INTEGER}, #{pgTaxfreeAmt,jdbcType=INTEGER}, 
+      #{cashRctTgtAmt,jdbcType=INTEGER}, #{escrBuyYn,jdbcType=VARCHAR}, #{payDt,jdbcType=DATE}, 
+      #{payCpltDt,jdbcType=DATE}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, 
+      #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentEntity">
+    <selectKey keyProperty="payId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_PAY
+    </selectKey>
+    insert into pay
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      PAY_ID,
+      <if test="oriPayId != null">
+        ORI_PAY_ID,
+      </if>
+      <if test="ordId != null">
+        ORD_ID,
+      </if>
+      <if test="ordClmId != null">
+        ORD_CLM_ID,
+      </if>
+      <if test="payTpCd != null">
+        PAY_TP_CD,
+      </if>
+      <if test="payStatCd != null">
+        PAY_STAT_CD,
+      </if>
+      <if test="payPgCd != null">
+        PAY_PG_CD,
+      </if>
+      <if test="mid != null">
+        MID,
+      </if>
+      <if test="payMthdCd != null">
+        PAY_MTHD_CD,
+      </if>
+      <if test="payAmt != null">
+        PAY_AMT,
+      </if>
+      <if test="rfdAmt != null">
+        RFD_AMT,
+      </if>
+      <if test="realPayAmt != null">
+        REAL_PAY_AMT,
+      </if>
+      <if test="pgSplyAmt != null">
+        PG_SPLY_AMT,
+      </if>
+      <if test="pgVatAmt != null">
+        PG_VAT_AMT,
+      </if>
+      <if test="pgTaxfreeAmt != null">
+        PG_TAXFREE_AMT,
+      </if>
+      <if test="cashRctTgtAmt != null">
+        CASH_RCT_TGT_AMT,
+      </if>
+      <if test="escrBuyYn != null">
+        ESCR_BUY_YN,
+      </if>
+      <if test="payDt != null">
+        PAY_DT,
+      </if>
+      <if test="payCpltDt != null">
+        PAY_CPLT_DT,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{payId,jdbcType=INTEGER},
+      <if test="oriPayId != null">
+        #{oriPayId,jdbcType=INTEGER},
+      </if>
+      <if test="ordId != null">
+        #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="ordClmId != null">
+        #{ordClmId,jdbcType=INTEGER},
+      </if>
+      <if test="payTpCd != null">
+        #{payTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatCd != null">
+        #{payStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="payPgCd != null">
+        #{payPgCd,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="payMthdCd != null">
+        #{payMthdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmt != null">
+        #{payAmt,jdbcType=INTEGER},
+      </if>
+      <if test="rfdAmt != null">
+        #{rfdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="realPayAmt != null">
+        #{realPayAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgSplyAmt != null">
+        #{pgSplyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgVatAmt != null">
+        #{pgVatAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgTaxfreeAmt != null">
+        #{pgTaxfreeAmt,jdbcType=INTEGER},
+      </if>
+      <if test="cashRctTgtAmt != null">
+        #{cashRctTgtAmt,jdbcType=INTEGER},
+      </if>
+      <if test="escrBuyYn != null">
+        #{escrBuyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="payDt != null">
+        #{payDt,jdbcType=DATE},
+      </if>
+      <if test="payCpltDt != null">
+        #{payCpltDt,jdbcType=DATE},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.criteria.PaymentEntityCriteria" resultType="java.lang.Long">
+    select count(*) from pay TPAY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TPAY
+    <set>
+      <if test="record.payId != null">
+        
+      </if>
+      <if test="record.oriPayId != null">
+        TPAY.ORI_PAY_ID = #{record.oriPayId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordId != null">
+        TPAY.ORD_ID = #{record.ordId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordClmId != null">
+        TPAY.ORD_CLM_ID = #{record.ordClmId,jdbcType=INTEGER},
+      </if>
+      <if test="record.payTpCd != null">
+        TPAY.PAY_TP_CD = #{record.payTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payStatCd != null">
+        TPAY.PAY_STAT_CD = #{record.payStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payPgCd != null">
+        TPAY.PAY_PG_CD = #{record.payPgCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mid != null">
+        TPAY.MID = #{record.mid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payMthdCd != null">
+        TPAY.PAY_MTHD_CD = #{record.payMthdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payAmt != null">
+        TPAY.PAY_AMT = #{record.payAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.rfdAmt != null">
+        TPAY.RFD_AMT = #{record.rfdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.realPayAmt != null">
+        TPAY.REAL_PAY_AMT = #{record.realPayAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.pgSplyAmt != null">
+        TPAY.PG_SPLY_AMT = #{record.pgSplyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.pgVatAmt != null">
+        TPAY.PG_VAT_AMT = #{record.pgVatAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.pgTaxfreeAmt != null">
+        TPAY.PG_TAXFREE_AMT = #{record.pgTaxfreeAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.cashRctTgtAmt != null">
+        TPAY.CASH_RCT_TGT_AMT = #{record.cashRctTgtAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.escrBuyYn != null">
+        TPAY.ESCR_BUY_YN = #{record.escrBuyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payDt != null">
+        TPAY.PAY_DT = #{record.payDt,jdbcType=DATE},
+      </if>
+      <if test="record.payCpltDt != null">
+        TPAY.PAY_CPLT_DT = #{record.payCpltDt,jdbcType=DATE},
+      </if>
+      <if test="record.regDt != null">
+        TPAY.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TPAY.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TPAY.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TPAY.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from pay TPAY
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update pay TPAY
+    set 
+      TPAY.ORI_PAY_ID = #{record.oriPayId,jdbcType=INTEGER},
+      TPAY.ORD_ID = #{record.ordId,jdbcType=INTEGER},
+      TPAY.ORD_CLM_ID = #{record.ordClmId,jdbcType=INTEGER},
+      TPAY.PAY_TP_CD = #{record.payTpCd,jdbcType=VARCHAR},
+      TPAY.PAY_STAT_CD = #{record.payStatCd,jdbcType=VARCHAR},
+      TPAY.PAY_PG_CD = #{record.payPgCd,jdbcType=VARCHAR},
+      TPAY.MID = #{record.mid,jdbcType=VARCHAR},
+      TPAY.PAY_MTHD_CD = #{record.payMthdCd,jdbcType=VARCHAR},
+      TPAY.PAY_AMT = #{record.payAmt,jdbcType=INTEGER},
+      TPAY.RFD_AMT = #{record.rfdAmt,jdbcType=INTEGER},
+      TPAY.REAL_PAY_AMT = #{record.realPayAmt,jdbcType=INTEGER},
+      TPAY.PG_SPLY_AMT = #{record.pgSplyAmt,jdbcType=INTEGER},
+      TPAY.PG_VAT_AMT = #{record.pgVatAmt,jdbcType=INTEGER},
+      TPAY.PG_TAXFREE_AMT = #{record.pgTaxfreeAmt,jdbcType=INTEGER},
+      TPAY.CASH_RCT_TGT_AMT = #{record.cashRctTgtAmt,jdbcType=INTEGER},
+      TPAY.ESCR_BUY_YN = #{record.escrBuyYn,jdbcType=VARCHAR},
+      TPAY.PAY_DT = #{record.payDt,jdbcType=DATE},
+      TPAY.PAY_CPLT_DT = #{record.payCpltDt,jdbcType=DATE},
+      TPAY.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TPAY.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TPAY.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TPAY.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentEntity">
+    update pay
+    <set>
+      <if test="oriPayId != null">
+        ORI_PAY_ID = #{oriPayId,jdbcType=INTEGER},
+      </if>
+      <if test="ordId != null">
+        ORD_ID = #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="ordClmId != null">
+        ORD_CLM_ID = #{ordClmId,jdbcType=INTEGER},
+      </if>
+      <if test="payTpCd != null">
+        PAY_TP_CD = #{payTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatCd != null">
+        PAY_STAT_CD = #{payStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="payPgCd != null">
+        PAY_PG_CD = #{payPgCd,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null">
+        MID = #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="payMthdCd != null">
+        PAY_MTHD_CD = #{payMthdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmt != null">
+        PAY_AMT = #{payAmt,jdbcType=INTEGER},
+      </if>
+      <if test="rfdAmt != null">
+        RFD_AMT = #{rfdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="realPayAmt != null">
+        REAL_PAY_AMT = #{realPayAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgSplyAmt != null">
+        PG_SPLY_AMT = #{pgSplyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgVatAmt != null">
+        PG_VAT_AMT = #{pgVatAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgTaxfreeAmt != null">
+        PG_TAXFREE_AMT = #{pgTaxfreeAmt,jdbcType=INTEGER},
+      </if>
+      <if test="cashRctTgtAmt != null">
+        CASH_RCT_TGT_AMT = #{cashRctTgtAmt,jdbcType=INTEGER},
+      </if>
+      <if test="escrBuyYn != null">
+        ESCR_BUY_YN = #{escrBuyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="payDt != null">
+        PAY_DT = #{payDt,jdbcType=DATE},
+      </if>
+      <if test="payCpltDt != null">
+        PAY_CPLT_DT = #{payCpltDt,jdbcType=DATE},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PAY_ID = #{payId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentEntity">
+    update pay
+    set ORI_PAY_ID = #{oriPayId,jdbcType=INTEGER},
+      ORD_ID = #{ordId,jdbcType=INTEGER},
+      ORD_CLM_ID = #{ordClmId,jdbcType=INTEGER},
+      PAY_TP_CD = #{payTpCd,jdbcType=VARCHAR},
+      PAY_STAT_CD = #{payStatCd,jdbcType=VARCHAR},
+      PAY_PG_CD = #{payPgCd,jdbcType=VARCHAR},
+      MID = #{mid,jdbcType=VARCHAR},
+      PAY_MTHD_CD = #{payMthdCd,jdbcType=VARCHAR},
+      PAY_AMT = #{payAmt,jdbcType=INTEGER},
+      RFD_AMT = #{rfdAmt,jdbcType=INTEGER},
+      REAL_PAY_AMT = #{realPayAmt,jdbcType=INTEGER},
+      PG_SPLY_AMT = #{pgSplyAmt,jdbcType=INTEGER},
+      PG_VAT_AMT = #{pgVatAmt,jdbcType=INTEGER},
+      PG_TAXFREE_AMT = #{pgTaxfreeAmt,jdbcType=INTEGER},
+      CASH_RCT_TGT_AMT = #{cashRctTgtAmt,jdbcType=INTEGER},
+      ESCR_BUY_YN = #{escrBuyYn,jdbcType=VARCHAR},
+      PAY_DT = #{payDt,jdbcType=DATE},
+      PAY_CPLT_DT = #{payCpltDt,jdbcType=DATE},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where PAY_ID = #{payId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentEntity">
+    update pay
+    <set>
+      <if test="oriPayId != null">
+        ORI_PAY_ID = null,
+      </if>
+      <if test="ordId != null">
+        ORD_ID = null,
+      </if>
+      <if test="ordClmId != null">
+        ORD_CLM_ID = null,
+      </if>
+      <if test="payTpCd != null">
+        PAY_TP_CD = null,
+      </if>
+      <if test="payStatCd != null">
+        PAY_STAT_CD = null,
+      </if>
+      <if test="payPgCd != null">
+        PAY_PG_CD = null,
+      </if>
+      <if test="mid != null">
+        MID = null,
+      </if>
+      <if test="payMthdCd != null">
+        PAY_MTHD_CD = null,
+      </if>
+      <if test="payAmt != null">
+        PAY_AMT = null,
+      </if>
+      <if test="rfdAmt != null">
+        RFD_AMT = null,
+      </if>
+      <if test="realPayAmt != null">
+        REAL_PAY_AMT = null,
+      </if>
+      <if test="pgSplyAmt != null">
+        PG_SPLY_AMT = null,
+      </if>
+      <if test="pgVatAmt != null">
+        PG_VAT_AMT = null,
+      </if>
+      <if test="pgTaxfreeAmt != null">
+        PG_TAXFREE_AMT = null,
+      </if>
+      <if test="cashRctTgtAmt != null">
+        CASH_RCT_TGT_AMT = null,
+      </if>
+      <if test="escrBuyYn != null">
+        ESCR_BUY_YN = null,
+      </if>
+      <if test="payDt != null">
+        PAY_DT = null,
+      </if>
+      <if test="payCpltDt != null">
+        PAY_CPLT_DT = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and PAY_ID = #{payId,jdbcType=INTEGER}
+  </update>
+</mapper>

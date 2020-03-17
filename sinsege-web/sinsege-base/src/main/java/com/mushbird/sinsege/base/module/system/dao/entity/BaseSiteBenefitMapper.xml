@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.system.dao.BaseSiteBenefitMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.system.model.SiteBenefit">
+    <result column="TSB_SITE_ID" jdbcType="VARCHAR" property="siteId" />
+    <result column="TSB_SITE_BENF_TP_CD" jdbcType="VARCHAR" property="siteBenfTpCd" />
+    <result column="TSB_BENF_NM" jdbcType="VARCHAR" property="benfNm" />
+    <result column="TSB_IMG_ATCH_GID_PC" jdbcType="INTEGER" property="imgAtchGidPc" />
+    <result column="TSB_IMG_ATCH_GID_MOB" jdbcType="INTEGER" property="imgAtchGidMob" />
+    <result column="TSB_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TSB_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TSB_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TSB_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TSB_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TSB.SITE_ID as TSB_SITE_ID, TSB.SITE_BENF_TP_CD as TSB_SITE_BENF_TP_CD, TSB.BENF_NM as TSB_BENF_NM, 
+    TSB.IMG_ATCH_GID_PC as TSB_IMG_ATCH_GID_PC, TSB.IMG_ATCH_GID_MOB as TSB_IMG_ATCH_GID_MOB, 
+    TSB.REG_DT as TSB_REG_DT, TSB.REG_ID as TSB_REG_ID, TSB.MOD_DT as TSB_MOD_DT, TSB.MOD_ID as TSB_MOD_ID, 
+    TSB.USE_YN as TSB_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.SiteBenefitEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from site_benf TSB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.SiteBenefitEntityCriteria">
+    delete TSB from site_benf TSB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SiteBenefitEntity">
+    insert into site_benf (SITE_ID, SITE_BENF_TP_CD, BENF_NM, 
+      IMG_ATCH_GID_PC, IMG_ATCH_GID_MOB, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID, 
+      USE_YN)
+    values (#{siteId,jdbcType=VARCHAR}, #{siteBenfTpCd,jdbcType=VARCHAR}, #{benfNm,jdbcType=VARCHAR}, 
+      #{imgAtchGidPc,jdbcType=INTEGER}, #{imgAtchGidMob,jdbcType=INTEGER}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, 
+      #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SiteBenefitEntity">
+    insert into site_benf
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="siteId != null">
+        SITE_ID,
+      </if>
+      <if test="siteBenfTpCd != null">
+        SITE_BENF_TP_CD,
+      </if>
+      <if test="benfNm != null">
+        BENF_NM,
+      </if>
+      <if test="imgAtchGidPc != null">
+        IMG_ATCH_GID_PC,
+      </if>
+      <if test="imgAtchGidMob != null">
+        IMG_ATCH_GID_MOB,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="siteId != null">
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteBenfTpCd != null">
+        #{siteBenfTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="benfNm != null">
+        #{benfNm,jdbcType=VARCHAR},
+      </if>
+      <if test="imgAtchGidPc != null">
+        #{imgAtchGidPc,jdbcType=INTEGER},
+      </if>
+      <if test="imgAtchGidMob != null">
+        #{imgAtchGidMob,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.SiteBenefitEntityCriteria" resultType="java.lang.Long">
+    select count(*) from site_benf TSB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TSB
+    <set>
+      <if test="record.siteId != null">
+        TSB.SITE_ID = #{record.siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteBenfTpCd != null">
+        TSB.SITE_BENF_TP_CD = #{record.siteBenfTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.benfNm != null">
+        TSB.BENF_NM = #{record.benfNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgAtchGidPc != null">
+        TSB.IMG_ATCH_GID_PC = #{record.imgAtchGidPc,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgAtchGidMob != null">
+        TSB.IMG_ATCH_GID_MOB = #{record.imgAtchGidMob,jdbcType=INTEGER},
+      </if>
+      <if test="record.regDt != null">
+        TSB.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TSB.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TSB.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TSB.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TSB.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from site_benf TSB
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update site_benf TSB
+    set TSB.SITE_ID = #{record.siteId,jdbcType=VARCHAR},
+      TSB.SITE_BENF_TP_CD = #{record.siteBenfTpCd,jdbcType=VARCHAR},
+      TSB.BENF_NM = #{record.benfNm,jdbcType=VARCHAR},
+      TSB.IMG_ATCH_GID_PC = #{record.imgAtchGidPc,jdbcType=INTEGER},
+      TSB.IMG_ATCH_GID_MOB = #{record.imgAtchGidMob,jdbcType=INTEGER},
+      TSB.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TSB.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TSB.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TSB.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TSB.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.SiteBenefitEntity">
+    update site_benf
+    <set>
+      <if test="siteId != null">
+        SITE_ID = null,
+      </if>
+      <if test="siteBenfTpCd != null">
+        SITE_BENF_TP_CD = null,
+      </if>
+      <if test="benfNm != null">
+        BENF_NM = null,
+      </if>
+      <if test="imgAtchGidPc != null">
+        IMG_ATCH_GID_PC = null,
+      </if>
+      <if test="imgAtchGidMob != null">
+        IMG_ATCH_GID_MOB = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+  </update>
+</mapper>

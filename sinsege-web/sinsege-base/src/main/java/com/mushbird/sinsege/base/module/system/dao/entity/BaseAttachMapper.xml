@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.system.dao.BaseAttachMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.system.model.Attach">
+    <id column="TATC_ATCH_ID" jdbcType="INTEGER" property="atchId" />
+    <result column="TATC_ATCH_GID" jdbcType="INTEGER" property="atchGid" />
+    <result column="TATC_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="TATC_ADM_ID" jdbcType="VARCHAR" property="admId" />
+    <result column="TATC_ATCH_CL_CD" jdbcType="VARCHAR" property="atchClCd" />
+    <result column="TATC_FILE_NM" jdbcType="VARCHAR" property="fileNm" />
+    <result column="TATC_FILE_PATH" jdbcType="VARCHAR" property="filePath" />
+    <result column="TATC_FILE_EXT" jdbcType="VARCHAR" property="fileExt" />
+    <result column="TATC_FILE_TP_VAL" jdbcType="VARCHAR" property="fileTpVal" />
+    <result column="TATC_ORI_FILE_NM" jdbcType="VARCHAR" property="oriFileNm" />
+    <result column="TATC_FILE_SIZE" jdbcType="DECIMAL" property="fileSize" />
+    <result column="TATC_IMG_WDTH_SIZE" jdbcType="DECIMAL" property="imgWdthSize" />
+    <result column="TATC_IMG_HGHT_SIZE" jdbcType="DECIMAL" property="imgHghtSize" />
+    <result column="TATC_SORD" jdbcType="DECIMAL" property="sord" />
+    <result column="TATC_TEMP_FILE_YN" jdbcType="VARCHAR" property="tempFileYn" />
+    <result column="TATC_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TATC_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TATC_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TATC.ATCH_ID as TATC_ATCH_ID, TATC.ATCH_GID as TATC_ATCH_GID, TATC.MBR_ID as TATC_MBR_ID, 
+    TATC.ADM_ID as TATC_ADM_ID, TATC.ATCH_CL_CD as TATC_ATCH_CL_CD, TATC.FILE_NM as TATC_FILE_NM, 
+    TATC.FILE_PATH as TATC_FILE_PATH, TATC.FILE_EXT as TATC_FILE_EXT, TATC.FILE_TP_VAL as TATC_FILE_TP_VAL, 
+    TATC.ORI_FILE_NM as TATC_ORI_FILE_NM, TATC.FILE_SIZE as TATC_FILE_SIZE, TATC.IMG_WDTH_SIZE as TATC_IMG_WDTH_SIZE, 
+    TATC.IMG_HGHT_SIZE as TATC_IMG_HGHT_SIZE, TATC.SORD as TATC_SORD, TATC.TEMP_FILE_YN as TATC_TEMP_FILE_YN, 
+    TATC.REG_DT as TATC_REG_DT, TATC.REG_ID as TATC_REG_ID, TATC.USE_YN as TATC_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.AttachEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from atch TATC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from atch TATC
+    where TATC.ATCH_ID = #{atchId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from atch
+    where ATCH_ID = #{atchId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.AttachEntityCriteria">
+    delete TATC from atch TATC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.system.model.entity.AttachEntity">
+    <selectKey keyProperty="atchId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ATCH
+    </selectKey>
+    insert into atch (ATCH_ID, ATCH_GID, MBR_ID, 
+      ADM_ID, ATCH_CL_CD, FILE_NM, 
+      FILE_PATH, FILE_EXT, FILE_TP_VAL, 
+      ORI_FILE_NM, FILE_SIZE, IMG_WDTH_SIZE, 
+      IMG_HGHT_SIZE, SORD, TEMP_FILE_YN, 
+      REG_DT, REG_ID, USE_YN
+      )
+    values (#{atchId,jdbcType=INTEGER}, #{atchGid,jdbcType=INTEGER}, #{mbrId,jdbcType=VARCHAR}, 
+      #{admId,jdbcType=VARCHAR}, #{atchClCd,jdbcType=VARCHAR}, #{fileNm,jdbcType=VARCHAR}, 
+      #{filePath,jdbcType=VARCHAR}, #{fileExt,jdbcType=VARCHAR}, #{fileTpVal,jdbcType=VARCHAR}, 
+      #{oriFileNm,jdbcType=VARCHAR}, #{fileSize,jdbcType=DECIMAL}, #{imgWdthSize,jdbcType=DECIMAL}, 
+      #{imgHghtSize,jdbcType=DECIMAL}, #{sord,jdbcType=DECIMAL}, #{tempFileYn,jdbcType=VARCHAR}, 
+      #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.AttachEntity">
+    <selectKey keyProperty="atchId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ATCH
+    </selectKey>
+    insert into atch
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ATCH_ID,
+      <if test="atchGid != null">
+        ATCH_GID,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="admId != null">
+        ADM_ID,
+      </if>
+      <if test="atchClCd != null">
+        ATCH_CL_CD,
+      </if>
+      <if test="fileNm != null">
+        FILE_NM,
+      </if>
+      <if test="filePath != null">
+        FILE_PATH,
+      </if>
+      <if test="fileExt != null">
+        FILE_EXT,
+      </if>
+      <if test="fileTpVal != null">
+        FILE_TP_VAL,
+      </if>
+      <if test="oriFileNm != null">
+        ORI_FILE_NM,
+      </if>
+      <if test="fileSize != null">
+        FILE_SIZE,
+      </if>
+      <if test="imgWdthSize != null">
+        IMG_WDTH_SIZE,
+      </if>
+      <if test="imgHghtSize != null">
+        IMG_HGHT_SIZE,
+      </if>
+      <if test="sord != null">
+        SORD,
+      </if>
+      <if test="tempFileYn != null">
+        TEMP_FILE_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{atchId,jdbcType=INTEGER},
+      <if test="atchGid != null">
+        #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="admId != null">
+        #{admId,jdbcType=VARCHAR},
+      </if>
+      <if test="atchClCd != null">
+        #{atchClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="fileNm != null">
+        #{fileNm,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt != null">
+        #{fileExt,jdbcType=VARCHAR},
+      </if>
+      <if test="fileTpVal != null">
+        #{fileTpVal,jdbcType=VARCHAR},
+      </if>
+      <if test="oriFileNm != null">
+        #{oriFileNm,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=DECIMAL},
+      </if>
+      <if test="imgWdthSize != null">
+        #{imgWdthSize,jdbcType=DECIMAL},
+      </if>
+      <if test="imgHghtSize != null">
+        #{imgHghtSize,jdbcType=DECIMAL},
+      </if>
+      <if test="sord != null">
+        #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="tempFileYn != null">
+        #{tempFileYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.AttachEntityCriteria" resultType="java.lang.Long">
+    select count(*) from atch TATC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TATC
+    <set>
+      <if test="record.atchId != null">
+        
+      </if>
+      <if test="record.atchGid != null">
+        TATC.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mbrId != null">
+        TATC.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admId != null">
+        TATC.ADM_ID = #{record.admId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atchClCd != null">
+        TATC.ATCH_CL_CD = #{record.atchClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileNm != null">
+        TATC.FILE_NM = #{record.fileNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filePath != null">
+        TATC.FILE_PATH = #{record.filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileExt != null">
+        TATC.FILE_EXT = #{record.fileExt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileTpVal != null">
+        TATC.FILE_TP_VAL = #{record.fileTpVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oriFileNm != null">
+        TATC.ORI_FILE_NM = #{record.oriFileNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileSize != null">
+        TATC.FILE_SIZE = #{record.fileSize,jdbcType=DECIMAL},
+      </if>
+      <if test="record.imgWdthSize != null">
+        TATC.IMG_WDTH_SIZE = #{record.imgWdthSize,jdbcType=DECIMAL},
+      </if>
+      <if test="record.imgHghtSize != null">
+        TATC.IMG_HGHT_SIZE = #{record.imgHghtSize,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sord != null">
+        TATC.SORD = #{record.sord,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tempFileYn != null">
+        TATC.TEMP_FILE_YN = #{record.tempFileYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TATC.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TATC.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TATC.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from atch TATC
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update atch TATC
+    set 
+      TATC.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      TATC.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      TATC.ADM_ID = #{record.admId,jdbcType=VARCHAR},
+      TATC.ATCH_CL_CD = #{record.atchClCd,jdbcType=VARCHAR},
+      TATC.FILE_NM = #{record.fileNm,jdbcType=VARCHAR},
+      TATC.FILE_PATH = #{record.filePath,jdbcType=VARCHAR},
+      TATC.FILE_EXT = #{record.fileExt,jdbcType=VARCHAR},
+      TATC.FILE_TP_VAL = #{record.fileTpVal,jdbcType=VARCHAR},
+      TATC.ORI_FILE_NM = #{record.oriFileNm,jdbcType=VARCHAR},
+      TATC.FILE_SIZE = #{record.fileSize,jdbcType=DECIMAL},
+      TATC.IMG_WDTH_SIZE = #{record.imgWdthSize,jdbcType=DECIMAL},
+      TATC.IMG_HGHT_SIZE = #{record.imgHghtSize,jdbcType=DECIMAL},
+      TATC.SORD = #{record.sord,jdbcType=DECIMAL},
+      TATC.TEMP_FILE_YN = #{record.tempFileYn,jdbcType=VARCHAR},
+      TATC.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TATC.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TATC.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.AttachEntity">
+    update atch
+    <set>
+      <if test="atchGid != null">
+        ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="admId != null">
+        ADM_ID = #{admId,jdbcType=VARCHAR},
+      </if>
+      <if test="atchClCd != null">
+        ATCH_CL_CD = #{atchClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="fileNm != null">
+        FILE_NM = #{fileNm,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt != null">
+        FILE_EXT = #{fileExt,jdbcType=VARCHAR},
+      </if>
+      <if test="fileTpVal != null">
+        FILE_TP_VAL = #{fileTpVal,jdbcType=VARCHAR},
+      </if>
+      <if test="oriFileNm != null">
+        ORI_FILE_NM = #{oriFileNm,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        FILE_SIZE = #{fileSize,jdbcType=DECIMAL},
+      </if>
+      <if test="imgWdthSize != null">
+        IMG_WDTH_SIZE = #{imgWdthSize,jdbcType=DECIMAL},
+      </if>
+      <if test="imgHghtSize != null">
+        IMG_HGHT_SIZE = #{imgHghtSize,jdbcType=DECIMAL},
+      </if>
+      <if test="sord != null">
+        SORD = #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="tempFileYn != null">
+        TEMP_FILE_YN = #{tempFileYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ATCH_ID = #{atchId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.system.model.entity.AttachEntity">
+    update atch
+    set ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      ADM_ID = #{admId,jdbcType=VARCHAR},
+      ATCH_CL_CD = #{atchClCd,jdbcType=VARCHAR},
+      FILE_NM = #{fileNm,jdbcType=VARCHAR},
+      FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      FILE_EXT = #{fileExt,jdbcType=VARCHAR},
+      FILE_TP_VAL = #{fileTpVal,jdbcType=VARCHAR},
+      ORI_FILE_NM = #{oriFileNm,jdbcType=VARCHAR},
+      FILE_SIZE = #{fileSize,jdbcType=DECIMAL},
+      IMG_WDTH_SIZE = #{imgWdthSize,jdbcType=DECIMAL},
+      IMG_HGHT_SIZE = #{imgHghtSize,jdbcType=DECIMAL},
+      SORD = #{sord,jdbcType=DECIMAL},
+      TEMP_FILE_YN = #{tempFileYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where ATCH_ID = #{atchId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.AttachEntity">
+    update atch
+    <set>
+      <if test="atchGid != null">
+        ATCH_GID = null,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="admId != null">
+        ADM_ID = null,
+      </if>
+      <if test="atchClCd != null">
+        ATCH_CL_CD = null,
+      </if>
+      <if test="fileNm != null">
+        FILE_NM = null,
+      </if>
+      <if test="filePath != null">
+        FILE_PATH = null,
+      </if>
+      <if test="fileExt != null">
+        FILE_EXT = null,
+      </if>
+      <if test="fileTpVal != null">
+        FILE_TP_VAL = null,
+      </if>
+      <if test="oriFileNm != null">
+        ORI_FILE_NM = null,
+      </if>
+      <if test="fileSize != null">
+        FILE_SIZE = null,
+      </if>
+      <if test="imgWdthSize != null">
+        IMG_WDTH_SIZE = null,
+      </if>
+      <if test="imgHghtSize != null">
+        IMG_HGHT_SIZE = null,
+      </if>
+      <if test="sord != null">
+        SORD = null,
+      </if>
+      <if test="tempFileYn != null">
+        TEMP_FILE_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and ATCH_ID = #{atchId,jdbcType=INTEGER}
+  </update>
+</mapper>

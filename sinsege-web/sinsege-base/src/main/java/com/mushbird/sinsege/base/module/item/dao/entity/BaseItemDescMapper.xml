@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.item.dao.BaseItemDescMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.item.model.ItemDesc">
+    <id column="TID_ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TID_CONT_PC" jdbcType="VARCHAR" property="contPc" />
+    <result column="TID_CONT_MOB" jdbcType="VARCHAR" property="contMob" />
+    <result column="TID_VIDEO_URL" jdbcType="VARCHAR" property="videoUrl" />
+    <result column="TID_ATCH_GID" jdbcType="INTEGER" property="atchGid" />
+    <result column="TID_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TID_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TID_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TID_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TID_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TID.ITEM_ID as TID_ITEM_ID, TID.CONT_PC as TID_CONT_PC, TID.CONT_MOB as TID_CONT_MOB, 
+    TID.VIDEO_URL as TID_VIDEO_URL, TID.ATCH_GID as TID_ATCH_GID, TID.DP_YN as TID_DP_YN, 
+    TID.REG_DT as TID_REG_DT, TID.REG_ID as TID_REG_ID, TID.MOD_DT as TID_MOD_DT, TID.MOD_ID as TID_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemDescEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item_desc TID
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_desc TID
+    where TID.ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from item_desc
+    where ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemDescEntityCriteria">
+    delete TID from item_desc TID
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemDescEntity">
+    insert into item_desc (ITEM_ID, CONT_PC, CONT_MOB, 
+      VIDEO_URL, ATCH_GID, DP_YN, 
+      REG_DT, REG_ID, MOD_DT, 
+      MOD_ID)
+    values (#{itemId,jdbcType=INTEGER}, #{contPc,jdbcType=VARCHAR}, #{contMob,jdbcType=VARCHAR}, 
+      #{videoUrl,jdbcType=VARCHAR}, #{atchGid,jdbcType=INTEGER}, #{dpYn,jdbcType=VARCHAR}, 
+      #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, 
+      #{modId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemDescEntity">
+    insert into item_desc
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="contPc != null">
+        CONT_PC,
+      </if>
+      <if test="contMob != null">
+        CONT_MOB,
+      </if>
+      <if test="videoUrl != null">
+        VIDEO_URL,
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="contPc != null">
+        #{contPc,jdbcType=VARCHAR},
+      </if>
+      <if test="contMob != null">
+        #{contMob,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null">
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="atchGid != null">
+        #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemDescEntityCriteria" resultType="java.lang.Long">
+    select count(*) from item_desc TID
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TID
+    <set>
+      <if test="record.itemId != null">
+        
+      </if>
+      <if test="record.contPc != null">
+        TID.CONT_PC = #{record.contPc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contMob != null">
+        TID.CONT_MOB = #{record.contMob,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videoUrl != null">
+        TID.VIDEO_URL = #{record.videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atchGid != null">
+        TID.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dpYn != null">
+        TID.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TID.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TID.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TID.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TID.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from item_desc TID
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update item_desc TID
+    set 
+      TID.CONT_PC = #{record.contPc,jdbcType=VARCHAR},
+      TID.CONT_MOB = #{record.contMob,jdbcType=VARCHAR},
+      TID.VIDEO_URL = #{record.videoUrl,jdbcType=VARCHAR},
+      TID.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      TID.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TID.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TID.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TID.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TID.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemDescEntity">
+    update item_desc
+    <set>
+      <if test="contPc != null">
+        CONT_PC = #{contPc,jdbcType=VARCHAR},
+      </if>
+      <if test="contMob != null">
+        CONT_MOB = #{contMob,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null">
+        VIDEO_URL = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemDescEntity">
+    update item_desc
+    set CONT_PC = #{contPc,jdbcType=VARCHAR},
+      CONT_MOB = #{contMob,jdbcType=VARCHAR},
+      VIDEO_URL = #{videoUrl,jdbcType=VARCHAR},
+      ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemDescEntity">
+    update item_desc
+    <set>
+      <if test="contPc != null">
+        CONT_PC = null,
+      </if>
+      <if test="contMob != null">
+        CONT_MOB = null,
+      </if>
+      <if test="videoUrl != null">
+        VIDEO_URL = null,
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </update>
+</mapper>

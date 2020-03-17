@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.display.dao.BaseDpClosePageMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.display.model.DpClosePage">
+    <id column="TDCP_DP_CH_ID" jdbcType="INTEGER" property="dpChId" />
+    <result column="TDCP_PAGE_DESC" jdbcType="VARCHAR" property="pageDesc" />
+    <result column="TDCP_PRGS_ST_DT" jdbcType="DATE" property="prgsStDt" />
+    <result column="TDCP_PRGS_ED_DT" jdbcType="DATE" property="prgsEdDt" />
+    <result column="TDCP_ACCS_CD" jdbcType="VARCHAR" property="accsCd" />
+    <result column="TDCP_ACCS_URL" jdbcType="VARCHAR" property="accsUrl" />
+    <result column="TDCP_ACCS_URL_QRCD" jdbcType="VARCHAR" property="accsUrlQrcd" />
+    <result column="TDCP_MBR_TGT_CD" jdbcType="VARCHAR" property="mbrTgtCd" />
+    <result column="TDCP_PAGE_CONT_PC" jdbcType="VARCHAR" property="pageContPc" />
+    <result column="TDCP_PAGE_CONT_MOB" jdbcType="VARCHAR" property="pageContMob" />
+    <result column="TDCP_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TDCP_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TDCP_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TDCP_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TDCP_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TDCP.DP_CH_ID as TDCP_DP_CH_ID, TDCP.PAGE_DESC as TDCP_PAGE_DESC, TDCP.PRGS_ST_DT as TDCP_PRGS_ST_DT, 
+    TDCP.PRGS_ED_DT as TDCP_PRGS_ED_DT, TDCP.ACCS_CD as TDCP_ACCS_CD, TDCP.ACCS_URL as TDCP_ACCS_URL, 
+    TDCP.ACCS_URL_QRCD as TDCP_ACCS_URL_QRCD, TDCP.MBR_TGT_CD as TDCP_MBR_TGT_CD, TDCP.PAGE_CONT_PC as TDCP_PAGE_CONT_PC, 
+    TDCP.PAGE_CONT_MOB as TDCP_PAGE_CONT_MOB, TDCP.DP_YN as TDCP_DP_YN, TDCP.REG_DT as TDCP_REG_DT, 
+    TDCP.REG_ID as TDCP_REG_ID, TDCP.MOD_DT as TDCP_MOD_DT, TDCP.MOD_ID as TDCP_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpClosePageEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dp_close_page TDCP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dp_close_page TDCP
+    where TDCP.DP_CH_ID = #{dpChId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dp_close_page
+    where DP_CH_ID = #{dpChId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpClosePageEntityCriteria">
+    delete TDCP from dp_close_page TDCP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpClosePageEntity">
+    insert into dp_close_page (DP_CH_ID, PAGE_DESC, PRGS_ST_DT, 
+      PRGS_ED_DT, ACCS_CD, ACCS_URL, 
+      ACCS_URL_QRCD, MBR_TGT_CD, PAGE_CONT_PC, 
+      PAGE_CONT_MOB, DP_YN, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID
+      )
+    values (#{dpChId,jdbcType=INTEGER}, #{pageDesc,jdbcType=VARCHAR}, #{prgsStDt,jdbcType=DATE}, 
+      #{prgsEdDt,jdbcType=DATE}, #{accsCd,jdbcType=VARCHAR}, #{accsUrl,jdbcType=VARCHAR}, 
+      #{accsUrlQrcd,jdbcType=VARCHAR}, #{mbrTgtCd,jdbcType=VARCHAR}, #{pageContPc,jdbcType=VARCHAR}, 
+      #{pageContMob,jdbcType=VARCHAR}, #{dpYn,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpClosePageEntity">
+    insert into dp_close_page
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dpChId != null">
+        DP_CH_ID,
+      </if>
+      <if test="pageDesc != null">
+        PAGE_DESC,
+      </if>
+      <if test="prgsStDt != null">
+        PRGS_ST_DT,
+      </if>
+      <if test="prgsEdDt != null">
+        PRGS_ED_DT,
+      </if>
+      <if test="accsCd != null">
+        ACCS_CD,
+      </if>
+      <if test="accsUrl != null">
+        ACCS_URL,
+      </if>
+      <if test="accsUrlQrcd != null">
+        ACCS_URL_QRCD,
+      </if>
+      <if test="mbrTgtCd != null">
+        MBR_TGT_CD,
+      </if>
+      <if test="pageContPc != null">
+        PAGE_CONT_PC,
+      </if>
+      <if test="pageContMob != null">
+        PAGE_CONT_MOB,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dpChId != null">
+        #{dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="pageDesc != null">
+        #{pageDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="prgsStDt != null">
+        #{prgsStDt,jdbcType=DATE},
+      </if>
+      <if test="prgsEdDt != null">
+        #{prgsEdDt,jdbcType=DATE},
+      </if>
+      <if test="accsCd != null">
+        #{accsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="accsUrl != null">
+        #{accsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="accsUrlQrcd != null">
+        #{accsUrlQrcd,jdbcType=VARCHAR},
+      </if>
+      <if test="mbrTgtCd != null">
+        #{mbrTgtCd,jdbcType=VARCHAR},
+      </if>
+      <if test="pageContPc != null">
+        #{pageContPc,jdbcType=VARCHAR},
+      </if>
+      <if test="pageContMob != null">
+        #{pageContMob,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpClosePageEntityCriteria" resultType="java.lang.Long">
+    select count(*) from dp_close_page TDCP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TDCP
+    <set>
+      <if test="record.dpChId != null">
+        
+      </if>
+      <if test="record.pageDesc != null">
+        TDCP.PAGE_DESC = #{record.pageDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prgsStDt != null">
+        TDCP.PRGS_ST_DT = #{record.prgsStDt,jdbcType=DATE},
+      </if>
+      <if test="record.prgsEdDt != null">
+        TDCP.PRGS_ED_DT = #{record.prgsEdDt,jdbcType=DATE},
+      </if>
+      <if test="record.accsCd != null">
+        TDCP.ACCS_CD = #{record.accsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accsUrl != null">
+        TDCP.ACCS_URL = #{record.accsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accsUrlQrcd != null">
+        TDCP.ACCS_URL_QRCD = #{record.accsUrlQrcd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbrTgtCd != null">
+        TDCP.MBR_TGT_CD = #{record.mbrTgtCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pageContPc != null">
+        TDCP.PAGE_CONT_PC = #{record.pageContPc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pageContMob != null">
+        TDCP.PAGE_CONT_MOB = #{record.pageContMob,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpYn != null">
+        TDCP.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TDCP.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TDCP.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TDCP.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TDCP.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from dp_close_page TDCP
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update dp_close_page TDCP
+    set 
+      TDCP.PAGE_DESC = #{record.pageDesc,jdbcType=VARCHAR},
+      TDCP.PRGS_ST_DT = #{record.prgsStDt,jdbcType=DATE},
+      TDCP.PRGS_ED_DT = #{record.prgsEdDt,jdbcType=DATE},
+      TDCP.ACCS_CD = #{record.accsCd,jdbcType=VARCHAR},
+      TDCP.ACCS_URL = #{record.accsUrl,jdbcType=VARCHAR},
+      TDCP.ACCS_URL_QRCD = #{record.accsUrlQrcd,jdbcType=VARCHAR},
+      TDCP.MBR_TGT_CD = #{record.mbrTgtCd,jdbcType=VARCHAR},
+      TDCP.PAGE_CONT_PC = #{record.pageContPc,jdbcType=VARCHAR},
+      TDCP.PAGE_CONT_MOB = #{record.pageContMob,jdbcType=VARCHAR},
+      TDCP.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TDCP.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TDCP.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TDCP.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TDCP.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpClosePageEntity">
+    update dp_close_page
+    <set>
+      <if test="pageDesc != null">
+        PAGE_DESC = #{pageDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="prgsStDt != null">
+        PRGS_ST_DT = #{prgsStDt,jdbcType=DATE},
+      </if>
+      <if test="prgsEdDt != null">
+        PRGS_ED_DT = #{prgsEdDt,jdbcType=DATE},
+      </if>
+      <if test="accsCd != null">
+        ACCS_CD = #{accsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="accsUrl != null">
+        ACCS_URL = #{accsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="accsUrlQrcd != null">
+        ACCS_URL_QRCD = #{accsUrlQrcd,jdbcType=VARCHAR},
+      </if>
+      <if test="mbrTgtCd != null">
+        MBR_TGT_CD = #{mbrTgtCd,jdbcType=VARCHAR},
+      </if>
+      <if test="pageContPc != null">
+        PAGE_CONT_PC = #{pageContPc,jdbcType=VARCHAR},
+      </if>
+      <if test="pageContMob != null">
+        PAGE_CONT_MOB = #{pageContMob,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DP_CH_ID = #{dpChId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpClosePageEntity">
+    update dp_close_page
+    set PAGE_DESC = #{pageDesc,jdbcType=VARCHAR},
+      PRGS_ST_DT = #{prgsStDt,jdbcType=DATE},
+      PRGS_ED_DT = #{prgsEdDt,jdbcType=DATE},
+      ACCS_CD = #{accsCd,jdbcType=VARCHAR},
+      ACCS_URL = #{accsUrl,jdbcType=VARCHAR},
+      ACCS_URL_QRCD = #{accsUrlQrcd,jdbcType=VARCHAR},
+      MBR_TGT_CD = #{mbrTgtCd,jdbcType=VARCHAR},
+      PAGE_CONT_PC = #{pageContPc,jdbcType=VARCHAR},
+      PAGE_CONT_MOB = #{pageContMob,jdbcType=VARCHAR},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where DP_CH_ID = #{dpChId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpClosePageEntity">
+    update dp_close_page
+    <set>
+      <if test="pageDesc != null">
+        PAGE_DESC = null,
+      </if>
+      <if test="prgsStDt != null">
+        PRGS_ST_DT = null,
+      </if>
+      <if test="prgsEdDt != null">
+        PRGS_ED_DT = null,
+      </if>
+      <if test="accsCd != null">
+        ACCS_CD = null,
+      </if>
+      <if test="accsUrl != null">
+        ACCS_URL = null,
+      </if>
+      <if test="accsUrlQrcd != null">
+        ACCS_URL_QRCD = null,
+      </if>
+      <if test="mbrTgtCd != null">
+        MBR_TGT_CD = null,
+      </if>
+      <if test="pageContPc != null">
+        PAGE_CONT_PC = null,
+      </if>
+      <if test="pageContMob != null">
+        PAGE_CONT_MOB = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and DP_CH_ID = #{dpChId,jdbcType=INTEGER}
+  </update>
+</mapper>
