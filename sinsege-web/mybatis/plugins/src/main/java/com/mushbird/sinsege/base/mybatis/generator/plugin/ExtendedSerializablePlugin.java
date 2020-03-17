@@ -1,4 +1,4 @@
-package com..mushbird.sinsege.base.mybatis.generator.plugin;
+package com.mushbird.sinsege.base.mybatis.generator.plugin;
 
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Field;

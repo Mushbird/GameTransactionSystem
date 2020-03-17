@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com..mushbird.sinsege.base.mybatis.generator.rules;
+package com.mushbird.sinsege.base.mybatis.generator.rules;
 
 import org.mybatis.generator.api.IntrospectedTable;
 

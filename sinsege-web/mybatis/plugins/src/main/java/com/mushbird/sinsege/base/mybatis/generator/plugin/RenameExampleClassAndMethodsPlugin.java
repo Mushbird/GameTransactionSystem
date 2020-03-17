@@ -1,4 +1,4 @@
-package com..mushbird.sinsege.base.mybatis.generator.plugin;
+package com.mushbird.sinsege.base.mybatis.generator.plugin;
 
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 import static org.mybatis.generator.internal.util.messages.Messages.getString;

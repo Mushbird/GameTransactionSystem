@@ -73,16 +73,566 @@
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 
-		<!--################################## -->
-		<!-- Table 정의 -->
-		<!--################################## -->
+		<!-- ##########-->
+		<!-- Table 정의   -->
+		<!-- ##########-->
 
-		<!--################################## -->
+		<!-- ### -->
 		<!-- 공통 -->
-		<!--################################## -->
+		<!-- ### -->
 		<!-- 코드 -->
 		<table tableName="CD" domainObjectName="module.system.model.Code" mapperName="module.system.dao.BaseCodeMapper"	alias="TC">
 			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 첨부 -->
+		<table tableName="ATCH" domainObjectName="module.system.model.Attach" alias="TATC" mapperName="module.system.dao.BaseAttachMapper">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="ATCH_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ATCH"/>
+		</table>
+
+		<!-- 사이트 -->
+		<table tableName="SITE" domainObjectName="module.system.model.Site" alias="TS" mapperName="module.system.dao.BaseSiteMapper">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 사이트 혜택 -->
+		<table tableName="SITE_BENF" domainObjectName="module.system.model.SiteBenefit" alias="TSB" mapperName="module.system.dao.BaseSiteBenefitMapper"  modelType="conditional">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 사이트 정책 -->
+		<table tableName="SITE_PCY" domainObjectName="module.system.model.SitePolicy" alias="TSP" mapperName="module.system.dao.BaseSitePolicyMapper"  modelType="conditional">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!--######-->
+		<!-- 관리자 -->
+		<!--######-->
+		<!-- 관리자 -->
+		<table tableName="ADM" domainObjectName="module.admin.model.Admin"  mapperName="module.admin.dao.BaseAdminMapper" alias="TA">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="ADM_ID" sqlStatement="SELECT NEXT VALUE FOR NYC_MALL.dbo.SEQ_ADM"/>
+		</table>
+
+		<!-- 관리자역할 -->
+		<table tableName="ADM_ROLE" domainObjectName="module.admin.model.AdminRole" mapperName="module.admin.dao.BaseAdminRoleMapper" alias="TAR">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="ADM_ROLE_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ADM_ROLE"/>
+		</table>
+
+		<!-- 관리사이트메뉴 -->
+		<table tableName="ADM_SITE_MENU" domainObjectName="module.admin.model.AdminSiteMenu" mapperName="module.admin.dao.BaseAdminSiteMenuMapper" alias="TASM">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="ADM_SITE_MENU_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ADM_SITE_MENU"/>
+		</table>
+
+		<!-- 관리자역할메뉴매핑 -->
+		<table tableName="ADM_ROLE_MENU_MAP" domainObjectName="module.admin.model.AdminRoleMenuMap" mapperName="module.admin.dao.BaseAdminRoleMenuMapMapper" alias="TARMM"  modelType="conditional">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+	
+		<!-- 관리자기록 -->
+		<table tableName="ADM_HIST" domainObjectName="module.admin.model.AdminHistory" mapperName="module.admin.dao.BaseAdminHistoryMapper" alias="TADMH" modelType="conditional">
+			<generatedKey column="ADM_HIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ADM_HIST"/>
+		</table>
+
+		<!--####-->
+		<!-- 회원 -->
+		<!--####-->
+		<!-- 회원 -->
+		<table tableName="MBR" domainObjectName="module.member.model.Member" mapperName="module.member.dao.BaseMemberMapper" alias="TM">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 회원관리자메모 -->
+		<table tableName="MBR_ADM_MEMO" domainObjectName="module.member.model.MemberAdminMemo" mapperName="module.member.dao.BaseMemberAdminMemoMapper" alias="TMAM">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 회원동의 -->
+		<table tableName="MBR_AGR" domainObjectName="module.member.model.MemberAgree" mapperName="module.member.dao.BaseMemberAgreeMapper" alias="TMAG">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 회원인증토큰 -->
+		<table tableName="MBR_AUTH_TKN" domainObjectName="module.member.model.MemberAuthToken" mapperName="module.member.dao.BaseMemberAuthTokenMapper" alias="TMAT">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 회원탈퇴 -->
+		<table tableName="MBR_CLOSE" domainObjectName="module.member.model.MemberClose" mapperName="module.member.dao.BaseMemberCloseMapper" alias="MCLO">
+			<property name="jsonIgnreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="MBR_CLOSE_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_MBR_CLOSE"/>
+		</table>
+		
+		<!-- 회원탈퇴사유 -->
+		<table tableName="MBR_CLOSE_RSN" domainObjectName="module.member.model.MemberCloseReason" mapperName="module.member.dao.BaseMemberCloseReasonMapper" alias="MCLOR">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 회원기록 -->
+		<table tableName="MBR_HIST" domainObjectName="module.member.model.MemberHistory" mapperName="module.member.dao.BaseMemberHistoryMapper" alias="TMH">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 회원본인인증 -->
+		<table tableName="MBR_IDVRF" domainObjectName="module.member.model.MemberIdentityVerification" mapperName="module.member.dao.BaseMemberIdentityVerificationMapper" alias="TMIV">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 회원로그인기록 -->
+		<table tableName="MBR_LGN_HIST" domainObjectName="module.member.model.MemberLoginHistory" mapperName="module.member.dao.BaseMemberLoginHistoryMapper" alias="TMLH">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 회원로그인SNS -->
+		<!-- 
+		<table tableName="MBR_LGN_SNS" domainObjectName="module.member.model.MemberLoginSns" mapperName="module.member.dao.BaseMemberLoginSnsMapper" alias="TMLS">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table> 
+		-->
+		
+		<!-- 회원로그인토큰 -->
+		<table tableName="MBR_LGN_TKN" domainObjectName="module.member.model.MemberLoginToken" mapperName="module.member.dao.BaseMemberLoginTokenMapper" alias="TMLK">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 회원유형 -->
+		<table tableName="MBR_TP" domainObjectName="module.member.model.MemberType" mapperName="module.member.dao.BaseMemberTypeMapper" alias="TMT">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 회원변경기록 -->
+		<table tableName="MBR_CHIST" domainObjectName="module.member.model.MemberChangeHistory" mapperName="module.member.dao.BaseMemberChangeHistoryMapper" alias="TMCH">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="MBR_CHIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_MBR_CHIST"/>
+		</table>
+
+		<!-- 회원동의변경기록 -->
+		<!-- 
+		<table tableName="MBR_AGR_CHIST" domainObjectName="module.member.model.MemberAgreeChangeHistory" mapperName="module.member.dao.BaseMemberAgreeChangeHistoryMapper" alias="TMAG">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="MBR_AGR_CHIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_MBR_AGR_CHIST"/>
+		</table> 
+		-->
+		
+		<!--####-->
+		<!-- 상품 -->
+		<!--####-->
+		<!-- 상품 -->
+		<table tableName="ITEM" domainObjectName="module.item.model.Item" mapperName="module.item.dao.BaseItemMapper" alias="TI">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 상품가격 -->
+		<table tableName="ITEM_PRC" domainObjectName="module.item.model.ItemPrice" mapperName="module.item.dao.BaseItemPriceMapper" alias="TIP">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 상품판매채널 -->
+		<table tableName="ITEM_SELL_CH" domainObjectName="module.item.model.ItemSellChannel" mapperName="module.item.dao.BaseItemSellChannelMapper" alias="TISC">
+		    <property name="jsonIgnoreFields" value="regId;regDt;"/>
+		</table>
+
+		<!-- 상품이미지 -->
+		<table tableName="ITEM_IMG" domainObjectName="module.item.model.ItemImage" mapperName="module.item.dao.BaseItemImageMapper" alias="TII">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 상품설명 -->
+		<table tableName="ITEM_DESC" domainObjectName="module.item.model.ItemDesc" mapperName="module.item.dao.BaseItemDescMapper" alias="TID">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 상품키워드 -->
+		<table tableName="ITEM_KWD" domainObjectName="module.item.model.ItemKeyword" mapperName="module.item.dao.BaseItemKeywordMapper" alias="TIK">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 상품정보고시 -->
+		<table tableName="ITEM_INFO_NOTI" domainObjectName="module.item.model.ItemInfoNotice" mapperName="module.item.dao.BaseItemInfoNoticeMapper" alias="TIIN">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 상품옵션 -->
+		<table tableName="ITEM_OPT" domainObjectName="module.item.model.ItemOption" mapperName="module.item.dao.BaseItemOptionMapper" alias="TIO" modelType="conditional">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 상품옵션변경이력 -->
+		<table tableName="ITEM_OPT_CHIST" domainObjectName="module.item.model.ItemOptionChangeHistory" mapperName="module.item.dao.BaseItemOptionChangeHistoryMapper" alias="TIOC">
+			<generatedKey column="ITEM_OPT_CHIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ITEM_OPT_CHIST"/>
+		</table>
+
+		<!-- 상품평 -->
+		<table tableName="ITEM_CMT" domainObjectName="module.item.model.ItemComment" mapperName="module.item.dao.BaseItemCommentMapper" alias="TIC">
+			<property name="jsonIgnoreFields" value="modId;modDt;useYn;"/>
+			<generatedKey column="ITEM_CMT_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ITEM_CMT"/>
+		</table>
+
+		<!-- 상품재고 -->
+		<table tableName="ITEM_STK" domainObjectName="module.item.model.ItemStock" mapperName="module.item.dao.BaseItemStockMapper" alias="TIS">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 상품브랜드 -->
+		<!-- 
+		<table tableName="ITEM_BRND" domainObjectName="module.item.model.ItemBrand" mapperName="module.item.dao.BaseItemBrandMapper" alias="TIB">
+		<property name="jsonIgnoreFields" value="regId;regDt;"/>
+		</table> 
+		-->
+		
+		<!-- 사은품 -->
+		<table tableName="ITEM_FRGT" domainObjectName="module.item.model.ItemFrgt" mapperName="module.item.dao.BaseItemFrgtMapper" alias="TIF">
+		<property name="jsonIgnoreFields" value="regId;"/>
+		</table>
+
+		<!-- 상품재입고알림 -->
+        <table tableName="ITEM_WAHS_NOTI" domainObjectName="module.item.model.ItemWahsNoti" mapperName="module.item.dao.BaseItemWahsNotiMapper" alias="TIWN">
+        <property name="jsonIgnoreFields" value="regId;regDt;"/>
+        <generatedKey column="ITEM_WAHS_NOTI_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ITEM_WAHS_NOTI"/>
+        </table>
+        
+		<!-- 상품승인내역 -->
+        <table tableName="ITEM_APRV_HIST" domainObjectName="module.item.model.ItemAprvHist" mapperName="module.item.dao.BaseItemAprvHistMapper" alias="TIAH">
+        <property name="jsonIgnoreFields" value="regId;regDt;"/>
+        </table>
+
+		
+        <!--####-->
+        <!-- 업체 -->
+        <!--####-->
+        <!-- 업체 -->
+        <table tableName="VEN" domainObjectName="module.ven.model.Ven" mapperName="module.ven.dao.BaseVenMapper" alias="TV">
+        <property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;"/>
+        <generatedKey column="VEN_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_VEN"/>
+        </table>
+        
+
+		<!--####-->
+		<!-- 전시 -->
+		<!--####-->
+
+		<!-- 전시 채널 -->
+		<table tableName="DP_CH" domainObjectName="module.display.model.DpChannel" mapperName="module.display.dao.BaseDpChannelMapper" alias="TDCH">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="DP_CH_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_DP_CH"/>
+		</table>
+
+		<!-- 전시 페쇄페이지 -->
+		<table tableName="DP_CLOSE_PAGE" domainObjectName="module.display.model.DpClosePage" mapperName="module.display.dao.BaseDpClosePageMapper" alias="TDCP">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 전시 페쇄페이지 회원대상 -->
+		<table tableName="DP_CLOSE_PAGE_MBR_TGT" domainObjectName="module.display.model.DpClosePageMemberTarget" mapperName="module.display.dao.BaseDpClosePageMemberTargetMapper" alias="TDCPMT" modelType="conditional">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 전시코너 -->
+		<table tableName="DP_CONR" domainObjectName="module.display.model.DpCorner" mapperName="module.display.dao.BaseDpCornerMapper" alias="TDC">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 전시코너 매핑-->
+		<table tableName="DP_CONR_MAP" domainObjectName="module.display.model.DpCornerMap" mapperName="module.display.dao.BaseDpCornerMapMapper" alias="TDCM" modelType="conditional">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="DP_CONR_MAP_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_DP_CONR_MAP"/>
+		</table>
+		
+		<!-- 전시코너 매핑그룹-->
+		<table tableName="DP_CONR_MAP_GRP" domainObjectName="module.display.model.DpCornerMapGroup" mapperName="module.display.dao.BaseDpCornerMapGroupMapper" alias="TDCMG">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="DP_CONR_MAP_GID" sqlStatement="SELECT NEXT VALUE FOR SEQ_DP_CONR_MAP_GRP"/>
+		</table>
+
+		<!-- 전시코너배너 -->
+		<table tableName="DP_CONR_BANR" domainObjectName="module.display.model.DpCornerBanner" mapperName="module.display.dao.BaseDpCornerBannerMapper" alias="TDCB">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="DP_CONR_BANR_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_DP_CONR_BANR"/>
+		</table>
+
+		<!-- 팝업 -->
+		<table tableName="DP_POP" domainObjectName="module.display.model.DpPop" mapperName="module.display.dao.BaseDpPopMapper" alias="TDPOP">
+			<generatedKey column="DP_POP_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_DP_POP"/>
+		</table>
+		
+		<!-- 전시 브랜드 -->
+		<table tableName="DP_BRND" domainObjectName="module.display.model.DpBrand" mapperName="module.display.dao.BaseDpBrandMapper" alias="TDB">
+			<generatedKey column="DP_BRND_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_DP_BRND"/>
+		</table>
+
+		<!-- 전시카테고리 -->
+		<table tableName="DP_CATE" domainObjectName="module.display.model.DpCategory" mapperName="module.display.dao.BaseDpCategoryMapper" alias="TDCT">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="DP_CATE_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_DP_CATE"/>
+		</table>
+
+		<!-- 전시카테고리상품매핑 -->
+		<table tableName="DP_CATE_ITEM_MAP" domainObjectName="module.display.model.DpCategoryItemMap" mapperName="module.display.dao.BaseDpCategoryItemMapMapper" alias="TDCI" modelType="conditional">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 전시공지상품매핑 -->
+		<table tableName="DP_NOTI_ITEM_MAP" domainObjectName="module.display.model.DpNoticeItemMap" mapperName="module.display.dao.BaseDpNoticeItemMapMapper" alias="TDNIM" modelType="conditional"/>
+
+
+		<!--####-->
+		<!-- 게시판 -->
+		<!--#####-->
+		<!-- 게시판글 -->
+		<table tableName="BBS_ART" domainObjectName="module.board.model.BoardArticle" mapperName="module.board.dao.BaseBoardArticleMapper" alias="TBA">
+			<generatedKey column="BBS_ART_ID" sqlStatement="SELECT NEXT VALUE FOR NYC_MALL.dbo.SEQ_BBS_ART"/>
+		</table>
+		
+		<!-- 게시판글답변 -->
+		<table tableName="BBS_ART_RPLY" domainObjectName="module.board.model.BoardArticleReply" mapperName="module.board.dao.BaseBoardArticleReplyMapper" alias="TBAR">
+			<generatedKey column="BBS_ART_RPLY_ID" sqlStatement="SELECT NEXT VALUE FOR NYC_MALL.dbo.SEQ_BBS_ART_RPLY"/>
+		</table>
+
+
+		<!--#######-->
+		<!-- 장바구니 -->
+		<!--#######-->
+		<!-- 장바구니 -->
+		<table tableName="CART" domainObjectName="module.cart.model.Cart" mapperName="module.cart.dao.BaseCartMapper"  alias="TCRT">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;"/>
+			<generatedKey column="CART_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_CART"/>
+		</table>
+		<!-- 장바구니바로구매 -->
+		<table tableName="CART_IMME_BUY" domainObjectName="module.cart.model.CartImmediateBuy" mapperName="module.cart.dao.BaseCartImmediateBuyMapper"  alias="TCRTIB">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;"/>
+			<generatedKey column="CART_IMME_BUY_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_CART_IMME_BUY"/>
+		</table>		
+		
+
+		<!--####-->
+		<!-- 문의 -->
+		<!--####-->
+		<!-- 문의 -->
+		<table tableName="INQ" domainObjectName="module.cs.model.Inquiry" mapperName="module.cs.dao.BaseInquiryMapper" alias="TQ">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="INQ_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_INQ"/>
+		</table>
+
+		<!-- 문의답변 -->
+		<table tableName="INQ_RPLY" domainObjectName="module.cs.model.InquiryReply" mapperName="module.cs.dao.BaseInquiryReplyMapper" alias="TQR">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="INQ_RPLY_ID" sqlStatement="SELECT NEXT VALUE FOR NYC_MALL.dbo.SEQ_INQ_RPLY"/>
+		</table>
+
+		
+		<!--###-->
+		<!--주문-->
+		<!--###-->
+		<!-- 주문서 -->
+		<table tableName="ORD_SHT" domainObjectName="module.order.model.OrderSheet" mapperName="module.order.dao.BaseOrderSheetMapper" alias="TOS">
+			<property name="jsonIgnoreFields" value="regId;regDt;"/>
+			<generatedKey column="ORD_SHT_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_SHT"/>
+		</table>
+
+		<!-- 주문 -->
+		<table tableName="ORD" domainObjectName="module.order.model.Order" mapperName="module.order.dao.BaseOrderMapper" alias="TORD">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;"/>
+		</table>
+
+		<!-- 주문환불정보 -->
+		<table tableName="ORD_RFD_INFO" domainObjectName="module.order.model.OrderRefundInfo" mapperName="module.order.dao.BaseOrderRefundInfoMapper" alias="TORI">
+			<property name="jsonIgnoreFields" value="regId;regDt;useYn;"/>
+			<generatedKey column="ORD_RFD_INFO_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_RFD_INFO"/>
+		</table>
+
+		<!-- 주문상품 -->
+		<table tableName="ORD_ITEM" domainObjectName="module.order.model.OrderItem" mapperName="module.order.dao.BaseOrderItemMapper" alias="TOI">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;"/>
+		</table>
+
+		<!-- 주문상품사은품 -->
+		<table tableName="ORD_ITEM_FRGT" domainObjectName="module.order.model.OrderItemFreegift" mapperName="module.order.dao.BaseOrderItemFreegiftMapper" alias="TOIF">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;"/>
+			<generatedKey column="ORD_ITEM_FRGT_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_ITEM_FRGT"/>
+		</table>
+
+		<!-- 주문클레임 -->
+		<table tableName="ORD_CLM" domainObjectName="module.order.model.OrderClaim" mapperName="module.order.dao.BaseOrderClaimMapper" alias="TOC">
+			<property name="jsonIgnoreFields" value="regId;regDt;"/>
+		</table>
+		
+		<!-- 주문클레임상품 -->
+		<table tableName="ORD_CLM_ITEM" domainObjectName="module.order.model.OrderClaimItem" mapperName="module.order.dao.BaseOrderClaimItemMapper" alias="TOCI">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;"/>
+		</table>
+		
+		<!-- 주문클레임상품사은품 -->
+		<table tableName="ORD_CLM_ITEM_FRGT" domainObjectName="module.order.model.OrderClaimItemFreegift" mapperName="module.order.dao.BaseOrderClaimItemFreegiftMapper" alias="TOCIF">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;"/>
+			<generatedKey column="ORD_CLM_ITEM_FRGT_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_CLM_ITEM_FRGT"/>
+		</table>
+		
+		<!-- 결제 -->
+		<table tableName="PAY" domainObjectName="module.payment.model.Payment" mapperName="module.payment.dao.BasePaymentMapper" alias="TPAY">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;"/>
+			<generatedKey column="PAY_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_PAY"/>
+		</table>
+						
+		<!-- 결제 나이스 -->
+		<table tableName="PAY_BILL" domainObjectName="module.payment.model.PaymentBill" mapperName="module.payment.dao.BasePaymentBillMapper" alias="TPAYB">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;"/>
+			<generatedKey column="PAY_BILL_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_PAY_BILL"/>
+		</table>
+		
+		<!-- 주문쿠폰 -->
+		<table tableName="ORD_CPN" domainObjectName="module.order.model.OrderCoupon" mapperName="module.order.dao.BaseOrderCouponMapper" alias="TORDC">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="ORD_CPN_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_CPN"/>
+		</table>
+		
+		<!-- 주문쿠폰상품매핑 -->
+		<table tableName="ORD_CPN_ITEM_MAP" domainObjectName="module.order.model.OrderCouponItemMapping" mapperName="module.order.dao.BaseOrderCouponItemMappingMapper" alias="TOCIM">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="ORD_CPN_ITEM_MAP_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_CPN_ITEM_MAP"/>
+		</table>
+
+		<!-- 주문기록 -->
+		<table tableName="ORD_HIST" domainObjectName="module.order.model.OrderHistory" mapperName="module.order.dao.BaseOrderHistoryMapper" alias="TOH">
+			<generatedKey column="ORD_HIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_HIST"/>
+		</table>
+
+		<!-- 주문변경이력 -->
+		<table tableName="ORD_CHIST" domainObjectName="module.order.model.OrderChangeHistory" mapperName="module.order.dao.BaseOrderChangeHistoryMapper" alias="TOCH">
+			<generatedKey column="ORD_CHIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_CHIST"/>
+		</table>
+		
+		<!-- 주문상품변경이력 -->
+		<table tableName="ORD_ITEM_CHIST" domainObjectName="module.order.model.OrderItemChangeHistory" mapperName="module.order.dao.BaseOrderItemChangeHistoryMapper" alias="TOICH">
+			<generatedKey column="ORD_ITEM_CHIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_ITEM_CHIST"/>
+		</table>
+
+		<!-- 주문클레임변경이력 -->
+		<table tableName="ORD_CLM_CHIST" domainObjectName="module.order.model.OrderClaimChangeHistory" mapperName="module.order.dao.BaseOrderClaimChangeHistoryMapper" alias="TOCCH">
+			<generatedKey column="ORD_CLM_CHIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_CLM_CHIST"/>
+		</table>
+	
+		<!-- 주문클레임상품변경이력 -->
+		<table tableName="ORD_CLM_ITEM_CHIST" domainObjectName="module.order.model.OrderClaimItemChangeHistory" mapperName="module.order.dao.BaseOrderClaimItemChangeHistoryMapper" alias="TOCICH">
+			<generatedKey column="ORD_CLM_ITEM_CHIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_CLM_ITEM_CHIST"/>
+		</table>
+		
+		<!-- 주문쿠폰상품맵변경이력 -->
+		<table tableName="ORD_CPN_ITEM_MAP_CHIST" domainObjectName="module.order.model.OrderCouponItemMappingChangeHistory" mapperName="module.order.dao.BaseOrderCouponItemMappingChangeHistoryMapper" alias="TOCIMCH">
+			<generatedKey column="ORD_CPN_ITEM_MAP_CHIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_CPN_ITEM_MAP_CHIST"/>
+		</table>
+
+		<!-- 주문쿠폰변경이력 -->
+		<table tableName="ORD_CPN_CHIST" domainObjectName="module.order.model.OrderCouponChangeHistory" mapperName="module.order.dao.BaseOrderCouponChangeHistoryMapper" alias="TOCCH">
+			<generatedKey column="ORD_CPN_CHIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_ORD_CPN_CHIST"/>
+		</table>
+
+		<!-- 결제환불배치큐 -->
+		<table tableName="PAY_RFD_BATCH_QUE" domainObjectName="module.payment.model.PaymentRefundBatchQueue" mapperName="module.payment.dao.BasePaymentRefundBatchQueueMapper" alias="TPRBQ">
+			<generatedKey column="PAY_RFD_BATCH_QUE_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_PAY_RFD_BATCH_QUE"/>
+		</table>
+		
+		<!-- 결제환불배치이력 -->
+		<table tableName="PAY_RFD_BATCH_HIST" domainObjectName="module.payment.model.PaymentRefundBatchHistory" mapperName="module.payment.dao.BasePaymentRefundBatchHistoryMapper" alias="TPRBH">
+			<generatedKey column="PAY_RFD_BATCH_HIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_PAY_RFD_BATCH_HIST"/>
+		</table>
+
+		
+		<!--#######-->
+		<!--리워드관리-->
+		<!--#######-->
+		<!-- 쿠폰 -->
+		<table tableName="CPN" domainObjectName="module.reward.model.Coupon" mapperName="module.reward.dao.BaseCouponMapper" alias="TCPN">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 쿠폰난수 -->
+		<table tableName="CPN_RDNB" domainObjectName="module.reward.model.CouponRandomNumber" mapperName="module.reward.dao.BaseCouponRandomNumberMapper" alias="TCRN">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="CPN_RDNB_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_CPN_RDNB"/>
+		</table>
+		
+		<!-- 쿠폰대상상품카테고리매핑 -->
+		<table tableName="CPN_TGT_ITEM_CATE_MAP" domainObjectName="module.reward.model.CouponTargetCategoryMap" mapperName="module.reward.dao.BaseCouponTargetCategoryMapMapper" alias="TCTCM">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 쿠폰대상상품브랜드매핑 -->
+		<table tableName="CPN_TGT_ITEM_BRND_MAP" domainObjectName="module.reward.model.CouponTargetBrandMap" mapperName="module.reward.dao.BaseCouponTargetBrandMapMapper" alias="TCTBM">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 쿠폰대상사은품매핑 -->
+		<table tableName="CPN_TGT_FRGT_MAP" domainObjectName="module.reward.model.CouponTargetFreegiftMap" mapperName="module.reward.dao.BaseCouponTargetFreegiftMapMapper" alias="TCTFM">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 쿠폰대상제휴협력사매핑 -->
+		<table tableName="CPN_TGT_AFF_PTN_MAP" domainObjectName="module.reward.model.CouponTargetAffPtnMap" mapperName="module.reward.dao.BaseCouponTargetAffPtnMapMapper" alias="TCAPM">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 쿠폰대상상품매핑 -->
+		<table tableName="CPN_TGT_ITEM_MAP" domainObjectName="module.reward.model.CouponTargetItemMap" mapperName="module.reward.dao.BaseCouponTargetItemMapMapper" alias="TCTIM">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 쿠폰대상상품속성매핑 -->
+		<table tableName="CPN_TGT_ITEM_ATTR_MAP" domainObjectName="module.reward.model.CouponTargetItemAttributeMap" mapperName="module.reward.dao.BaseCouponTargetItemAttributeMapMapper" alias="TCTIAM">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+
+		<!-- 쿠폰사용환경 -->
+		<table tableName="CPN_USE_ENV" domainObjectName="module.reward.model.CouponUseEnvironment" mapperName="module.reward.dao.BaseCouponUseEnvironmentMapper" alias="TCUE">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 쿠폰발급조건 -->
+		<table tableName="CPN_ISU_COND" domainObjectName="module.reward.model.CouponIssueCondition" mapperName="module.reward.dao.BaseCouponIssueConditionMapper" alias="TCIC">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+	
+		<!-- 포인트 -->
+		<table tableName="PNT" domainObjectName="module.reward.model.Point" mapperName="module.reward.dao.BasePointMapper" alias="TP">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="PT_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_PNT"/>
+		</table>
+		
+		<!-- 포인트관리자처리 -->
+		<table tableName="PNT_ADM_PROC" domainObjectName="module.reward.model.PointAdminProcess" mapperName="module.reward.dao.BasePointAdminProcessMapper" alias="TPAP">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="PT_ADM_PROC_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_PNT_ADM_PROC"/>
+		</table>
+		
+		<!-- 포인트사용상세 -->
+		<table tableName="PNT_USE_DTL" domainObjectName="module.reward.model.PointUseDetail" mapperName="module.reward.dao.BasePointUseDetailMapper" alias="TPUD">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="PT_USE_DTL_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_PNT_USE_DTL"/>
+		</table>
+		
+		<!-- 포인트적립정책 -->
+		<table tableName="PNT_PCY" domainObjectName="module.reward.model.PointPolicy" mapperName="module.reward.dao.BasePointPolicyMapper" alias="TPP">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+		</table>
+		
+		<!-- 이벤트  출석-->
+		<table tableName="PNT_PCY_ATND" domainObjectName="module.reward.model.PointPolicyAttendance" mapperName="module.reward.dao.BasePointPolicyAttendanceMapper" alias="TPPA">
+			<property name="jsonIgnoreFields" value="regId;regDt;"/>
+		</table>
+		
+		<!-- 포인트적립정책기록 -->
+		<table tableName="PNT_PCY_CHIST" domainObjectName="module.reward.model.PointPolicyChangeHistory" mapperName="module.reward.dao.BasePointPolicyChangeHistoryMapper" alias="TPCH">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="PT_PCY_CHIST_ID" sqlStatement="SELECT NEXT VALUE FOR SEQ_PNT_PCY_CHIST"/>
+		</table>
+		
+		<!-- 회원 쿠폰 -->
+		<table tableName="MBR_CPN" domainObjectName="module.event.model.MemberCoupon" mapperName="module.event.dao.BaseMemberCouponMapper" alias="TMC">
+			<property name="jsonIgnoreFields" value="regId;regDt;modId;modDt;useYn;"/>
+			<generatedKey column="MBR_CPN_ID" sqlStatement="SELECT NEXT VALUE FOR NYC_MALL.dbo.SEQ_MBR_CPN"/>
 		</table>
 		
 	</context>

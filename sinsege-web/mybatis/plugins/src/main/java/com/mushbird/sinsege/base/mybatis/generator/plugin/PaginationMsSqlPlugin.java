@@ -1,4 +1,4 @@
-package com..mushbird.sinsege.base.mybatis.generator.plugin;
+package com.mushbird.sinsege.base.mybatis.generator.plugin;
 
 import java.util.List;
 
