@@ -1,4 +1,4 @@
-package com.mushbird.sinsege.base.dao.model;
+package com.mushbird.sinsege.base.model;
 
 import com.mushbird.sinsege.base.constant.AppConst;
 import lombok.Data;

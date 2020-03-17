@@ -1,7 +1,7 @@
-package com.mushbird.sinsege.base.dao.model;
+package com.mushbird.sinsege.base.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mushbird.sinsege.base.constant.AppConst;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,8 +9,8 @@ import java.util.Date;
 
 @Data
 public abstract class BaseEntity implements Serializable {
-    private static final long serialVersionUID = AppConst.UID;
-
+	private static final long serialVersionUID = AppConst.UID;
+	
     /** 등록아이디 */
     @JsonIgnore
     private String regId;

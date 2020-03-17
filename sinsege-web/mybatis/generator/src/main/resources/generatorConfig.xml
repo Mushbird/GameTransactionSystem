@@ -11,18 +11,17 @@
 		
 		<!-- custom plugin -->
 		<!-- Pagination -->  
-        <plugin type="com.mushbird.sinsege.base.mybatis.generator.plugin.PaginationMsSqlPlugin" />
+        <plugin type="com.mushbird.sinsege.base.mybatis.generator.plugin.MySQLLimitPlugin" />
 		<plugin	type="com.mushbird.sinsege.base.mybatis.generator.plugin.ExtendedLikePlugin" />
 		<plugin	type="com.mushbird.sinsege.base.mybatis.generator.plugin.SqlUpdateNullPlugin" />
 		<plugin	type="com.mushbird.sinsege.base.mybatis.generator.plugin.JsonIgnoreGenerator" />
 		<plugin	type="com.mushbird.sinsege.base.mybatis.generator.plugin.KeyClassConstructorPlugin" />
 		<plugin	type="com.mushbird.sinsege.base.mybatis.generator.plugin.CustomRulesPlugin" />
-		<plugin	type="com.mushbird.sinsege.base.mybatis.generator.plugin.SqlMapMssqlSelectWithNolockPlugin" />
 		<plugin	type="com.mushbird.sinsege.base.mybatis.generator.plugin.SqlMapDeleteByExampleElementGeneratorPlugin" />
 		<plugin	type="com.mushbird.sinsege.base.mybatis.generator.plugin.sqlMapUpdateByExampleSelectiveElementGeneratedPlugin" />
 
 		<plugin type="com.mushbird.sinsege.base.mybatis.generator.plugin.ExtendedSerializablePlugin">
-			<property name="serialVersionUID" value="com.zen9.capelion.base.constant.AppConst.UID" />
+			<property name="serialVersionUID" value="com.mushbird.sinsege.base.constant.AppConst.UID" />
 		</plugin>
 
 		<plugin type="com.mushbird.sinsege.base.mybatis.generator.plugin.CreateSubPackagePlugin">

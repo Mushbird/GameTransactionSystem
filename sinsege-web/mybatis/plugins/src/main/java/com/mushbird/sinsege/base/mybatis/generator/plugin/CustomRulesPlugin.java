@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Custom Generator Rule 정의
  *
- * @author zune
+ * @author 100SH
  */
 public class CustomRulesPlugin extends PluginAdapter {
 

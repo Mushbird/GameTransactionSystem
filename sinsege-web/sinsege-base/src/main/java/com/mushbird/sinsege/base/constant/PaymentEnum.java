@@ -17,7 +17,7 @@ public enum PaymentEnum {
 	
 	@Getter
 	public enum Pay {
-		NICEPAY("sinsege", "payment.pg.sinsege", "sinsegePayment"));
+		NICEPAY("sinsege", "payment.pg.sinsege", "sinsegePayment");
 
 	    private String typeName;
 	    private String code;

@@ -72,11 +72,11 @@ public class PaginationOraclePlugin extends PluginAdapter {
 	 * @param name
 	 */
 	private void addPage(TopLevelClass topLevelClass, IntrospectedTable introspectedTable, String name) {
-		topLevelClass.addImportedType(new FullyQualifiedJavaType("com.zen9.capelion.base.model.Pagination"));
+		topLevelClass.addImportedType(new FullyQualifiedJavaType("com.mushbird.sinsege.base.model.Pagination"));
 		CommentGenerator commentGenerator = context.getCommentGenerator();
 		Field field = new Field();
 		field.setVisibility(JavaVisibility.PROTECTED);
-		field.setType(new FullyQualifiedJavaType("com.zen9.capelion.base.model.Pagination"));
+		field.setType(new FullyQualifiedJavaType("com.mushbird.sinsege.base.model.Pagination"));
 		field.setName(name);
 		commentGenerator.addFieldComment(field, introspectedTable);
 		topLevelClass.addField(field);
@@ -85,13 +85,13 @@ public class PaginationOraclePlugin extends PluginAdapter {
 		Method method = new Method();
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.setName("set" + camel);
-		method.addParameter(new Parameter(new FullyQualifiedJavaType("com.zen9.capelion.base.model.Pagination"), name));
+		method.addParameter(new Parameter(new FullyQualifiedJavaType("com.mushbird.sinsege.base.model.Pagination"), name));
 		method.addBodyLine("this." + name + "=" + name + ";");
 		commentGenerator.addGeneralMethodComment(method, introspectedTable);
 		topLevelClass.addMethod(method);
 		method = new Method();
 		method.setVisibility(JavaVisibility.PUBLIC);
-		method.setReturnType(new FullyQualifiedJavaType("com.zen9.capelion.base.model.Pagination"));
+		method.setReturnType(new FullyQualifiedJavaType("com.mushbird.sinsege.base.model.Pagination"));
 		method.setName("get" + camel);
 		method.addBodyLine("return " + name + ";");
 		commentGenerator.addGeneralMethodComment(method, introspectedTable);

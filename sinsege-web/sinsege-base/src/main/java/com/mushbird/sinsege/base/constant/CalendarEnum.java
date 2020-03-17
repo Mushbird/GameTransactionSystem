@@ -9,7 +9,7 @@ import lombok.Getter;
  * CalendarEnum.java
  * </pre>
  * @date    : 2020. 02. 21
- * @version : 0.01 ver
+ * @version : 0.0.1 ver
  * @author  : mushbird
  */
 @Getter

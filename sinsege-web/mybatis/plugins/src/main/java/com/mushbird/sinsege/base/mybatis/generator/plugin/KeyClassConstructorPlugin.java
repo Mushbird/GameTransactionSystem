@@ -15,7 +15,7 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
  * Multi Key Class 를 생성할때 Constructor 를 자동으로 생성한다
  * Table attribute modelType="conditional" 가 필요하고 constructor based 는 필요하지 않음
  *
- * @author zune
+ * @author 100SH
  */
 public class KeyClassConstructorPlugin extends PluginAdapter {
 

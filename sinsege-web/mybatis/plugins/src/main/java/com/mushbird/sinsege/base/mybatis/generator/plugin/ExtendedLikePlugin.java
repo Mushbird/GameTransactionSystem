@@ -22,7 +22,7 @@ import org.mybatis.generator.codegen.ibatis2.Ibatis2FormattingUtilities;
  * like left: {column} like %{value}
  * like right: {column} like {value}%
  *
- * @author yongseoklee
+ * @author 100SH
  */
 public class ExtendedLikePlugin extends PluginAdapter {
 

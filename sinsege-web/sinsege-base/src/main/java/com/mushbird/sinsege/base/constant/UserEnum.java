@@ -33,8 +33,8 @@ public enum UserEnum {
 
     @Getter
     public enum Type {
-        normal("일반회원", SiteCodeOp.member_type_normal)
-        , Admin("임직원", SiteCodeOp.member_type_Admin);
+        normal("일반회원", SiteCode.member_type_normal)
+        , Admin("임직원", SiteCode.member_type_Admin);
 
         private String name;
         private String code;

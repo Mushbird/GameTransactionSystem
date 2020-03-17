@@ -17,14 +17,7 @@ public enum OrderEnum {
 	
 	@Getter
 	public enum Type {
-		ORDER("order", "일반배송", "", "order.type.normal", "", "/cart/cartView"),
-		CART("cart", "일반장바구니", "cart.type.normal", "", "/order/orderView", "/cart/cartView"),
-		ROUTINE("routine", "정기배송", "cart.type.regular", "order.type.regular", "/order/routineView", "/cart/routineView"),
-		HOME("home", "가정배달", "cart.type.home", "order.type.home", "/order/homeView", "/cart/homeView"),
-		PICK("pick", "골라담기", "cart.type.pick", "order.type.pick", "/order/pickView", "/cart/pickView"),
-		NOMEMBER("noMember", "비회원일반배송장바구니", "cart.type.normal", "", "/order/noMemberView", "/cart/noMemberView"),
-		NOMEMBERORDER("noMember", "비회원일반배송", "cart.type.normal", "order.type.normal", "", "/cart/noMemberView"),
-		NOMEMBERPICK("noMemberPick", "비회원골라담기", "cart.type.pick", "order.type.pick", "/order/noMemberPickView", "/cart/noMemberPickView");
+		ORDER("order", "일반배송", "", "order.type.normal", "", "/cart/cartView");
 
 	    private String orderType;
 	    private String orderName;
@@ -55,15 +48,6 @@ public enum OrderEnum {
 		switch (orderTypeCd) {
 		case "order.type.normal":
 			orderType = "order";
-			break;
-		case "order.type.pick":
-			orderType = "pick";
-			break;
-		case "order.type.regular":
-			orderType = "routine";
-			break;
-		case "order.type.home":
-			orderType = "home";
 			break;
 		default:
 			break;
