@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.admin.dao.BaseAdminRoleMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.admin.model.AdminRole">
+    <id column="TAR_ADM_ROLE_ID" jdbcType="INTEGER" property="admRoleId" />
+    <result column="TAR_ADM_ROLE_CD" jdbcType="VARCHAR" property="admRoleCd" />
+    <result column="TAR_ADM_ROLE_NM" jdbcType="VARCHAR" property="admRoleNm" />
+    <result column="TAR_PSNL_INFO_HNDL_YN" jdbcType="VARCHAR" property="psnlInfoHndlYn" />
+    <result column="TAR_DASHBD_TP_CD" jdbcType="VARCHAR" property="dashbdTpCd" />
+    <result column="TAR_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TAR_FIX_GRP_YN" jdbcType="VARCHAR" property="fixGrpYn" />
+    <result column="TAR_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TAR_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TAR_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TAR_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TAR_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TAR.ADM_ROLE_ID as TAR_ADM_ROLE_ID, TAR.ADM_ROLE_CD as TAR_ADM_ROLE_CD, TAR.ADM_ROLE_NM as TAR_ADM_ROLE_NM, 
+    TAR.PSNL_INFO_HNDL_YN as TAR_PSNL_INFO_HNDL_YN, TAR.DASHBD_TP_CD as TAR_DASHBD_TP_CD, 
+    TAR.DP_YN as TAR_DP_YN, TAR.FIX_GRP_YN as TAR_FIX_GRP_YN, TAR.REG_DT as TAR_REG_DT, 
+    TAR.REG_ID as TAR_REG_ID, TAR.MOD_DT as TAR_MOD_DT, TAR.MOD_ID as TAR_MOD_ID, TAR.USE_YN as TAR_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminRoleEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from adm_role TAR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from adm_role TAR
+    where TAR.ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from adm_role
+    where ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminRoleEntityCriteria">
+    delete TAR from adm_role TAR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminRoleEntity">
+    <selectKey keyProperty="admRoleId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ADM_ROLE
+    </selectKey>
+    insert into adm_role (ADM_ROLE_ID, ADM_ROLE_CD, ADM_ROLE_NM, 
+      PSNL_INFO_HNDL_YN, DASHBD_TP_CD, DP_YN, 
+      FIX_GRP_YN, REG_DT, REG_ID, 
+      MOD_DT, MOD_ID, USE_YN
+      )
+    values (#{admRoleId,jdbcType=INTEGER}, #{admRoleCd,jdbcType=VARCHAR}, #{admRoleNm,jdbcType=VARCHAR}, 
+      #{psnlInfoHndlYn,jdbcType=VARCHAR}, #{dashbdTpCd,jdbcType=VARCHAR}, #{dpYn,jdbcType=VARCHAR}, 
+      #{fixGrpYn,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, 
+      #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminRoleEntity">
+    <selectKey keyProperty="admRoleId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ADM_ROLE
+    </selectKey>
+    insert into adm_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ADM_ROLE_ID,
+      <if test="admRoleCd != null">
+        ADM_ROLE_CD,
+      </if>
+      <if test="admRoleNm != null">
+        ADM_ROLE_NM,
+      </if>
+      <if test="psnlInfoHndlYn != null">
+        PSNL_INFO_HNDL_YN,
+      </if>
+      <if test="dashbdTpCd != null">
+        DASHBD_TP_CD,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="fixGrpYn != null">
+        FIX_GRP_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{admRoleId,jdbcType=INTEGER},
+      <if test="admRoleCd != null">
+        #{admRoleCd,jdbcType=VARCHAR},
+      </if>
+      <if test="admRoleNm != null">
+        #{admRoleNm,jdbcType=VARCHAR},
+      </if>
+      <if test="psnlInfoHndlYn != null">
+        #{psnlInfoHndlYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dashbdTpCd != null">
+        #{dashbdTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="fixGrpYn != null">
+        #{fixGrpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminRoleEntityCriteria" resultType="java.lang.Long">
+    select count(*) from adm_role TAR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TAR
+    <set>
+      <if test="record.admRoleId != null">
+        
+      </if>
+      <if test="record.admRoleCd != null">
+        TAR.ADM_ROLE_CD = #{record.admRoleCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admRoleNm != null">
+        TAR.ADM_ROLE_NM = #{record.admRoleNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psnlInfoHndlYn != null">
+        TAR.PSNL_INFO_HNDL_YN = #{record.psnlInfoHndlYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dashbdTpCd != null">
+        TAR.DASHBD_TP_CD = #{record.dashbdTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpYn != null">
+        TAR.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fixGrpYn != null">
+        TAR.FIX_GRP_YN = #{record.fixGrpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TAR.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TAR.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TAR.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TAR.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TAR.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from adm_role TAR
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update adm_role TAR
+    set 
+      TAR.ADM_ROLE_CD = #{record.admRoleCd,jdbcType=VARCHAR},
+      TAR.ADM_ROLE_NM = #{record.admRoleNm,jdbcType=VARCHAR},
+      TAR.PSNL_INFO_HNDL_YN = #{record.psnlInfoHndlYn,jdbcType=VARCHAR},
+      TAR.DASHBD_TP_CD = #{record.dashbdTpCd,jdbcType=VARCHAR},
+      TAR.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TAR.FIX_GRP_YN = #{record.fixGrpYn,jdbcType=VARCHAR},
+      TAR.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TAR.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TAR.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TAR.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TAR.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminRoleEntity">
+    update adm_role
+    <set>
+      <if test="admRoleCd != null">
+        ADM_ROLE_CD = #{admRoleCd,jdbcType=VARCHAR},
+      </if>
+      <if test="admRoleNm != null">
+        ADM_ROLE_NM = #{admRoleNm,jdbcType=VARCHAR},
+      </if>
+      <if test="psnlInfoHndlYn != null">
+        PSNL_INFO_HNDL_YN = #{psnlInfoHndlYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dashbdTpCd != null">
+        DASHBD_TP_CD = #{dashbdTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="fixGrpYn != null">
+        FIX_GRP_YN = #{fixGrpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminRoleEntity">
+    update adm_role
+    set ADM_ROLE_CD = #{admRoleCd,jdbcType=VARCHAR},
+      ADM_ROLE_NM = #{admRoleNm,jdbcType=VARCHAR},
+      PSNL_INFO_HNDL_YN = #{psnlInfoHndlYn,jdbcType=VARCHAR},
+      DASHBD_TP_CD = #{dashbdTpCd,jdbcType=VARCHAR},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      FIX_GRP_YN = #{fixGrpYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminRoleEntity">
+    update adm_role
+    <set>
+      <if test="admRoleCd != null">
+        ADM_ROLE_CD = null,
+      </if>
+      <if test="admRoleNm != null">
+        ADM_ROLE_NM = null,
+      </if>
+      <if test="psnlInfoHndlYn != null">
+        PSNL_INFO_HNDL_YN = null,
+      </if>
+      <if test="dashbdTpCd != null">
+        DASHBD_TP_CD = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="fixGrpYn != null">
+        FIX_GRP_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.display.dao.BaseDpCornerMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.display.model.DpCorner">
+    <id column="TDC_DP_CONR_CD" jdbcType="VARCHAR" property="dpConrCd" />
+    <result column="TDC_DP_CH_ID" jdbcType="INTEGER" property="dpChId" />
+    <result column="TDC_CONR_NM" jdbcType="VARCHAR" property="conrNm" />
+    <result column="TDC_CONR_GRP_CL_CD" jdbcType="VARCHAR" property="conrGrpClCd" />
+    <result column="TDC_CONR_NM_DP_YN" jdbcType="VARCHAR" property="conrNmDpYn" />
+    <result column="TDC_CONR_DESC" jdbcType="VARCHAR" property="conrDesc" />
+    <result column="TDC_CONR_CONT_PC" jdbcType="VARCHAR" property="conrContPc" />
+    <result column="TDC_CONR_CONT_MOB" jdbcType="VARCHAR" property="conrContMob" />
+    <result column="TDC_LINK_URL_ADDR" jdbcType="VARCHAR" property="linkUrlAddr" />
+    <result column="TDC_LINK_NWIN_YN" jdbcType="VARCHAR" property="linkNwinYn" />
+    <result column="TDC_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TDC_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TDC_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TDC_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TDC_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TDC_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TDC.DP_CONR_CD as TDC_DP_CONR_CD, TDC.DP_CH_ID as TDC_DP_CH_ID, TDC.CONR_NM as TDC_CONR_NM, 
+    TDC.CONR_GRP_CL_CD as TDC_CONR_GRP_CL_CD, TDC.CONR_NM_DP_YN as TDC_CONR_NM_DP_YN, 
+    TDC.CONR_DESC as TDC_CONR_DESC, TDC.CONR_CONT_PC as TDC_CONR_CONT_PC, TDC.CONR_CONT_MOB as TDC_CONR_CONT_MOB, 
+    TDC.LINK_URL_ADDR as TDC_LINK_URL_ADDR, TDC.LINK_NWIN_YN as TDC_LINK_NWIN_YN, TDC.DP_YN as TDC_DP_YN, 
+    TDC.REG_DT as TDC_REG_DT, TDC.REG_ID as TDC_REG_ID, TDC.MOD_DT as TDC_MOD_DT, TDC.MOD_ID as TDC_MOD_ID, 
+    TDC.USE_YN as TDC_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpCornerEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dp_conr TDC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dp_conr TDC
+    where TDC.DP_CONR_CD = #{dpConrCd,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dp_conr
+    where DP_CONR_CD = #{dpConrCd,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpCornerEntityCriteria">
+    delete TDC from dp_conr TDC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCornerEntity">
+    insert into dp_conr (DP_CONR_CD, DP_CH_ID, CONR_NM, 
+      CONR_GRP_CL_CD, CONR_NM_DP_YN, CONR_DESC, 
+      CONR_CONT_PC, CONR_CONT_MOB, LINK_URL_ADDR, 
+      LINK_NWIN_YN, DP_YN, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID, 
+      USE_YN)
+    values (#{dpConrCd,jdbcType=VARCHAR}, #{dpChId,jdbcType=INTEGER}, #{conrNm,jdbcType=VARCHAR}, 
+      #{conrGrpClCd,jdbcType=VARCHAR}, #{conrNmDpYn,jdbcType=VARCHAR}, #{conrDesc,jdbcType=VARCHAR}, 
+      #{conrContPc,jdbcType=VARCHAR}, #{conrContMob,jdbcType=VARCHAR}, #{linkUrlAddr,jdbcType=VARCHAR}, 
+      #{linkNwinYn,jdbcType=VARCHAR}, #{dpYn,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, 
+      #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCornerEntity">
+    insert into dp_conr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dpConrCd != null">
+        DP_CONR_CD,
+      </if>
+      <if test="dpChId != null">
+        DP_CH_ID,
+      </if>
+      <if test="conrNm != null">
+        CONR_NM,
+      </if>
+      <if test="conrGrpClCd != null">
+        CONR_GRP_CL_CD,
+      </if>
+      <if test="conrNmDpYn != null">
+        CONR_NM_DP_YN,
+      </if>
+      <if test="conrDesc != null">
+        CONR_DESC,
+      </if>
+      <if test="conrContPc != null">
+        CONR_CONT_PC,
+      </if>
+      <if test="conrContMob != null">
+        CONR_CONT_MOB,
+      </if>
+      <if test="linkUrlAddr != null">
+        LINK_URL_ADDR,
+      </if>
+      <if test="linkNwinYn != null">
+        LINK_NWIN_YN,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dpConrCd != null">
+        #{dpConrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dpChId != null">
+        #{dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="conrNm != null">
+        #{conrNm,jdbcType=VARCHAR},
+      </if>
+      <if test="conrGrpClCd != null">
+        #{conrGrpClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="conrNmDpYn != null">
+        #{conrNmDpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="conrDesc != null">
+        #{conrDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="conrContPc != null">
+        #{conrContPc,jdbcType=VARCHAR},
+      </if>
+      <if test="conrContMob != null">
+        #{conrContMob,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrlAddr != null">
+        #{linkUrlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="linkNwinYn != null">
+        #{linkNwinYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpCornerEntityCriteria" resultType="java.lang.Long">
+    select count(*) from dp_conr TDC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TDC
+    <set>
+      <if test="record.dpConrCd != null">
+        
+      </if>
+      <if test="record.dpChId != null">
+        TDC.DP_CH_ID = #{record.dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="record.conrNm != null">
+        TDC.CONR_NM = #{record.conrNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conrGrpClCd != null">
+        TDC.CONR_GRP_CL_CD = #{record.conrGrpClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conrNmDpYn != null">
+        TDC.CONR_NM_DP_YN = #{record.conrNmDpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conrDesc != null">
+        TDC.CONR_DESC = #{record.conrDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conrContPc != null">
+        TDC.CONR_CONT_PC = #{record.conrContPc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conrContMob != null">
+        TDC.CONR_CONT_MOB = #{record.conrContMob,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkUrlAddr != null">
+        TDC.LINK_URL_ADDR = #{record.linkUrlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkNwinYn != null">
+        TDC.LINK_NWIN_YN = #{record.linkNwinYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpYn != null">
+        TDC.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TDC.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TDC.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TDC.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TDC.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TDC.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from dp_conr TDC
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update dp_conr TDC
+    set 
+      TDC.DP_CH_ID = #{record.dpChId,jdbcType=INTEGER},
+      TDC.CONR_NM = #{record.conrNm,jdbcType=VARCHAR},
+      TDC.CONR_GRP_CL_CD = #{record.conrGrpClCd,jdbcType=VARCHAR},
+      TDC.CONR_NM_DP_YN = #{record.conrNmDpYn,jdbcType=VARCHAR},
+      TDC.CONR_DESC = #{record.conrDesc,jdbcType=VARCHAR},
+      TDC.CONR_CONT_PC = #{record.conrContPc,jdbcType=VARCHAR},
+      TDC.CONR_CONT_MOB = #{record.conrContMob,jdbcType=VARCHAR},
+      TDC.LINK_URL_ADDR = #{record.linkUrlAddr,jdbcType=VARCHAR},
+      TDC.LINK_NWIN_YN = #{record.linkNwinYn,jdbcType=VARCHAR},
+      TDC.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TDC.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TDC.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TDC.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TDC.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TDC.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCornerEntity">
+    update dp_conr
+    <set>
+      <if test="dpChId != null">
+        DP_CH_ID = #{dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="conrNm != null">
+        CONR_NM = #{conrNm,jdbcType=VARCHAR},
+      </if>
+      <if test="conrGrpClCd != null">
+        CONR_GRP_CL_CD = #{conrGrpClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="conrNmDpYn != null">
+        CONR_NM_DP_YN = #{conrNmDpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="conrDesc != null">
+        CONR_DESC = #{conrDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="conrContPc != null">
+        CONR_CONT_PC = #{conrContPc,jdbcType=VARCHAR},
+      </if>
+      <if test="conrContMob != null">
+        CONR_CONT_MOB = #{conrContMob,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrlAddr != null">
+        LINK_URL_ADDR = #{linkUrlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="linkNwinYn != null">
+        LINK_NWIN_YN = #{linkNwinYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DP_CONR_CD = #{dpConrCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCornerEntity">
+    update dp_conr
+    set DP_CH_ID = #{dpChId,jdbcType=INTEGER},
+      CONR_NM = #{conrNm,jdbcType=VARCHAR},
+      CONR_GRP_CL_CD = #{conrGrpClCd,jdbcType=VARCHAR},
+      CONR_NM_DP_YN = #{conrNmDpYn,jdbcType=VARCHAR},
+      CONR_DESC = #{conrDesc,jdbcType=VARCHAR},
+      CONR_CONT_PC = #{conrContPc,jdbcType=VARCHAR},
+      CONR_CONT_MOB = #{conrContMob,jdbcType=VARCHAR},
+      LINK_URL_ADDR = #{linkUrlAddr,jdbcType=VARCHAR},
+      LINK_NWIN_YN = #{linkNwinYn,jdbcType=VARCHAR},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where DP_CONR_CD = #{dpConrCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCornerEntity">
+    update dp_conr
+    <set>
+      <if test="dpChId != null">
+        DP_CH_ID = null,
+      </if>
+      <if test="conrNm != null">
+        CONR_NM = null,
+      </if>
+      <if test="conrGrpClCd != null">
+        CONR_GRP_CL_CD = null,
+      </if>
+      <if test="conrNmDpYn != null">
+        CONR_NM_DP_YN = null,
+      </if>
+      <if test="conrDesc != null">
+        CONR_DESC = null,
+      </if>
+      <if test="conrContPc != null">
+        CONR_CONT_PC = null,
+      </if>
+      <if test="conrContMob != null">
+        CONR_CONT_MOB = null,
+      </if>
+      <if test="linkUrlAddr != null">
+        LINK_URL_ADDR = null,
+      </if>
+      <if test="linkNwinYn != null">
+        LINK_NWIN_YN = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and DP_CONR_CD = #{dpConrCd,jdbcType=VARCHAR}
+  </update>
+</mapper>

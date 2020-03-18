@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.item.dao.BaseItemInfoNoticeMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.item.model.ItemInfoNotice">
+    <id column="TIIN_ITEM_INFO_NOTI_ID" jdbcType="INTEGER" property="itemInfoNotiId" />
+    <result column="TIIN_ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TIIN_ITEM_INFO_NOTI_CATE_CD" jdbcType="VARCHAR" property="itemInfoNotiCateCd" />
+    <result column="TIIN_ITEM_INFO_NOTI_DTL_CD" jdbcType="VARCHAR" property="itemInfoNotiDtlCd" />
+    <result column="TIIN_CONT" jdbcType="VARCHAR" property="cont" />
+    <result column="TIIN_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TIIN_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TIIN_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TIIN_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TIIN_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TIIN_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TIIN.ITEM_INFO_NOTI_ID as TIIN_ITEM_INFO_NOTI_ID, TIIN.ITEM_ID as TIIN_ITEM_ID, TIIN.ITEM_INFO_NOTI_CATE_CD as TIIN_ITEM_INFO_NOTI_CATE_CD, 
+    TIIN.ITEM_INFO_NOTI_DTL_CD as TIIN_ITEM_INFO_NOTI_DTL_CD, TIIN.CONT as TIIN_CONT, 
+    TIIN.DP_YN as TIIN_DP_YN, TIIN.REG_DT as TIIN_REG_DT, TIIN.REG_ID as TIIN_REG_ID, 
+    TIIN.MOD_DT as TIIN_MOD_DT, TIIN.MOD_ID as TIIN_MOD_ID, TIIN.USE_YN as TIIN_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemInfoNoticeEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item_info_noti TIIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_info_noti TIIN
+    where TIIN.ITEM_INFO_NOTI_ID = #{itemInfoNotiId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from item_info_noti
+    where ITEM_INFO_NOTI_ID = #{itemInfoNotiId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemInfoNoticeEntityCriteria">
+    delete TIIN from item_info_noti TIIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemInfoNoticeEntity">
+    insert into item_info_noti (ITEM_INFO_NOTI_ID, ITEM_ID, ITEM_INFO_NOTI_CATE_CD, 
+      ITEM_INFO_NOTI_DTL_CD, CONT, DP_YN, 
+      REG_DT, REG_ID, MOD_DT, 
+      MOD_ID, USE_YN)
+    values (#{itemInfoNotiId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{itemInfoNotiCateCd,jdbcType=VARCHAR}, 
+      #{itemInfoNotiDtlCd,jdbcType=VARCHAR}, #{cont,jdbcType=VARCHAR}, #{dpYn,jdbcType=VARCHAR}, 
+      #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, 
+      #{modId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemInfoNoticeEntity">
+    insert into item_info_noti
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemInfoNotiId != null">
+        ITEM_INFO_NOTI_ID,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="itemInfoNotiCateCd != null">
+        ITEM_INFO_NOTI_CATE_CD,
+      </if>
+      <if test="itemInfoNotiDtlCd != null">
+        ITEM_INFO_NOTI_DTL_CD,
+      </if>
+      <if test="cont != null">
+        CONT,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemInfoNotiId != null">
+        #{itemInfoNotiId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemInfoNotiCateCd != null">
+        #{itemInfoNotiCateCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemInfoNotiDtlCd != null">
+        #{itemInfoNotiDtlCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemInfoNoticeEntityCriteria" resultType="java.lang.Long">
+    select count(*) from item_info_noti TIIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TIIN
+    <set>
+      <if test="record.itemInfoNotiId != null">
+        
+      </if>
+      <if test="record.itemId != null">
+        TIIN.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemInfoNotiCateCd != null">
+        TIIN.ITEM_INFO_NOTI_CATE_CD = #{record.itemInfoNotiCateCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemInfoNotiDtlCd != null">
+        TIIN.ITEM_INFO_NOTI_DTL_CD = #{record.itemInfoNotiDtlCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cont != null">
+        TIIN.CONT = #{record.cont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpYn != null">
+        TIIN.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TIIN.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TIIN.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TIIN.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TIIN.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TIIN.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from item_info_noti TIIN
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update item_info_noti TIIN
+    set 
+      TIIN.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      TIIN.ITEM_INFO_NOTI_CATE_CD = #{record.itemInfoNotiCateCd,jdbcType=VARCHAR},
+      TIIN.ITEM_INFO_NOTI_DTL_CD = #{record.itemInfoNotiDtlCd,jdbcType=VARCHAR},
+      TIIN.CONT = #{record.cont,jdbcType=VARCHAR},
+      TIIN.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TIIN.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TIIN.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TIIN.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TIIN.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TIIN.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemInfoNoticeEntity">
+    update item_info_noti
+    <set>
+      <if test="itemId != null">
+        ITEM_ID = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemInfoNotiCateCd != null">
+        ITEM_INFO_NOTI_CATE_CD = #{itemInfoNotiCateCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemInfoNotiDtlCd != null">
+        ITEM_INFO_NOTI_DTL_CD = #{itemInfoNotiDtlCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        CONT = #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ITEM_INFO_NOTI_ID = #{itemInfoNotiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemInfoNoticeEntity">
+    update item_info_noti
+    set ITEM_ID = #{itemId,jdbcType=INTEGER},
+      ITEM_INFO_NOTI_CATE_CD = #{itemInfoNotiCateCd,jdbcType=VARCHAR},
+      ITEM_INFO_NOTI_DTL_CD = #{itemInfoNotiDtlCd,jdbcType=VARCHAR},
+      CONT = #{cont,jdbcType=VARCHAR},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where ITEM_INFO_NOTI_ID = #{itemInfoNotiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemInfoNoticeEntity">
+    update item_info_noti
+    <set>
+      <if test="itemId != null">
+        ITEM_ID = null,
+      </if>
+      <if test="itemInfoNotiCateCd != null">
+        ITEM_INFO_NOTI_CATE_CD = null,
+      </if>
+      <if test="itemInfoNotiDtlCd != null">
+        ITEM_INFO_NOTI_DTL_CD = null,
+      </if>
+      <if test="cont != null">
+        CONT = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and ITEM_INFO_NOTI_ID = #{itemInfoNotiId,jdbcType=INTEGER}
+  </update>
+</mapper>

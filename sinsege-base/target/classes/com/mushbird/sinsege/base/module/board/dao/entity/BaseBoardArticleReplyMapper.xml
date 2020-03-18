@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.board.dao.BaseBoardArticleReplyMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.board.model.BoardArticleReply">
+    <id column="TBAR_BBS_ART_RPLY_ID" jdbcType="INTEGER" property="bbsArtRplyId" />
+    <result column="TBAR_BBS_ART_ID" jdbcType="INTEGER" property="bbsArtId" />
+    <result column="TBAR_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="TBAR_ADM_ID" jdbcType="VARCHAR" property="admId" />
+    <result column="TBAR_RPLY_CONT" jdbcType="VARCHAR" property="rplyCont" />
+    <result column="TBAR_RPLY_STAT_CD" jdbcType="VARCHAR" property="rplyStatCd" />
+    <result column="TBAR_ATCH_GID" jdbcType="INTEGER" property="atchGid" />
+    <result column="TBAR_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TBAR_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TBAR_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TBAR_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TBAR_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TBAR.BBS_ART_RPLY_ID as TBAR_BBS_ART_RPLY_ID, TBAR.BBS_ART_ID as TBAR_BBS_ART_ID, 
+    TBAR.MBR_ID as TBAR_MBR_ID, TBAR.ADM_ID as TBAR_ADM_ID, TBAR.RPLY_CONT as TBAR_RPLY_CONT, 
+    TBAR.RPLY_STAT_CD as TBAR_RPLY_STAT_CD, TBAR.ATCH_GID as TBAR_ATCH_GID, TBAR.REG_DT as TBAR_REG_DT, 
+    TBAR.REG_ID as TBAR_REG_ID, TBAR.MOD_DT as TBAR_MOD_DT, TBAR.MOD_ID as TBAR_MOD_ID, 
+    TBAR.USE_YN as TBAR_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.board.model.entity.criteria.BoardArticleReplyEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbs_art_rply TBAR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bbs_art_rply TBAR
+    where TBAR.BBS_ART_RPLY_ID = #{bbsArtRplyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bbs_art_rply
+    where BBS_ART_RPLY_ID = #{bbsArtRplyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.board.model.entity.criteria.BoardArticleReplyEntityCriteria">
+    delete TBAR from bbs_art_rply TBAR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.board.model.entity.BoardArticleReplyEntity">
+    <selectKey keyProperty="bbsArtRplyId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR NYC_MALL.dbo.SEQ_BBS_ART_RPLY
+    </selectKey>
+    insert into bbs_art_rply (BBS_ART_RPLY_ID, BBS_ART_ID, MBR_ID, 
+      ADM_ID, RPLY_CONT, RPLY_STAT_CD, 
+      ATCH_GID, REG_DT, REG_ID, 
+      MOD_DT, MOD_ID, USE_YN
+      )
+    values (#{bbsArtRplyId,jdbcType=INTEGER}, #{bbsArtId,jdbcType=INTEGER}, #{mbrId,jdbcType=VARCHAR}, 
+      #{admId,jdbcType=VARCHAR}, #{rplyCont,jdbcType=VARCHAR}, #{rplyStatCd,jdbcType=VARCHAR}, 
+      #{atchGid,jdbcType=INTEGER}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, 
+      #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.board.model.entity.BoardArticleReplyEntity">
+    <selectKey keyProperty="bbsArtRplyId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR NYC_MALL.dbo.SEQ_BBS_ART_RPLY
+    </selectKey>
+    insert into bbs_art_rply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      BBS_ART_RPLY_ID,
+      <if test="bbsArtId != null">
+        BBS_ART_ID,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="admId != null">
+        ADM_ID,
+      </if>
+      <if test="rplyCont != null">
+        RPLY_CONT,
+      </if>
+      <if test="rplyStatCd != null">
+        RPLY_STAT_CD,
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{bbsArtRplyId,jdbcType=INTEGER},
+      <if test="bbsArtId != null">
+        #{bbsArtId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="admId != null">
+        #{admId,jdbcType=VARCHAR},
+      </if>
+      <if test="rplyCont != null">
+        #{rplyCont,jdbcType=VARCHAR},
+      </if>
+      <if test="rplyStatCd != null">
+        #{rplyStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="atchGid != null">
+        #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.board.model.entity.criteria.BoardArticleReplyEntityCriteria" resultType="java.lang.Long">
+    select count(*) from bbs_art_rply TBAR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TBAR
+    <set>
+      <if test="record.bbsArtRplyId != null">
+        
+      </if>
+      <if test="record.bbsArtId != null">
+        TBAR.BBS_ART_ID = #{record.bbsArtId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mbrId != null">
+        TBAR.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admId != null">
+        TBAR.ADM_ID = #{record.admId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rplyCont != null">
+        TBAR.RPLY_CONT = #{record.rplyCont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rplyStatCd != null">
+        TBAR.RPLY_STAT_CD = #{record.rplyStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atchGid != null">
+        TBAR.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="record.regDt != null">
+        TBAR.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TBAR.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TBAR.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TBAR.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TBAR.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from bbs_art_rply TBAR
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update bbs_art_rply TBAR
+    set 
+      TBAR.BBS_ART_ID = #{record.bbsArtId,jdbcType=INTEGER},
+      TBAR.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      TBAR.ADM_ID = #{record.admId,jdbcType=VARCHAR},
+      TBAR.RPLY_CONT = #{record.rplyCont,jdbcType=VARCHAR},
+      TBAR.RPLY_STAT_CD = #{record.rplyStatCd,jdbcType=VARCHAR},
+      TBAR.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      TBAR.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TBAR.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TBAR.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TBAR.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TBAR.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.board.model.entity.BoardArticleReplyEntity">
+    update bbs_art_rply
+    <set>
+      <if test="bbsArtId != null">
+        BBS_ART_ID = #{bbsArtId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="admId != null">
+        ADM_ID = #{admId,jdbcType=VARCHAR},
+      </if>
+      <if test="rplyCont != null">
+        RPLY_CONT = #{rplyCont,jdbcType=VARCHAR},
+      </if>
+      <if test="rplyStatCd != null">
+        RPLY_STAT_CD = #{rplyStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BBS_ART_RPLY_ID = #{bbsArtRplyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.board.model.entity.BoardArticleReplyEntity">
+    update bbs_art_rply
+    set BBS_ART_ID = #{bbsArtId,jdbcType=INTEGER},
+      MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      ADM_ID = #{admId,jdbcType=VARCHAR},
+      RPLY_CONT = #{rplyCont,jdbcType=VARCHAR},
+      RPLY_STAT_CD = #{rplyStatCd,jdbcType=VARCHAR},
+      ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where BBS_ART_RPLY_ID = #{bbsArtRplyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.board.model.entity.BoardArticleReplyEntity">
+    update bbs_art_rply
+    <set>
+      <if test="bbsArtId != null">
+        BBS_ART_ID = null,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="admId != null">
+        ADM_ID = null,
+      </if>
+      <if test="rplyCont != null">
+        RPLY_CONT = null,
+      </if>
+      <if test="rplyStatCd != null">
+        RPLY_STAT_CD = null,
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and BBS_ART_RPLY_ID = #{bbsArtRplyId,jdbcType=INTEGER}
+  </update>
+</mapper>

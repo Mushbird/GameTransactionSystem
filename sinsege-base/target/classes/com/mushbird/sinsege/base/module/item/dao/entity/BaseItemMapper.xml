@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.item.dao.BaseItemMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.item.model.Item">
+    <id column="TI_ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TI_VEN_ID" jdbcType="INTEGER" property="venId" />
+    <result column="TI_ITEM_TP_CD" jdbcType="VARCHAR" property="itemTpCd" />
+    <result column="TI_ITEM_STAT_CD" jdbcType="VARCHAR" property="itemStatCd" />
+    <result column="TI_ITEM_APRV_STAT_CD" jdbcType="VARCHAR" property="itemAprvStatCd" />
+    <result column="TI_ITEM_CD" jdbcType="VARCHAR" property="itemCd" />
+    <result column="TI_ITEM_NM" jdbcType="VARCHAR" property="itemNm" />
+    <result column="TI_ITEM_SUB_NM" jdbcType="VARCHAR" property="itemSubNm" />
+    <result column="TI_MANU" jdbcType="VARCHAR" property="manu" />
+    <result column="TI_DP_BRND_ID" jdbcType="INTEGER" property="dpBrndId" />
+    <result column="TI_ITEM_CMT_REG_YN" jdbcType="VARCHAR" property="itemCmtRegYn" />
+    <result column="TI_INQ_REG_YN" jdbcType="VARCHAR" property="inqRegYn" />
+    <result column="TI_OPT_STT_YN" jdbcType="VARCHAR" property="optSttYn" />
+    <result column="TI_FRGT_YN" jdbcType="VARCHAR" property="frgtYn" />
+    <result column="TI_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TI_DP_ENV_CD" jdbcType="VARCHAR" property="dpEnvCd" />
+    <result column="TI_CSTMD_YN" jdbcType="VARCHAR" property="cstmdYn" />
+    <result column="TI_TAX_CL_CD" jdbcType="VARCHAR" property="taxClCd" />
+    <result column="TI_SELL_UNIT_QTY" jdbcType="DECIMAL" property="sellUnitQty" />
+    <result column="TI_SELL_PERD_LIM_YN" jdbcType="VARCHAR" property="sellPerdLimYn" />
+    <result column="TI_SELL_PERD_LIM_ST_DT" jdbcType="DATE" property="sellPerdLimStDt" />
+    <result column="TI_SELL_PERD_LIM_ED_DT" jdbcType="DATE" property="sellPerdLimEdDt" />
+    <result column="TI_CPN_USE_PSBL_YN" jdbcType="VARCHAR" property="cpnUsePsblYn" />
+    <result column="TI_PT_SAVE_TP_CD" jdbcType="VARCHAR" property="ptSaveTpCd" />
+    <result column="TI_PT_SAVE_METH_CD" jdbcType="VARCHAR" property="ptSaveMethCd" />
+    <result column="TI_PT_SAVE_RATE" jdbcType="DECIMAL" property="ptSaveRate" />
+    <result column="TI_PT_SAVE_AMT" jdbcType="INTEGER" property="ptSaveAmt" />
+    <result column="TI_ORD_RES_MAX_QTY" jdbcType="DECIMAL" property="ordResMaxQty" />
+    <result column="TI_WAHS_NOTI_YN" jdbcType="VARCHAR" property="wahsNotiYn" />
+    <result column="TI_ITEM_INFO_NOTI_INPT_METH_CD" jdbcType="VARCHAR" property="itemInfoNotiInptMethCd" />
+    <result column="TI_ITEM_INFO_NOTI_REG_DT" jdbcType="TIMESTAMP" property="itemInfoNotiRegDt" />
+    <result column="TI_MEMO" jdbcType="VARCHAR" property="memo" />
+    <result column="TI_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TI_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TI_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TI_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TI_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TI.ITEM_ID as TI_ITEM_ID, TI.VEN_ID as TI_VEN_ID, TI.ITEM_TP_CD as TI_ITEM_TP_CD, 
+    TI.ITEM_STAT_CD as TI_ITEM_STAT_CD, TI.ITEM_APRV_STAT_CD as TI_ITEM_APRV_STAT_CD, 
+    TI.ITEM_CD as TI_ITEM_CD, TI.ITEM_NM as TI_ITEM_NM, TI.ITEM_SUB_NM as TI_ITEM_SUB_NM, 
+    TI.MANU as TI_MANU, TI.DP_BRND_ID as TI_DP_BRND_ID, TI.ITEM_CMT_REG_YN as TI_ITEM_CMT_REG_YN, 
+    TI.INQ_REG_YN as TI_INQ_REG_YN, TI.OPT_STT_YN as TI_OPT_STT_YN, TI.FRGT_YN as TI_FRGT_YN, 
+    TI.DP_YN as TI_DP_YN, TI.DP_ENV_CD as TI_DP_ENV_CD, TI.CSTMD_YN as TI_CSTMD_YN, TI.TAX_CL_CD as TI_TAX_CL_CD, 
+    TI.SELL_UNIT_QTY as TI_SELL_UNIT_QTY, TI.SELL_PERD_LIM_YN as TI_SELL_PERD_LIM_YN, 
+    TI.SELL_PERD_LIM_ST_DT as TI_SELL_PERD_LIM_ST_DT, TI.SELL_PERD_LIM_ED_DT as TI_SELL_PERD_LIM_ED_DT, 
+    TI.CPN_USE_PSBL_YN as TI_CPN_USE_PSBL_YN, TI.PT_SAVE_TP_CD as TI_PT_SAVE_TP_CD, TI.PT_SAVE_METH_CD as TI_PT_SAVE_METH_CD, 
+    TI.PT_SAVE_RATE as TI_PT_SAVE_RATE, TI.PT_SAVE_AMT as TI_PT_SAVE_AMT, TI.ORD_RES_MAX_QTY as TI_ORD_RES_MAX_QTY, 
+    TI.WAHS_NOTI_YN as TI_WAHS_NOTI_YN, TI.ITEM_INFO_NOTI_INPT_METH_CD as TI_ITEM_INFO_NOTI_INPT_METH_CD, 
+    TI.ITEM_INFO_NOTI_REG_DT as TI_ITEM_INFO_NOTI_REG_DT, TI.MEMO as TI_MEMO, TI.REG_DT as TI_REG_DT, 
+    TI.REG_ID as TI_REG_ID, TI.MOD_DT as TI_MOD_DT, TI.MOD_ID as TI_MOD_ID, TI.USE_YN as TI_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item TI
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item TI
+    where TI.ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from item
+    where ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemEntityCriteria">
+    delete TI from item TI
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemEntity">
+    insert into item (ITEM_ID, VEN_ID, ITEM_TP_CD, 
+      ITEM_STAT_CD, ITEM_APRV_STAT_CD, ITEM_CD, 
+      ITEM_NM, ITEM_SUB_NM, MANU, 
+      DP_BRND_ID, ITEM_CMT_REG_YN, INQ_REG_YN, 
+      OPT_STT_YN, FRGT_YN, DP_YN, 
+      DP_ENV_CD, CSTMD_YN, TAX_CL_CD, 
+      SELL_UNIT_QTY, SELL_PERD_LIM_YN, SELL_PERD_LIM_ST_DT, 
+      SELL_PERD_LIM_ED_DT, CPN_USE_PSBL_YN, PT_SAVE_TP_CD, 
+      PT_SAVE_METH_CD, PT_SAVE_RATE, PT_SAVE_AMT, 
+      ORD_RES_MAX_QTY, WAHS_NOTI_YN, ITEM_INFO_NOTI_INPT_METH_CD, 
+      ITEM_INFO_NOTI_REG_DT, MEMO, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID, 
+      USE_YN)
+    values (#{itemId,jdbcType=INTEGER}, #{venId,jdbcType=INTEGER}, #{itemTpCd,jdbcType=VARCHAR}, 
+      #{itemStatCd,jdbcType=VARCHAR}, #{itemAprvStatCd,jdbcType=VARCHAR}, #{itemCd,jdbcType=VARCHAR}, 
+      #{itemNm,jdbcType=VARCHAR}, #{itemSubNm,jdbcType=VARCHAR}, #{manu,jdbcType=VARCHAR}, 
+      #{dpBrndId,jdbcType=INTEGER}, #{itemCmtRegYn,jdbcType=VARCHAR}, #{inqRegYn,jdbcType=VARCHAR}, 
+      #{optSttYn,jdbcType=VARCHAR}, #{frgtYn,jdbcType=VARCHAR}, #{dpYn,jdbcType=VARCHAR}, 
+      #{dpEnvCd,jdbcType=VARCHAR}, #{cstmdYn,jdbcType=VARCHAR}, #{taxClCd,jdbcType=VARCHAR}, 
+      #{sellUnitQty,jdbcType=DECIMAL}, #{sellPerdLimYn,jdbcType=VARCHAR}, #{sellPerdLimStDt,jdbcType=DATE}, 
+      #{sellPerdLimEdDt,jdbcType=DATE}, #{cpnUsePsblYn,jdbcType=VARCHAR}, #{ptSaveTpCd,jdbcType=VARCHAR}, 
+      #{ptSaveMethCd,jdbcType=VARCHAR}, #{ptSaveRate,jdbcType=DECIMAL}, #{ptSaveAmt,jdbcType=INTEGER}, 
+      #{ordResMaxQty,jdbcType=DECIMAL}, #{wahsNotiYn,jdbcType=VARCHAR}, #{itemInfoNotiInptMethCd,jdbcType=VARCHAR}, 
+      #{itemInfoNotiRegDt,jdbcType=TIMESTAMP}, #{memo,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, 
+      #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemEntity">
+    insert into item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="venId != null">
+        VEN_ID,
+      </if>
+      <if test="itemTpCd != null">
+        ITEM_TP_CD,
+      </if>
+      <if test="itemStatCd != null">
+        ITEM_STAT_CD,
+      </if>
+      <if test="itemAprvStatCd != null">
+        ITEM_APRV_STAT_CD,
+      </if>
+      <if test="itemCd != null">
+        ITEM_CD,
+      </if>
+      <if test="itemNm != null">
+        ITEM_NM,
+      </if>
+      <if test="itemSubNm != null">
+        ITEM_SUB_NM,
+      </if>
+      <if test="manu != null">
+        MANU,
+      </if>
+      <if test="dpBrndId != null">
+        DP_BRND_ID,
+      </if>
+      <if test="itemCmtRegYn != null">
+        ITEM_CMT_REG_YN,
+      </if>
+      <if test="inqRegYn != null">
+        INQ_REG_YN,
+      </if>
+      <if test="optSttYn != null">
+        OPT_STT_YN,
+      </if>
+      <if test="frgtYn != null">
+        FRGT_YN,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="dpEnvCd != null">
+        DP_ENV_CD,
+      </if>
+      <if test="cstmdYn != null">
+        CSTMD_YN,
+      </if>
+      <if test="taxClCd != null">
+        TAX_CL_CD,
+      </if>
+      <if test="sellUnitQty != null">
+        SELL_UNIT_QTY,
+      </if>
+      <if test="sellPerdLimYn != null">
+        SELL_PERD_LIM_YN,
+      </if>
+      <if test="sellPerdLimStDt != null">
+        SELL_PERD_LIM_ST_DT,
+      </if>
+      <if test="sellPerdLimEdDt != null">
+        SELL_PERD_LIM_ED_DT,
+      </if>
+      <if test="cpnUsePsblYn != null">
+        CPN_USE_PSBL_YN,
+      </if>
+      <if test="ptSaveTpCd != null">
+        PT_SAVE_TP_CD,
+      </if>
+      <if test="ptSaveMethCd != null">
+        PT_SAVE_METH_CD,
+      </if>
+      <if test="ptSaveRate != null">
+        PT_SAVE_RATE,
+      </if>
+      <if test="ptSaveAmt != null">
+        PT_SAVE_AMT,
+      </if>
+      <if test="ordResMaxQty != null">
+        ORD_RES_MAX_QTY,
+      </if>
+      <if test="wahsNotiYn != null">
+        WAHS_NOTI_YN,
+      </if>
+      <if test="itemInfoNotiInptMethCd != null">
+        ITEM_INFO_NOTI_INPT_METH_CD,
+      </if>
+      <if test="itemInfoNotiRegDt != null">
+        ITEM_INFO_NOTI_REG_DT,
+      </if>
+      <if test="memo != null">
+        MEMO,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="venId != null">
+        #{venId,jdbcType=INTEGER},
+      </if>
+      <if test="itemTpCd != null">
+        #{itemTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemStatCd != null">
+        #{itemStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemAprvStatCd != null">
+        #{itemAprvStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCd != null">
+        #{itemCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNm != null">
+        #{itemNm,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSubNm != null">
+        #{itemSubNm,jdbcType=VARCHAR},
+      </if>
+      <if test="manu != null">
+        #{manu,jdbcType=VARCHAR},
+      </if>
+      <if test="dpBrndId != null">
+        #{dpBrndId,jdbcType=INTEGER},
+      </if>
+      <if test="itemCmtRegYn != null">
+        #{itemCmtRegYn,jdbcType=VARCHAR},
+      </if>
+      <if test="inqRegYn != null">
+        #{inqRegYn,jdbcType=VARCHAR},
+      </if>
+      <if test="optSttYn != null">
+        #{optSttYn,jdbcType=VARCHAR},
+      </if>
+      <if test="frgtYn != null">
+        #{frgtYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dpEnvCd != null">
+        #{dpEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cstmdYn != null">
+        #{cstmdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="taxClCd != null">
+        #{taxClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="sellUnitQty != null">
+        #{sellUnitQty,jdbcType=DECIMAL},
+      </if>
+      <if test="sellPerdLimYn != null">
+        #{sellPerdLimYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sellPerdLimStDt != null">
+        #{sellPerdLimStDt,jdbcType=DATE},
+      </if>
+      <if test="sellPerdLimEdDt != null">
+        #{sellPerdLimEdDt,jdbcType=DATE},
+      </if>
+      <if test="cpnUsePsblYn != null">
+        #{cpnUsePsblYn,jdbcType=VARCHAR},
+      </if>
+      <if test="ptSaveTpCd != null">
+        #{ptSaveTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptSaveMethCd != null">
+        #{ptSaveMethCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptSaveRate != null">
+        #{ptSaveRate,jdbcType=DECIMAL},
+      </if>
+      <if test="ptSaveAmt != null">
+        #{ptSaveAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ordResMaxQty != null">
+        #{ordResMaxQty,jdbcType=DECIMAL},
+      </if>
+      <if test="wahsNotiYn != null">
+        #{wahsNotiYn,jdbcType=VARCHAR},
+      </if>
+      <if test="itemInfoNotiInptMethCd != null">
+        #{itemInfoNotiInptMethCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemInfoNotiRegDt != null">
+        #{itemInfoNotiRegDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.item.model.entity.criteria.ItemEntityCriteria" resultType="java.lang.Long">
+    select count(*) from item TI
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TI
+    <set>
+      <if test="record.itemId != null">
+        
+      </if>
+      <if test="record.venId != null">
+        TI.VEN_ID = #{record.venId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemTpCd != null">
+        TI.ITEM_TP_CD = #{record.itemTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemStatCd != null">
+        TI.ITEM_STAT_CD = #{record.itemStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemAprvStatCd != null">
+        TI.ITEM_APRV_STAT_CD = #{record.itemAprvStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemCd != null">
+        TI.ITEM_CD = #{record.itemCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemNm != null">
+        TI.ITEM_NM = #{record.itemNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemSubNm != null">
+        TI.ITEM_SUB_NM = #{record.itemSubNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manu != null">
+        TI.MANU = #{record.manu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpBrndId != null">
+        TI.DP_BRND_ID = #{record.dpBrndId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemCmtRegYn != null">
+        TI.ITEM_CMT_REG_YN = #{record.itemCmtRegYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inqRegYn != null">
+        TI.INQ_REG_YN = #{record.inqRegYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optSttYn != null">
+        TI.OPT_STT_YN = #{record.optSttYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frgtYn != null">
+        TI.FRGT_YN = #{record.frgtYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpYn != null">
+        TI.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpEnvCd != null">
+        TI.DP_ENV_CD = #{record.dpEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstmdYn != null">
+        TI.CSTMD_YN = #{record.cstmdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxClCd != null">
+        TI.TAX_CL_CD = #{record.taxClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellUnitQty != null">
+        TI.SELL_UNIT_QTY = #{record.sellUnitQty,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sellPerdLimYn != null">
+        TI.SELL_PERD_LIM_YN = #{record.sellPerdLimYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellPerdLimStDt != null">
+        TI.SELL_PERD_LIM_ST_DT = #{record.sellPerdLimStDt,jdbcType=DATE},
+      </if>
+      <if test="record.sellPerdLimEdDt != null">
+        TI.SELL_PERD_LIM_ED_DT = #{record.sellPerdLimEdDt,jdbcType=DATE},
+      </if>
+      <if test="record.cpnUsePsblYn != null">
+        TI.CPN_USE_PSBL_YN = #{record.cpnUsePsblYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptSaveTpCd != null">
+        TI.PT_SAVE_TP_CD = #{record.ptSaveTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptSaveMethCd != null">
+        TI.PT_SAVE_METH_CD = #{record.ptSaveMethCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptSaveRate != null">
+        TI.PT_SAVE_RATE = #{record.ptSaveRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ptSaveAmt != null">
+        TI.PT_SAVE_AMT = #{record.ptSaveAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordResMaxQty != null">
+        TI.ORD_RES_MAX_QTY = #{record.ordResMaxQty,jdbcType=DECIMAL},
+      </if>
+      <if test="record.wahsNotiYn != null">
+        TI.WAHS_NOTI_YN = #{record.wahsNotiYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemInfoNotiInptMethCd != null">
+        TI.ITEM_INFO_NOTI_INPT_METH_CD = #{record.itemInfoNotiInptMethCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemInfoNotiRegDt != null">
+        TI.ITEM_INFO_NOTI_REG_DT = #{record.itemInfoNotiRegDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.memo != null">
+        TI.MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TI.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TI.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TI.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TI.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TI.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from item TI
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update item TI
+    set 
+      TI.VEN_ID = #{record.venId,jdbcType=INTEGER},
+      TI.ITEM_TP_CD = #{record.itemTpCd,jdbcType=VARCHAR},
+      TI.ITEM_STAT_CD = #{record.itemStatCd,jdbcType=VARCHAR},
+      TI.ITEM_APRV_STAT_CD = #{record.itemAprvStatCd,jdbcType=VARCHAR},
+      TI.ITEM_CD = #{record.itemCd,jdbcType=VARCHAR},
+      TI.ITEM_NM = #{record.itemNm,jdbcType=VARCHAR},
+      TI.ITEM_SUB_NM = #{record.itemSubNm,jdbcType=VARCHAR},
+      TI.MANU = #{record.manu,jdbcType=VARCHAR},
+      TI.DP_BRND_ID = #{record.dpBrndId,jdbcType=INTEGER},
+      TI.ITEM_CMT_REG_YN = #{record.itemCmtRegYn,jdbcType=VARCHAR},
+      TI.INQ_REG_YN = #{record.inqRegYn,jdbcType=VARCHAR},
+      TI.OPT_STT_YN = #{record.optSttYn,jdbcType=VARCHAR},
+      TI.FRGT_YN = #{record.frgtYn,jdbcType=VARCHAR},
+      TI.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TI.DP_ENV_CD = #{record.dpEnvCd,jdbcType=VARCHAR},
+      TI.CSTMD_YN = #{record.cstmdYn,jdbcType=VARCHAR},
+      TI.TAX_CL_CD = #{record.taxClCd,jdbcType=VARCHAR},
+      TI.SELL_UNIT_QTY = #{record.sellUnitQty,jdbcType=DECIMAL},
+      TI.SELL_PERD_LIM_YN = #{record.sellPerdLimYn,jdbcType=VARCHAR},
+      TI.SELL_PERD_LIM_ST_DT = #{record.sellPerdLimStDt,jdbcType=DATE},
+      TI.SELL_PERD_LIM_ED_DT = #{record.sellPerdLimEdDt,jdbcType=DATE},
+      TI.CPN_USE_PSBL_YN = #{record.cpnUsePsblYn,jdbcType=VARCHAR},
+      TI.PT_SAVE_TP_CD = #{record.ptSaveTpCd,jdbcType=VARCHAR},
+      TI.PT_SAVE_METH_CD = #{record.ptSaveMethCd,jdbcType=VARCHAR},
+      TI.PT_SAVE_RATE = #{record.ptSaveRate,jdbcType=DECIMAL},
+      TI.PT_SAVE_AMT = #{record.ptSaveAmt,jdbcType=INTEGER},
+      TI.ORD_RES_MAX_QTY = #{record.ordResMaxQty,jdbcType=DECIMAL},
+      TI.WAHS_NOTI_YN = #{record.wahsNotiYn,jdbcType=VARCHAR},
+      TI.ITEM_INFO_NOTI_INPT_METH_CD = #{record.itemInfoNotiInptMethCd,jdbcType=VARCHAR},
+      TI.ITEM_INFO_NOTI_REG_DT = #{record.itemInfoNotiRegDt,jdbcType=TIMESTAMP},
+      TI.MEMO = #{record.memo,jdbcType=VARCHAR},
+      TI.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TI.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TI.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TI.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TI.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemEntity">
+    update item
+    <set>
+      <if test="venId != null">
+        VEN_ID = #{venId,jdbcType=INTEGER},
+      </if>
+      <if test="itemTpCd != null">
+        ITEM_TP_CD = #{itemTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemStatCd != null">
+        ITEM_STAT_CD = #{itemStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemAprvStatCd != null">
+        ITEM_APRV_STAT_CD = #{itemAprvStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCd != null">
+        ITEM_CD = #{itemCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNm != null">
+        ITEM_NM = #{itemNm,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSubNm != null">
+        ITEM_SUB_NM = #{itemSubNm,jdbcType=VARCHAR},
+      </if>
+      <if test="manu != null">
+        MANU = #{manu,jdbcType=VARCHAR},
+      </if>
+      <if test="dpBrndId != null">
+        DP_BRND_ID = #{dpBrndId,jdbcType=INTEGER},
+      </if>
+      <if test="itemCmtRegYn != null">
+        ITEM_CMT_REG_YN = #{itemCmtRegYn,jdbcType=VARCHAR},
+      </if>
+      <if test="inqRegYn != null">
+        INQ_REG_YN = #{inqRegYn,jdbcType=VARCHAR},
+      </if>
+      <if test="optSttYn != null">
+        OPT_STT_YN = #{optSttYn,jdbcType=VARCHAR},
+      </if>
+      <if test="frgtYn != null">
+        FRGT_YN = #{frgtYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dpEnvCd != null">
+        DP_ENV_CD = #{dpEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cstmdYn != null">
+        CSTMD_YN = #{cstmdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="taxClCd != null">
+        TAX_CL_CD = #{taxClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="sellUnitQty != null">
+        SELL_UNIT_QTY = #{sellUnitQty,jdbcType=DECIMAL},
+      </if>
+      <if test="sellPerdLimYn != null">
+        SELL_PERD_LIM_YN = #{sellPerdLimYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sellPerdLimStDt != null">
+        SELL_PERD_LIM_ST_DT = #{sellPerdLimStDt,jdbcType=DATE},
+      </if>
+      <if test="sellPerdLimEdDt != null">
+        SELL_PERD_LIM_ED_DT = #{sellPerdLimEdDt,jdbcType=DATE},
+      </if>
+      <if test="cpnUsePsblYn != null">
+        CPN_USE_PSBL_YN = #{cpnUsePsblYn,jdbcType=VARCHAR},
+      </if>
+      <if test="ptSaveTpCd != null">
+        PT_SAVE_TP_CD = #{ptSaveTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptSaveMethCd != null">
+        PT_SAVE_METH_CD = #{ptSaveMethCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptSaveRate != null">
+        PT_SAVE_RATE = #{ptSaveRate,jdbcType=DECIMAL},
+      </if>
+      <if test="ptSaveAmt != null">
+        PT_SAVE_AMT = #{ptSaveAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ordResMaxQty != null">
+        ORD_RES_MAX_QTY = #{ordResMaxQty,jdbcType=DECIMAL},
+      </if>
+      <if test="wahsNotiYn != null">
+        WAHS_NOTI_YN = #{wahsNotiYn,jdbcType=VARCHAR},
+      </if>
+      <if test="itemInfoNotiInptMethCd != null">
+        ITEM_INFO_NOTI_INPT_METH_CD = #{itemInfoNotiInptMethCd,jdbcType=VARCHAR},
+      </if>
+      <if test="itemInfoNotiRegDt != null">
+        ITEM_INFO_NOTI_REG_DT = #{itemInfoNotiRegDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memo != null">
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemEntity">
+    update item
+    set VEN_ID = #{venId,jdbcType=INTEGER},
+      ITEM_TP_CD = #{itemTpCd,jdbcType=VARCHAR},
+      ITEM_STAT_CD = #{itemStatCd,jdbcType=VARCHAR},
+      ITEM_APRV_STAT_CD = #{itemAprvStatCd,jdbcType=VARCHAR},
+      ITEM_CD = #{itemCd,jdbcType=VARCHAR},
+      ITEM_NM = #{itemNm,jdbcType=VARCHAR},
+      ITEM_SUB_NM = #{itemSubNm,jdbcType=VARCHAR},
+      MANU = #{manu,jdbcType=VARCHAR},
+      DP_BRND_ID = #{dpBrndId,jdbcType=INTEGER},
+      ITEM_CMT_REG_YN = #{itemCmtRegYn,jdbcType=VARCHAR},
+      INQ_REG_YN = #{inqRegYn,jdbcType=VARCHAR},
+      OPT_STT_YN = #{optSttYn,jdbcType=VARCHAR},
+      FRGT_YN = #{frgtYn,jdbcType=VARCHAR},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      DP_ENV_CD = #{dpEnvCd,jdbcType=VARCHAR},
+      CSTMD_YN = #{cstmdYn,jdbcType=VARCHAR},
+      TAX_CL_CD = #{taxClCd,jdbcType=VARCHAR},
+      SELL_UNIT_QTY = #{sellUnitQty,jdbcType=DECIMAL},
+      SELL_PERD_LIM_YN = #{sellPerdLimYn,jdbcType=VARCHAR},
+      SELL_PERD_LIM_ST_DT = #{sellPerdLimStDt,jdbcType=DATE},
+      SELL_PERD_LIM_ED_DT = #{sellPerdLimEdDt,jdbcType=DATE},
+      CPN_USE_PSBL_YN = #{cpnUsePsblYn,jdbcType=VARCHAR},
+      PT_SAVE_TP_CD = #{ptSaveTpCd,jdbcType=VARCHAR},
+      PT_SAVE_METH_CD = #{ptSaveMethCd,jdbcType=VARCHAR},
+      PT_SAVE_RATE = #{ptSaveRate,jdbcType=DECIMAL},
+      PT_SAVE_AMT = #{ptSaveAmt,jdbcType=INTEGER},
+      ORD_RES_MAX_QTY = #{ordResMaxQty,jdbcType=DECIMAL},
+      WAHS_NOTI_YN = #{wahsNotiYn,jdbcType=VARCHAR},
+      ITEM_INFO_NOTI_INPT_METH_CD = #{itemInfoNotiInptMethCd,jdbcType=VARCHAR},
+      ITEM_INFO_NOTI_REG_DT = #{itemInfoNotiRegDt,jdbcType=TIMESTAMP},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.item.model.entity.ItemEntity">
+    update item
+    <set>
+      <if test="venId != null">
+        VEN_ID = null,
+      </if>
+      <if test="itemTpCd != null">
+        ITEM_TP_CD = null,
+      </if>
+      <if test="itemStatCd != null">
+        ITEM_STAT_CD = null,
+      </if>
+      <if test="itemAprvStatCd != null">
+        ITEM_APRV_STAT_CD = null,
+      </if>
+      <if test="itemCd != null">
+        ITEM_CD = null,
+      </if>
+      <if test="itemNm != null">
+        ITEM_NM = null,
+      </if>
+      <if test="itemSubNm != null">
+        ITEM_SUB_NM = null,
+      </if>
+      <if test="manu != null">
+        MANU = null,
+      </if>
+      <if test="dpBrndId != null">
+        DP_BRND_ID = null,
+      </if>
+      <if test="itemCmtRegYn != null">
+        ITEM_CMT_REG_YN = null,
+      </if>
+      <if test="inqRegYn != null">
+        INQ_REG_YN = null,
+      </if>
+      <if test="optSttYn != null">
+        OPT_STT_YN = null,
+      </if>
+      <if test="frgtYn != null">
+        FRGT_YN = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="dpEnvCd != null">
+        DP_ENV_CD = null,
+      </if>
+      <if test="cstmdYn != null">
+        CSTMD_YN = null,
+      </if>
+      <if test="taxClCd != null">
+        TAX_CL_CD = null,
+      </if>
+      <if test="sellUnitQty != null">
+        SELL_UNIT_QTY = null,
+      </if>
+      <if test="sellPerdLimYn != null">
+        SELL_PERD_LIM_YN = null,
+      </if>
+      <if test="sellPerdLimStDt != null">
+        SELL_PERD_LIM_ST_DT = null,
+      </if>
+      <if test="sellPerdLimEdDt != null">
+        SELL_PERD_LIM_ED_DT = null,
+      </if>
+      <if test="cpnUsePsblYn != null">
+        CPN_USE_PSBL_YN = null,
+      </if>
+      <if test="ptSaveTpCd != null">
+        PT_SAVE_TP_CD = null,
+      </if>
+      <if test="ptSaveMethCd != null">
+        PT_SAVE_METH_CD = null,
+      </if>
+      <if test="ptSaveRate != null">
+        PT_SAVE_RATE = null,
+      </if>
+      <if test="ptSaveAmt != null">
+        PT_SAVE_AMT = null,
+      </if>
+      <if test="ordResMaxQty != null">
+        ORD_RES_MAX_QTY = null,
+      </if>
+      <if test="wahsNotiYn != null">
+        WAHS_NOTI_YN = null,
+      </if>
+      <if test="itemInfoNotiInptMethCd != null">
+        ITEM_INFO_NOTI_INPT_METH_CD = null,
+      </if>
+      <if test="itemInfoNotiRegDt != null">
+        ITEM_INFO_NOTI_REG_DT = null,
+      </if>
+      <if test="memo != null">
+        MEMO = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </update>
+</mapper>

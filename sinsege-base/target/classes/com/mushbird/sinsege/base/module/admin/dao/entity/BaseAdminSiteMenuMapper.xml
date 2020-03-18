@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.admin.dao.BaseAdminSiteMenuMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.admin.model.AdminSiteMenu">
+    <id column="TASM_ADM_SITE_MENU_ID" jdbcType="INTEGER" property="admSiteMenuId" />
+    <result column="TASM_REF_ADM_SITE_MENU_ID" jdbcType="INTEGER" property="refAdmSiteMenuId" />
+    <result column="TASM_MENU_NM" jdbcType="VARCHAR" property="menuNm" />
+    <result column="TASM_URL_ADDR" jdbcType="VARCHAR" property="urlAddr" />
+    <result column="TASM_SORD" jdbcType="DECIMAL" property="sord" />
+    <result column="TASM_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TASM_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TASM_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TASM_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TASM_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TASM_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TASM.ADM_SITE_MENU_ID as TASM_ADM_SITE_MENU_ID, TASM.REF_ADM_SITE_MENU_ID as TASM_REF_ADM_SITE_MENU_ID, 
+    TASM.MENU_NM as TASM_MENU_NM, TASM.URL_ADDR as TASM_URL_ADDR, TASM.SORD as TASM_SORD, 
+    TASM.DP_YN as TASM_DP_YN, TASM.REG_DT as TASM_REG_DT, TASM.REG_ID as TASM_REG_ID, 
+    TASM.MOD_DT as TASM_MOD_DT, TASM.MOD_ID as TASM_MOD_ID, TASM.USE_YN as TASM_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminSiteMenuEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from adm_site_menu TASM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from adm_site_menu TASM
+    where TASM.ADM_SITE_MENU_ID = #{admSiteMenuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from adm_site_menu
+    where ADM_SITE_MENU_ID = #{admSiteMenuId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminSiteMenuEntityCriteria">
+    delete TASM from adm_site_menu TASM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminSiteMenuEntity">
+    <selectKey keyProperty="admSiteMenuId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ADM_SITE_MENU
+    </selectKey>
+    insert into adm_site_menu (ADM_SITE_MENU_ID, REF_ADM_SITE_MENU_ID, 
+      MENU_NM, URL_ADDR, SORD, 
+      DP_YN, REG_DT, REG_ID, 
+      MOD_DT, MOD_ID, USE_YN
+      )
+    values (#{admSiteMenuId,jdbcType=INTEGER}, #{refAdmSiteMenuId,jdbcType=INTEGER}, 
+      #{menuNm,jdbcType=VARCHAR}, #{urlAddr,jdbcType=VARCHAR}, #{sord,jdbcType=DECIMAL}, 
+      #{dpYn,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, 
+      #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminSiteMenuEntity">
+    <selectKey keyProperty="admSiteMenuId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ADM_SITE_MENU
+    </selectKey>
+    insert into adm_site_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ADM_SITE_MENU_ID,
+      <if test="refAdmSiteMenuId != null">
+        REF_ADM_SITE_MENU_ID,
+      </if>
+      <if test="menuNm != null">
+        MENU_NM,
+      </if>
+      <if test="urlAddr != null">
+        URL_ADDR,
+      </if>
+      <if test="sord != null">
+        SORD,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{admSiteMenuId,jdbcType=INTEGER},
+      <if test="refAdmSiteMenuId != null">
+        #{refAdmSiteMenuId,jdbcType=INTEGER},
+      </if>
+      <if test="menuNm != null">
+        #{menuNm,jdbcType=VARCHAR},
+      </if>
+      <if test="urlAddr != null">
+        #{urlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null">
+        #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminSiteMenuEntityCriteria" resultType="java.lang.Long">
+    select count(*) from adm_site_menu TASM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TASM
+    <set>
+      <if test="record.admSiteMenuId != null">
+        
+      </if>
+      <if test="record.refAdmSiteMenuId != null">
+        TASM.REF_ADM_SITE_MENU_ID = #{record.refAdmSiteMenuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuNm != null">
+        TASM.MENU_NM = #{record.menuNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.urlAddr != null">
+        TASM.URL_ADDR = #{record.urlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sord != null">
+        TASM.SORD = #{record.sord,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dpYn != null">
+        TASM.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TASM.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TASM.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TASM.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TASM.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TASM.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from adm_site_menu TASM
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update adm_site_menu TASM
+    set 
+      TASM.REF_ADM_SITE_MENU_ID = #{record.refAdmSiteMenuId,jdbcType=INTEGER},
+      TASM.MENU_NM = #{record.menuNm,jdbcType=VARCHAR},
+      TASM.URL_ADDR = #{record.urlAddr,jdbcType=VARCHAR},
+      TASM.SORD = #{record.sord,jdbcType=DECIMAL},
+      TASM.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TASM.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TASM.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TASM.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TASM.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TASM.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminSiteMenuEntity">
+    update adm_site_menu
+    <set>
+      <if test="refAdmSiteMenuId != null">
+        REF_ADM_SITE_MENU_ID = #{refAdmSiteMenuId,jdbcType=INTEGER},
+      </if>
+      <if test="menuNm != null">
+        MENU_NM = #{menuNm,jdbcType=VARCHAR},
+      </if>
+      <if test="urlAddr != null">
+        URL_ADDR = #{urlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null">
+        SORD = #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ADM_SITE_MENU_ID = #{admSiteMenuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminSiteMenuEntity">
+    update adm_site_menu
+    set REF_ADM_SITE_MENU_ID = #{refAdmSiteMenuId,jdbcType=INTEGER},
+      MENU_NM = #{menuNm,jdbcType=VARCHAR},
+      URL_ADDR = #{urlAddr,jdbcType=VARCHAR},
+      SORD = #{sord,jdbcType=DECIMAL},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where ADM_SITE_MENU_ID = #{admSiteMenuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminSiteMenuEntity">
+    update adm_site_menu
+    <set>
+      <if test="refAdmSiteMenuId != null">
+        REF_ADM_SITE_MENU_ID = null,
+      </if>
+      <if test="menuNm != null">
+        MENU_NM = null,
+      </if>
+      <if test="urlAddr != null">
+        URL_ADDR = null,
+      </if>
+      <if test="sord != null">
+        SORD = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and ADM_SITE_MENU_ID = #{admSiteMenuId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.admin.dao.BaseAdminHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.admin.model.AdminHistory">
+    <id column="TADMH_ADM_HIST_ID" jdbcType="INTEGER" property="admHistId" />
+    <result column="TADMH_ADM_ID" jdbcType="VARCHAR" property="admId" />
+    <result column="TADMH_ADM_ROLE_ID" jdbcType="INTEGER" property="admRoleId" />
+    <result column="TADMH_ADM_ROLE_CD" jdbcType="VARCHAR" property="admRoleCd" />
+    <result column="TADMH_APRV_GRD_CD" jdbcType="VARCHAR" property="aprvGrdCd" />
+    <result column="TADMH_ADM_HIST_TP_CD" jdbcType="VARCHAR" property="admHistTpCd" />
+    <result column="TADMH_URL_ADDR" jdbcType="VARCHAR" property="urlAddr" />
+    <result column="TADMH_CONT" jdbcType="VARCHAR" property="cont" />
+    <result column="TADMH_ADM_HIST_DT" jdbcType="DATE" property="admHistDt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TADMH.ADM_HIST_ID as TADMH_ADM_HIST_ID, TADMH.ADM_ID as TADMH_ADM_ID, TADMH.ADM_ROLE_ID as TADMH_ADM_ROLE_ID, 
+    TADMH.ADM_ROLE_CD as TADMH_ADM_ROLE_CD, TADMH.APRV_GRD_CD as TADMH_APRV_GRD_CD, TADMH.ADM_HIST_TP_CD as TADMH_ADM_HIST_TP_CD, 
+    TADMH.URL_ADDR as TADMH_URL_ADDR, TADMH.CONT as TADMH_CONT, TADMH.ADM_HIST_DT as TADMH_ADM_HIST_DT
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminHistoryEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from adm_hist TADMH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from adm_hist TADMH
+    where TADMH.ADM_HIST_ID = #{admHistId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from adm_hist
+    where ADM_HIST_ID = #{admHistId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminHistoryEntityCriteria">
+    delete TADMH from adm_hist TADMH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminHistoryEntity">
+    <selectKey keyProperty="admHistId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ADM_HIST
+    </selectKey>
+    insert into adm_hist (ADM_HIST_ID, ADM_ID, ADM_ROLE_ID, 
+      ADM_ROLE_CD, APRV_GRD_CD, ADM_HIST_TP_CD, 
+      URL_ADDR, CONT, ADM_HIST_DT
+      )
+    values (#{admHistId,jdbcType=INTEGER}, #{admId,jdbcType=VARCHAR}, #{admRoleId,jdbcType=INTEGER}, 
+      #{admRoleCd,jdbcType=VARCHAR}, #{aprvGrdCd,jdbcType=VARCHAR}, #{admHistTpCd,jdbcType=VARCHAR}, 
+      #{urlAddr,jdbcType=VARCHAR}, #{cont,jdbcType=VARCHAR}, #{admHistDt,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminHistoryEntity">
+    <selectKey keyProperty="admHistId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ADM_HIST
+    </selectKey>
+    insert into adm_hist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ADM_HIST_ID,
+      <if test="admId != null">
+        ADM_ID,
+      </if>
+      <if test="admRoleId != null">
+        ADM_ROLE_ID,
+      </if>
+      <if test="admRoleCd != null">
+        ADM_ROLE_CD,
+      </if>
+      <if test="aprvGrdCd != null">
+        APRV_GRD_CD,
+      </if>
+      <if test="admHistTpCd != null">
+        ADM_HIST_TP_CD,
+      </if>
+      <if test="urlAddr != null">
+        URL_ADDR,
+      </if>
+      <if test="cont != null">
+        CONT,
+      </if>
+      <if test="admHistDt != null">
+        ADM_HIST_DT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{admHistId,jdbcType=INTEGER},
+      <if test="admId != null">
+        #{admId,jdbcType=VARCHAR},
+      </if>
+      <if test="admRoleId != null">
+        #{admRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="admRoleCd != null">
+        #{admRoleCd,jdbcType=VARCHAR},
+      </if>
+      <if test="aprvGrdCd != null">
+        #{aprvGrdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="admHistTpCd != null">
+        #{admHistTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="urlAddr != null">
+        #{urlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="admHistDt != null">
+        #{admHistDt,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.criteria.AdminHistoryEntityCriteria" resultType="java.lang.Long">
+    select count(*) from adm_hist TADMH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TADMH
+    <set>
+      <if test="record.admHistId != null">
+        
+      </if>
+      <if test="record.admId != null">
+        TADMH.ADM_ID = #{record.admId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admRoleId != null">
+        TADMH.ADM_ROLE_ID = #{record.admRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.admRoleCd != null">
+        TADMH.ADM_ROLE_CD = #{record.admRoleCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aprvGrdCd != null">
+        TADMH.APRV_GRD_CD = #{record.aprvGrdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admHistTpCd != null">
+        TADMH.ADM_HIST_TP_CD = #{record.admHistTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.urlAddr != null">
+        TADMH.URL_ADDR = #{record.urlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cont != null">
+        TADMH.CONT = #{record.cont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admHistDt != null">
+        TADMH.ADM_HIST_DT = #{record.admHistDt,jdbcType=DATE},
+      </if>
+    </set>
+    from adm_hist TADMH
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update adm_hist TADMH
+    set 
+      TADMH.ADM_ID = #{record.admId,jdbcType=VARCHAR},
+      TADMH.ADM_ROLE_ID = #{record.admRoleId,jdbcType=INTEGER},
+      TADMH.ADM_ROLE_CD = #{record.admRoleCd,jdbcType=VARCHAR},
+      TADMH.APRV_GRD_CD = #{record.aprvGrdCd,jdbcType=VARCHAR},
+      TADMH.ADM_HIST_TP_CD = #{record.admHistTpCd,jdbcType=VARCHAR},
+      TADMH.URL_ADDR = #{record.urlAddr,jdbcType=VARCHAR},
+      TADMH.CONT = #{record.cont,jdbcType=VARCHAR},
+      TADMH.ADM_HIST_DT = #{record.admHistDt,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminHistoryEntity">
+    update adm_hist
+    <set>
+      <if test="admId != null">
+        ADM_ID = #{admId,jdbcType=VARCHAR},
+      </if>
+      <if test="admRoleId != null">
+        ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="admRoleCd != null">
+        ADM_ROLE_CD = #{admRoleCd,jdbcType=VARCHAR},
+      </if>
+      <if test="aprvGrdCd != null">
+        APRV_GRD_CD = #{aprvGrdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="admHistTpCd != null">
+        ADM_HIST_TP_CD = #{admHistTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="urlAddr != null">
+        URL_ADDR = #{urlAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        CONT = #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="admHistDt != null">
+        ADM_HIST_DT = #{admHistDt,jdbcType=DATE},
+      </if>
+    </set>
+    where ADM_HIST_ID = #{admHistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminHistoryEntity">
+    update adm_hist
+    set ADM_ID = #{admId,jdbcType=VARCHAR},
+      ADM_ROLE_ID = #{admRoleId,jdbcType=INTEGER},
+      ADM_ROLE_CD = #{admRoleCd,jdbcType=VARCHAR},
+      APRV_GRD_CD = #{aprvGrdCd,jdbcType=VARCHAR},
+      ADM_HIST_TP_CD = #{admHistTpCd,jdbcType=VARCHAR},
+      URL_ADDR = #{urlAddr,jdbcType=VARCHAR},
+      CONT = #{cont,jdbcType=VARCHAR},
+      ADM_HIST_DT = #{admHistDt,jdbcType=DATE}
+    where ADM_HIST_ID = #{admHistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.admin.model.entity.AdminHistoryEntity">
+    update adm_hist
+    <set>
+      <if test="admId != null">
+        ADM_ID = null,
+      </if>
+      <if test="admRoleId != null">
+        ADM_ROLE_ID = null,
+      </if>
+      <if test="admRoleCd != null">
+        ADM_ROLE_CD = null,
+      </if>
+      <if test="aprvGrdCd != null">
+        APRV_GRD_CD = null,
+      </if>
+      <if test="admHistTpCd != null">
+        ADM_HIST_TP_CD = null,
+      </if>
+      <if test="urlAddr != null">
+        URL_ADDR = null,
+      </if>
+      <if test="cont != null">
+        CONT = null,
+      </if>
+      <if test="admHistDt != null">
+        ADM_HIST_DT = null,
+      </if>
+    </set>
+    where 1=1
+    and ADM_HIST_ID = #{admHistId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.cs.dao.BaseInquiryMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.cs.model.Inquiry">
+    <id column="TQ_INQ_ID" jdbcType="INTEGER" property="inqId" />
+    <result column="TQ_INQ_TP_CD" jdbcType="VARCHAR" property="inqTpCd" />
+    <result column="TQ_INQ_STAT_CD" jdbcType="VARCHAR" property="inqStatCd" />
+    <result column="TQ_INQ_CL_CD" jdbcType="VARCHAR" property="inqClCd" />
+    <result column="TQ_INQ_CL_DTL_CD" jdbcType="VARCHAR" property="inqClDtlCd" />
+    <result column="TQ_RMK_ID" jdbcType="INTEGER" property="rmkId" />
+    <result column="TQ_MBR_YN" jdbcType="VARCHAR" property="mbrYn" />
+    <result column="TQ_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="TQ_WRTR_ID_VAL" jdbcType="VARCHAR" property="wrtrIdVal" />
+    <result column="TQ_WRTR_NM" jdbcType="VARCHAR" property="wrtrNm" />
+    <result column="TQ_CP_CARR_CD" jdbcType="VARCHAR" property="cpCarrCd" />
+    <result column="TQ_CP_NO" jdbcType="VARCHAR" property="cpNo" />
+    <result column="TQ_EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="TQ_TIT" jdbcType="VARCHAR" property="tit" />
+    <result column="TQ_CONT" jdbcType="VARCHAR" property="cont" />
+    <result column="TQ_RPLY_NOTI_YN" jdbcType="VARCHAR" property="rplyNotiYn" />
+    <result column="TQ_PUB_YN" jdbcType="VARCHAR" property="pubYn" />
+    <result column="TQ_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TQ_REG_ENV_CD" jdbcType="VARCHAR" property="regEnvCd" />
+    <result column="TQ_ATCH_GID" jdbcType="INTEGER" property="atchGid" />
+    <result column="TQ_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TQ_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TQ_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TQ_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TQ_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TQ.INQ_ID as TQ_INQ_ID, TQ.INQ_TP_CD as TQ_INQ_TP_CD, TQ.INQ_STAT_CD as TQ_INQ_STAT_CD, 
+    TQ.INQ_CL_CD as TQ_INQ_CL_CD, TQ.INQ_CL_DTL_CD as TQ_INQ_CL_DTL_CD, TQ.RMK_ID as TQ_RMK_ID, 
+    TQ.MBR_YN as TQ_MBR_YN, TQ.MBR_ID as TQ_MBR_ID, TQ.WRTR_ID_VAL as TQ_WRTR_ID_VAL, 
+    TQ.WRTR_NM as TQ_WRTR_NM, TQ.CP_CARR_CD as TQ_CP_CARR_CD, TQ.CP_NO as TQ_CP_NO, TQ.EMAIL as TQ_EMAIL, 
+    TQ.TIT as TQ_TIT, TQ.CONT as TQ_CONT, TQ.RPLY_NOTI_YN as TQ_RPLY_NOTI_YN, TQ.PUB_YN as TQ_PUB_YN, 
+    TQ.DP_YN as TQ_DP_YN, TQ.REG_ENV_CD as TQ_REG_ENV_CD, TQ.ATCH_GID as TQ_ATCH_GID, 
+    TQ.REG_DT as TQ_REG_DT, TQ.REG_ID as TQ_REG_ID, TQ.MOD_DT as TQ_MOD_DT, TQ.MOD_ID as TQ_MOD_ID, 
+    TQ.USE_YN as TQ_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.criteria.InquiryEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from inq TQ
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inq TQ
+    where TQ.INQ_ID = #{inqId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from inq
+    where INQ_ID = #{inqId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.criteria.InquiryEntityCriteria">
+    delete TQ from inq TQ
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.InquiryEntity">
+    <selectKey keyProperty="inqId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_INQ
+    </selectKey>
+    insert into inq (INQ_ID, INQ_TP_CD, INQ_STAT_CD, 
+      INQ_CL_CD, INQ_CL_DTL_CD, RMK_ID, 
+      MBR_YN, MBR_ID, WRTR_ID_VAL, 
+      WRTR_NM, CP_CARR_CD, CP_NO, 
+      EMAIL, TIT, CONT, RPLY_NOTI_YN, 
+      PUB_YN, DP_YN, REG_ENV_CD, 
+      ATCH_GID, REG_DT, REG_ID, 
+      MOD_DT, MOD_ID, USE_YN
+      )
+    values (#{inqId,jdbcType=INTEGER}, #{inqTpCd,jdbcType=VARCHAR}, #{inqStatCd,jdbcType=VARCHAR}, 
+      #{inqClCd,jdbcType=VARCHAR}, #{inqClDtlCd,jdbcType=VARCHAR}, #{rmkId,jdbcType=INTEGER}, 
+      #{mbrYn,jdbcType=VARCHAR}, #{mbrId,jdbcType=VARCHAR}, #{wrtrIdVal,jdbcType=VARCHAR}, 
+      #{wrtrNm,jdbcType=VARCHAR}, #{cpCarrCd,jdbcType=VARCHAR}, #{cpNo,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{tit,jdbcType=VARCHAR}, #{cont,jdbcType=VARCHAR}, #{rplyNotiYn,jdbcType=VARCHAR}, 
+      #{pubYn,jdbcType=VARCHAR}, #{dpYn,jdbcType=VARCHAR}, #{regEnvCd,jdbcType=VARCHAR}, 
+      #{atchGid,jdbcType=INTEGER}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, 
+      #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.InquiryEntity">
+    <selectKey keyProperty="inqId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_INQ
+    </selectKey>
+    insert into inq
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      INQ_ID,
+      <if test="inqTpCd != null">
+        INQ_TP_CD,
+      </if>
+      <if test="inqStatCd != null">
+        INQ_STAT_CD,
+      </if>
+      <if test="inqClCd != null">
+        INQ_CL_CD,
+      </if>
+      <if test="inqClDtlCd != null">
+        INQ_CL_DTL_CD,
+      </if>
+      <if test="rmkId != null">
+        RMK_ID,
+      </if>
+      <if test="mbrYn != null">
+        MBR_YN,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="wrtrIdVal != null">
+        WRTR_ID_VAL,
+      </if>
+      <if test="wrtrNm != null">
+        WRTR_NM,
+      </if>
+      <if test="cpCarrCd != null">
+        CP_CARR_CD,
+      </if>
+      <if test="cpNo != null">
+        CP_NO,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="tit != null">
+        TIT,
+      </if>
+      <if test="cont != null">
+        CONT,
+      </if>
+      <if test="rplyNotiYn != null">
+        RPLY_NOTI_YN,
+      </if>
+      <if test="pubYn != null">
+        PUB_YN,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="regEnvCd != null">
+        REG_ENV_CD,
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{inqId,jdbcType=INTEGER},
+      <if test="inqTpCd != null">
+        #{inqTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="inqStatCd != null">
+        #{inqStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="inqClCd != null">
+        #{inqClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="inqClDtlCd != null">
+        #{inqClDtlCd,jdbcType=VARCHAR},
+      </if>
+      <if test="rmkId != null">
+        #{rmkId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrYn != null">
+        #{mbrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="wrtrIdVal != null">
+        #{wrtrIdVal,jdbcType=VARCHAR},
+      </if>
+      <if test="wrtrNm != null">
+        #{wrtrNm,jdbcType=VARCHAR},
+      </if>
+      <if test="cpCarrCd != null">
+        #{cpCarrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpNo != null">
+        #{cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="tit != null">
+        #{tit,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="rplyNotiYn != null">
+        #{rplyNotiYn,jdbcType=VARCHAR},
+      </if>
+      <if test="pubYn != null">
+        #{pubYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regEnvCd != null">
+        #{regEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="atchGid != null">
+        #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.criteria.InquiryEntityCriteria" resultType="java.lang.Long">
+    select count(*) from inq TQ
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TQ
+    <set>
+      <if test="record.inqId != null">
+        
+      </if>
+      <if test="record.inqTpCd != null">
+        TQ.INQ_TP_CD = #{record.inqTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inqStatCd != null">
+        TQ.INQ_STAT_CD = #{record.inqStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inqClCd != null">
+        TQ.INQ_CL_CD = #{record.inqClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inqClDtlCd != null">
+        TQ.INQ_CL_DTL_CD = #{record.inqClDtlCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rmkId != null">
+        TQ.RMK_ID = #{record.rmkId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mbrYn != null">
+        TQ.MBR_YN = #{record.mbrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbrId != null">
+        TQ.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wrtrIdVal != null">
+        TQ.WRTR_ID_VAL = #{record.wrtrIdVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wrtrNm != null">
+        TQ.WRTR_NM = #{record.wrtrNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpCarrCd != null">
+        TQ.CP_CARR_CD = #{record.cpCarrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpNo != null">
+        TQ.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        TQ.EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tit != null">
+        TQ.TIT = #{record.tit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cont != null">
+        TQ.CONT = #{record.cont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rplyNotiYn != null">
+        TQ.RPLY_NOTI_YN = #{record.rplyNotiYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pubYn != null">
+        TQ.PUB_YN = #{record.pubYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpYn != null">
+        TQ.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regEnvCd != null">
+        TQ.REG_ENV_CD = #{record.regEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atchGid != null">
+        TQ.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="record.regDt != null">
+        TQ.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TQ.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TQ.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TQ.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TQ.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from inq TQ
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update inq TQ
+    set 
+      TQ.INQ_TP_CD = #{record.inqTpCd,jdbcType=VARCHAR},
+      TQ.INQ_STAT_CD = #{record.inqStatCd,jdbcType=VARCHAR},
+      TQ.INQ_CL_CD = #{record.inqClCd,jdbcType=VARCHAR},
+      TQ.INQ_CL_DTL_CD = #{record.inqClDtlCd,jdbcType=VARCHAR},
+      TQ.RMK_ID = #{record.rmkId,jdbcType=INTEGER},
+      TQ.MBR_YN = #{record.mbrYn,jdbcType=VARCHAR},
+      TQ.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      TQ.WRTR_ID_VAL = #{record.wrtrIdVal,jdbcType=VARCHAR},
+      TQ.WRTR_NM = #{record.wrtrNm,jdbcType=VARCHAR},
+      TQ.CP_CARR_CD = #{record.cpCarrCd,jdbcType=VARCHAR},
+      TQ.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      TQ.EMAIL = #{record.email,jdbcType=VARCHAR},
+      TQ.TIT = #{record.tit,jdbcType=VARCHAR},
+      TQ.CONT = #{record.cont,jdbcType=VARCHAR},
+      TQ.RPLY_NOTI_YN = #{record.rplyNotiYn,jdbcType=VARCHAR},
+      TQ.PUB_YN = #{record.pubYn,jdbcType=VARCHAR},
+      TQ.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TQ.REG_ENV_CD = #{record.regEnvCd,jdbcType=VARCHAR},
+      TQ.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      TQ.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TQ.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TQ.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TQ.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TQ.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.InquiryEntity">
+    update inq
+    <set>
+      <if test="inqTpCd != null">
+        INQ_TP_CD = #{inqTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="inqStatCd != null">
+        INQ_STAT_CD = #{inqStatCd,jdbcType=VARCHAR},
+      </if>
+      <if test="inqClCd != null">
+        INQ_CL_CD = #{inqClCd,jdbcType=VARCHAR},
+      </if>
+      <if test="inqClDtlCd != null">
+        INQ_CL_DTL_CD = #{inqClDtlCd,jdbcType=VARCHAR},
+      </if>
+      <if test="rmkId != null">
+        RMK_ID = #{rmkId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrYn != null">
+        MBR_YN = #{mbrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="wrtrIdVal != null">
+        WRTR_ID_VAL = #{wrtrIdVal,jdbcType=VARCHAR},
+      </if>
+      <if test="wrtrNm != null">
+        WRTR_NM = #{wrtrNm,jdbcType=VARCHAR},
+      </if>
+      <if test="cpCarrCd != null">
+        CP_CARR_CD = #{cpCarrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpNo != null">
+        CP_NO = #{cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="tit != null">
+        TIT = #{tit,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        CONT = #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="rplyNotiYn != null">
+        RPLY_NOTI_YN = #{rplyNotiYn,jdbcType=VARCHAR},
+      </if>
+      <if test="pubYn != null">
+        PUB_YN = #{pubYn,jdbcType=VARCHAR},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regEnvCd != null">
+        REG_ENV_CD = #{regEnvCd,jdbcType=VARCHAR},
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where INQ_ID = #{inqId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.InquiryEntity">
+    update inq
+    set INQ_TP_CD = #{inqTpCd,jdbcType=VARCHAR},
+      INQ_STAT_CD = #{inqStatCd,jdbcType=VARCHAR},
+      INQ_CL_CD = #{inqClCd,jdbcType=VARCHAR},
+      INQ_CL_DTL_CD = #{inqClDtlCd,jdbcType=VARCHAR},
+      RMK_ID = #{rmkId,jdbcType=INTEGER},
+      MBR_YN = #{mbrYn,jdbcType=VARCHAR},
+      MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      WRTR_ID_VAL = #{wrtrIdVal,jdbcType=VARCHAR},
+      WRTR_NM = #{wrtrNm,jdbcType=VARCHAR},
+      CP_CARR_CD = #{cpCarrCd,jdbcType=VARCHAR},
+      CP_NO = #{cpNo,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      TIT = #{tit,jdbcType=VARCHAR},
+      CONT = #{cont,jdbcType=VARCHAR},
+      RPLY_NOTI_YN = #{rplyNotiYn,jdbcType=VARCHAR},
+      PUB_YN = #{pubYn,jdbcType=VARCHAR},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      REG_ENV_CD = #{regEnvCd,jdbcType=VARCHAR},
+      ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where INQ_ID = #{inqId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.InquiryEntity">
+    update inq
+    <set>
+      <if test="inqTpCd != null">
+        INQ_TP_CD = null,
+      </if>
+      <if test="inqStatCd != null">
+        INQ_STAT_CD = null,
+      </if>
+      <if test="inqClCd != null">
+        INQ_CL_CD = null,
+      </if>
+      <if test="inqClDtlCd != null">
+        INQ_CL_DTL_CD = null,
+      </if>
+      <if test="rmkId != null">
+        RMK_ID = null,
+      </if>
+      <if test="mbrYn != null">
+        MBR_YN = null,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="wrtrIdVal != null">
+        WRTR_ID_VAL = null,
+      </if>
+      <if test="wrtrNm != null">
+        WRTR_NM = null,
+      </if>
+      <if test="cpCarrCd != null">
+        CP_CARR_CD = null,
+      </if>
+      <if test="cpNo != null">
+        CP_NO = null,
+      </if>
+      <if test="email != null">
+        EMAIL = null,
+      </if>
+      <if test="tit != null">
+        TIT = null,
+      </if>
+      <if test="cont != null">
+        CONT = null,
+      </if>
+      <if test="rplyNotiYn != null">
+        RPLY_NOTI_YN = null,
+      </if>
+      <if test="pubYn != null">
+        PUB_YN = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="regEnvCd != null">
+        REG_ENV_CD = null,
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and INQ_ID = #{inqId,jdbcType=INTEGER}
+  </update>
+</mapper>

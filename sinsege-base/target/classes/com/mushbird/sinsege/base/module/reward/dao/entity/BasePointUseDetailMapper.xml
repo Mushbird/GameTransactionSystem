@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.reward.dao.BasePointUseDetailMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.reward.model.PointUseDetail">
+    <id column="TPUD_PT_USE_DTL_ID" jdbcType="INTEGER" property="ptUseDtlId" />
+    <result column="TPUD_PT_USE_ID" jdbcType="INTEGER" property="ptUseId" />
+    <result column="TPUD_PT_SAVE_ID" jdbcType="INTEGER" property="ptSaveId" />
+    <result column="TPUD_FST_PT_USE_AMT" jdbcType="INTEGER" property="fstPtUseAmt" />
+    <result column="TPUD_PT_USE_AMT" jdbcType="INTEGER" property="ptUseAmt" />
+    <result column="TPUD_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TPUD_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TPUD_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TPUD_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TPUD.PT_USE_DTL_ID as TPUD_PT_USE_DTL_ID, TPUD.PT_USE_ID as TPUD_PT_USE_ID, TPUD.PT_SAVE_ID as TPUD_PT_SAVE_ID, 
+    TPUD.FST_PT_USE_AMT as TPUD_FST_PT_USE_AMT, TPUD.PT_USE_AMT as TPUD_PT_USE_AMT, TPUD.REG_DT as TPUD_REG_DT, 
+    TPUD.REG_ID as TPUD_REG_ID, TPUD.MOD_DT as TPUD_MOD_DT, TPUD.MOD_ID as TPUD_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.PointUseDetailEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pnt_use_dtl TPUD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pnt_use_dtl TPUD
+    where TPUD.PT_USE_DTL_ID = #{ptUseDtlId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pnt_use_dtl
+    where PT_USE_DTL_ID = #{ptUseDtlId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.PointUseDetailEntityCriteria">
+    delete TPUD from pnt_use_dtl TPUD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointUseDetailEntity">
+    <selectKey keyProperty="ptUseDtlId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_PNT_USE_DTL
+    </selectKey>
+    insert into pnt_use_dtl (PT_USE_DTL_ID, PT_USE_ID, PT_SAVE_ID, 
+      FST_PT_USE_AMT, PT_USE_AMT, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID
+      )
+    values (#{ptUseDtlId,jdbcType=INTEGER}, #{ptUseId,jdbcType=INTEGER}, #{ptSaveId,jdbcType=INTEGER}, 
+      #{fstPtUseAmt,jdbcType=INTEGER}, #{ptUseAmt,jdbcType=INTEGER}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointUseDetailEntity">
+    <selectKey keyProperty="ptUseDtlId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_PNT_USE_DTL
+    </selectKey>
+    insert into pnt_use_dtl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      PT_USE_DTL_ID,
+      <if test="ptUseId != null">
+        PT_USE_ID,
+      </if>
+      <if test="ptSaveId != null">
+        PT_SAVE_ID,
+      </if>
+      <if test="fstPtUseAmt != null">
+        FST_PT_USE_AMT,
+      </if>
+      <if test="ptUseAmt != null">
+        PT_USE_AMT,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{ptUseDtlId,jdbcType=INTEGER},
+      <if test="ptUseId != null">
+        #{ptUseId,jdbcType=INTEGER},
+      </if>
+      <if test="ptSaveId != null">
+        #{ptSaveId,jdbcType=INTEGER},
+      </if>
+      <if test="fstPtUseAmt != null">
+        #{fstPtUseAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ptUseAmt != null">
+        #{ptUseAmt,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.PointUseDetailEntityCriteria" resultType="java.lang.Long">
+    select count(*) from pnt_use_dtl TPUD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TPUD
+    <set>
+      <if test="record.ptUseDtlId != null">
+        
+      </if>
+      <if test="record.ptUseId != null">
+        TPUD.PT_USE_ID = #{record.ptUseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ptSaveId != null">
+        TPUD.PT_SAVE_ID = #{record.ptSaveId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fstPtUseAmt != null">
+        TPUD.FST_PT_USE_AMT = #{record.fstPtUseAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.ptUseAmt != null">
+        TPUD.PT_USE_AMT = #{record.ptUseAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.regDt != null">
+        TPUD.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TPUD.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TPUD.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TPUD.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from pnt_use_dtl TPUD
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update pnt_use_dtl TPUD
+    set 
+      TPUD.PT_USE_ID = #{record.ptUseId,jdbcType=INTEGER},
+      TPUD.PT_SAVE_ID = #{record.ptSaveId,jdbcType=INTEGER},
+      TPUD.FST_PT_USE_AMT = #{record.fstPtUseAmt,jdbcType=INTEGER},
+      TPUD.PT_USE_AMT = #{record.ptUseAmt,jdbcType=INTEGER},
+      TPUD.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TPUD.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TPUD.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TPUD.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointUseDetailEntity">
+    update pnt_use_dtl
+    <set>
+      <if test="ptUseId != null">
+        PT_USE_ID = #{ptUseId,jdbcType=INTEGER},
+      </if>
+      <if test="ptSaveId != null">
+        PT_SAVE_ID = #{ptSaveId,jdbcType=INTEGER},
+      </if>
+      <if test="fstPtUseAmt != null">
+        FST_PT_USE_AMT = #{fstPtUseAmt,jdbcType=INTEGER},
+      </if>
+      <if test="ptUseAmt != null">
+        PT_USE_AMT = #{ptUseAmt,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PT_USE_DTL_ID = #{ptUseDtlId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointUseDetailEntity">
+    update pnt_use_dtl
+    set PT_USE_ID = #{ptUseId,jdbcType=INTEGER},
+      PT_SAVE_ID = #{ptSaveId,jdbcType=INTEGER},
+      FST_PT_USE_AMT = #{fstPtUseAmt,jdbcType=INTEGER},
+      PT_USE_AMT = #{ptUseAmt,jdbcType=INTEGER},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where PT_USE_DTL_ID = #{ptUseDtlId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointUseDetailEntity">
+    update pnt_use_dtl
+    <set>
+      <if test="ptUseId != null">
+        PT_USE_ID = null,
+      </if>
+      <if test="ptSaveId != null">
+        PT_SAVE_ID = null,
+      </if>
+      <if test="fstPtUseAmt != null">
+        FST_PT_USE_AMT = null,
+      </if>
+      <if test="ptUseAmt != null">
+        PT_USE_AMT = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and PT_USE_DTL_ID = #{ptUseDtlId,jdbcType=INTEGER}
+  </update>
+</mapper>

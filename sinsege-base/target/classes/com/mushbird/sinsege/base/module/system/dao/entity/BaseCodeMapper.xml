@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.system.dao.BaseCodeMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.system.model.Code">
+    <id column="TC_CD" jdbcType="VARCHAR" property="cd" />
+    <result column="TC_REF_CD" jdbcType="VARCHAR" property="refCd" />
+    <result column="TC_CD_NM" jdbcType="VARCHAR" property="cdNm" />
+    <result column="TC_CD_ADD_1_VAL" jdbcType="VARCHAR" property="cdAdd1Val" />
+    <result column="TC_CD_ADD_2_VAL" jdbcType="VARCHAR" property="cdAdd2Val" />
+    <result column="TC_CD_ADD_3_VAL" jdbcType="VARCHAR" property="cdAdd3Val" />
+    <result column="TC_SORD" jdbcType="DECIMAL" property="sord" />
+    <result column="TC_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TC_SYS_CD_YN" jdbcType="VARCHAR" property="sysCdYn" />
+    <result column="TC_NOTE" jdbcType="VARCHAR" property="note" />
+    <result column="TC_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TC_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TC_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TC_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TC_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TC.CD as TC_CD, TC.REF_CD as TC_REF_CD, TC.CD_NM as TC_CD_NM, TC.CD_ADD_1_VAL as TC_CD_ADD_1_VAL, 
+    TC.CD_ADD_2_VAL as TC_CD_ADD_2_VAL, TC.CD_ADD_3_VAL as TC_CD_ADD_3_VAL, TC.SORD as TC_SORD, 
+    TC.DP_YN as TC_DP_YN, TC.SYS_CD_YN as TC_SYS_CD_YN, TC.NOTE as TC_NOTE, TC.REG_DT as TC_REG_DT, 
+    TC.REG_ID as TC_REG_ID, TC.MOD_DT as TC_MOD_DT, TC.MOD_ID as TC_MOD_ID, TC.USE_YN as TC_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.CodeEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cd TC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cd TC
+    where TC.CD = #{cd,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from cd
+    where CD = #{cd,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.CodeEntityCriteria">
+    delete TC from cd TC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.system.model.entity.CodeEntity">
+    insert into cd (CD, REF_CD, CD_NM, 
+      CD_ADD_1_VAL, CD_ADD_2_VAL, CD_ADD_3_VAL, 
+      SORD, DP_YN, SYS_CD_YN, 
+      NOTE, REG_DT, REG_ID, 
+      MOD_DT, MOD_ID, USE_YN
+      )
+    values (#{cd,jdbcType=VARCHAR}, #{refCd,jdbcType=VARCHAR}, #{cdNm,jdbcType=VARCHAR}, 
+      #{cdAdd1Val,jdbcType=VARCHAR}, #{cdAdd2Val,jdbcType=VARCHAR}, #{cdAdd3Val,jdbcType=VARCHAR}, 
+      #{sord,jdbcType=DECIMAL}, #{dpYn,jdbcType=VARCHAR}, #{sysCdYn,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, 
+      #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.CodeEntity">
+    insert into cd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cd != null">
+        CD,
+      </if>
+      <if test="refCd != null">
+        REF_CD,
+      </if>
+      <if test="cdNm != null">
+        CD_NM,
+      </if>
+      <if test="cdAdd1Val != null">
+        CD_ADD_1_VAL,
+      </if>
+      <if test="cdAdd2Val != null">
+        CD_ADD_2_VAL,
+      </if>
+      <if test="cdAdd3Val != null">
+        CD_ADD_3_VAL,
+      </if>
+      <if test="sord != null">
+        SORD,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="sysCdYn != null">
+        SYS_CD_YN,
+      </if>
+      <if test="note != null">
+        NOTE,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cd != null">
+        #{cd,jdbcType=VARCHAR},
+      </if>
+      <if test="refCd != null">
+        #{refCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cdNm != null">
+        #{cdNm,jdbcType=VARCHAR},
+      </if>
+      <if test="cdAdd1Val != null">
+        #{cdAdd1Val,jdbcType=VARCHAR},
+      </if>
+      <if test="cdAdd2Val != null">
+        #{cdAdd2Val,jdbcType=VARCHAR},
+      </if>
+      <if test="cdAdd3Val != null">
+        #{cdAdd3Val,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null">
+        #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCdYn != null">
+        #{sysCdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.system.model.entity.criteria.CodeEntityCriteria" resultType="java.lang.Long">
+    select count(*) from cd TC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TC
+    <set>
+      <if test="record.cd != null">
+        
+      </if>
+      <if test="record.refCd != null">
+        TC.REF_CD = #{record.refCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cdNm != null">
+        TC.CD_NM = #{record.cdNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cdAdd1Val != null">
+        TC.CD_ADD_1_VAL = #{record.cdAdd1Val,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cdAdd2Val != null">
+        TC.CD_ADD_2_VAL = #{record.cdAdd2Val,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cdAdd3Val != null">
+        TC.CD_ADD_3_VAL = #{record.cdAdd3Val,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sord != null">
+        TC.SORD = #{record.sord,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dpYn != null">
+        TC.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCdYn != null">
+        TC.SYS_CD_YN = #{record.sysCdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.note != null">
+        TC.NOTE = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TC.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TC.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TC.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TC.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TC.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from cd TC
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update cd TC
+    set 
+      TC.REF_CD = #{record.refCd,jdbcType=VARCHAR},
+      TC.CD_NM = #{record.cdNm,jdbcType=VARCHAR},
+      TC.CD_ADD_1_VAL = #{record.cdAdd1Val,jdbcType=VARCHAR},
+      TC.CD_ADD_2_VAL = #{record.cdAdd2Val,jdbcType=VARCHAR},
+      TC.CD_ADD_3_VAL = #{record.cdAdd3Val,jdbcType=VARCHAR},
+      TC.SORD = #{record.sord,jdbcType=DECIMAL},
+      TC.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TC.SYS_CD_YN = #{record.sysCdYn,jdbcType=VARCHAR},
+      TC.NOTE = #{record.note,jdbcType=VARCHAR},
+      TC.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TC.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TC.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TC.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TC.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.CodeEntity">
+    update cd
+    <set>
+      <if test="refCd != null">
+        REF_CD = #{refCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cdNm != null">
+        CD_NM = #{cdNm,jdbcType=VARCHAR},
+      </if>
+      <if test="cdAdd1Val != null">
+        CD_ADD_1_VAL = #{cdAdd1Val,jdbcType=VARCHAR},
+      </if>
+      <if test="cdAdd2Val != null">
+        CD_ADD_2_VAL = #{cdAdd2Val,jdbcType=VARCHAR},
+      </if>
+      <if test="cdAdd3Val != null">
+        CD_ADD_3_VAL = #{cdAdd3Val,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null">
+        SORD = #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCdYn != null">
+        SYS_CD_YN = #{sysCdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CD = #{cd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.system.model.entity.CodeEntity">
+    update cd
+    set REF_CD = #{refCd,jdbcType=VARCHAR},
+      CD_NM = #{cdNm,jdbcType=VARCHAR},
+      CD_ADD_1_VAL = #{cdAdd1Val,jdbcType=VARCHAR},
+      CD_ADD_2_VAL = #{cdAdd2Val,jdbcType=VARCHAR},
+      CD_ADD_3_VAL = #{cdAdd3Val,jdbcType=VARCHAR},
+      SORD = #{sord,jdbcType=DECIMAL},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      SYS_CD_YN = #{sysCdYn,jdbcType=VARCHAR},
+      NOTE = #{note,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where CD = #{cd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.system.model.entity.CodeEntity">
+    update cd
+    <set>
+      <if test="refCd != null">
+        REF_CD = null,
+      </if>
+      <if test="cdNm != null">
+        CD_NM = null,
+      </if>
+      <if test="cdAdd1Val != null">
+        CD_ADD_1_VAL = null,
+      </if>
+      <if test="cdAdd2Val != null">
+        CD_ADD_2_VAL = null,
+      </if>
+      <if test="cdAdd3Val != null">
+        CD_ADD_3_VAL = null,
+      </if>
+      <if test="sord != null">
+        SORD = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="sysCdYn != null">
+        SYS_CD_YN = null,
+      </if>
+      <if test="note != null">
+        NOTE = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and CD = #{cd,jdbcType=VARCHAR}
+  </update>
+</mapper>

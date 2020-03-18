@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.display.dao.BaseDpCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.display.model.DpCategory">
+    <id column="TDCT_DP_CATE_ID" jdbcType="INTEGER" property="dpCateId" />
+    <result column="TDCT_REF_DP_CATE_ID" jdbcType="INTEGER" property="refDpCateId" />
+    <result column="TDCT_DP_CATE_NM" jdbcType="VARCHAR" property="dpCateNm" />
+    <result column="TDCT_HRCHY_PATH" jdbcType="VARCHAR" property="hrchyPath" />
+    <result column="TDCT_HRCHY_PATH_NM" jdbcType="VARCHAR" property="hrchyPathNm" />
+    <result column="TDCT_DP_CONR_BANR_ID" jdbcType="INTEGER" property="dpConrBanrId" />
+    <result column="TDCT_LWR_CATE_APLY_YN" jdbcType="VARCHAR" property="lwrCateAplyYn" />
+    <result column="TDCT_SORD" jdbcType="DECIMAL" property="sord" />
+    <result column="TDCT_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TDCT_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TDCT_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TDCT_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TDCT_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TDCT_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TDCT.DP_CATE_ID as TDCT_DP_CATE_ID, TDCT.REF_DP_CATE_ID as TDCT_REF_DP_CATE_ID, TDCT.DP_CATE_NM as TDCT_DP_CATE_NM, 
+    TDCT.HRCHY_PATH as TDCT_HRCHY_PATH, TDCT.HRCHY_PATH_NM as TDCT_HRCHY_PATH_NM, TDCT.DP_CONR_BANR_ID as TDCT_DP_CONR_BANR_ID, 
+    TDCT.LWR_CATE_APLY_YN as TDCT_LWR_CATE_APLY_YN, TDCT.SORD as TDCT_SORD, TDCT.DP_YN as TDCT_DP_YN, 
+    TDCT.REG_DT as TDCT_REG_DT, TDCT.REG_ID as TDCT_REG_ID, TDCT.MOD_DT as TDCT_MOD_DT, 
+    TDCT.MOD_ID as TDCT_MOD_ID, TDCT.USE_YN as TDCT_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpCategoryEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dp_cate TDCT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dp_cate TDCT
+    where TDCT.DP_CATE_ID = #{dpCateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dp_cate
+    where DP_CATE_ID = #{dpCateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpCategoryEntityCriteria">
+    delete TDCT from dp_cate TDCT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCategoryEntity">
+    <selectKey keyProperty="dpCateId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_DP_CATE
+    </selectKey>
+    insert into dp_cate (DP_CATE_ID, REF_DP_CATE_ID, DP_CATE_NM, 
+      HRCHY_PATH, HRCHY_PATH_NM, DP_CONR_BANR_ID, 
+      LWR_CATE_APLY_YN, SORD, DP_YN, 
+      REG_DT, REG_ID, MOD_DT, 
+      MOD_ID, USE_YN)
+    values (#{dpCateId,jdbcType=INTEGER}, #{refDpCateId,jdbcType=INTEGER}, #{dpCateNm,jdbcType=VARCHAR}, 
+      #{hrchyPath,jdbcType=VARCHAR}, #{hrchyPathNm,jdbcType=VARCHAR}, #{dpConrBanrId,jdbcType=INTEGER}, 
+      #{lwrCateAplyYn,jdbcType=VARCHAR}, #{sord,jdbcType=DECIMAL}, #{dpYn,jdbcType=VARCHAR}, 
+      #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, 
+      #{modId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCategoryEntity">
+    <selectKey keyProperty="dpCateId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_DP_CATE
+    </selectKey>
+    insert into dp_cate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      DP_CATE_ID,
+      <if test="refDpCateId != null">
+        REF_DP_CATE_ID,
+      </if>
+      <if test="dpCateNm != null">
+        DP_CATE_NM,
+      </if>
+      <if test="hrchyPath != null">
+        HRCHY_PATH,
+      </if>
+      <if test="hrchyPathNm != null">
+        HRCHY_PATH_NM,
+      </if>
+      <if test="dpConrBanrId != null">
+        DP_CONR_BANR_ID,
+      </if>
+      <if test="lwrCateAplyYn != null">
+        LWR_CATE_APLY_YN,
+      </if>
+      <if test="sord != null">
+        SORD,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{dpCateId,jdbcType=INTEGER},
+      <if test="refDpCateId != null">
+        #{refDpCateId,jdbcType=INTEGER},
+      </if>
+      <if test="dpCateNm != null">
+        #{dpCateNm,jdbcType=VARCHAR},
+      </if>
+      <if test="hrchyPath != null">
+        #{hrchyPath,jdbcType=VARCHAR},
+      </if>
+      <if test="hrchyPathNm != null">
+        #{hrchyPathNm,jdbcType=VARCHAR},
+      </if>
+      <if test="dpConrBanrId != null">
+        #{dpConrBanrId,jdbcType=INTEGER},
+      </if>
+      <if test="lwrCateAplyYn != null">
+        #{lwrCateAplyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null">
+        #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.display.model.entity.criteria.DpCategoryEntityCriteria" resultType="java.lang.Long">
+    select count(*) from dp_cate TDCT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TDCT
+    <set>
+      <if test="record.dpCateId != null">
+        
+      </if>
+      <if test="record.refDpCateId != null">
+        TDCT.REF_DP_CATE_ID = #{record.refDpCateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dpCateNm != null">
+        TDCT.DP_CATE_NM = #{record.dpCateNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hrchyPath != null">
+        TDCT.HRCHY_PATH = #{record.hrchyPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hrchyPathNm != null">
+        TDCT.HRCHY_PATH_NM = #{record.hrchyPathNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpConrBanrId != null">
+        TDCT.DP_CONR_BANR_ID = #{record.dpConrBanrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lwrCateAplyYn != null">
+        TDCT.LWR_CATE_APLY_YN = #{record.lwrCateAplyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sord != null">
+        TDCT.SORD = #{record.sord,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dpYn != null">
+        TDCT.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TDCT.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TDCT.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TDCT.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TDCT.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TDCT.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from dp_cate TDCT
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update dp_cate TDCT
+    set 
+      TDCT.REF_DP_CATE_ID = #{record.refDpCateId,jdbcType=INTEGER},
+      TDCT.DP_CATE_NM = #{record.dpCateNm,jdbcType=VARCHAR},
+      TDCT.HRCHY_PATH = #{record.hrchyPath,jdbcType=VARCHAR},
+      TDCT.HRCHY_PATH_NM = #{record.hrchyPathNm,jdbcType=VARCHAR},
+      TDCT.DP_CONR_BANR_ID = #{record.dpConrBanrId,jdbcType=INTEGER},
+      TDCT.LWR_CATE_APLY_YN = #{record.lwrCateAplyYn,jdbcType=VARCHAR},
+      TDCT.SORD = #{record.sord,jdbcType=DECIMAL},
+      TDCT.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TDCT.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TDCT.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TDCT.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TDCT.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TDCT.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCategoryEntity">
+    update dp_cate
+    <set>
+      <if test="refDpCateId != null">
+        REF_DP_CATE_ID = #{refDpCateId,jdbcType=INTEGER},
+      </if>
+      <if test="dpCateNm != null">
+        DP_CATE_NM = #{dpCateNm,jdbcType=VARCHAR},
+      </if>
+      <if test="hrchyPath != null">
+        HRCHY_PATH = #{hrchyPath,jdbcType=VARCHAR},
+      </if>
+      <if test="hrchyPathNm != null">
+        HRCHY_PATH_NM = #{hrchyPathNm,jdbcType=VARCHAR},
+      </if>
+      <if test="dpConrBanrId != null">
+        DP_CONR_BANR_ID = #{dpConrBanrId,jdbcType=INTEGER},
+      </if>
+      <if test="lwrCateAplyYn != null">
+        LWR_CATE_APLY_YN = #{lwrCateAplyYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null">
+        SORD = #{sord,jdbcType=DECIMAL},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DP_CATE_ID = #{dpCateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCategoryEntity">
+    update dp_cate
+    set REF_DP_CATE_ID = #{refDpCateId,jdbcType=INTEGER},
+      DP_CATE_NM = #{dpCateNm,jdbcType=VARCHAR},
+      HRCHY_PATH = #{hrchyPath,jdbcType=VARCHAR},
+      HRCHY_PATH_NM = #{hrchyPathNm,jdbcType=VARCHAR},
+      DP_CONR_BANR_ID = #{dpConrBanrId,jdbcType=INTEGER},
+      LWR_CATE_APLY_YN = #{lwrCateAplyYn,jdbcType=VARCHAR},
+      SORD = #{sord,jdbcType=DECIMAL},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where DP_CATE_ID = #{dpCateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.display.model.entity.DpCategoryEntity">
+    update dp_cate
+    <set>
+      <if test="refDpCateId != null">
+        REF_DP_CATE_ID = null,
+      </if>
+      <if test="dpCateNm != null">
+        DP_CATE_NM = null,
+      </if>
+      <if test="hrchyPath != null">
+        HRCHY_PATH = null,
+      </if>
+      <if test="hrchyPathNm != null">
+        HRCHY_PATH_NM = null,
+      </if>
+      <if test="dpConrBanrId != null">
+        DP_CONR_BANR_ID = null,
+      </if>
+      <if test="lwrCateAplyYn != null">
+        LWR_CATE_APLY_YN = null,
+      </if>
+      <if test="sord != null">
+        SORD = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and DP_CATE_ID = #{dpCateId,jdbcType=INTEGER}
+  </update>
+</mapper>

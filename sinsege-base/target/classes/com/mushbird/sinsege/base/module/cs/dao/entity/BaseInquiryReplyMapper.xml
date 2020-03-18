@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.cs.dao.BaseInquiryReplyMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.cs.model.InquiryReply">
+    <id column="TQR_INQ_RPLY_ID" jdbcType="INTEGER" property="inqRplyId" />
+    <result column="TQR_INQ_ID" jdbcType="INTEGER" property="inqId" />
+    <result column="TQR_ADM_ID" jdbcType="VARCHAR" property="admId" />
+    <result column="TQR_CONT" jdbcType="VARCHAR" property="cont" />
+    <result column="TQR_TEMP_SAVE_YN" jdbcType="VARCHAR" property="tempSaveYn" />
+    <result column="TQR_ATCH_GID" jdbcType="INTEGER" property="atchGid" />
+    <result column="TQR_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TQR_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TQR_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TQR_MOD_ID" jdbcType="VARCHAR" property="modId" />
+    <result column="TQR_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TQR.INQ_RPLY_ID as TQR_INQ_RPLY_ID, TQR.INQ_ID as TQR_INQ_ID, TQR.ADM_ID as TQR_ADM_ID, 
+    TQR.CONT as TQR_CONT, TQR.TEMP_SAVE_YN as TQR_TEMP_SAVE_YN, TQR.ATCH_GID as TQR_ATCH_GID, 
+    TQR.REG_DT as TQR_REG_DT, TQR.REG_ID as TQR_REG_ID, TQR.MOD_DT as TQR_MOD_DT, TQR.MOD_ID as TQR_MOD_ID, 
+    TQR.USE_YN as TQR_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.criteria.InquiryReplyEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from inq_rply TQR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inq_rply TQR
+    where TQR.INQ_RPLY_ID = #{inqRplyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from inq_rply
+    where INQ_RPLY_ID = #{inqRplyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.criteria.InquiryReplyEntityCriteria">
+    delete TQR from inq_rply TQR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.InquiryReplyEntity">
+    <selectKey keyProperty="inqRplyId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR NYC_MALL.dbo.SEQ_INQ_RPLY
+    </selectKey>
+    insert into inq_rply (INQ_RPLY_ID, INQ_ID, ADM_ID, 
+      CONT, TEMP_SAVE_YN, ATCH_GID, 
+      REG_DT, REG_ID, MOD_DT, 
+      MOD_ID, USE_YN)
+    values (#{inqRplyId,jdbcType=INTEGER}, #{inqId,jdbcType=INTEGER}, #{admId,jdbcType=VARCHAR}, 
+      #{cont,jdbcType=VARCHAR}, #{tempSaveYn,jdbcType=VARCHAR}, #{atchGid,jdbcType=INTEGER}, 
+      #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, 
+      #{modId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.InquiryReplyEntity">
+    <selectKey keyProperty="inqRplyId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR NYC_MALL.dbo.SEQ_INQ_RPLY
+    </selectKey>
+    insert into inq_rply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      INQ_RPLY_ID,
+      <if test="inqId != null">
+        INQ_ID,
+      </if>
+      <if test="admId != null">
+        ADM_ID,
+      </if>
+      <if test="cont != null">
+        CONT,
+      </if>
+      <if test="tempSaveYn != null">
+        TEMP_SAVE_YN,
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{inqRplyId,jdbcType=INTEGER},
+      <if test="inqId != null">
+        #{inqId,jdbcType=INTEGER},
+      </if>
+      <if test="admId != null">
+        #{admId,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="tempSaveYn != null">
+        #{tempSaveYn,jdbcType=VARCHAR},
+      </if>
+      <if test="atchGid != null">
+        #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.criteria.InquiryReplyEntityCriteria" resultType="java.lang.Long">
+    select count(*) from inq_rply TQR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TQR
+    <set>
+      <if test="record.inqRplyId != null">
+        
+      </if>
+      <if test="record.inqId != null">
+        TQR.INQ_ID = #{record.inqId,jdbcType=INTEGER},
+      </if>
+      <if test="record.admId != null">
+        TQR.ADM_ID = #{record.admId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cont != null">
+        TQR.CONT = #{record.cont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempSaveYn != null">
+        TQR.TEMP_SAVE_YN = #{record.tempSaveYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atchGid != null">
+        TQR.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="record.regDt != null">
+        TQR.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TQR.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TQR.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TQR.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TQR.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from inq_rply TQR
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update inq_rply TQR
+    set 
+      TQR.INQ_ID = #{record.inqId,jdbcType=INTEGER},
+      TQR.ADM_ID = #{record.admId,jdbcType=VARCHAR},
+      TQR.CONT = #{record.cont,jdbcType=VARCHAR},
+      TQR.TEMP_SAVE_YN = #{record.tempSaveYn,jdbcType=VARCHAR},
+      TQR.ATCH_GID = #{record.atchGid,jdbcType=INTEGER},
+      TQR.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TQR.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TQR.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TQR.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      TQR.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.InquiryReplyEntity">
+    update inq_rply
+    <set>
+      <if test="inqId != null">
+        INQ_ID = #{inqId,jdbcType=INTEGER},
+      </if>
+      <if test="admId != null">
+        ADM_ID = #{admId,jdbcType=VARCHAR},
+      </if>
+      <if test="cont != null">
+        CONT = #{cont,jdbcType=VARCHAR},
+      </if>
+      <if test="tempSaveYn != null">
+        TEMP_SAVE_YN = #{tempSaveYn,jdbcType=VARCHAR},
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where INQ_RPLY_ID = #{inqRplyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.InquiryReplyEntity">
+    update inq_rply
+    set INQ_ID = #{inqId,jdbcType=INTEGER},
+      ADM_ID = #{admId,jdbcType=VARCHAR},
+      CONT = #{cont,jdbcType=VARCHAR},
+      TEMP_SAVE_YN = #{tempSaveYn,jdbcType=VARCHAR},
+      ATCH_GID = #{atchGid,jdbcType=INTEGER},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where INQ_RPLY_ID = #{inqRplyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.cs.model.entity.InquiryReplyEntity">
+    update inq_rply
+    <set>
+      <if test="inqId != null">
+        INQ_ID = null,
+      </if>
+      <if test="admId != null">
+        ADM_ID = null,
+      </if>
+      <if test="cont != null">
+        CONT = null,
+      </if>
+      <if test="tempSaveYn != null">
+        TEMP_SAVE_YN = null,
+      </if>
+      <if test="atchGid != null">
+        ATCH_GID = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and INQ_RPLY_ID = #{inqRplyId,jdbcType=INTEGER}
+  </update>
+</mapper>

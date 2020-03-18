@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.member.dao.BaseMemberAgreeMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.member.model.MemberAgree">
+    <id column="TMAG_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <id column="TMAG_AGR_CD" jdbcType="VARCHAR" property="agrCd" />
+    <result column="TMAG_AGR_YN" jdbcType="VARCHAR" property="agrYn" />
+    <result column="TMAG_AGR_CHG_DT" jdbcType="DATE" property="agrChgDt" />
+    <result column="TMAG_RETNT_USE_PD_NOY" jdbcType="DECIMAL" property="retntUsePdNoy" />
+    <result column="TMAG_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TMAG_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TMAG_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TMAG_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TMAG.MBR_ID as TMAG_MBR_ID, TMAG.AGR_CD as TMAG_AGR_CD, TMAG.AGR_YN as TMAG_AGR_YN, 
+    TMAG.AGR_CHG_DT as TMAG_AGR_CHG_DT, TMAG.RETNT_USE_PD_NOY as TMAG_RETNT_USE_PD_NOY, 
+    TMAG.REG_DT as TMAG_REG_DT, TMAG.REG_ID as TMAG_REG_ID, TMAG.MOD_DT as TMAG_MOD_DT, 
+    TMAG.MOD_ID as TMAG_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberAgreeEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mbr_agr TMAG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberAgreeKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mbr_agr TMAG
+    where TMAG.MBR_ID = #{mbrId,jdbcType=VARCHAR}
+      and TMAG.AGR_CD = #{agrCd,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberAgreeKey">
+    delete from mbr_agr
+    where MBR_ID = #{mbrId,jdbcType=VARCHAR}
+      and AGR_CD = #{agrCd,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberAgreeEntityCriteria">
+    delete TMAG from mbr_agr TMAG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberAgreeEntity">
+    insert into mbr_agr (MBR_ID, AGR_CD, AGR_YN, 
+      AGR_CHG_DT, RETNT_USE_PD_NOY, REG_DT, 
+      REG_ID, MOD_DT, MOD_ID
+      )
+    values (#{mbrId,jdbcType=VARCHAR}, #{agrCd,jdbcType=VARCHAR}, #{agrYn,jdbcType=VARCHAR}, 
+      #{agrChgDt,jdbcType=DATE}, #{retntUsePdNoy,jdbcType=DECIMAL}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, #{modId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberAgreeEntity">
+    insert into mbr_agr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="agrCd != null">
+        AGR_CD,
+      </if>
+      <if test="agrYn != null">
+        AGR_YN,
+      </if>
+      <if test="agrChgDt != null">
+        AGR_CHG_DT,
+      </if>
+      <if test="retntUsePdNoy != null">
+        RETNT_USE_PD_NOY,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="agrCd != null">
+        #{agrCd,jdbcType=VARCHAR},
+      </if>
+      <if test="agrYn != null">
+        #{agrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="agrChgDt != null">
+        #{agrChgDt,jdbcType=DATE},
+      </if>
+      <if test="retntUsePdNoy != null">
+        #{retntUsePdNoy,jdbcType=DECIMAL},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberAgreeEntityCriteria" resultType="java.lang.Long">
+    select count(*) from mbr_agr TMAG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TMAG
+    <set>
+      <if test="record.mbrId != null">
+        
+      </if>
+      <if test="record.agrCd != null">
+        
+      </if>
+      <if test="record.agrYn != null">
+        TMAG.AGR_YN = #{record.agrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agrChgDt != null">
+        TMAG.AGR_CHG_DT = #{record.agrChgDt,jdbcType=DATE},
+      </if>
+      <if test="record.retntUsePdNoy != null">
+        TMAG.RETNT_USE_PD_NOY = #{record.retntUsePdNoy,jdbcType=DECIMAL},
+      </if>
+      <if test="record.regDt != null">
+        TMAG.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TMAG.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TMAG.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TMAG.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from mbr_agr TMAG
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update mbr_agr TMAG
+    set 
+      
+      TMAG.AGR_YN = #{record.agrYn,jdbcType=VARCHAR},
+      TMAG.AGR_CHG_DT = #{record.agrChgDt,jdbcType=DATE},
+      TMAG.RETNT_USE_PD_NOY = #{record.retntUsePdNoy,jdbcType=DECIMAL},
+      TMAG.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TMAG.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TMAG.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TMAG.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberAgreeEntity">
+    update mbr_agr
+    <set>
+      <if test="agrYn != null">
+        AGR_YN = #{agrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="agrChgDt != null">
+        AGR_CHG_DT = #{agrChgDt,jdbcType=DATE},
+      </if>
+      <if test="retntUsePdNoy != null">
+        RETNT_USE_PD_NOY = #{retntUsePdNoy,jdbcType=DECIMAL},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MBR_ID = #{mbrId,jdbcType=VARCHAR}
+      and AGR_CD = #{agrCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberAgreeEntity">
+    update mbr_agr
+    set AGR_YN = #{agrYn,jdbcType=VARCHAR},
+      AGR_CHG_DT = #{agrChgDt,jdbcType=DATE},
+      RETNT_USE_PD_NOY = #{retntUsePdNoy,jdbcType=DECIMAL},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where MBR_ID = #{mbrId,jdbcType=VARCHAR}
+      and AGR_CD = #{agrCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberAgreeEntity">
+    update mbr_agr
+    <set>
+      <if test="agrYn != null">
+        AGR_YN = null,
+      </if>
+      <if test="agrChgDt != null">
+        AGR_CHG_DT = null,
+      </if>
+      <if test="retntUsePdNoy != null">
+        RETNT_USE_PD_NOY = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and MBR_ID = #{mbrId,jdbcType=VARCHAR}
+    and AGR_CD = #{agrCd,jdbcType=VARCHAR}
+  </update>
+</mapper>

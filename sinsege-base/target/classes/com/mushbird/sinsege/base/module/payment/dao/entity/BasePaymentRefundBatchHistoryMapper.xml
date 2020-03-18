@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.payment.dao.BasePaymentRefundBatchHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.payment.model.PaymentRefundBatchHistory">
+    <id column="TPRBH_PAY_RFD_BATCH_HIST_ID" jdbcType="INTEGER" property="payRfdBatchHistId" />
+    <result column="TPRBH_PAY_RFD_BATCH_QUE_ID" jdbcType="INTEGER" property="payRfdBatchQueId" />
+    <result column="TPRBH_PAY_ID" jdbcType="INTEGER" property="payId" />
+    <result column="TPRBH_PAY_PG_CD" jdbcType="VARCHAR" property="payPgCd" />
+    <result column="TPRBH_TRAN_NO_VAL" jdbcType="VARCHAR" property="tranNoVal" />
+    <result column="TPRBH_PART_CNCL_CL_VAL" jdbcType="VARCHAR" property="partCnclClVal" />
+    <result column="TPRBH_MID" jdbcType="VARCHAR" property="mid" />
+    <result column="TPRBH_ORI_PAY_AMT" jdbcType="INTEGER" property="oriPayAmt" />
+    <result column="TPRBH_RFD_AMT" jdbcType="INTEGER" property="rfdAmt" />
+    <result column="TPRBH_PG_SPLY_AMT" jdbcType="INTEGER" property="pgSplyAmt" />
+    <result column="TPRBH_PG_VAT_AMT" jdbcType="INTEGER" property="pgVatAmt" />
+    <result column="TPRBH_PG_TAXFREE_AMT" jdbcType="INTEGER" property="pgTaxfreeAmt" />
+    <result column="TPRBH_ERR_CNT" jdbcType="DECIMAL" property="errCnt" />
+    <result column="TPRBH_RSLT_MSG" jdbcType="VARCHAR" property="rsltMsg" />
+    <result column="TPRBH_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TPRBH_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TPRBH_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TPRBH_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TPRBH.PAY_RFD_BATCH_HIST_ID as TPRBH_PAY_RFD_BATCH_HIST_ID, TPRBH.PAY_RFD_BATCH_QUE_ID as TPRBH_PAY_RFD_BATCH_QUE_ID, 
+    TPRBH.PAY_ID as TPRBH_PAY_ID, TPRBH.PAY_PG_CD as TPRBH_PAY_PG_CD, TPRBH.TRAN_NO_VAL as TPRBH_TRAN_NO_VAL, 
+    TPRBH.PART_CNCL_CL_VAL as TPRBH_PART_CNCL_CL_VAL, TPRBH.MID as TPRBH_MID, TPRBH.ORI_PAY_AMT as TPRBH_ORI_PAY_AMT, 
+    TPRBH.RFD_AMT as TPRBH_RFD_AMT, TPRBH.PG_SPLY_AMT as TPRBH_PG_SPLY_AMT, TPRBH.PG_VAT_AMT as TPRBH_PG_VAT_AMT, 
+    TPRBH.PG_TAXFREE_AMT as TPRBH_PG_TAXFREE_AMT, TPRBH.ERR_CNT as TPRBH_ERR_CNT, TPRBH.RSLT_MSG as TPRBH_RSLT_MSG, 
+    TPRBH.REG_DT as TPRBH_REG_DT, TPRBH.REG_ID as TPRBH_REG_ID, TPRBH.MOD_DT as TPRBH_MOD_DT, 
+    TPRBH.MOD_ID as TPRBH_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.criteria.PaymentRefundBatchHistoryEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pay_rfd_batch_hist TPRBH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pay_rfd_batch_hist TPRBH
+    where TPRBH.PAY_RFD_BATCH_HIST_ID = #{payRfdBatchHistId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pay_rfd_batch_hist
+    where PAY_RFD_BATCH_HIST_ID = #{payRfdBatchHistId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.criteria.PaymentRefundBatchHistoryEntityCriteria">
+    delete TPRBH from pay_rfd_batch_hist TPRBH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentRefundBatchHistoryEntity">
+    <selectKey keyProperty="payRfdBatchHistId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_PAY_RFD_BATCH_HIST
+    </selectKey>
+    insert into pay_rfd_batch_hist (PAY_RFD_BATCH_HIST_ID, PAY_RFD_BATCH_QUE_ID, 
+      PAY_ID, PAY_PG_CD, TRAN_NO_VAL, 
+      PART_CNCL_CL_VAL, MID, ORI_PAY_AMT, 
+      RFD_AMT, PG_SPLY_AMT, PG_VAT_AMT, 
+      PG_TAXFREE_AMT, ERR_CNT, RSLT_MSG, 
+      REG_DT, REG_ID, MOD_DT, 
+      MOD_ID)
+    values (#{payRfdBatchHistId,jdbcType=INTEGER}, #{payRfdBatchQueId,jdbcType=INTEGER}, 
+      #{payId,jdbcType=INTEGER}, #{payPgCd,jdbcType=VARCHAR}, #{tranNoVal,jdbcType=VARCHAR}, 
+      #{partCnclClVal,jdbcType=VARCHAR}, #{mid,jdbcType=VARCHAR}, #{oriPayAmt,jdbcType=INTEGER}, 
+      #{rfdAmt,jdbcType=INTEGER}, #{pgSplyAmt,jdbcType=INTEGER}, #{pgVatAmt,jdbcType=INTEGER}, 
+      #{pgTaxfreeAmt,jdbcType=INTEGER}, #{errCnt,jdbcType=DECIMAL}, #{rsltMsg,jdbcType=VARCHAR}, 
+      #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, 
+      #{modId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentRefundBatchHistoryEntity">
+    <selectKey keyProperty="payRfdBatchHistId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_PAY_RFD_BATCH_HIST
+    </selectKey>
+    insert into pay_rfd_batch_hist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      PAY_RFD_BATCH_HIST_ID,
+      <if test="payRfdBatchQueId != null">
+        PAY_RFD_BATCH_QUE_ID,
+      </if>
+      <if test="payId != null">
+        PAY_ID,
+      </if>
+      <if test="payPgCd != null">
+        PAY_PG_CD,
+      </if>
+      <if test="tranNoVal != null">
+        TRAN_NO_VAL,
+      </if>
+      <if test="partCnclClVal != null">
+        PART_CNCL_CL_VAL,
+      </if>
+      <if test="mid != null">
+        MID,
+      </if>
+      <if test="oriPayAmt != null">
+        ORI_PAY_AMT,
+      </if>
+      <if test="rfdAmt != null">
+        RFD_AMT,
+      </if>
+      <if test="pgSplyAmt != null">
+        PG_SPLY_AMT,
+      </if>
+      <if test="pgVatAmt != null">
+        PG_VAT_AMT,
+      </if>
+      <if test="pgTaxfreeAmt != null">
+        PG_TAXFREE_AMT,
+      </if>
+      <if test="errCnt != null">
+        ERR_CNT,
+      </if>
+      <if test="rsltMsg != null">
+        RSLT_MSG,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{payRfdBatchHistId,jdbcType=INTEGER},
+      <if test="payRfdBatchQueId != null">
+        #{payRfdBatchQueId,jdbcType=INTEGER},
+      </if>
+      <if test="payId != null">
+        #{payId,jdbcType=INTEGER},
+      </if>
+      <if test="payPgCd != null">
+        #{payPgCd,jdbcType=VARCHAR},
+      </if>
+      <if test="tranNoVal != null">
+        #{tranNoVal,jdbcType=VARCHAR},
+      </if>
+      <if test="partCnclClVal != null">
+        #{partCnclClVal,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="oriPayAmt != null">
+        #{oriPayAmt,jdbcType=INTEGER},
+      </if>
+      <if test="rfdAmt != null">
+        #{rfdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgSplyAmt != null">
+        #{pgSplyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgVatAmt != null">
+        #{pgVatAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgTaxfreeAmt != null">
+        #{pgTaxfreeAmt,jdbcType=INTEGER},
+      </if>
+      <if test="errCnt != null">
+        #{errCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="rsltMsg != null">
+        #{rsltMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.criteria.PaymentRefundBatchHistoryEntityCriteria" resultType="java.lang.Long">
+    select count(*) from pay_rfd_batch_hist TPRBH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TPRBH
+    <set>
+      <if test="record.payRfdBatchHistId != null">
+        
+      </if>
+      <if test="record.payRfdBatchQueId != null">
+        TPRBH.PAY_RFD_BATCH_QUE_ID = #{record.payRfdBatchQueId,jdbcType=INTEGER},
+      </if>
+      <if test="record.payId != null">
+        TPRBH.PAY_ID = #{record.payId,jdbcType=INTEGER},
+      </if>
+      <if test="record.payPgCd != null">
+        TPRBH.PAY_PG_CD = #{record.payPgCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tranNoVal != null">
+        TPRBH.TRAN_NO_VAL = #{record.tranNoVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partCnclClVal != null">
+        TPRBH.PART_CNCL_CL_VAL = #{record.partCnclClVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mid != null">
+        TPRBH.MID = #{record.mid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oriPayAmt != null">
+        TPRBH.ORI_PAY_AMT = #{record.oriPayAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.rfdAmt != null">
+        TPRBH.RFD_AMT = #{record.rfdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.pgSplyAmt != null">
+        TPRBH.PG_SPLY_AMT = #{record.pgSplyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.pgVatAmt != null">
+        TPRBH.PG_VAT_AMT = #{record.pgVatAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.pgTaxfreeAmt != null">
+        TPRBH.PG_TAXFREE_AMT = #{record.pgTaxfreeAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.errCnt != null">
+        TPRBH.ERR_CNT = #{record.errCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rsltMsg != null">
+        TPRBH.RSLT_MSG = #{record.rsltMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TPRBH.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TPRBH.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TPRBH.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TPRBH.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from pay_rfd_batch_hist TPRBH
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update pay_rfd_batch_hist TPRBH
+    set 
+      TPRBH.PAY_RFD_BATCH_QUE_ID = #{record.payRfdBatchQueId,jdbcType=INTEGER},
+      TPRBH.PAY_ID = #{record.payId,jdbcType=INTEGER},
+      TPRBH.PAY_PG_CD = #{record.payPgCd,jdbcType=VARCHAR},
+      TPRBH.TRAN_NO_VAL = #{record.tranNoVal,jdbcType=VARCHAR},
+      TPRBH.PART_CNCL_CL_VAL = #{record.partCnclClVal,jdbcType=VARCHAR},
+      TPRBH.MID = #{record.mid,jdbcType=VARCHAR},
+      TPRBH.ORI_PAY_AMT = #{record.oriPayAmt,jdbcType=INTEGER},
+      TPRBH.RFD_AMT = #{record.rfdAmt,jdbcType=INTEGER},
+      TPRBH.PG_SPLY_AMT = #{record.pgSplyAmt,jdbcType=INTEGER},
+      TPRBH.PG_VAT_AMT = #{record.pgVatAmt,jdbcType=INTEGER},
+      TPRBH.PG_TAXFREE_AMT = #{record.pgTaxfreeAmt,jdbcType=INTEGER},
+      TPRBH.ERR_CNT = #{record.errCnt,jdbcType=DECIMAL},
+      TPRBH.RSLT_MSG = #{record.rsltMsg,jdbcType=VARCHAR},
+      TPRBH.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TPRBH.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TPRBH.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TPRBH.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentRefundBatchHistoryEntity">
+    update pay_rfd_batch_hist
+    <set>
+      <if test="payRfdBatchQueId != null">
+        PAY_RFD_BATCH_QUE_ID = #{payRfdBatchQueId,jdbcType=INTEGER},
+      </if>
+      <if test="payId != null">
+        PAY_ID = #{payId,jdbcType=INTEGER},
+      </if>
+      <if test="payPgCd != null">
+        PAY_PG_CD = #{payPgCd,jdbcType=VARCHAR},
+      </if>
+      <if test="tranNoVal != null">
+        TRAN_NO_VAL = #{tranNoVal,jdbcType=VARCHAR},
+      </if>
+      <if test="partCnclClVal != null">
+        PART_CNCL_CL_VAL = #{partCnclClVal,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null">
+        MID = #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="oriPayAmt != null">
+        ORI_PAY_AMT = #{oriPayAmt,jdbcType=INTEGER},
+      </if>
+      <if test="rfdAmt != null">
+        RFD_AMT = #{rfdAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgSplyAmt != null">
+        PG_SPLY_AMT = #{pgSplyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgVatAmt != null">
+        PG_VAT_AMT = #{pgVatAmt,jdbcType=INTEGER},
+      </if>
+      <if test="pgTaxfreeAmt != null">
+        PG_TAXFREE_AMT = #{pgTaxfreeAmt,jdbcType=INTEGER},
+      </if>
+      <if test="errCnt != null">
+        ERR_CNT = #{errCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="rsltMsg != null">
+        RSLT_MSG = #{rsltMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PAY_RFD_BATCH_HIST_ID = #{payRfdBatchHistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentRefundBatchHistoryEntity">
+    update pay_rfd_batch_hist
+    set PAY_RFD_BATCH_QUE_ID = #{payRfdBatchQueId,jdbcType=INTEGER},
+      PAY_ID = #{payId,jdbcType=INTEGER},
+      PAY_PG_CD = #{payPgCd,jdbcType=VARCHAR},
+      TRAN_NO_VAL = #{tranNoVal,jdbcType=VARCHAR},
+      PART_CNCL_CL_VAL = #{partCnclClVal,jdbcType=VARCHAR},
+      MID = #{mid,jdbcType=VARCHAR},
+      ORI_PAY_AMT = #{oriPayAmt,jdbcType=INTEGER},
+      RFD_AMT = #{rfdAmt,jdbcType=INTEGER},
+      PG_SPLY_AMT = #{pgSplyAmt,jdbcType=INTEGER},
+      PG_VAT_AMT = #{pgVatAmt,jdbcType=INTEGER},
+      PG_TAXFREE_AMT = #{pgTaxfreeAmt,jdbcType=INTEGER},
+      ERR_CNT = #{errCnt,jdbcType=DECIMAL},
+      RSLT_MSG = #{rsltMsg,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where PAY_RFD_BATCH_HIST_ID = #{payRfdBatchHistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.payment.model.entity.PaymentRefundBatchHistoryEntity">
+    update pay_rfd_batch_hist
+    <set>
+      <if test="payRfdBatchQueId != null">
+        PAY_RFD_BATCH_QUE_ID = null,
+      </if>
+      <if test="payId != null">
+        PAY_ID = null,
+      </if>
+      <if test="payPgCd != null">
+        PAY_PG_CD = null,
+      </if>
+      <if test="tranNoVal != null">
+        TRAN_NO_VAL = null,
+      </if>
+      <if test="partCnclClVal != null">
+        PART_CNCL_CL_VAL = null,
+      </if>
+      <if test="mid != null">
+        MID = null,
+      </if>
+      <if test="oriPayAmt != null">
+        ORI_PAY_AMT = null,
+      </if>
+      <if test="rfdAmt != null">
+        RFD_AMT = null,
+      </if>
+      <if test="pgSplyAmt != null">
+        PG_SPLY_AMT = null,
+      </if>
+      <if test="pgVatAmt != null">
+        PG_VAT_AMT = null,
+      </if>
+      <if test="pgTaxfreeAmt != null">
+        PG_TAXFREE_AMT = null,
+      </if>
+      <if test="errCnt != null">
+        ERR_CNT = null,
+      </if>
+      <if test="rsltMsg != null">
+        RSLT_MSG = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and PAY_RFD_BATCH_HIST_ID = #{payRfdBatchHistId,jdbcType=INTEGER}
+  </update>
+</mapper>

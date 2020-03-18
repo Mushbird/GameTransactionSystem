@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.member.dao.BaseMemberCloseReasonMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.member.model.MemberCloseReason">
+    <id column="MCLOR_MBR_CLOSE_RSN_ID" jdbcType="INTEGER" property="mbrCloseRsnId" />
+    <result column="MCLOR_MBR_CLOSE_ID" jdbcType="INTEGER" property="mbrCloseId" />
+    <result column="MCLOR_CLOSE_RSN_CD" jdbcType="VARCHAR" property="closeRsnCd" />
+    <result column="MCLOR_CLOSE_RSN_CONT" jdbcType="VARCHAR" property="closeRsnCont" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    MCLOR.MBR_CLOSE_RSN_ID as MCLOR_MBR_CLOSE_RSN_ID, MCLOR.MBR_CLOSE_ID as MCLOR_MBR_CLOSE_ID, 
+    MCLOR.CLOSE_RSN_CD as MCLOR_CLOSE_RSN_CD, MCLOR.CLOSE_RSN_CONT as MCLOR_CLOSE_RSN_CONT
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberCloseReasonEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mbr_close_rsn MCLOR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mbr_close_rsn MCLOR
+    where MCLOR.MBR_CLOSE_RSN_ID = #{mbrCloseRsnId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mbr_close_rsn
+    where MBR_CLOSE_RSN_ID = #{mbrCloseRsnId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberCloseReasonEntityCriteria">
+    delete MCLOR from mbr_close_rsn MCLOR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberCloseReasonEntity">
+    insert into mbr_close_rsn (MBR_CLOSE_RSN_ID, MBR_CLOSE_ID, CLOSE_RSN_CD, 
+      CLOSE_RSN_CONT)
+    values (#{mbrCloseRsnId,jdbcType=INTEGER}, #{mbrCloseId,jdbcType=INTEGER}, #{closeRsnCd,jdbcType=VARCHAR}, 
+      #{closeRsnCont,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberCloseReasonEntity">
+    insert into mbr_close_rsn
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mbrCloseRsnId != null">
+        MBR_CLOSE_RSN_ID,
+      </if>
+      <if test="mbrCloseId != null">
+        MBR_CLOSE_ID,
+      </if>
+      <if test="closeRsnCd != null">
+        CLOSE_RSN_CD,
+      </if>
+      <if test="closeRsnCont != null">
+        CLOSE_RSN_CONT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mbrCloseRsnId != null">
+        #{mbrCloseRsnId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrCloseId != null">
+        #{mbrCloseId,jdbcType=INTEGER},
+      </if>
+      <if test="closeRsnCd != null">
+        #{closeRsnCd,jdbcType=VARCHAR},
+      </if>
+      <if test="closeRsnCont != null">
+        #{closeRsnCont,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberCloseReasonEntityCriteria" resultType="java.lang.Long">
+    select count(*) from mbr_close_rsn MCLOR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update MCLOR
+    <set>
+      <if test="record.mbrCloseRsnId != null">
+        
+      </if>
+      <if test="record.mbrCloseId != null">
+        MCLOR.MBR_CLOSE_ID = #{record.mbrCloseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.closeRsnCd != null">
+        MCLOR.CLOSE_RSN_CD = #{record.closeRsnCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.closeRsnCont != null">
+        MCLOR.CLOSE_RSN_CONT = #{record.closeRsnCont,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from mbr_close_rsn MCLOR
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update mbr_close_rsn MCLOR
+    set 
+      MCLOR.MBR_CLOSE_ID = #{record.mbrCloseId,jdbcType=INTEGER},
+      MCLOR.CLOSE_RSN_CD = #{record.closeRsnCd,jdbcType=VARCHAR},
+      MCLOR.CLOSE_RSN_CONT = #{record.closeRsnCont,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberCloseReasonEntity">
+    update mbr_close_rsn
+    <set>
+      <if test="mbrCloseId != null">
+        MBR_CLOSE_ID = #{mbrCloseId,jdbcType=INTEGER},
+      </if>
+      <if test="closeRsnCd != null">
+        CLOSE_RSN_CD = #{closeRsnCd,jdbcType=VARCHAR},
+      </if>
+      <if test="closeRsnCont != null">
+        CLOSE_RSN_CONT = #{closeRsnCont,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MBR_CLOSE_RSN_ID = #{mbrCloseRsnId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberCloseReasonEntity">
+    update mbr_close_rsn
+    set MBR_CLOSE_ID = #{mbrCloseId,jdbcType=INTEGER},
+      CLOSE_RSN_CD = #{closeRsnCd,jdbcType=VARCHAR},
+      CLOSE_RSN_CONT = #{closeRsnCont,jdbcType=VARCHAR}
+    where MBR_CLOSE_RSN_ID = #{mbrCloseRsnId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberCloseReasonEntity">
+    update mbr_close_rsn
+    <set>
+      <if test="mbrCloseId != null">
+        MBR_CLOSE_ID = null,
+      </if>
+      <if test="closeRsnCd != null">
+        CLOSE_RSN_CD = null,
+      </if>
+      <if test="closeRsnCont != null">
+        CLOSE_RSN_CONT = null,
+      </if>
+    </set>
+    where 1=1
+    and MBR_CLOSE_RSN_ID = #{mbrCloseRsnId,jdbcType=INTEGER}
+  </update>
+</mapper>

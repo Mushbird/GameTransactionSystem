@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.reward.dao.BaseCouponIssueConditionMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.reward.model.CouponIssueCondition">
+    <id column="TCIC_CPN_ID" jdbcType="INTEGER" property="cpnId" />
+    <id column="TCIC_CPN_ISU_COND_CD" jdbcType="VARCHAR" property="cpnIsuCondCd" />
+    <result column="TCIC_CPN_ISU_COND_VAL" jdbcType="VARCHAR" property="cpnIsuCondVal" />
+    <result column="TCIC_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TCIC_REG_ID" jdbcType="VARCHAR" property="regId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TCIC.CPN_ID as TCIC_CPN_ID, TCIC.CPN_ISU_COND_CD as TCIC_CPN_ISU_COND_CD, TCIC.CPN_ISU_COND_VAL as TCIC_CPN_ISU_COND_VAL, 
+    TCIC.REG_DT as TCIC_REG_DT, TCIC.REG_ID as TCIC_REG_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.CouponIssueConditionEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cpn_isu_cond TCIC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponIssueConditionKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cpn_isu_cond TCIC
+    where TCIC.CPN_ID = #{cpnId,jdbcType=INTEGER}
+      and TCIC.CPN_ISU_COND_CD = #{cpnIsuCondCd,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponIssueConditionKey">
+    delete from cpn_isu_cond
+    where CPN_ID = #{cpnId,jdbcType=INTEGER}
+      and CPN_ISU_COND_CD = #{cpnIsuCondCd,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.CouponIssueConditionEntityCriteria">
+    delete TCIC from cpn_isu_cond TCIC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponIssueConditionEntity">
+    insert into cpn_isu_cond (CPN_ID, CPN_ISU_COND_CD, CPN_ISU_COND_VAL, 
+      REG_DT, REG_ID)
+    values (#{cpnId,jdbcType=INTEGER}, #{cpnIsuCondCd,jdbcType=VARCHAR}, #{cpnIsuCondVal,jdbcType=VARCHAR}, 
+      #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponIssueConditionEntity">
+    insert into cpn_isu_cond
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cpnId != null">
+        CPN_ID,
+      </if>
+      <if test="cpnIsuCondCd != null">
+        CPN_ISU_COND_CD,
+      </if>
+      <if test="cpnIsuCondVal != null">
+        CPN_ISU_COND_VAL,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cpnId != null">
+        #{cpnId,jdbcType=INTEGER},
+      </if>
+      <if test="cpnIsuCondCd != null">
+        #{cpnIsuCondCd,jdbcType=VARCHAR},
+      </if>
+      <if test="cpnIsuCondVal != null">
+        #{cpnIsuCondVal,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.CouponIssueConditionEntityCriteria" resultType="java.lang.Long">
+    select count(*) from cpn_isu_cond TCIC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TCIC
+    <set>
+      <if test="record.cpnId != null">
+        
+      </if>
+      <if test="record.cpnIsuCondCd != null">
+        
+      </if>
+      <if test="record.cpnIsuCondVal != null">
+        TCIC.CPN_ISU_COND_VAL = #{record.cpnIsuCondVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TCIC.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TCIC.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from cpn_isu_cond TCIC
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update cpn_isu_cond TCIC
+    set 
+      
+      TCIC.CPN_ISU_COND_VAL = #{record.cpnIsuCondVal,jdbcType=VARCHAR},
+      TCIC.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TCIC.REG_ID = #{record.regId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponIssueConditionEntity">
+    update cpn_isu_cond
+    <set>
+      <if test="cpnIsuCondVal != null">
+        CPN_ISU_COND_VAL = #{cpnIsuCondVal,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CPN_ID = #{cpnId,jdbcType=INTEGER}
+      and CPN_ISU_COND_CD = #{cpnIsuCondCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponIssueConditionEntity">
+    update cpn_isu_cond
+    set CPN_ISU_COND_VAL = #{cpnIsuCondVal,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR}
+    where CPN_ID = #{cpnId,jdbcType=INTEGER}
+      and CPN_ISU_COND_CD = #{cpnIsuCondCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.CouponIssueConditionEntity">
+    update cpn_isu_cond
+    <set>
+      <if test="cpnIsuCondVal != null">
+        CPN_ISU_COND_VAL = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and CPN_ID = #{cpnId,jdbcType=INTEGER}
+    and CPN_ISU_COND_CD = #{cpnIsuCondCd,jdbcType=VARCHAR}
+  </update>
+</mapper>

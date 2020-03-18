@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.reward.dao.BasePointPolicyAttendanceMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.reward.model.PointPolicyAttendance">
+    <id column="TPPA_PT_TP_CD" jdbcType="VARCHAR" property="ptTpCd" />
+    <result column="TPPA_PT_CHG_DT" jdbcType="VARCHAR" property="ptChgDt" />
+    <result column="TPPA_PT_CHG_BF_AMT" jdbcType="INTEGER" property="ptChgBfAmt" />
+    <result column="TPPA_ATND_PRGS_YN" jdbcType="VARCHAR" property="atndPrgsYn" />
+    <result column="TPPA_ATND_PRGS_STOP_DT" jdbcType="DATE" property="atndPrgsStopDt" />
+    <result column="TPPA_DP_YN" jdbcType="VARCHAR" property="dpYn" />
+    <result column="TPPA_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TPPA_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TPPA_MOD_DT" jdbcType="TIMESTAMP" property="modDt" />
+    <result column="TPPA_MOD_ID" jdbcType="VARCHAR" property="modId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TPPA.PT_TP_CD as TPPA_PT_TP_CD, TPPA.PT_CHG_DT as TPPA_PT_CHG_DT, TPPA.PT_CHG_BF_AMT as TPPA_PT_CHG_BF_AMT, 
+    TPPA.ATND_PRGS_YN as TPPA_ATND_PRGS_YN, TPPA.ATND_PRGS_STOP_DT as TPPA_ATND_PRGS_STOP_DT, 
+    TPPA.DP_YN as TPPA_DP_YN, TPPA.REG_DT as TPPA_REG_DT, TPPA.REG_ID as TPPA_REG_ID, 
+    TPPA.MOD_DT as TPPA_MOD_DT, TPPA.MOD_ID as TPPA_MOD_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.PointPolicyAttendanceEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pnt_pcy_atnd TPPA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pnt_pcy_atnd TPPA
+    where TPPA.PT_TP_CD = #{ptTpCd,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from pnt_pcy_atnd
+    where PT_TP_CD = #{ptTpCd,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.PointPolicyAttendanceEntityCriteria">
+    delete TPPA from pnt_pcy_atnd TPPA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointPolicyAttendanceEntity">
+    insert into pnt_pcy_atnd (PT_TP_CD, PT_CHG_DT, PT_CHG_BF_AMT, 
+      ATND_PRGS_YN, ATND_PRGS_STOP_DT, DP_YN, 
+      REG_DT, REG_ID, MOD_DT, 
+      MOD_ID)
+    values (#{ptTpCd,jdbcType=VARCHAR}, #{ptChgDt,jdbcType=VARCHAR}, #{ptChgBfAmt,jdbcType=INTEGER}, 
+      #{atndPrgsYn,jdbcType=VARCHAR}, #{atndPrgsStopDt,jdbcType=DATE}, #{dpYn,jdbcType=VARCHAR}, 
+      #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}, #{modDt,jdbcType=TIMESTAMP}, 
+      #{modId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointPolicyAttendanceEntity">
+    insert into pnt_pcy_atnd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ptTpCd != null">
+        PT_TP_CD,
+      </if>
+      <if test="ptChgDt != null">
+        PT_CHG_DT,
+      </if>
+      <if test="ptChgBfAmt != null">
+        PT_CHG_BF_AMT,
+      </if>
+      <if test="atndPrgsYn != null">
+        ATND_PRGS_YN,
+      </if>
+      <if test="atndPrgsStopDt != null">
+        ATND_PRGS_STOP_DT,
+      </if>
+      <if test="dpYn != null">
+        DP_YN,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="modDt != null">
+        MOD_DT,
+      </if>
+      <if test="modId != null">
+        MOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ptTpCd != null">
+        #{ptTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ptChgDt != null">
+        #{ptChgDt,jdbcType=VARCHAR},
+      </if>
+      <if test="ptChgBfAmt != null">
+        #{ptChgBfAmt,jdbcType=INTEGER},
+      </if>
+      <if test="atndPrgsYn != null">
+        #{atndPrgsYn,jdbcType=VARCHAR},
+      </if>
+      <if test="atndPrgsStopDt != null">
+        #{atndPrgsStopDt,jdbcType=DATE},
+      </if>
+      <if test="dpYn != null">
+        #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        #{modId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.criteria.PointPolicyAttendanceEntityCriteria" resultType="java.lang.Long">
+    select count(*) from pnt_pcy_atnd TPPA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TPPA
+    <set>
+      <if test="record.ptTpCd != null">
+        
+      </if>
+      <if test="record.ptChgDt != null">
+        TPPA.PT_CHG_DT = #{record.ptChgDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptChgBfAmt != null">
+        TPPA.PT_CHG_BF_AMT = #{record.ptChgBfAmt,jdbcType=INTEGER},
+      </if>
+      <if test="record.atndPrgsYn != null">
+        TPPA.ATND_PRGS_YN = #{record.atndPrgsYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atndPrgsStopDt != null">
+        TPPA.ATND_PRGS_STOP_DT = #{record.atndPrgsStopDt,jdbcType=DATE},
+      </if>
+      <if test="record.dpYn != null">
+        TPPA.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TPPA.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TPPA.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modDt != null">
+        TPPA.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modId != null">
+        TPPA.MOD_ID = #{record.modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from pnt_pcy_atnd TPPA
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update pnt_pcy_atnd TPPA
+    set 
+      TPPA.PT_CHG_DT = #{record.ptChgDt,jdbcType=VARCHAR},
+      TPPA.PT_CHG_BF_AMT = #{record.ptChgBfAmt,jdbcType=INTEGER},
+      TPPA.ATND_PRGS_YN = #{record.atndPrgsYn,jdbcType=VARCHAR},
+      TPPA.ATND_PRGS_STOP_DT = #{record.atndPrgsStopDt,jdbcType=DATE},
+      TPPA.DP_YN = #{record.dpYn,jdbcType=VARCHAR},
+      TPPA.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TPPA.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TPPA.MOD_DT = #{record.modDt,jdbcType=TIMESTAMP},
+      TPPA.MOD_ID = #{record.modId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointPolicyAttendanceEntity">
+    update pnt_pcy_atnd
+    <set>
+      <if test="ptChgDt != null">
+        PT_CHG_DT = #{ptChgDt,jdbcType=VARCHAR},
+      </if>
+      <if test="ptChgBfAmt != null">
+        PT_CHG_BF_AMT = #{ptChgBfAmt,jdbcType=INTEGER},
+      </if>
+      <if test="atndPrgsYn != null">
+        ATND_PRGS_YN = #{atndPrgsYn,jdbcType=VARCHAR},
+      </if>
+      <if test="atndPrgsStopDt != null">
+        ATND_PRGS_STOP_DT = #{atndPrgsStopDt,jdbcType=DATE},
+      </if>
+      <if test="dpYn != null">
+        DP_YN = #{dpYn,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="modDt != null">
+        MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modId != null">
+        MOD_ID = #{modId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PT_TP_CD = #{ptTpCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointPolicyAttendanceEntity">
+    update pnt_pcy_atnd
+    set PT_CHG_DT = #{ptChgDt,jdbcType=VARCHAR},
+      PT_CHG_BF_AMT = #{ptChgBfAmt,jdbcType=INTEGER},
+      ATND_PRGS_YN = #{atndPrgsYn,jdbcType=VARCHAR},
+      ATND_PRGS_STOP_DT = #{atndPrgsStopDt,jdbcType=DATE},
+      DP_YN = #{dpYn,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      MOD_DT = #{modDt,jdbcType=TIMESTAMP},
+      MOD_ID = #{modId,jdbcType=VARCHAR}
+    where PT_TP_CD = #{ptTpCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.reward.model.entity.PointPolicyAttendanceEntity">
+    update pnt_pcy_atnd
+    <set>
+      <if test="ptChgDt != null">
+        PT_CHG_DT = null,
+      </if>
+      <if test="ptChgBfAmt != null">
+        PT_CHG_BF_AMT = null,
+      </if>
+      <if test="atndPrgsYn != null">
+        ATND_PRGS_YN = null,
+      </if>
+      <if test="atndPrgsStopDt != null">
+        ATND_PRGS_STOP_DT = null,
+      </if>
+      <if test="dpYn != null">
+        DP_YN = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="modDt != null">
+        MOD_DT = null,
+      </if>
+      <if test="modId != null">
+        MOD_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and PT_TP_CD = #{ptTpCd,jdbcType=VARCHAR}
+  </update>
+</mapper>

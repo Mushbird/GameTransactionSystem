@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.order.dao.BaseOrderRefundInfoMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.order.model.OrderRefundInfo">
+    <id column="TORI_ORD_RFD_INFO_ID" jdbcType="INTEGER" property="ordRfdInfoId" />
+    <result column="TORI_ORD_ID" jdbcType="INTEGER" property="ordId" />
+    <result column="TORI_ORD_CLM_ID" jdbcType="INTEGER" property="ordClmId" />
+    <result column="TORI_RFD_BANK_CD" jdbcType="VARCHAR" property="rfdBankCd" />
+    <result column="TORI_RFD_BANK_NM" jdbcType="VARCHAR" property="rfdBankNm" />
+    <result column="TORI_RFD_ACCT_NO" jdbcType="VARCHAR" property="rfdAcctNo" />
+    <result column="TORI_RFD_ACCT_DPTR_NM" jdbcType="VARCHAR" property="rfdAcctDptrNm" />
+    <result column="TORI_MEMO_CONT" jdbcType="VARCHAR" property="memoCont" />
+    <result column="TORI_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TORI_REG_ID" jdbcType="VARCHAR" property="regId" />
+    <result column="TORI_USE_YN" jdbcType="VARCHAR" property="useYn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TORI.ORD_RFD_INFO_ID as TORI_ORD_RFD_INFO_ID, TORI.ORD_ID as TORI_ORD_ID, TORI.ORD_CLM_ID as TORI_ORD_CLM_ID, 
+    TORI.RFD_BANK_CD as TORI_RFD_BANK_CD, TORI.RFD_BANK_NM as TORI_RFD_BANK_NM, TORI.RFD_ACCT_NO as TORI_RFD_ACCT_NO, 
+    TORI.RFD_ACCT_DPTR_NM as TORI_RFD_ACCT_DPTR_NM, TORI.MEMO_CONT as TORI_MEMO_CONT, 
+    TORI.REG_DT as TORI_REG_DT, TORI.REG_ID as TORI_REG_ID, TORI.USE_YN as TORI_USE_YN
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderRefundInfoEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ord_rfd_info TORI
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ord_rfd_info TORI
+    where TORI.ORD_RFD_INFO_ID = #{ordRfdInfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ord_rfd_info
+    where ORD_RFD_INFO_ID = #{ordRfdInfoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderRefundInfoEntityCriteria">
+    delete TORI from ord_rfd_info TORI
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderRefundInfoEntity">
+    <selectKey keyProperty="ordRfdInfoId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ORD_RFD_INFO
+    </selectKey>
+    insert into ord_rfd_info (ORD_RFD_INFO_ID, ORD_ID, ORD_CLM_ID, 
+      RFD_BANK_CD, RFD_BANK_NM, RFD_ACCT_NO, 
+      RFD_ACCT_DPTR_NM, MEMO_CONT, REG_DT, 
+      REG_ID, USE_YN)
+    values (#{ordRfdInfoId,jdbcType=INTEGER}, #{ordId,jdbcType=INTEGER}, #{ordClmId,jdbcType=INTEGER}, 
+      #{rfdBankCd,jdbcType=VARCHAR}, #{rfdBankNm,jdbcType=VARCHAR}, #{rfdAcctNo,jdbcType=VARCHAR}, 
+      #{rfdAcctDptrNm,jdbcType=VARCHAR}, #{memoCont,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, 
+      #{regId,jdbcType=VARCHAR}, #{useYn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderRefundInfoEntity">
+    <selectKey keyProperty="ordRfdInfoId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_ORD_RFD_INFO
+    </selectKey>
+    insert into ord_rfd_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ORD_RFD_INFO_ID,
+      <if test="ordId != null">
+        ORD_ID,
+      </if>
+      <if test="ordClmId != null">
+        ORD_CLM_ID,
+      </if>
+      <if test="rfdBankCd != null">
+        RFD_BANK_CD,
+      </if>
+      <if test="rfdBankNm != null">
+        RFD_BANK_NM,
+      </if>
+      <if test="rfdAcctNo != null">
+        RFD_ACCT_NO,
+      </if>
+      <if test="rfdAcctDptrNm != null">
+        RFD_ACCT_DPTR_NM,
+      </if>
+      <if test="memoCont != null">
+        MEMO_CONT,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+      <if test="useYn != null">
+        USE_YN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{ordRfdInfoId,jdbcType=INTEGER},
+      <if test="ordId != null">
+        #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="ordClmId != null">
+        #{ordClmId,jdbcType=INTEGER},
+      </if>
+      <if test="rfdBankCd != null">
+        #{rfdBankCd,jdbcType=VARCHAR},
+      </if>
+      <if test="rfdBankNm != null">
+        #{rfdBankNm,jdbcType=VARCHAR},
+      </if>
+      <if test="rfdAcctNo != null">
+        #{rfdAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rfdAcctDptrNm != null">
+        #{rfdAcctDptrNm,jdbcType=VARCHAR},
+      </if>
+      <if test="memoCont != null">
+        #{memoCont,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        #{useYn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.order.model.entity.criteria.OrderRefundInfoEntityCriteria" resultType="java.lang.Long">
+    select count(*) from ord_rfd_info TORI
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TORI
+    <set>
+      <if test="record.ordRfdInfoId != null">
+        
+      </if>
+      <if test="record.ordId != null">
+        TORI.ORD_ID = #{record.ordId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordClmId != null">
+        TORI.ORD_CLM_ID = #{record.ordClmId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rfdBankCd != null">
+        TORI.RFD_BANK_CD = #{record.rfdBankCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rfdBankNm != null">
+        TORI.RFD_BANK_NM = #{record.rfdBankNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rfdAcctNo != null">
+        TORI.RFD_ACCT_NO = #{record.rfdAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rfdAcctDptrNm != null">
+        TORI.RFD_ACCT_DPTR_NM = #{record.rfdAcctDptrNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memoCont != null">
+        TORI.MEMO_CONT = #{record.memoCont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TORI.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TORI.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useYn != null">
+        TORI.USE_YN = #{record.useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from ord_rfd_info TORI
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update ord_rfd_info TORI
+    set 
+      TORI.ORD_ID = #{record.ordId,jdbcType=INTEGER},
+      TORI.ORD_CLM_ID = #{record.ordClmId,jdbcType=INTEGER},
+      TORI.RFD_BANK_CD = #{record.rfdBankCd,jdbcType=VARCHAR},
+      TORI.RFD_BANK_NM = #{record.rfdBankNm,jdbcType=VARCHAR},
+      TORI.RFD_ACCT_NO = #{record.rfdAcctNo,jdbcType=VARCHAR},
+      TORI.RFD_ACCT_DPTR_NM = #{record.rfdAcctDptrNm,jdbcType=VARCHAR},
+      TORI.MEMO_CONT = #{record.memoCont,jdbcType=VARCHAR},
+      TORI.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TORI.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      TORI.USE_YN = #{record.useYn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderRefundInfoEntity">
+    update ord_rfd_info
+    <set>
+      <if test="ordId != null">
+        ORD_ID = #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="ordClmId != null">
+        ORD_CLM_ID = #{ordClmId,jdbcType=INTEGER},
+      </if>
+      <if test="rfdBankCd != null">
+        RFD_BANK_CD = #{rfdBankCd,jdbcType=VARCHAR},
+      </if>
+      <if test="rfdBankNm != null">
+        RFD_BANK_NM = #{rfdBankNm,jdbcType=VARCHAR},
+      </if>
+      <if test="rfdAcctNo != null">
+        RFD_ACCT_NO = #{rfdAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rfdAcctDptrNm != null">
+        RFD_ACCT_DPTR_NM = #{rfdAcctDptrNm,jdbcType=VARCHAR},
+      </if>
+      <if test="memoCont != null">
+        MEMO_CONT = #{memoCont,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="useYn != null">
+        USE_YN = #{useYn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORD_RFD_INFO_ID = #{ordRfdInfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderRefundInfoEntity">
+    update ord_rfd_info
+    set ORD_ID = #{ordId,jdbcType=INTEGER},
+      ORD_CLM_ID = #{ordClmId,jdbcType=INTEGER},
+      RFD_BANK_CD = #{rfdBankCd,jdbcType=VARCHAR},
+      RFD_BANK_NM = #{rfdBankNm,jdbcType=VARCHAR},
+      RFD_ACCT_NO = #{rfdAcctNo,jdbcType=VARCHAR},
+      RFD_ACCT_DPTR_NM = #{rfdAcctDptrNm,jdbcType=VARCHAR},
+      MEMO_CONT = #{memoCont,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR},
+      USE_YN = #{useYn,jdbcType=VARCHAR}
+    where ORD_RFD_INFO_ID = #{ordRfdInfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.order.model.entity.OrderRefundInfoEntity">
+    update ord_rfd_info
+    <set>
+      <if test="ordId != null">
+        ORD_ID = null,
+      </if>
+      <if test="ordClmId != null">
+        ORD_CLM_ID = null,
+      </if>
+      <if test="rfdBankCd != null">
+        RFD_BANK_CD = null,
+      </if>
+      <if test="rfdBankNm != null">
+        RFD_BANK_NM = null,
+      </if>
+      <if test="rfdAcctNo != null">
+        RFD_ACCT_NO = null,
+      </if>
+      <if test="rfdAcctDptrNm != null">
+        RFD_ACCT_DPTR_NM = null,
+      </if>
+      <if test="memoCont != null">
+        MEMO_CONT = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+      <if test="useYn != null">
+        USE_YN = null,
+      </if>
+    </set>
+    where 1=1
+    and ORD_RFD_INFO_ID = #{ordRfdInfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

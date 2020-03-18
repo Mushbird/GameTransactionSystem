@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.member.dao.BaseMemberIdentityVerificationMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.member.model.MemberIdentityVerification">
+    <id column="TMIV_MBR_IDVRF_ID" jdbcType="INTEGER" property="mbrIdvrfId" />
+    <result column="TMIV_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="TMIV_IDVRF_TP_CD" jdbcType="VARCHAR" property="idvrfTpCd" />
+    <result column="TMIV_LNM_NM" jdbcType="VARCHAR" property="lnmNm" />
+    <result column="TMIV_BRTH_YMD" jdbcType="VARCHAR" property="brthYmd" />
+    <result column="TMIV_GNDR_CL" jdbcType="VARCHAR" property="gndrCl" />
+    <result column="TMIV_LFRNR_CL" jdbcType="VARCHAR" property="lfrnrCl" />
+    <result column="TMIV_REQ_NO" jdbcType="VARCHAR" property="reqNo" />
+    <result column="TMIV_CP_CARR" jdbcType="VARCHAR" property="cpCarr" />
+    <result column="TMIV_CP_NO" jdbcType="VARCHAR" property="cpNo" />
+    <result column="TMIV_AUTH_DT" jdbcType="TIMESTAMP" property="authDt" />
+    <result column="TMIV_CI_VAL" jdbcType="VARCHAR" property="ciVal" />
+    <result column="TMIV_DI_VAL" jdbcType="VARCHAR" property="diVal" />
+    <result column="TMIV_RSLT_CD_VAL" jdbcType="VARCHAR" property="rsltCdVal" />
+    <result column="TMIV_RSLT_MSG" jdbcType="VARCHAR" property="rsltMsg" />
+    <result column="TMIV_ADD_VAR" jdbcType="VARCHAR" property="addVar" />
+    <result column="TMIV_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TMIV_REG_ID" jdbcType="VARCHAR" property="regId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TMIV.MBR_IDVRF_ID as TMIV_MBR_IDVRF_ID, TMIV.MBR_ID as TMIV_MBR_ID, TMIV.IDVRF_TP_CD as TMIV_IDVRF_TP_CD, 
+    TMIV.LNM_NM as TMIV_LNM_NM, TMIV.BRTH_YMD as TMIV_BRTH_YMD, TMIV.GNDR_CL as TMIV_GNDR_CL, 
+    TMIV.LFRNR_CL as TMIV_LFRNR_CL, TMIV.REQ_NO as TMIV_REQ_NO, TMIV.CP_CARR as TMIV_CP_CARR, 
+    TMIV.CP_NO as TMIV_CP_NO, TMIV.AUTH_DT as TMIV_AUTH_DT, TMIV.CI_VAL as TMIV_CI_VAL, 
+    TMIV.DI_VAL as TMIV_DI_VAL, TMIV.RSLT_CD_VAL as TMIV_RSLT_CD_VAL, TMIV.RSLT_MSG as TMIV_RSLT_MSG, 
+    TMIV.ADD_VAR as TMIV_ADD_VAR, TMIV.REG_DT as TMIV_REG_DT, TMIV.REG_ID as TMIV_REG_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberIdentityVerificationEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mbr_idvrf TMIV
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mbr_idvrf TMIV
+    where TMIV.MBR_IDVRF_ID = #{mbrIdvrfId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mbr_idvrf
+    where MBR_IDVRF_ID = #{mbrIdvrfId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberIdentityVerificationEntityCriteria">
+    delete TMIV from mbr_idvrf TMIV
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberIdentityVerificationEntity">
+    insert into mbr_idvrf (MBR_IDVRF_ID, MBR_ID, IDVRF_TP_CD, 
+      LNM_NM, BRTH_YMD, GNDR_CL, 
+      LFRNR_CL, REQ_NO, CP_CARR, 
+      CP_NO, AUTH_DT, CI_VAL, 
+      DI_VAL, RSLT_CD_VAL, RSLT_MSG, 
+      ADD_VAR, REG_DT, REG_ID
+      )
+    values (#{mbrIdvrfId,jdbcType=INTEGER}, #{mbrId,jdbcType=VARCHAR}, #{idvrfTpCd,jdbcType=VARCHAR}, 
+      #{lnmNm,jdbcType=VARCHAR}, #{brthYmd,jdbcType=VARCHAR}, #{gndrCl,jdbcType=VARCHAR}, 
+      #{lfrnrCl,jdbcType=VARCHAR}, #{reqNo,jdbcType=VARCHAR}, #{cpCarr,jdbcType=VARCHAR}, 
+      #{cpNo,jdbcType=VARCHAR}, #{authDt,jdbcType=TIMESTAMP}, #{ciVal,jdbcType=VARCHAR}, 
+      #{diVal,jdbcType=VARCHAR}, #{rsltCdVal,jdbcType=VARCHAR}, #{rsltMsg,jdbcType=VARCHAR}, 
+      #{addVar,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberIdentityVerificationEntity">
+    insert into mbr_idvrf
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mbrIdvrfId != null">
+        MBR_IDVRF_ID,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="idvrfTpCd != null">
+        IDVRF_TP_CD,
+      </if>
+      <if test="lnmNm != null">
+        LNM_NM,
+      </if>
+      <if test="brthYmd != null">
+        BRTH_YMD,
+      </if>
+      <if test="gndrCl != null">
+        GNDR_CL,
+      </if>
+      <if test="lfrnrCl != null">
+        LFRNR_CL,
+      </if>
+      <if test="reqNo != null">
+        REQ_NO,
+      </if>
+      <if test="cpCarr != null">
+        CP_CARR,
+      </if>
+      <if test="cpNo != null">
+        CP_NO,
+      </if>
+      <if test="authDt != null">
+        AUTH_DT,
+      </if>
+      <if test="ciVal != null">
+        CI_VAL,
+      </if>
+      <if test="diVal != null">
+        DI_VAL,
+      </if>
+      <if test="rsltCdVal != null">
+        RSLT_CD_VAL,
+      </if>
+      <if test="rsltMsg != null">
+        RSLT_MSG,
+      </if>
+      <if test="addVar != null">
+        ADD_VAR,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mbrIdvrfId != null">
+        #{mbrIdvrfId,jdbcType=INTEGER},
+      </if>
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="idvrfTpCd != null">
+        #{idvrfTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="lnmNm != null">
+        #{lnmNm,jdbcType=VARCHAR},
+      </if>
+      <if test="brthYmd != null">
+        #{brthYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="gndrCl != null">
+        #{gndrCl,jdbcType=VARCHAR},
+      </if>
+      <if test="lfrnrCl != null">
+        #{lfrnrCl,jdbcType=VARCHAR},
+      </if>
+      <if test="reqNo != null">
+        #{reqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cpCarr != null">
+        #{cpCarr,jdbcType=VARCHAR},
+      </if>
+      <if test="cpNo != null">
+        #{cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="authDt != null">
+        #{authDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ciVal != null">
+        #{ciVal,jdbcType=VARCHAR},
+      </if>
+      <if test="diVal != null">
+        #{diVal,jdbcType=VARCHAR},
+      </if>
+      <if test="rsltCdVal != null">
+        #{rsltCdVal,jdbcType=VARCHAR},
+      </if>
+      <if test="rsltMsg != null">
+        #{rsltMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="addVar != null">
+        #{addVar,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberIdentityVerificationEntityCriteria" resultType="java.lang.Long">
+    select count(*) from mbr_idvrf TMIV
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TMIV
+    <set>
+      <if test="record.mbrIdvrfId != null">
+        
+      </if>
+      <if test="record.mbrId != null">
+        TMIV.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idvrfTpCd != null">
+        TMIV.IDVRF_TP_CD = #{record.idvrfTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lnmNm != null">
+        TMIV.LNM_NM = #{record.lnmNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brthYmd != null">
+        TMIV.BRTH_YMD = #{record.brthYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gndrCl != null">
+        TMIV.GNDR_CL = #{record.gndrCl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lfrnrCl != null">
+        TMIV.LFRNR_CL = #{record.lfrnrCl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqNo != null">
+        TMIV.REQ_NO = #{record.reqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpCarr != null">
+        TMIV.CP_CARR = #{record.cpCarr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpNo != null">
+        TMIV.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authDt != null">
+        TMIV.AUTH_DT = #{record.authDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ciVal != null">
+        TMIV.CI_VAL = #{record.ciVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diVal != null">
+        TMIV.DI_VAL = #{record.diVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsltCdVal != null">
+        TMIV.RSLT_CD_VAL = #{record.rsltCdVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsltMsg != null">
+        TMIV.RSLT_MSG = #{record.rsltMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addVar != null">
+        TMIV.ADD_VAR = #{record.addVar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TMIV.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TMIV.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from mbr_idvrf TMIV
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update mbr_idvrf TMIV
+    set 
+      TMIV.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      TMIV.IDVRF_TP_CD = #{record.idvrfTpCd,jdbcType=VARCHAR},
+      TMIV.LNM_NM = #{record.lnmNm,jdbcType=VARCHAR},
+      TMIV.BRTH_YMD = #{record.brthYmd,jdbcType=VARCHAR},
+      TMIV.GNDR_CL = #{record.gndrCl,jdbcType=VARCHAR},
+      TMIV.LFRNR_CL = #{record.lfrnrCl,jdbcType=VARCHAR},
+      TMIV.REQ_NO = #{record.reqNo,jdbcType=VARCHAR},
+      TMIV.CP_CARR = #{record.cpCarr,jdbcType=VARCHAR},
+      TMIV.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      TMIV.AUTH_DT = #{record.authDt,jdbcType=TIMESTAMP},
+      TMIV.CI_VAL = #{record.ciVal,jdbcType=VARCHAR},
+      TMIV.DI_VAL = #{record.diVal,jdbcType=VARCHAR},
+      TMIV.RSLT_CD_VAL = #{record.rsltCdVal,jdbcType=VARCHAR},
+      TMIV.RSLT_MSG = #{record.rsltMsg,jdbcType=VARCHAR},
+      TMIV.ADD_VAR = #{record.addVar,jdbcType=VARCHAR},
+      TMIV.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TMIV.REG_ID = #{record.regId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberIdentityVerificationEntity">
+    update mbr_idvrf
+    <set>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="idvrfTpCd != null">
+        IDVRF_TP_CD = #{idvrfTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="lnmNm != null">
+        LNM_NM = #{lnmNm,jdbcType=VARCHAR},
+      </if>
+      <if test="brthYmd != null">
+        BRTH_YMD = #{brthYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="gndrCl != null">
+        GNDR_CL = #{gndrCl,jdbcType=VARCHAR},
+      </if>
+      <if test="lfrnrCl != null">
+        LFRNR_CL = #{lfrnrCl,jdbcType=VARCHAR},
+      </if>
+      <if test="reqNo != null">
+        REQ_NO = #{reqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cpCarr != null">
+        CP_CARR = #{cpCarr,jdbcType=VARCHAR},
+      </if>
+      <if test="cpNo != null">
+        CP_NO = #{cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="authDt != null">
+        AUTH_DT = #{authDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ciVal != null">
+        CI_VAL = #{ciVal,jdbcType=VARCHAR},
+      </if>
+      <if test="diVal != null">
+        DI_VAL = #{diVal,jdbcType=VARCHAR},
+      </if>
+      <if test="rsltCdVal != null">
+        RSLT_CD_VAL = #{rsltCdVal,jdbcType=VARCHAR},
+      </if>
+      <if test="rsltMsg != null">
+        RSLT_MSG = #{rsltMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="addVar != null">
+        ADD_VAR = #{addVar,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MBR_IDVRF_ID = #{mbrIdvrfId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberIdentityVerificationEntity">
+    update mbr_idvrf
+    set MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      IDVRF_TP_CD = #{idvrfTpCd,jdbcType=VARCHAR},
+      LNM_NM = #{lnmNm,jdbcType=VARCHAR},
+      BRTH_YMD = #{brthYmd,jdbcType=VARCHAR},
+      GNDR_CL = #{gndrCl,jdbcType=VARCHAR},
+      LFRNR_CL = #{lfrnrCl,jdbcType=VARCHAR},
+      REQ_NO = #{reqNo,jdbcType=VARCHAR},
+      CP_CARR = #{cpCarr,jdbcType=VARCHAR},
+      CP_NO = #{cpNo,jdbcType=VARCHAR},
+      AUTH_DT = #{authDt,jdbcType=TIMESTAMP},
+      CI_VAL = #{ciVal,jdbcType=VARCHAR},
+      DI_VAL = #{diVal,jdbcType=VARCHAR},
+      RSLT_CD_VAL = #{rsltCdVal,jdbcType=VARCHAR},
+      RSLT_MSG = #{rsltMsg,jdbcType=VARCHAR},
+      ADD_VAR = #{addVar,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR}
+    where MBR_IDVRF_ID = #{mbrIdvrfId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberIdentityVerificationEntity">
+    update mbr_idvrf
+    <set>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="idvrfTpCd != null">
+        IDVRF_TP_CD = null,
+      </if>
+      <if test="lnmNm != null">
+        LNM_NM = null,
+      </if>
+      <if test="brthYmd != null">
+        BRTH_YMD = null,
+      </if>
+      <if test="gndrCl != null">
+        GNDR_CL = null,
+      </if>
+      <if test="lfrnrCl != null">
+        LFRNR_CL = null,
+      </if>
+      <if test="reqNo != null">
+        REQ_NO = null,
+      </if>
+      <if test="cpCarr != null">
+        CP_CARR = null,
+      </if>
+      <if test="cpNo != null">
+        CP_NO = null,
+      </if>
+      <if test="authDt != null">
+        AUTH_DT = null,
+      </if>
+      <if test="ciVal != null">
+        CI_VAL = null,
+      </if>
+      <if test="diVal != null">
+        DI_VAL = null,
+      </if>
+      <if test="rsltCdVal != null">
+        RSLT_CD_VAL = null,
+      </if>
+      <if test="rsltMsg != null">
+        RSLT_MSG = null,
+      </if>
+      <if test="addVar != null">
+        ADD_VAR = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and MBR_IDVRF_ID = #{mbrIdvrfId,jdbcType=INTEGER}
+  </update>
+</mapper>

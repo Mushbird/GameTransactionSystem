@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.member.dao.BaseMemberChangeHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.member.model.MemberChangeHistory">
+    <id column="TMCH_MBR_CHIST_ID" jdbcType="INTEGER" property="mbrChistId" />
+    <result column="TMCH_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="TMCH_MBR_GRD_CD" jdbcType="VARCHAR" property="mbrGrdCd" />
+    <result column="TMCH_MBR_NM" jdbcType="VARCHAR" property="mbrNm" />
+    <result column="TMCH_CP_NO" jdbcType="VARCHAR" property="cpNo" />
+    <result column="TMCH_EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="TMCH_BAD_MBR_YN" jdbcType="VARCHAR" property="badMbrYn" />
+    <result column="TMCH_BAD_MBR_RSN" jdbcType="VARCHAR" property="badMbrRsn" />
+    <result column="TMCH_MKT_RCV_AGR_YN_1" jdbcType="VARCHAR" property="mktRcvAgrYn1" />
+    <result column="TMCH_MKT_RCV_AGR_YN_2" jdbcType="VARCHAR" property="mktRcvAgrYn2" />
+    <result column="TMCH_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TMCH_REG_ID" jdbcType="VARCHAR" property="regId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TMCH.MBR_CHIST_ID as TMCH_MBR_CHIST_ID, TMCH.MBR_ID as TMCH_MBR_ID, TMCH.MBR_GRD_CD as TMCH_MBR_GRD_CD, 
+    TMCH.MBR_NM as TMCH_MBR_NM, TMCH.CP_NO as TMCH_CP_NO, TMCH.EMAIL as TMCH_EMAIL, TMCH.BAD_MBR_YN as TMCH_BAD_MBR_YN, 
+    TMCH.BAD_MBR_RSN as TMCH_BAD_MBR_RSN, TMCH.MKT_RCV_AGR_YN_1 as TMCH_MKT_RCV_AGR_YN_1, 
+    TMCH.MKT_RCV_AGR_YN_2 as TMCH_MKT_RCV_AGR_YN_2, TMCH.REG_DT as TMCH_REG_DT, TMCH.REG_ID as TMCH_REG_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberChangeHistoryEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mbr_chist TMCH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mbr_chist TMCH
+    where TMCH.MBR_CHIST_ID = #{mbrChistId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mbr_chist
+    where MBR_CHIST_ID = #{mbrChistId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberChangeHistoryEntityCriteria">
+    delete TMCH from mbr_chist TMCH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberChangeHistoryEntity">
+    <selectKey keyProperty="mbrChistId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_MBR_CHIST
+    </selectKey>
+    insert into mbr_chist (MBR_CHIST_ID, MBR_ID, MBR_GRD_CD, 
+      MBR_NM, CP_NO, EMAIL, 
+      BAD_MBR_YN, BAD_MBR_RSN, MKT_RCV_AGR_YN_1, 
+      MKT_RCV_AGR_YN_2, REG_DT, REG_ID
+      )
+    values (#{mbrChistId,jdbcType=INTEGER}, #{mbrId,jdbcType=VARCHAR}, #{mbrGrdCd,jdbcType=VARCHAR}, 
+      #{mbrNm,jdbcType=VARCHAR}, #{cpNo,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{badMbrYn,jdbcType=VARCHAR}, #{badMbrRsn,jdbcType=VARCHAR}, #{mktRcvAgrYn1,jdbcType=VARCHAR}, 
+      #{mktRcvAgrYn2,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberChangeHistoryEntity">
+    <selectKey keyProperty="mbrChistId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_MBR_CHIST
+    </selectKey>
+    insert into mbr_chist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      MBR_CHIST_ID,
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="mbrGrdCd != null">
+        MBR_GRD_CD,
+      </if>
+      <if test="mbrNm != null">
+        MBR_NM,
+      </if>
+      <if test="cpNo != null">
+        CP_NO,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="badMbrYn != null">
+        BAD_MBR_YN,
+      </if>
+      <if test="badMbrRsn != null">
+        BAD_MBR_RSN,
+      </if>
+      <if test="mktRcvAgrYn1 != null">
+        MKT_RCV_AGR_YN_1,
+      </if>
+      <if test="mktRcvAgrYn2 != null">
+        MKT_RCV_AGR_YN_2,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{mbrChistId,jdbcType=INTEGER},
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="mbrGrdCd != null">
+        #{mbrGrdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="mbrNm != null">
+        #{mbrNm,jdbcType=VARCHAR},
+      </if>
+      <if test="cpNo != null">
+        #{cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="badMbrYn != null">
+        #{badMbrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="badMbrRsn != null">
+        #{badMbrRsn,jdbcType=VARCHAR},
+      </if>
+      <if test="mktRcvAgrYn1 != null">
+        #{mktRcvAgrYn1,jdbcType=VARCHAR},
+      </if>
+      <if test="mktRcvAgrYn2 != null">
+        #{mktRcvAgrYn2,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.member.model.entity.criteria.MemberChangeHistoryEntityCriteria" resultType="java.lang.Long">
+    select count(*) from mbr_chist TMCH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TMCH
+    <set>
+      <if test="record.mbrChistId != null">
+        
+      </if>
+      <if test="record.mbrId != null">
+        TMCH.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbrGrdCd != null">
+        TMCH.MBR_GRD_CD = #{record.mbrGrdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbrNm != null">
+        TMCH.MBR_NM = #{record.mbrNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpNo != null">
+        TMCH.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        TMCH.EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.badMbrYn != null">
+        TMCH.BAD_MBR_YN = #{record.badMbrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.badMbrRsn != null">
+        TMCH.BAD_MBR_RSN = #{record.badMbrRsn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mktRcvAgrYn1 != null">
+        TMCH.MKT_RCV_AGR_YN_1 = #{record.mktRcvAgrYn1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mktRcvAgrYn2 != null">
+        TMCH.MKT_RCV_AGR_YN_2 = #{record.mktRcvAgrYn2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TMCH.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TMCH.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from mbr_chist TMCH
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update mbr_chist TMCH
+    set 
+      TMCH.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      TMCH.MBR_GRD_CD = #{record.mbrGrdCd,jdbcType=VARCHAR},
+      TMCH.MBR_NM = #{record.mbrNm,jdbcType=VARCHAR},
+      TMCH.CP_NO = #{record.cpNo,jdbcType=VARCHAR},
+      TMCH.EMAIL = #{record.email,jdbcType=VARCHAR},
+      TMCH.BAD_MBR_YN = #{record.badMbrYn,jdbcType=VARCHAR},
+      TMCH.BAD_MBR_RSN = #{record.badMbrRsn,jdbcType=VARCHAR},
+      TMCH.MKT_RCV_AGR_YN_1 = #{record.mktRcvAgrYn1,jdbcType=VARCHAR},
+      TMCH.MKT_RCV_AGR_YN_2 = #{record.mktRcvAgrYn2,jdbcType=VARCHAR},
+      TMCH.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TMCH.REG_ID = #{record.regId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberChangeHistoryEntity">
+    update mbr_chist
+    <set>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="mbrGrdCd != null">
+        MBR_GRD_CD = #{mbrGrdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="mbrNm != null">
+        MBR_NM = #{mbrNm,jdbcType=VARCHAR},
+      </if>
+      <if test="cpNo != null">
+        CP_NO = #{cpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="badMbrYn != null">
+        BAD_MBR_YN = #{badMbrYn,jdbcType=VARCHAR},
+      </if>
+      <if test="badMbrRsn != null">
+        BAD_MBR_RSN = #{badMbrRsn,jdbcType=VARCHAR},
+      </if>
+      <if test="mktRcvAgrYn1 != null">
+        MKT_RCV_AGR_YN_1 = #{mktRcvAgrYn1,jdbcType=VARCHAR},
+      </if>
+      <if test="mktRcvAgrYn2 != null">
+        MKT_RCV_AGR_YN_2 = #{mktRcvAgrYn2,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MBR_CHIST_ID = #{mbrChistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberChangeHistoryEntity">
+    update mbr_chist
+    set MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      MBR_GRD_CD = #{mbrGrdCd,jdbcType=VARCHAR},
+      MBR_NM = #{mbrNm,jdbcType=VARCHAR},
+      CP_NO = #{cpNo,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      BAD_MBR_YN = #{badMbrYn,jdbcType=VARCHAR},
+      BAD_MBR_RSN = #{badMbrRsn,jdbcType=VARCHAR},
+      MKT_RCV_AGR_YN_1 = #{mktRcvAgrYn1,jdbcType=VARCHAR},
+      MKT_RCV_AGR_YN_2 = #{mktRcvAgrYn2,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR}
+    where MBR_CHIST_ID = #{mbrChistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.member.model.entity.MemberChangeHistoryEntity">
+    update mbr_chist
+    <set>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="mbrGrdCd != null">
+        MBR_GRD_CD = null,
+      </if>
+      <if test="mbrNm != null">
+        MBR_NM = null,
+      </if>
+      <if test="cpNo != null">
+        CP_NO = null,
+      </if>
+      <if test="email != null">
+        EMAIL = null,
+      </if>
+      <if test="badMbrYn != null">
+        BAD_MBR_YN = null,
+      </if>
+      <if test="badMbrRsn != null">
+        BAD_MBR_RSN = null,
+      </if>
+      <if test="mktRcvAgrYn1 != null">
+        MKT_RCV_AGR_YN_1 = null,
+      </if>
+      <if test="mktRcvAgrYn2 != null">
+        MKT_RCV_AGR_YN_2 = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and MBR_CHIST_ID = #{mbrChistId,jdbcType=INTEGER}
+  </update>
+</mapper>

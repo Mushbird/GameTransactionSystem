@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mushbird.sinsege.base.module.cart.dao.BaseCartImmediateBuyMapper">
+  <resultMap id="BaseResultMap" type="com.mushbird.sinsege.base.module.cart.model.CartImmediateBuy">
+    <id column="TCRTIB_CART_IMME_BUY_ID" jdbcType="INTEGER" property="cartImmeBuyId" />
+    <result column="TCRTIB_CART_TP_CD" jdbcType="VARCHAR" property="cartTpCd" />
+    <result column="TCRTIB_DP_CH_ID" jdbcType="INTEGER" property="dpChId" />
+    <result column="TCRTIB_ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TCRTIB_ITEM_OPT_ID" jdbcType="INTEGER" property="itemOptId" />
+    <result column="TCRTIB_ITEM_QTY" jdbcType="DECIMAL" property="itemQty" />
+    <result column="TCRTIB_MBR_ID" jdbcType="VARCHAR" property="mbrId" />
+    <result column="TCRTIB_REG_DT" jdbcType="TIMESTAMP" property="regDt" />
+    <result column="TCRTIB_REG_ID" jdbcType="VARCHAR" property="regId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TCRTIB.CART_IMME_BUY_ID as TCRTIB_CART_IMME_BUY_ID, TCRTIB.CART_TP_CD as TCRTIB_CART_TP_CD, 
+    TCRTIB.DP_CH_ID as TCRTIB_DP_CH_ID, TCRTIB.ITEM_ID as TCRTIB_ITEM_ID, TCRTIB.ITEM_OPT_ID as TCRTIB_ITEM_OPT_ID, 
+    TCRTIB.ITEM_QTY as TCRTIB_ITEM_QTY, TCRTIB.MBR_ID as TCRTIB_MBR_ID, TCRTIB.REG_DT as TCRTIB_REG_DT, 
+    TCRTIB.REG_ID as TCRTIB_REG_ID
+  </sql>
+  <select id="selectByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.cart.model.entity.criteria.CartImmediateBuyEntityCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cart_imme_buy TCRTIB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cart_imme_buy TCRTIB
+    where TCRTIB.CART_IMME_BUY_ID = #{cartImmeBuyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cart_imme_buy
+    where CART_IMME_BUY_ID = #{cartImmeBuyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.cart.model.entity.criteria.CartImmediateBuyEntityCriteria">
+    delete TCRTIB from cart_imme_buy TCRTIB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mushbird.sinsege.base.module.cart.model.entity.CartImmediateBuyEntity">
+    <selectKey keyProperty="cartImmeBuyId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_CART_IMME_BUY
+    </selectKey>
+    insert into cart_imme_buy (CART_IMME_BUY_ID, CART_TP_CD, DP_CH_ID, 
+      ITEM_ID, ITEM_OPT_ID, ITEM_QTY, 
+      MBR_ID, REG_DT, REG_ID
+      )
+    values (#{cartImmeBuyId,jdbcType=INTEGER}, #{cartTpCd,jdbcType=VARCHAR}, #{dpChId,jdbcType=INTEGER}, 
+      #{itemId,jdbcType=INTEGER}, #{itemOptId,jdbcType=INTEGER}, #{itemQty,jdbcType=DECIMAL}, 
+      #{mbrId,jdbcType=VARCHAR}, #{regDt,jdbcType=TIMESTAMP}, #{regId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mushbird.sinsege.base.module.cart.model.entity.CartImmediateBuyEntity">
+    <selectKey keyProperty="cartImmeBuyId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT NEXT VALUE FOR SEQ_CART_IMME_BUY
+    </selectKey>
+    insert into cart_imme_buy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      CART_IMME_BUY_ID,
+      <if test="cartTpCd != null">
+        CART_TP_CD,
+      </if>
+      <if test="dpChId != null">
+        DP_CH_ID,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="itemOptId != null">
+        ITEM_OPT_ID,
+      </if>
+      <if test="itemQty != null">
+        ITEM_QTY,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID,
+      </if>
+      <if test="regDt != null">
+        REG_DT,
+      </if>
+      <if test="regId != null">
+        REG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{cartImmeBuyId,jdbcType=INTEGER},
+      <if test="cartTpCd != null">
+        #{cartTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dpChId != null">
+        #{dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemOptId != null">
+        #{itemOptId,jdbcType=INTEGER},
+      </if>
+      <if test="itemQty != null">
+        #{itemQty,jdbcType=DECIMAL},
+      </if>
+      <if test="mbrId != null">
+        #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        #{regId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByEntityCriteria" parameterType="com.mushbird.sinsege.base.module.cart.model.entity.criteria.CartImmediateBuyEntityCriteria" resultType="java.lang.Long">
+    select count(*) from cart_imme_buy TCRTIB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByEntityCriteriaSelective" parameterType="map">
+    update TCRTIB
+    <set>
+      <if test="record.cartImmeBuyId != null">
+        
+      </if>
+      <if test="record.cartTpCd != null">
+        TCRTIB.CART_TP_CD = #{record.cartTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpChId != null">
+        TCRTIB.DP_CH_ID = #{record.dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemId != null">
+        TCRTIB.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemOptId != null">
+        TCRTIB.ITEM_OPT_ID = #{record.itemOptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemQty != null">
+        TCRTIB.ITEM_QTY = #{record.itemQty,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mbrId != null">
+        TCRTIB.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDt != null">
+        TCRTIB.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regId != null">
+        TCRTIB.REG_ID = #{record.regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    from cart_imme_buy TCRTIB
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByEntityCriteria" parameterType="map">
+    update cart_imme_buy TCRTIB
+    set 
+      TCRTIB.CART_TP_CD = #{record.cartTpCd,jdbcType=VARCHAR},
+      TCRTIB.DP_CH_ID = #{record.dpChId,jdbcType=INTEGER},
+      TCRTIB.ITEM_ID = #{record.itemId,jdbcType=INTEGER},
+      TCRTIB.ITEM_OPT_ID = #{record.itemOptId,jdbcType=INTEGER},
+      TCRTIB.ITEM_QTY = #{record.itemQty,jdbcType=DECIMAL},
+      TCRTIB.MBR_ID = #{record.mbrId,jdbcType=VARCHAR},
+      TCRTIB.REG_DT = #{record.regDt,jdbcType=TIMESTAMP},
+      TCRTIB.REG_ID = #{record.regId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.cart.model.entity.CartImmediateBuyEntity">
+    update cart_imme_buy
+    <set>
+      <if test="cartTpCd != null">
+        CART_TP_CD = #{cartTpCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dpChId != null">
+        DP_CH_ID = #{dpChId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        ITEM_ID = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemOptId != null">
+        ITEM_OPT_ID = #{itemOptId,jdbcType=INTEGER},
+      </if>
+      <if test="itemQty != null">
+        ITEM_QTY = #{itemQty,jdbcType=DECIMAL},
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="regDt != null">
+        REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regId != null">
+        REG_ID = #{regId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CART_IMME_BUY_ID = #{cartImmeBuyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mushbird.sinsege.base.module.cart.model.entity.CartImmediateBuyEntity">
+    update cart_imme_buy
+    set CART_TP_CD = #{cartTpCd,jdbcType=VARCHAR},
+      DP_CH_ID = #{dpChId,jdbcType=INTEGER},
+      ITEM_ID = #{itemId,jdbcType=INTEGER},
+      ITEM_OPT_ID = #{itemOptId,jdbcType=INTEGER},
+      ITEM_QTY = #{itemQty,jdbcType=DECIMAL},
+      MBR_ID = #{mbrId,jdbcType=VARCHAR},
+      REG_DT = #{regDt,jdbcType=TIMESTAMP},
+      REG_ID = #{regId,jdbcType=VARCHAR}
+    where CART_IMME_BUY_ID = #{cartImmeBuyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateNullByPrimaryKeySelective" parameterType="com.mushbird.sinsege.base.module.cart.model.entity.CartImmediateBuyEntity">
+    update cart_imme_buy
+    <set>
+      <if test="cartTpCd != null">
+        CART_TP_CD = null,
+      </if>
+      <if test="dpChId != null">
+        DP_CH_ID = null,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID = null,
+      </if>
+      <if test="itemOptId != null">
+        ITEM_OPT_ID = null,
+      </if>
+      <if test="itemQty != null">
+        ITEM_QTY = null,
+      </if>
+      <if test="mbrId != null">
+        MBR_ID = null,
+      </if>
+      <if test="regDt != null">
+        REG_DT = null,
+      </if>
+      <if test="regId != null">
+        REG_ID = null,
+      </if>
+    </set>
+    where 1=1
+    and CART_IMME_BUY_ID = #{cartImmeBuyId,jdbcType=INTEGER}
+  </update>
+</mapper>
