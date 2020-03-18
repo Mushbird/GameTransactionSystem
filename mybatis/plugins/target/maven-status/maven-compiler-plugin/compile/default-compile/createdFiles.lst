@@ -1,0 +1,16 @@
+com\mushbird\sinsege\base\mybatis\generator\plugin\RenameExampleClassAndMethodsPlugin.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\ExtendedLikePlugin.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\PaginationMsSqlPlugin.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\SqlMapDeleteByExampleElementGeneratorPlugin.class
+com\mushbird\sinsege\base\mybatis\generator\rules\CustomModelRules.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\JsonIgnoreGenerator.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\RenameProperties.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\KeyClassConstructorPlugin.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\ExtendedSerializablePlugin.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\PaginationOraclePlugin.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\MySQLLimitPlugin.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\CreateSubPackagePlugin.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\SqlUpdateNullPlugin.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\sqlMapUpdateByExampleSelectiveElementGeneratedPlugin.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\CustomRulesPlugin.class
+com\mushbird\sinsege\base\mybatis\generator\plugin\SqlMapMssqlSelectWithNolockPlugin.class
