@@ -40,16 +40,18 @@ I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다. <br>
 #### Libraries
 
 * Spring
-  - Spring 4.1.6.RELEASE
-  - Spring Security 4.0.1.RELEASE
-  - Spring Social 1.1.2.RELEASE
+  - Spring-webmvc 5.2.4.RELEASE
 * Data Access
   - MyBatis 3.4.6
   - HikariCP 2.4.7
 * XSS
-  - Naver Lucy 2.0.0
-* Servlet 3.0.1
-* JSP 2.2
+  - Naver Lucy 2.0.1
+* Servlet 4.0.1
+* JSP 2.3.3
+* Lombok 1.16.4
+* SLF4J 1.7.12
+* Jackson 2.10.3
+* Mushbird 0.0.1.RELEASE
 
 <br>
 <br>
@@ -142,7 +144,6 @@ I VIEW는 Item view의 줄인말이며 게임 거래 시스템이다. <br>
 
 ## :gem: 구매처리
 
-<br>
 ~~구매자 입장에서는 골드(소지금) 감소, 구매횟수 증가, 포인트 증가, 구매목록에 추가~~
 <br>
 ~~판매자 입장에서는 골드 증가, 판매횟수 증가, 판매목록에 추가~~
