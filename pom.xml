@@ -85,7 +85,7 @@
       <!-- Mushbird Repository -->
       <repository>
           <id>Mushbird Repository</id>
-          <url>file://${project.rootdir}/mushbird-rep</url>
+          <url>file://${project.rootdir}/mushbird-lib</url>
           <releases>
               <enabled>true</enabled>
               <updatePolicy>always</updatePolicy>
